@@ -1012,36 +1012,53 @@ footer p {
   <div class="container">
     <div class="section-label">Referência</div>
     <div class="sep"></div>
-    <h2 class="reveal">Configurações Recomendadas por Timeframe</h2>
-    <p class="reveal">Valores sugeridos como <strong>ponto de partida</strong>. Ajuste conforme seu ativo e estilo operacional.</p>
+    <h2 class="reveal">Configurações Recomendadas</h2>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Default Recomendado — Todos os Timeframes</div>
+      <p>Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:</p>
+      <div class="table-wrap">
+        <table class="config-table" style="margin:0;">
+          <thead>
+            <tr><th>Parâmetro</th><th>Valor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Fractal K</td><td>2</td></tr>
+            <tr><td>Strictness</td><td>5</td></tr>
+            <tr><td>OB Mode</td><td>Auto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0;font-size:13px;">Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros.</p>
+    </div>
+
+    <h3 class="reveal">Referência Avançada: Baselines por Timeframe</h3>
+    <p class="reveal">A tabela abaixo mostra os <strong>baselines internos do modo Auto</strong> — os valores que o sistema calcula automaticamente para cada timeframe. Serve como referência para quem usa o modo <strong>Manual/Advanced</strong> e quer fazer override dos parâmetros.</p>
 
     <div class="table-wrap reveal">
       <table class="config-table">
         <thead>
           <tr>
             <th>Timeframe</th>
-            <th>Fractal K</th>
-            <th>Strictness</th>
             <th>BaseLA</th>
             <th>BaseATR</th>
-            <th>Break Mode</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>5 min</td><td>2–3</td><td>5–7</td><td>14</td><td>4.0×</td><td>close_strict</td></tr>
-          <tr><td>15 min</td><td>2–3</td><td>4–6</td><td>12</td><td>3.5×</td><td>close_strict</td></tr>
-          <tr><td>1 hora</td><td>3–4</td><td>4–6</td><td>10</td><td>3.0×</td><td>close_strict</td></tr>
-          <tr><td>4 horas</td><td>3–5</td><td>3–5</td><td>8</td><td>2.5×</td><td>close_or_equal</td></tr>
-          <tr><td>Diário</td><td>4–6</td><td>3–5</td><td>6</td><td>2.0×</td><td>close_or_equal</td></tr>
-          <tr><td>Semanal</td><td>4–6</td><td>2–4</td><td>5</td><td>1.8×</td><td>wick</td></tr>
-          <tr><td>Mensal</td><td>5–8</td><td>2–4</td><td>4</td><td>1.6×</td><td>wick</td></tr>
+          <tr><td>5 min</td><td>14 barras</td><td>4.0×</td></tr>
+          <tr><td>15 min</td><td>12 barras</td><td>3.5×</td></tr>
+          <tr><td>1 hora</td><td>10 barras</td><td>3.0×</td></tr>
+          <tr><td>4 horas</td><td>8 barras</td><td>2.5×</td></tr>
+          <tr><td>Diário</td><td>6 barras</td><td>2.0×</td></tr>
+          <tr><td>Semanal</td><td>5 barras</td><td>1.8×</td></tr>
+          <tr><td>Mensal</td><td>4 barras</td><td>1.6×</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="info-card warn-border reveal">
       <div class="info-card-tag yellow">Nota</div>
-      <p style="margin:0;">Estes valores são <strong>baselines do modo Auto</strong>. No modo Manual/Advanced, você pode sobrescrever qualquer valor. A tabela serve como referência para entender a lógica de calibração do sistema — timeframes menores exigem mais confirmação (BaseLA e BaseATR maiores), enquanto timeframes maiores são naturalmente mais seletivos.</p>
+      <p style="margin:0;">A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo.</p>
     </div>
   </div>
 </section>
