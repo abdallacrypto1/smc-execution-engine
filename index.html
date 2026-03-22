@@ -722,6 +722,20 @@ main { position: relative; z-index: 1; }
   vertical-align: middle;
 }
 
+.soon-badge {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #22d3ee;
+  border: 1px solid #22d3ee;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 .unlock-banner {
   background: linear-gradient(135deg, #a78bfa15, #8b5cf615);
   border: 1px solid #a78bfa30;
@@ -1330,7 +1344,7 @@ footer .copyright {
       </div>
 
       <div class="func-card pro reveal">
-        <div class="func-card-label pro-label">PRO <span class="beta-badge">BETA</span></div>
+        <div class="func-card-label pro-label">PRO</div>
         <h3>Modos Avançados de Confluência <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
         <p>Múltiplos modos de alerta permitem ajustar seletividade entre Fibonacci, Order Blocks e confluências estruturais:</p>
         <ul class="pro-list">
@@ -1340,6 +1354,42 @@ footer .copyright {
           <li>Sequência lógica Fib → OB</li>
         </ul>
         <div class="func-benefit pro-benefit">BENEFÍCIO: Adapta o motor de alertas ao seu estilo operacional, equilibrando frequência de sinais e qualidade de execução.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
+        <h3>Controle de Mitigação Inteligente</h3>
+        <p>Escolha como o indicador interpreta a mitigação de um Order Block, desde um simples toque de pavio até a exigência de fechamento além da metade da zona:</p>
+        <ul class="pro-list">
+          <li>Wick touch — qualquer pavio na borda já mitiga</li>
+          <li>Body into zone — o candle precisa fechar dentro da zona</li>
+          <li>Body through mid — o close precisa ultrapassar a metade do OB</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Evita que sweeps de liquidez invalidem zonas que ainda são relevantes, mantendo OBs válidos por mais tempo para entradas mais seguras.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
+        <h3>Confirmação por Volume Institucional</h3>
+        <p>Filtro opcional que valida Order Blocks somente quando o candle de origem apresenta volume acima da média — evidência real de participação institucional:</p>
+        <ul class="pro-list">
+          <li>Threshold configurável (× SMA de 20 períodos)</li>
+          <li>Bypass automático em ativos sem volume (forex, CFDs)</li>
+          <li>Integrado ao sistema de validação existente</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Elimina Order Blocks formados em candles de baixo volume, focando apenas em zonas com evidência real de atuação institucional.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
+        <h3>Filtro de Tamanho de Order Block</h3>
+        <p>Descarta automaticamente Order Blocks desproporcionais que cobrem grandes porções do gráfico — comuns em movimentos parabólicos ou timeframes elevados:</p>
+        <ul class="pro-list">
+          <li>Altura máxima configurável em múltiplos de ATR</li>
+          <li>Mantém apenas zonas compactas e operáveis</li>
+          <li>Especialmente útil em cripto e ativos voláteis</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Garante que apenas zonas de tamanho realista sejam exibidas, eliminando ruído visual de OBs gigantes sem utilidade prática.</div>
       </div>
     </div>
 
