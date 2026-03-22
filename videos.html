@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeos — SMC Execution Engine</title>
+<meta name="description" content="Biblioteca de vídeos do SMC Execution Engine. Aprenda a usar o indicador com tutoriais sobre alertas, order blocks, estrutura de mercado e mais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES & RESET
+   ═══════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0f0f18;
+  --bg-card: #12121e;
+  --bg-card-hover: #181828;
+  --border-color: #1a1a2e;
+  --border-glow: #00ff8820;
+  --text-primary: #e8e8f0;
+  --text-secondary: #8888a0;
+  --text-muted: #555570;
+  --accent: #00ff88;
+  --accent-dim: #00cc6a;
+  --accent-glow: #00ff8830;
+  --accent-bg: #00ff8810;
+  --pro-accent: #a78bfa;
+  --pro-glow: #a78bfa30;
+  --pro-bg: #a78bfa10;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.85; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.nav-back {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.nav-back:hover { color: var(--accent); opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════ */
+.page-header {
+  padding: 120px 0 48px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.page-title {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+/* ═══════════════════════════════════════════
+   CATEGORY
+   ═══════════════════════════════════════════ */
+.category {
+  padding: 56px 0 0;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.category-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+}
+
+.category-label.free {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.category-label.pro {
+  color: var(--pro-accent);
+  border-color: var(--pro-accent);
+  background: var(--pro-bg);
+}
+
+.category-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO GRID
+   ═══════════════════════════════════════════ */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.video-grid:last-child {
+  border-bottom: none;
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO CARD
+   ═══════════════════════════════════════════ */
+.video-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.video-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.video-card.free:hover { border-color: var(--accent); box-shadow: 0 8px 32px var(--accent-glow); }
+.video-card.pro:hover  { border-color: var(--pro-accent); box-shadow: 0 8px 32px var(--pro-glow); }
+
+.video-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.video-card:hover .video-thumb img {
+  transform: scale(1.04);
+}
+
+.play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-btn::after {
+  content: '';
+  width: 48px;
+  height: 48px;
+  background: rgba(10,10,15,0.8);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 55% 50%;
+  background-size: 22px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.video-card:hover .play-btn::after {
+  transform: scale(1.1);
+  border-color: rgba(255,255,255,0.7);
+}
+
+.video-info {
+  padding: 16px;
+}
+
+.video-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.video-badge.free { color: var(--accent); }
+.video-badge.pro  { color: var(--pro-accent); }
+
+.video-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.video-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 40px 0;
+  margin-top: 56px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL ANIMATION
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (min-width: 640px) {
+  .page-title { font-size: 40px; }
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 960px) {
+  .video-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="nav">
+  <div class="nav-logo">SMC EXECUTION ENGINE</div>
+  <a href="index.html" class="nav-back">← Página Principal</a>
+</nav>
+
+<main>
+<div class="container">
+
+  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <header class="page-header">
+    <div class="page-label reveal">Biblioteca de Vídeos</div>
+    <h1 class="page-title reveal">Vídeos</h1>
+    <p class="page-subtitle reveal">Tutoriais e explicações sobre o SMC Execution Engine. Cada vídeo cobre um módulo ou conceito específico do indicador.</p>
+  </header>
+
+  <!-- ═══════════════════ CATEGORIA: FUNDAMENTOS ═══════════════════ -->
+  <section class="category">
+    <div class="category-header reveal">
+      <span class="category-label free">Free</span>
+      <span class="category-title">Fundamentos</span>
+    </div>
+
+    <div class="video-grid">
+
+      <div class="video-card free reveal" onclick="window.open('https://www.youtube.com/watch?v=hfWOR8DyBgk','_blank')">
+        <div class="video-thumb">
+          <img src="https://i.ytimg.com/vi_webp/hfWOR8DyBgk/sddefault.webp" alt="SMC Execution Engine — Visão Geral" loading="lazy">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-badge free">Visão Geral</div>
+          <h2 class="video-title">SMC Execution Engine — Apresentação Completa</h2>
+          <p class="video-desc">Introdução ao indicador: arquitetura, conceitos de Smart Money Concepts, BOS, CHoCH, Order Blocks e zonas de execução com Fibonacci.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ CATEGORIA: PRO ═══════════════════ -->
+  <section class="category">
+    <div class="category-header reveal">
+      <span class="category-label pro">PRO</span>
+      <span class="category-title">Funcionalidades PRO</span>
+    </div>
+
+    <div class="video-grid">
+
+      <div class="video-card pro reveal" onclick="window.open('https://www.youtube.com/watch?v=Phl_gONnbWs','_blank')">
+        <div class="video-thumb">
+          <img src="https://i.ytimg.com/vi_webp/Phl_gONnbWs/sddefault.webp" alt="SMC Execution Engine PRO — Módulo de Alertas" loading="lazy">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-badge pro">Módulo de Alertas</div>
+          <h2 class="video-title">Motor de Alertas Inteligentes</h2>
+          <p class="video-desc">Como configurar e usar o sistema de alertas intrabar em tempo real, modos de confluência OB + Fibonacci e filtros de qualidade de sinal.</p>
+        </div>
+      </div>
+
+      <div class="video-card pro reveal" onclick="window.open('https://www.youtube.com/watch?v=7JWfou1nRmE','_blank')">
+        <div class="video-thumb">
+          <img src="https://i.ytimg.com/vi_webp/7JWfou1nRmE/sddefault.webp" alt="SMC Execution Engine PRO — Validação de Order Blocks" loading="lazy">
+          <div class="play-btn"></div>
+        </div>
+        <div class="video-info">
+          <div class="video-badge pro">Order Blocks</div>
+          <h2 class="video-title">Validação de Order Blocks</h2>
+          <p class="video-desc">Explicação do módulo de validação de Order Blocks do PRO: presença institucional confirmada, controle de mitigação e filtros de tamanho e volume.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">SMC EXECUTION ENGINE</div>
+  <div class="footer-copy">by @abdallacrypto · TradingView</div>
+</footer>
+
+<!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
