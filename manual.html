@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual — SMC Execution Engine</title>
+<meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES & RESET
+   ═══════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0f0f18;
+  --bg-card: #12121e;
+  --bg-card-hover: #181828;
+  --border-color: #1a1a2e;
+  --border-glow: #00ff8820;
+  --text-primary: #e8e8f0;
+  --text-secondary: #8888a0;
+  --text-muted: #555570;
+  --accent: #00ff88;
+  --accent-dim: #00cc6a;
+  --accent-glow: #00ff8830;
+  --accent-bg: #00ff8810;
+  --danger: #ff4466;
+  --danger-dim: #ff446630;
+  --warning: #ffaa00;
+  --warning-dim: #ffaa0030;
+  --pro-accent: #a78bfa;
+  --pro-glow: #a78bfa30;
+  --blue: #60a5fa;
+  --blue-bg: #60a5fa10;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'DM Sans', sans-serif;
+  --max-width: 720px;
+  --section-gap: 64px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.85; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: var(--section-gap) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+section:last-of-type { border-bottom: none; }
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+.nav-back {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.nav-back:hover { color: var(--accent); opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   TABLE OF CONTENTS (sidebar on desktop)
+   ═══════════════════════════════════════════ */
+.toc-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 90;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.toc-toggle:hover { transform: scale(1.1); }
+
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 89;
+  padding: 80px 24px 40px;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.toc-overlay.active { opacity: 1; pointer-events: auto; }
+
+.toc-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 4px; }
+.toc-list a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+}
+.toc-list a:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border-left-color: var(--accent);
+  opacity: 1;
+}
+.toc-list .toc-sub {
+  padding-left: 28px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Desktop sidebar TOC */
+@media (min-width: 1100px) {
+  .toc-toggle { display: none; }
+  .toc-overlay { display: none; }
+
+  .toc-sidebar {
+    display: block !important;
+    position: fixed;
+    top: 80px;
+    left: max(20px, calc((100vw - 1200px)/2));
+    width: 220px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 12px;
+  }
+  .toc-sidebar::-webkit-scrollbar { width: 3px; }
+  .toc-sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+  .container { margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 1099px) {
+  .toc-sidebar { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-dim), transparent);
+  max-width: 120px;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  padding-top: 16px;
+  line-height: 1.3;
+}
+
+h4 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 24px 0 8px;
+}
+
+p { margin-bottom: 14px; color: var(--text-secondary); font-size: 15px; }
+
+strong { color: var(--text-primary); }
+
+/* ═══════════════════════════════════════════
+   COMPONENTS
+   ═══════════════════════════════════════════ */
+
+/* Info cards */
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 16px 0;
+}
+.info-card.accent-border { border-left: 3px solid var(--accent); }
+.info-card.pro-border { border-left: 3px solid var(--pro-accent); }
+.info-card.warn-border { border-left: 3px solid var(--warning); }
+.info-card.blue-border { border-left: 3px solid var(--blue); }
+.info-card.danger-border { border-left: 3px solid var(--danger); }
+
+.info-card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.info-card-tag.green { color: var(--accent); }
+.info-card-tag.purple { color: var(--pro-accent); }
+.info-card-tag.yellow { color: var(--warning); }
+.info-card-tag.blue { color: var(--blue); }
+.info-card-tag.red { color: var(--danger); }
+
+/* Bullet lists */
+.manual-list {
+  list-style: none;
+  margin: 12px 0 16px;
+}
+.manual-list li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 5px 0 5px 20px;
+  position: relative;
+  line-height: 1.6;
+}
+.manual-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.manual-list.pro li::before { color: var(--pro-accent); }
+
+/* Glossary table */
+.glossary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+}
+.glossary-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--accent-dim);
+  background: var(--accent-bg);
+}
+.glossary-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.glossary-table td:first-child {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  width: 130px;
+}
+
+/* Config table */
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.config-table th {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--accent-dim);
+  background: var(--accent-bg);
+}
+.config-table th:first-child { text-align: left; }
+.config-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  text-align: center;
+}
+.config-table td:first-child {
+  color: var(--text-primary);
+  text-align: left;
+}
+
+/* Alert mode cards */
+.alert-mode {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin: 10px 0;
+}
+.alert-mode-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pro-accent);
+  margin-bottom: 6px;
+}
+.alert-mode p {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.alert-mode .req {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 8px 10px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* PRO badge inline */
+.pro-badge {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pro-accent), #8b5cf6);
+  padding: 2px 8px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+/* Inline code */
+code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+/* Numbered steps */
+.steps {
+  counter-reset: step;
+  list-style: none;
+  margin: 16px 0;
+}
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 8px 0 8px 40px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Separator */
+.sep {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 0 0 24px;
+}
+
+/* CTA button */
+.btn-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--pro-accent), #8b5cf6);
+  color: #fff;
+  box-shadow: 0 0 20px var(--pro-glow);
+  transition: all 0.25s;
+}
+.btn-pro:hover { opacity: 1; transform: translateY(-2px); box-shadow: 0 0 30px var(--pro-glow); }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+footer p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .glossary-table, .config-table {
+    font-size: 11px;
+  }
+  .glossary-table td:first-child, .config-table td:first-child {
+    white-space: normal;
+  }
+  h2 { font-size: 22px; }
+  .config-table { display: block; overflow-x: auto; }
+}
+
+/* Horizontal scroll wrapper for tables on mobile */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="nav">
+  <div class="nav-logo">SMC EXECUTION ENGINE</div>
+  <a href="index.html" class="nav-back">← Voltar ao Início</a>
+</nav>
+
+<!-- ═══════════════════ TOC SIDEBAR (desktop) ═══════════════════ -->
+<aside class="toc-sidebar" id="tocSidebar">
+  <div class="toc-title">Índice</div>
+  <ul class="toc-list">
+    <li><a href="#intro">O que é</a></li>
+    <li><a href="#glossario">Glossário</a></li>
+    <li><a href="#conceitos">Conceitos Principais</a></li>
+    <li><a href="#conceitos" class="toc-sub">Swings (Fractal K)</a></li>
+    <li><a href="#bos" class="toc-sub">BOS</a></li>
+    <li><a href="#choch" class="toc-sub">CHOCH</a></li>
+    <li><a href="#ancora" class="toc-sub">Âncora</a></li>
+    <li><a href="#fibonacci">Fibonacci</a></li>
+    <li><a href="#fiba" class="toc-sub">Fib A</a></li>
+    <li><a href="#fibb" class="toc-sub">Fib B</a></li>
+    <li><a href="#ob">Order Blocks</a></li>
+    <li><a href="#ob-status" class="toc-sub">Status (Pending → Valid)</a></li>
+    <li><a href="#ob-confirmacao" class="toc-sub">Confirmação PRO</a></li>
+    <li><a href="#ob-mitigacao" class="toc-sub">Mitigação</a></li>
+    <li><a href="#ob-historico" class="toc-sub">Histórico</a></li>
+    <li><a href="#alertas">Alertas PRO</a></li>
+    <li><a href="#alert-modos" class="toc-sub">Modos de Alerta</a></li>
+    <li><a href="#alert-regras" class="toc-sub">Regras Anti-Spam</a></li>
+    <li><a href="#alert-config" class="toc-sub">Como Configurar</a></li>
+    <li><a href="#hud">HUD Multi-Timeframe</a></li>
+    <li><a href="#strictness" class="toc-sub">Strictness</a></li>
+    <li><a href="#configs">Configurações Recomendadas</a></li>
+    <li><a href="#uso">Como Usar na Prática</a></li>
+    <li><a href="#faq">FAQ / Troubleshooting</a></li>
+    <li><a href="#aviso">Aviso Legal</a></li>
+  </ul>
+</aside>
+
+<!-- ═══════════════════ TOC MOBILE BUTTON ═══════════════════ -->
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+<div class="toc-overlay" id="tocOverlay">
+  <div class="toc-title">Índice</div>
+  <ul class="toc-list">
+    <li><a href="#intro" onclick="toggleToc()">O que é</a></li>
+    <li><a href="#glossario" onclick="toggleToc()">Glossário</a></li>
+    <li><a href="#conceitos" onclick="toggleToc()">Conceitos Principais</a></li>
+    <li><a href="#fibonacci" onclick="toggleToc()">Fibonacci</a></li>
+    <li><a href="#ob" onclick="toggleToc()">Order Blocks</a></li>
+    <li><a href="#alertas" onclick="toggleToc()">Alertas PRO</a></li>
+    <li><a href="#hud" onclick="toggleToc()">HUD Multi-Timeframe</a></li>
+    <li><a href="#configs" onclick="toggleToc()">Configurações Recomendadas</a></li>
+    <li><a href="#uso" onclick="toggleToc()">Como Usar na Prática</a></li>
+    <li><a href="#faq" onclick="toggleToc()">FAQ / Troubleshooting</a></li>
+    <li><a href="#aviso" onclick="toggleToc()">Aviso Legal</a></li>
+  </ul>
+</div>
+
+<main>
+
+<!-- ═══════════════════ INTRO ═══════════════════ -->
+<section id="intro" style="padding-top:100px;">
+  <div class="container">
+    <div class="section-label">Manual de Instruções</div>
+    <div class="sep"></div>
+    <h2 class="reveal">O que é o SMC Execution Engine</h2>
+    <p class="reveal">O <strong>SMC Execution Engine</strong> é uma ferramenta de leitura estrutural e apoio à execução baseada em Smart Money Concepts (SMC).</p>
+    <p class="reveal">Ele transforma a ação do preço em um mapa claro e consistente, usando swings, BOS e CHOCH, e projeta zonas de interesse por meio de Fibonacci automático e Order Blocks do contexto atual.</p>
+    <p class="reveal">O objetivo não é gerar sinais automáticos, mas oferecer <strong>contexto, níveis e alertas de evento (versão PRO)</strong>, para que o trader execute com mais disciplina e menos ruído.</p>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Princípio Central</div>
+      <p style="margin:0;">O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ GLOSSÁRIO ═══════════════════ -->
+<section id="glossario">
+  <div class="container">
+    <div class="section-label">Referência Rápida</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Glossário</h2>
+    <p class="reveal">Termos essenciais utilizados ao longo deste manual e no indicador.</p>
+
+    <div class="table-wrap reveal">
+      <table class="glossary-table">
+        <thead>
+          <tr><th>Termo</th><th>Definição</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BOS</td><td>Break of Structure — rompimento que confirma a continuidade da tendência vigente.</td></tr>
+          <tr><td>CHOCH</td><td>Change of Character — rompimento que indica possível inversão de regime (UP → DOWN ou vice-versa).</td></tr>
+          <tr><td>Regime</td><td>Estado persistente do mercado (UP, DOWN ou NONE) que governa toda a lógica do indicador.</td></tr>
+          <tr><td>Anchor</td><td>Nível de guarda estrutural — último fundo válido (regime UP) ou topo válido (regime DOWN).</td></tr>
+          <tr><td>OB</td><td>Order Block — zona de preço derivada do candle do anchor, representando área de interesse institucional.</td></tr>
+          <tr><td>FVG</td><td>Fair Value Gap — gap entre candles que indica desequilíbrio de preço e eficiência institucional.</td></tr>
+          <tr><td>ATR</td><td>Average True Range — medida de volatilidade média utilizada para calibrar gates de validação.</td></tr>
+          <tr><td>Mitigação</td><td>Quando o preço retorna e "preenche" um Order Block, invalidando-o como zona ativa.</td></tr>
+          <tr><td>Fractal K</td><td>Número de candles à esquerda e direita necessários para confirmar um swing (pivô).</td></tr>
+          <tr><td>Displacement</td><td>Impulso de preço pós-rompimento; precisa exceder ATR × multiplicador para validar um OB.</td></tr>
+          <tr><td>Strictness</td><td>Nível de exigência (0–10) para validação de Order Blocks. Quanto maior, mais rigoroso.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONCEITOS PRINCIPAIS ═══════════════════ -->
+<section id="conceitos">
+  <div class="container">
+    <div class="section-label">Fundamentos</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Conceitos Principais</h2>
+
+    <!-- Swings -->
+    <h3 class="reveal" id="swings">Estrutura de Swings (Fractal K)</h3>
+    <p class="reveal">Os swings são definidos por pivôs de alta e baixa, controlados pelo parâmetro <strong>Fractal K</strong>. O indicador identifica um swing quando há K candles de cada lado confirmando o ponto como máxima ou mínima local.</p>
+    <ul class="manual-list reveal">
+      <li><strong>K maior</strong> → estrutura mais limpa e conservadora (menos swings, mais significativos)</li>
+      <li><strong>K menor</strong> → estrutura mais sensível e reativa (mais swings, mais ruído)</li>
+    </ul>
+    <p class="reveal">A partir desses swings, o indicador detecta dois tipos de quebra estrutural: BOS e CHOCH.</p>
+
+    <!-- BOS -->
+    <h3 class="reveal" id="bos">Break of Structure (BOS)</h3>
+    <p class="reveal">O BOS ocorre quando o preço rompe o último swing na <strong>mesma direção</strong> do regime vigente, confirmando continuidade da tendência.</p>
+    <ul class="manual-list reveal">
+      <li>BOS de alta → rompe o último swing high (regime UP)</li>
+      <li>BOS de baixa → rompe o último swing low (regime DOWN)</li>
+    </ul>
+    <p class="reveal">A cada BOS de continuação, o <strong>anchor</strong> é atualizado para o swing mais recente, e o Fib B é recriado.</p>
+
+    <h4 class="reveal">Break Mode</h4>
+    <p class="reveal">O critério de rompimento é configurável via <strong>Break Mode</strong>:</p>
+    <ul class="manual-list reveal">
+      <li><code>close_strict</code> — o fechamento (close) deve exceder o nível</li>
+      <li><code>close_or_equal</code> — o fechamento pode igualar ou exceder</li>
+      <li><code>wick</code> — o pavio é suficiente para confirmar</li>
+    </ul>
+
+    <!-- CHOCH -->
+    <h3 class="reveal" id="choch">Change of Character (CHOCH)</h3>
+    <p class="reveal">O CHOCH indica uma <strong>possível inversão de regime</strong>. Ocorre em duas situações:</p>
+    <ul class="manual-list reveal">
+      <li>O preço quebra o <strong>"origin"</strong> do último BOS na direção oposta</li>
+      <li>O preço quebra o <strong>anchor</strong> (guardrail) do regime atual</li>
+    </ul>
+    <p class="reveal">O CHOCH muda o estado de UP para DOWN ou vice-versa, e redefine:</p>
+    <ul class="manual-list reveal">
+      <li>O regime operacional</li>
+      <li>O anchor válido</li>
+      <li>O Fib A (criado a partir do novo contexto)</li>
+      <li>O Order Block do novo contexto</li>
+    </ul>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Resumo</div>
+      <p style="margin:0;"><strong>BOS</strong> = mesma direção do regime → continuação. <strong>CHOCH</strong> = direção oposta → inversão. O regime (UP/DOWN/NONE) governa toda a lógica.</p>
+    </div>
+
+    <!-- Âncora -->
+    <h3 class="reveal" id="ancora">Âncora (Guardrail Estrutural)</h3>
+    <p class="reveal">A âncora é o nível que "protege" a estrutura atual e funciona como guardrail do regime:</p>
+    <ul class="manual-list reveal">
+      <li><strong>Regime UP:</strong> anchor = último fundo válido (swing low)</li>
+      <li><strong>Regime DOWN:</strong> anchor = último topo válido (swing high)</li>
+    </ul>
+    <p class="reveal">A âncora é utilizada para:</p>
+    <ul class="manual-list reveal">
+      <li>Marcação visual no gráfico (com transparência configurável)</li>
+      <li>Lógica estrutural — se o preço quebra o anchor, dispara CHOCH</li>
+      <li>Construção do Order Block e da Fibonacci do contexto</li>
+    </ul>
+    <p class="reveal">A cada BOS de continuação, o anchor se move para frente, sempre acompanhando o swing mais recente pós-CHOCH.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ FIBONACCI ═══════════════════ -->
+<section id="fibonacci">
+  <div class="container">
+    <div class="section-label">Zonas de Interesse</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Fibonacci Automática</h2>
+    <p class="reveal">O indicador projeta duas Fibonaccis independentes, cada uma ancorada em momentos estruturais distintos. Ambas são dinâmicas e se ajustam automaticamente ao contexto.</p>
+
+    <p class="reveal"><strong>Níveis utilizados:</strong></p>
+    <ul class="manual-list reveal">
+      <li>0% e 100% (extremos do range)</li>
+      <li>38.2% (opcional, configurável)</li>
+      <li>50%</li>
+      <li>61.8%</li>
+      <li>79%</li>
+    </ul>
+
+    <!-- Fib A -->
+    <h3 class="reveal" id="fiba">Fib A — Fibonacci do CHOCH</h3>
+    <p class="reveal">Criada no momento do CHOCH. Representa a Fibonacci principal do novo contexto/regime.</p>
+
+    <div class="info-card blue-border reveal">
+      <div class="info-card-tag blue">Comportamento Dinâmico</div>
+      <p style="margin:0;">O range da Fib A <strong>não é fixo</strong>. Ele se expande dinamicamente acompanhando o runHigh/runLow do impulso inicial e se consolida (trava) quando um novo pivot é confirmado. Isso significa que nos primeiros candles após o CHOCH, os níveis podem se ajustar — é comportamento esperado, não um bug.</p>
+    </div>
+
+    <!-- Fib B -->
+    <h3 class="reveal" id="fibb">Fib B — Fibonacci da Âncora Atual</h3>
+    <p class="reveal">Opcional e mais voltada à execução de curto prazo:</p>
+    <ul class="manual-list reveal">
+      <li>Recriada a cada BOS de continuação</li>
+      <li>Ancorada no anchor atualizado</li>
+      <li>Mantém níveis mais "curtos" e atualizados</li>
+    </ul>
+
+    <div class="info-card warn-border reveal">
+      <div class="info-card-tag yellow">Atenção: Fib B Gating</div>
+      <p style="margin:0;">Quando o filtro de validação de OB está ativo (versão PRO), o <strong>Fib B só é desenhado depois que o Order Block correspondente passa de PENDING para VALID</strong>. Até lá, ele fica "gated" (bloqueado). Isso garante que as zonas de Fibonacci só apareçam quando o contexto estrutural for validado. Se o Fib B não está aparecendo, verifique se o OB ainda está pendente.</p>
+    </div>
+
+    <p class="reveal">No seletor de alertas, você pode escolher usar Fib A ou Fib B. Quando Fib B é selecionada mas ainda não está ativa (antes do primeiro BOS de continuação), os alertas usam a Fib A até que o Fib B seja criado.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ ORDER BLOCKS ═══════════════════ -->
+<section id="ob">
+  <div class="container">
+    <div class="section-label">Zonas Institucionais</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Order Blocks</h2>
+    <p class="reveal">O indicador desenha Order Blocks com base no anchor estrutural atual, garantindo que as zonas reflitam sempre o contexto de mercado mais relevante.</p>
+
+    <h4 class="reveal">Lógica de Construção</h4>
+    <p class="reveal">O OB é derivado do candle do anchor:</p>
+    <ul class="manual-list reveal">
+      <li><strong>OB Bullish:</strong> se o candle do anchor é bearish (vermelho), usa seu próprio range. Se é bullish (verde), busca o último candle bearish anterior — até <code>obLookback</code> candles para trás — e usa o high desse candle como topo do OB.</li>
+      <li><strong>OB Bearish:</strong> lógica espelhada. Busca o último candle bullish anterior ao anchor.</li>
+    </ul>
+    <p class="reveal">O parâmetro <code>obLookback</code> controla quantos candles o indicador pode olhar para trás na busca do candle oposto. Quanto maior, mais flexível a busca.</p>
+
+    <!-- Status -->
+    <h3 class="reveal" id="ob-status">Status do Order Block: PENDING → VALID</h3>
+    <p class="reveal">Por padrão, o indicador mantém apenas <strong>um Order Block ativo</strong>, atualizado dinamicamente à medida que o anchor evolui.</p>
+
+    <div class="info-card pro-border reveal">
+      <div class="info-card-tag purple">PRO — Filtro de Validação</div>
+      <p>Quando o filtro de validação está ativo (versão PRO), todo OB nasce como <strong>PENDING</strong> (status 2) e precisa passar por duas gates dentro de uma janela de avaliação para ser confirmado:</p>
+      <p><strong>1. Displacement Gate</strong> — o impulso desde o OB candle precisa exceder <code>ATR(14) × effAtrMult</code>. O ATR é amostrado no candle do OB (não no candle de confirmação). O impulso é medido como highestHigh − OB_bottom (bull) ou OB_top − lowestLow (bear).</p>
+      <p><strong>2. FVG Gate (opcional)</strong> — se <code>requireFVG</code> está ativo, precisa haver um Fair Value Gap dentro da janela de impulso. Para bull: <code>low > high[2]</code>. Para bear: <code>high < low[2]</code>. O candle do meio do FVG deve estar no ou após o startBar do OB.</p>
+      <p style="margin:0;">Visualmente: OBs <strong>PENDING</strong> aparecem com <strong>bordas tracejadas (dashed)</strong>. Quando validados, ficam com borda sólida. Se não validarem dentro da janela, são deletados.</p>
+    </div>
+
+    <div class="info-card danger-border reveal">
+      <div class="info-card-tag red">Invalidation Lock</div>
+      <p style="margin:0;">Se um OB não valida dentro da janela de avaliação, ele expira e é deletado. Além disso, um <strong>invalidation lock</strong> é aplicado — impedindo que o sistema recrie um OB sob o mesmo contexto estrutural. Isso evita que o indicador fique "tentando" validar a mesma zona repetidamente.</p>
+    </div>
+
+    <!-- Confirmação PRO -->
+    <h3 class="reveal" id="ob-confirmacao">Confirmação de Order Blocks <span class="pro-badge">PRO</span></h3>
+    <p class="reveal">Um Order Block não deve existir apenas porque houve um rompimento. Ele precisa provar que o rompimento foi <strong>legítimo</strong>.</p>
+    <p class="reveal">Na estrutura tradicional, qualquer BOS pode gerar um OB. O problema é que nem todo rompimento representa deslocamento institucional real. Por isso a confirmação foi criada.</p>
+
+    <h4 class="reveal">O que o sistema verifica</h4>
+    <p class="reveal">Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:</p>
+    <ol class="steps reveal">
+      <li>Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)</li>
+      <li>Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)</li>
+      <li>Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas</li>
+    </ol>
+    <p class="reveal">Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock.</p>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Conceito Central</div>
+      <p style="margin:0;">A confirmação não olha apenas para o rompimento. Ela olha para o que acontece <strong>depois</strong> do rompimento. É a diferença entre <em>"rompeu"</em> e <em>"rompeu e sustentou"</em>.</p>
+    </div>
+
+    <!-- Mitigação -->
+    <h3 class="reveal" id="ob-mitigacao">Mitigação</h3>
+    <p class="reveal">A mitigação ocorre quando o preço retorna e "preenche" o Order Block:</p>
+    <ul class="manual-list reveal">
+      <li><strong>OB Bullish:</strong> mitigado quando <code>low ≤ OB_bottom</code></li>
+      <li><strong>OB Bearish:</strong> mitigado quando <code>high ≥ OB_top</code></li>
+    </ul>
+    <p class="reveal">Quando mitigado, o OB é removido automaticamente como zona ativa.</p>
+
+    <!-- Histórico -->
+    <h3 class="reveal" id="ob-historico">Histórico de Order Blocks</h3>
+    <p class="reveal">Uma configuração opcional chamada <strong>"Preserve unmitigated OB history"</strong> permite exibir e preservar os últimos <strong>N</strong> Order Blocks não mitigados como contexto histórico (controlado por <code>maxHistOBs</code>).</p>
+    <ul class="manual-list reveal">
+      <li>Zonas históricas permanecem estendidas para a direita com <strong>transparência extra</strong></li>
+      <li>OBs mitigados são removidos automaticamente</li>
+      <li>Adiciona memória estrutural sem comprometer a clareza do gráfico</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ ALERTAS PRO ═══════════════════ -->
+<section id="alertas">
+  <div class="container">
+    <div class="section-label" style="color:var(--pro-accent);">Versão PRO</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
+    <h2 class="reveal">Alertas <span class="pro-badge">PRO</span></h2>
+    <p class="reveal">O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, avaliados <strong>intrabar em tempo real</strong>, combinando estrutura, Fibonacci e Order Blocks.</p>
+
+    <div style="text-align:center;margin:20px 0;" class="reveal">
+      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn-pro">Desbloquear Alertas PRO →</a>
+    </div>
+
+    <!-- Alertas CHOCH -->
+    <h3 class="reveal">Alertas de CHOCH (fechamento)</h3>
+    <p class="reveal">Disparam somente no <strong>fechamento do candle</strong>. Disponíveis para:</p>
+    <ul class="manual-list reveal">
+      <li>CHOCH UP</li>
+      <li>CHOCH DOWN</li>
+      <li>CHOCH (qualquer direção)</li>
+    </ul>
+
+    <!-- Alertas Intrabar -->
+    <h3 class="reveal">Alertas Intrabar (OB + Fibo)</h3>
+    <p class="reveal">Alertas em tempo real, avaliados intrabar (sem esperar fechamento). Você pode escolher usar <strong>Fib A</strong> (CHOCH) ou <strong>Fib B</strong> (âncora atual). Quando Fib B é selecionada mas ainda não está ativa, os alertas usam Fib A automaticamente.</p>
+
+    <!-- Modos -->
+    <h3 class="reveal" id="alert-modos">Modos Disponíveis</h3>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">FIBO_618</div>
+      <p>Dispara quando um candle <strong>atravessa</strong> o nível 0.618.</p>
+      <div class="req">Requisito: máxima acima da 0.618 E mínima abaixo da 0.618. Não exige toque exato — qualquer candle que alcance ou ultrapasse dispara.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">FIBO_079</div>
+      <p>Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos.</p>
+      <div class="req">Requisito: máxima acima da 0.79 E mínima abaixo da 0.79. Mesma lógica do FIBO_618, porém em nível mais profundo.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_START</div>
+      <p>Dispara quando o preço <strong>entra no Order Block pelo lado correto</strong>.</p>
+      <div class="req">Requisito: OB bullish exige preço vindo de cima tocando o topo. OB bearish exige preço vindo de baixo tocando o fundo. Entrada direcional obrigatória — evita alertas com preço já dentro do OB.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_OR_079</div>
+      <p>Dispara quando ocorre <strong>OB_START ou FIBO_079</strong> (qualquer uma das condições).</p>
+      <div class="req">Modo flexível. Captura reação estrutural ou pullback profundo em Fibonacci.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_AND_079</div>
+      <p>Dispara somente quando <strong>OB_START e FIBO_079</strong> ocorrem no mesmo candle.</p>
+      <div class="req">Alta confluência. Menos sinais, maior qualidade. Ambas as condições devem ocorrer simultaneamente.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_ANY_TOUCH</div>
+      <p>Dispara quando o preço entra em <strong>qualquer parte</strong> do Order Block.</p>
+      <div class="req">O range do candle invade a zona do OB. Direção ainda é respeitada. Mais permissivo que OB_START.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_MID</div>
+      <p>Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block.</p>
+      <div class="req">O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">FIBO_618_079_ZONE</div>
+      <p>Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79.</p>
+      <div class="req">Requisito: máxima ≥ 0.618 E mínima ≤ 0.79. O candle precisa cobrir toda a zona no mesmo candle — é uma varredura, não apenas um toque. Mais restritivo que FIBO_618.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">OB_PLUS_FIB</div>
+      <p>Dispara quando o preço entra no OB <strong>e toca pelo menos um nível</strong> de Fibonacci.</p>
+      <div class="req">Entrada no OB + toque em Fib 0.50, 0.618 ou 0.79. Confluência estrutural com Fibonacci. Não exige nível específico.</div>
+    </div>
+
+    <div class="alert-mode reveal">
+      <div class="alert-mode-name">FIBO_THEN_OB</div>
+      <p>Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB.</p>
+      <div class="req">Lógica sequencial. O toque no Fib deve ocorrer antes, no mesmo contexto estrutural, seguido da entrada no OB. Não precisa ocorrer no mesmo candle.</div>
+    </div>
+
+    <!-- Regras Anti-Spam -->
+    <h3 class="reveal" id="alert-regras">Regras de Qualidade (Anti-Spam)</h3>
+    <p class="reveal">O motor de alertas opera com <strong>fire-once-per-context</strong> — bloqueios inteligentes que eliminam ruído:</p>
+    <ul class="manual-list reveal">
+      <li>Apenas <strong>1 alerta por contexto</strong> estrutural</li>
+      <li>Alertas <strong>bloqueados</strong> no candle de CHOCH ou BOS (barra de evento estrutural)</li>
+      <li>Alertas <strong>bloqueados</strong> enquanto OBs estão em status PENDING</li>
+      <li>Reativação apenas após novo CHOCH ou BOS de continuação</li>
+    </ul>
+
+    <!-- Como Configurar -->
+    <h3 class="reveal" id="alert-config">Como Configurar Alertas no TradingView</h3>
+    <p class="reveal">Ativar a opção "Alert (intrabar)" no indicador habilita a lógica interna, mas você ainda precisa criar o alerta no TradingView para receber notificações.</p>
+    <ol class="steps reveal">
+      <li>Adicione o indicador no gráfico</li>
+      <li>Abra <strong>Alertas</strong> e clique em <strong>Criar alerta</strong></li>
+      <li>Em <strong>Condição</strong>, selecione o indicador e escolha uma das condições:
+        <br>— CHOCH (UP/DOWN), CHOCH_UP, CHOCH_DOWN (alertas no fechamento)
+        <br>— OB & Fibo Alerts (lógica intrabar)
+        <br>— <code>Any alert() function call</code> (qualquer gatilho)</li>
+      <li>Para <strong>OB & Fibo Alerts</strong>, use Gatilho = <strong>"Uma vez por barra"</strong> (recomendado)</li>
+      <li>Escolha o método de notificação (popup, push, webhook, email) e crie o alerta</li>
+    </ol>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Contexto nos Alertas</div>
+      <p style="margin:0;">A função <code>any alert() function call</code> do PRO inclui informações contextuais: motivo do disparo, confluência envolvida e direção do mercado. Isso transforma cada alerta em uma decisão informada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HUD MULTI-TIMEFRAME ═══════════════════ -->
+<section id="hud">
+  <div class="container">
+    <div class="section-label" style="color:var(--pro-accent);">Versão PRO</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
+    <h2 class="reveal">HUD Multi-Timeframe <span class="pro-badge">PRO</span></h2>
+    <p class="reveal">Painel opcional com 7 timeframes (5m a 1M), oferecendo leitura rápida de alinhamento de contexto.</p>
+
+    <h4 class="reveal">Tendência Estrutural (Dots)</h4>
+    <p class="reveal">Cada timeframe mostra um dot colorido baseado na âncora:</p>
+    <ul class="manual-list reveal">
+      <li><span style="color:var(--accent);">●</span> Verde = fundo válido = tendência de alta</li>
+      <li><span style="color:var(--danger);">●</span> Vermelho = topo válido = tendência de baixa</li>
+    </ul>
+
+    <h4 class="reveal">RSI</h4>
+    <p class="reveal">Exibe o RSI de cada timeframe para complementar a leitura estrutural.</p>
+
+    <h4 class="reveal">OB Mode</h4>
+    <p class="reveal"><strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier.</p>
+
+    <h4 class="reveal" id="strictness">Strictness (0–10)</h4>
+    <p class="reveal">Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks.</p>
+    <ul class="manual-list reveal">
+      <li><strong>Menor (0–3):</strong> mais permissivo — aceita movimentos menores como válidos, gera mais OBs</li>
+      <li><strong>Médio (4–6):</strong> equilíbrio entre sensibilidade e qualidade</li>
+      <li><strong>Maior (7–10):</strong> mais rigoroso — exige deslocamentos fortes e claros, menos OBs</li>
+    </ul>
+    <p class="reveal">A escala interna é <code>0.70 + (strictness × 0.06)</code>, aplicada sobre baselines que variam por timeframe. Isso auto-ajusta o lookahead (janela de validação em barras) e o ATR multiplier proporcionalmente.</p>
+
+    <h4 class="reveal">BaseLA (Lookahead)</h4>
+    <p class="reveal">Indica a quantidade de velas que o indicador utiliza naquele timeframe para validar se um OB é válido ou não. O número entre parênteses (se houver) indica quantas velas restam para confirmar um OB pendente — funciona como um countdown.</p>
+
+    <h4 class="reveal">BaseATR (Multiplicador de Volatilidade)</h4>
+    <p class="reveal">Define o quanto o preço precisa se mover, em relação ao ATR, para que um movimento seja considerado forte o suficiente para validar o OB.</p>
+    <ul class="manual-list reveal">
+      <li><strong>Maior BaseATR:</strong> deslocamento precisa ser mais forte → menos estruturas fracas passam → sistema mais seletivo</li>
+      <li><strong>Menor BaseATR:</strong> movimentos menores já são aceitos → mais sinais → sistema mais sensível</li>
+    </ul>
+
+    <div class="info-card blue-border reveal">
+      <div class="info-card-tag blue">Exemplo Prático</div>
+      <p style="margin:0;">Se o BaseATR for 4.0, o rompimento precisa deslocar pelo menos 4 vezes o ATR base para ser validado. Em timeframes menores (5min), o baseline é naturalmente maior (4.0×) pois os movimentos são menores. Em timeframes maiores (mensal), o baseline é menor (1.6×) pois os movimentos já são significativos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONFIGURAÇÕES RECOMENDADAS ═══════════════════ -->
+<section id="configs">
+  <div class="container">
+    <div class="section-label">Referência</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Configurações Recomendadas por Timeframe</h2>
+    <p class="reveal">Valores sugeridos como <strong>ponto de partida</strong>. Ajuste conforme seu ativo e estilo operacional.</p>
+
+    <div class="table-wrap reveal">
+      <table class="config-table">
+        <thead>
+          <tr>
+            <th>Timeframe</th>
+            <th>Fractal K</th>
+            <th>Strictness</th>
+            <th>BaseLA</th>
+            <th>BaseATR</th>
+            <th>Break Mode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>5 min</td><td>2–3</td><td>5–7</td><td>14</td><td>4.0×</td><td>close_strict</td></tr>
+          <tr><td>15 min</td><td>2–3</td><td>4–6</td><td>12</td><td>3.5×</td><td>close_strict</td></tr>
+          <tr><td>1 hora</td><td>3–4</td><td>4–6</td><td>10</td><td>3.0×</td><td>close_strict</td></tr>
+          <tr><td>4 horas</td><td>3–5</td><td>3–5</td><td>8</td><td>2.5×</td><td>close_or_equal</td></tr>
+          <tr><td>Diário</td><td>4–6</td><td>3–5</td><td>6</td><td>2.0×</td><td>close_or_equal</td></tr>
+          <tr><td>Semanal</td><td>4–6</td><td>2–4</td><td>5</td><td>1.8×</td><td>wick</td></tr>
+          <tr><td>Mensal</td><td>5–8</td><td>2–4</td><td>4</td><td>1.6×</td><td>wick</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-card warn-border reveal">
+      <div class="info-card-tag yellow">Nota</div>
+      <p style="margin:0;">Estes valores são <strong>baselines do modo Auto</strong>. No modo Manual/Advanced, você pode sobrescrever qualquer valor. A tabela serve como referência para entender a lógica de calibração do sistema — timeframes menores exigem mais confirmação (BaseLA e BaseATR maiores), enquanto timeframes maiores são naturalmente mais seletivos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COMO USAR ═══════════════════ -->
+<section id="uso">
+  <div class="container">
+    <div class="section-label">Workflow</div>
+    <div class="sep"></div>
+    <h2 class="reveal">Como Usar na Prática</h2>
+    <p class="reveal">Fluxo recomendado de uso do SMC Execution Engine:</p>
+
+    <ol class="steps reveal">
+      <li><strong>Identifique o CHOCH</strong> e o novo regime no timeframe operacional</li>
+      <li><strong>Observe o alinhamento no HUD</strong> — verifique se timeframes superiores confirmam a direção (PRO)</li>
+      <li><strong>Aguarde a retração</strong> até as zonas de Fibonacci 0.618–0.79 e/ou o Order Block</li>
+      <li><strong>Verifique a validação do OB</strong> — se está PENDING (borda tracejada), aguarde a confirmação (PRO)</li>
+      <li><strong>Use alertas intrabar</strong> para timing — escolha o modo de confluência adequado ao seu estilo (PRO)</li>
+      <li><strong>Execute com gestão de risco própria</strong> — o indicador fornece contexto, a decisão é do trader</li>
+    </ol>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green">Dica</div>
+      <p style="margin:0;">Comece com modos de alerta de <strong>alta confluência</strong> (OB_AND_079 ou OB_PLUS_FIB) para filtrar ruído e ganhar confiança no workflow. À medida que dominar a leitura, explore modos mais flexíveis como OB_OR_079 ou FIBO_THEN_OB.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">Suporte</div>
+    <div class="sep"></div>
+    <h2 class="reveal">FAQ / Troubleshooting</h2>
+
+    <div class="info-card reveal" style="margin-top:0;">
+      <h4 style="margin-top:0;">Por que meu Order Block sumiu?</h4>
+      <p style="margin:0;">Duas possibilidades: (1) O OB foi <strong>mitigado</strong> — o preço retornou e preencheu a zona (low ≤ OB_bottom para bullish, high ≥ OB_top para bearish). (2) O OB estava PENDING e <strong>não validou</strong> dentro da janela de avaliação — foi descartado pelo filtro de validação, e o invalidation lock impede recriação no mesmo contexto.</p>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">Por que o Fib B não aparece?</h4>
+      <p style="margin:0;">O Fib B só é criado após um <strong>BOS de continuação</strong>. Se você está logo após um CHOCH e ainda não houve BOS, apenas o Fib A estará ativo. Além disso, se o filtro de validação de OB está ligado, o Fib B fica <strong>"gated"</strong> até que o OB correspondente passe de PENDING para VALID.</p>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">Por que não recebi alerta?</h4>
+      <p>Verifique os seguintes pontos:</p>
+      <ul class="manual-list" style="margin-top:8px;">
+        <li>A opção "Alert (intrabar)" está ativada no indicador?</li>
+        <li>Você <strong>criou o alerta</strong> no TradingView? (a opção no indicador só ativa a lógica interna)</li>
+        <li>O alerta pode estar <strong>bloqueado</strong>: barra de evento estrutural (CHOCH/BOS), OB pendente, ou alerta já disparado no contexto atual</li>
+        <li>Verifique se o modo de alerta selecionado é compatível com o cenário (ex: OB_AND_079 exige ambas as condições simultaneamente)</li>
+      </ul>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">Qual Fractal K usar?</h4>
+      <p style="margin:0;">Depende do timeframe e do seu estilo. Para <strong>scalp (5m–15m)</strong>, K entre 2–3 oferece sensibilidade. Para <strong>swing (4H–Diário)</strong>, K entre 4–6 filtra ruído. Comece com os valores da tabela de configurações recomendadas e ajuste conforme sua experiência.</p>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">O que é o OB com borda tracejada?</h4>
+      <p style="margin:0;">É um Order Block em status <strong>PENDING</strong> — ele foi identificado mas ainda não validou pelo filtro de confirmação (Displacement + FVG). Aguarde: ele pode se tornar sólido (VALID) ou desaparecer (expirado). Não execute com base em OBs pendentes.</p>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">Posso usar em qualquer ativo?</h4>
+      <p style="margin:0;">Sim. O indicador funciona em qualquer ativo no TradingView — cripto, forex, ações, futuros, commodities. A lógica é baseada em estrutura de preço (price action), que é universal. Os parâmetros podem precisar de ajuste fino dependendo da volatilidade do ativo.</p>
+    </div>
+
+    <div class="info-card reveal">
+      <h4 style="margin-top:0;">Auto ou Manual — qual usar?</h4>
+      <p style="margin:0;">Comece com <strong>Auto</strong> — os parâmetros de Strictness, BaseLA e BaseATR são calibrados automaticamente por timeframe. Use <strong>Manual (Advanced)</strong> quando quiser fazer override dos valores para adaptar a sensibilidade ao seu ativo ou contexto específico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ AVISO ═══════════════════ -->
+<section id="aviso">
+  <div class="container">
+    <div class="section-label" style="color:var(--danger);">Aviso Legal</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--danger), transparent);"></div>
+    <div class="info-card danger-border reveal">
+      <p>Este script <strong>não gera recomendações de compra ou venda</strong>. Ele fornece estrutura e contexto para apoiar decisões disciplinadas.</p>
+      <p style="margin:0;">Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="container">
+    <p>© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+// TOC toggle (mobile)
+function toggleToc() {
+  document.getElementById('tocOverlay').classList.toggle('active');
+  document.body.style.overflow = document.getElementById('tocOverlay').classList.contains('active') ? 'hidden' : '';
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Active TOC tracking (desktop)
+if (window.innerWidth >= 1100) {
+  const sections = document.querySelectorAll('section[id]');
+  const tocLinks = document.querySelectorAll('.toc-sidebar .toc-list a');
+
+  const tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.style.color = '');
+        const active = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
+        if (active) {
+          active.style.color = 'var(--accent)';
+          active.style.borderLeftColor = 'var(--accent)';
+        }
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+
+  sections.forEach(s => tocObserver.observe(s));
+}
+</script>
+
+</body>
+</html>
