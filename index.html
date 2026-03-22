@@ -384,14 +384,32 @@ main { position: relative; z-index: 1; }
   box-shadow: 0 0 30px var(--pro-glow);
 }
 
+.hero-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
 .hero-manual {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-muted);
-  border-bottom: 1px dashed var(--text-muted);
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--text-secondary);
   padding-bottom: 2px;
 }
 .hero-manual:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
+
+.hero-videos-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+.hero-videos-link:hover { color: #fff; border-color: #fff; opacity: 1; }
 
 .hero-target {
   font-size: 13px;
@@ -1140,8 +1158,10 @@ footer .copyright {
         <a href="#funcpro" class="btn btn-primary">VERSÃO PRO →</a>
         <a href="https://www.tradingview.com/script/ligGO7B5-SMC-Execution-Engine-by-abdallacrypto/" target="_blank" class="btn btn-secondary">VERSÃO FREE</a>
       </div>
-      <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" class="hero-manual">Manual de Instruções</a>
-      <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-manual">Vídeos →</a>
+      <div class="hero-links">
+        <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" class="hero-manual">Manual de Instruções</a>
+        <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-videos-link">▶ Ver todos os vídeos</a>
+      </div>
       <p class="hero-target">Para traders que buscam execução objetiva baseada em Smart Money Concepts</p>
     </div>
 
