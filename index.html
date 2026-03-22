@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMC Execution Engine — by @abdallacrypto</title>
+<meta name="description" content="Indicador profissional de Smart Money Concepts para leitura estruturada e execução de alta probabilidade no TradingView.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES & RESET
+   ═══════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0f0f18;
+  --bg-card: #12121e;
+  --bg-card-hover: #181828;
+  --border-color: #1a1a2e;
+  --border-glow: #00ff8820;
+  --text-primary: #e8e8f0;
+  --text-secondary: #8888a0;
+  --text-muted: #555570;
+  --accent: #00ff88;
+  --accent-dim: #00cc6a;
+  --accent-glow: #00ff8830;
+  --accent-bg: #00ff8810;
+  --danger: #ff4466;
+  --danger-dim: #ff446630;
+  --warning: #ffaa00;
+  --warning-dim: #ffaa0030;
+  --pro-accent: #a78bfa;
+  --pro-glow: #a78bfa30;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'DM Sans', sans-serif;
+  --max-width: 480px;
+  --max-width-desktop: 1120px;
+  --section-gap: 80px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+a:hover { opacity: 0.85; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ═══════════════════════════════════════════
+   GLOBAL LAYOUT
+   ═══════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: var(--section-gap) 0;
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATED BACKGROUND GRID
+   ═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main { position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════
+   SECTION LABELS (01, 02, etc.)
+   ═══════════════════════════════════════════ */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-dim), transparent);
+  max-width: 100px;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.08;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  line-height: 1;
+  user-select: none;
+}
+
+.section-title {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION — MOBILE HAMBURGER
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.nav-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hamburger {
+  width: 28px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 110;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-overlay a {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+.nav-overlay a:hover { color: var(--accent); opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════ */
+#hero {
+  padding-top: 100px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-glow);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-title-line {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+.hero-title-line.large {
+  font-size: clamp(42px, 12vw, 72px);
+  color: var(--text-primary);
+}
+.hero-title-line.accent {
+  font-size: clamp(42px, 12vw, 72px);
+  background: linear-gradient(135deg, var(--accent), #00ccaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-title-line.small {
+  font-size: clamp(24px, 7vw, 40px);
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.hero-desc {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 28px auto 36px;
+  max-width: 380px;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 320px;
+  margin: 0 auto 24px;
+}
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px var(--accent-glow), 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.btn-primary:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px var(--accent-glow), 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+  opacity: 1;
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+.btn-pro {
+  background: linear-gradient(135deg, var(--pro-accent), #8b5cf6);
+  color: #fff;
+  box-shadow: 0 0 20px var(--pro-glow);
+}
+.btn-pro:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px var(--pro-glow);
+}
+
+.hero-manual {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--text-muted);
+  padding-bottom: 2px;
+}
+.hero-manual:hover { color: var(--accent); border-color: var(--accent); opacity: 1; }
+
+.hero-target {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* ═══════════════════════════════════════════
+   TRADE EXAMPLE CARD
+   ═══════════════════════════════════════════ */
+.trade-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 48px;
+}
+.trade-card-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+}
+.trade-pair {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.trade-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.trade-rr {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.trade-card-img {
+  width: 100%;
+  aspect-ratio: 16/11;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.trade-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.trade-card-body {
+  padding: 20px;
+}
+.trade-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.trade-card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO EMBED
+   ═══════════════════════════════════════════ */
+.video-wrapper {
+  margin-top: 40px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  aspect-ratio: 16/9;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  position: relative;
+}
+.video-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.video-play-btn::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent var(--accent);
+  margin-left: 4px;
+}
+.video-wrapper:hover .video-play-btn {
+  background: var(--accent);
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+.video-wrapper:hover .video-play-btn::after {
+  border-color: transparent transparent transparent var(--bg-primary);
+}
+
+/* ═══════════════════════════════════════════
+   PROBLEM SECTION
+   ═══════════════════════════════════════════ */
+.alert-box {
+  background: var(--bg-card);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.alert-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--danger);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.alert-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.alert-prob {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--danger);
+}
+
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.problem-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.problem-card-title .icon {
+  font-size: 20px;
+}
+.problem-card-desc {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.risk-meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.risk-meter label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.risk-meter .value {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+/* ═══════════════════════════════════════════
+   ARCHITECTURE SECTION
+   ═══════════════════════════════════════════ */
+.arch-image {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.arch-image img {
+  width: 100%;
+  display: block;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.feature-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.feature-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.feature-item h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--accent);
+}
+.feature-item p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   FUNCTIONALITY CARDS
+   ═══════════════════════════════════════════ */
+.func-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: border-color 0.3s;
+}
+.func-card:hover {
+  border-color: var(--accent-dim);
+}
+.func-card.pro {
+  border-color: #a78bfa40;
+}
+.func-card.pro:hover {
+  border-color: var(--pro-accent);
+}
+.func-card-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.func-card-label.pro-label {
+  color: var(--pro-accent);
+}
+.func-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.func-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.func-benefit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-dim);
+  line-height: 1.6;
+  padding: 12px;
+  background: var(--accent-bg);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--accent);
+}
+.func-benefit.pro-benefit {
+  color: var(--pro-accent);
+  background: var(--pro-glow);
+  border-color: var(--pro-accent);
+}
+
+.pro-badge {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pro-accent), #8b5cf6);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.beta-badge {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--warning);
+  border: 1px solid var(--warning);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.unlock-banner {
+  background: linear-gradient(135deg, #a78bfa15, #8b5cf615);
+  border: 1px solid #a78bfa30;
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  margin: 24px 0;
+}
+.unlock-banner p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   PRO FEATURES — BULLET LISTS
+   ═══════════════════════════════════════════ */
+.pro-list {
+  list-style: none;
+  margin: 12px 0;
+}
+.pro-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 4px 0 4px 20px;
+  position: relative;
+  line-height: 1.6;
+}
+.pro-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--pro-accent);
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════
+   AUDIENCE SECTION
+   ═══════════════════════════════════════════ */
+.audience-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.audience-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.audience-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.xp-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.xp-bar label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 90px;
+}
+.xp-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border-color);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.xp-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+.xp-level {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  min-width: 70px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════
+   PURCHASE / CTA SECTION
+   ═══════════════════════════════════════════ */
+.steps-list {
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 32px 0;
+}
+.step-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.step-content h4 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.step-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.price-tag {
+  font-family: var(--font-mono);
+  text-align: center;
+  margin: 32px 0;
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+.price-tag .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.price-tag .price {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.price-tag .price small {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.final-cta {
+  text-align: center;
+  margin-top: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, transparent, var(--accent-bg));
+  border-radius: var(--radius-lg);
+}
+.final-cta .tagline {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.final-cta .sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+footer p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 400px;
+  margin: 0 auto;
+}
+footer .copyright {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   SCANLINE EFFECT (subtle)
+   ═══════════════════════════════════════════ */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.15;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 200;
+}
+@keyframes scanline {
+  0% { top: -2px; }
+  100% { top: 100vh; }
+}
+
+/* ═══════════════════════════════════════════
+   SEPARATOR
+   ═══════════════════════════════════════════ */
+.sep {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 0 0 24px;
+}
+
+/* ═══════════════════════════════════════════
+   DESKTOP RESPONSIVE (768px+)
+   ═══════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .container {
+    max-width: var(--max-width-desktop);
+    padding: 0 40px;
+  }
+
+  :root {
+    --section-gap: 120px;
+  }
+
+  .nav { padding: 16px 40px; }
+
+  .hamburger { display: none; }
+
+  .nav-links-desktop {
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav-links-desktop a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links-desktop a:hover { color: var(--accent); opacity: 1; }
+
+  .hero-title-line.large { font-size: 80px; }
+  .hero-title-line.accent { font-size: 80px; }
+  .hero-title-line.small { font-size: 36px; }
+
+  .hero-desc {
+    font-size: 17px;
+    max-width: 540px;
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
+
+  .section-title { font-size: 32px; }
+  .section-number { font-size: 120px; top: 80px; right: 40px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .func-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .audience-card { margin-bottom: 0; }
+
+  .steps-list {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .step-item {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .trade-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .trade-card-img {
+    aspect-ratio: auto;
+    min-height: 300px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   HIDE/SHOW FOR MOBILE VS DESKTOP
+   ═══════════════════════════════════════════ */
+.nav-links-desktop { display: none; }
+
+@media (max-width: 767px) {
+  .nav-links-desktop { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="nav">
+  <div class="nav-logo">SMC EXECUTION ENGINE</div>
+  <div class="nav-links-desktop">
+    <a href="#problema">O Problema</a>
+    <a href="#arquitetura">Arquitetura</a>
+    <a href="#funcfree">Free</a>
+    <a href="#funcpro">PRO</a>
+    <a href="#exemplos">Exemplos</a>
+    <a href="#praquem">Para Quem</a>
+    <a href="#comprar" class="btn btn-primary" style="padding:8px 18px;font-size:11px;">QUERO SER PRO</a>
+  </div>
+  <div class="nav-status">ONLINE</div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="nav-overlay" id="navOverlay">
+  <a href="#hero" onclick="toggleNav()">Início</a>
+  <a href="#problema" onclick="toggleNav()">O Problema</a>
+  <a href="#arquitetura" onclick="toggleNav()">Arquitetura</a>
+  <a href="#funcfree" onclick="toggleNav()">Funcionalidades Free</a>
+  <a href="#funcpro" onclick="toggleNav()">Funcionalidades PRO</a>
+  <a href="#exemplos" onclick="toggleNav()">Exemplos</a>
+  <a href="#praquem" onclick="toggleNav()">Para Quem</a>
+  <a href="#comprar" onclick="toggleNav()">Quero ser PRO</a>
+</div>
+
+<main>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="reveal">
+      <div class="hero-badge"><span class="dot"></span> Status do Sistema: ONLINE</div>
+      <div class="hero-title-line large">SMC</div>
+      <div class="hero-title-line accent">EXECUTION</div>
+      <div class="hero-title-line small">ENGINE</div>
+      <p class="hero-desc">
+        Elimine a subjetividade. Execute com precisão.<br>
+        Indicador profissional de Smart Money Concepts para leitura estruturada e execução de alta probabilidade no TradingView.
+      </p>
+      <div class="hero-ctas">
+        <a href="#funcpro" class="btn btn-primary">VERSÃO PRO →</a>
+        <a href="https://www.tradingview.com/script/ligGO7B5-SMC-Execution-Engine-by-abdallacrypto/" target="_blank" class="btn btn-secondary">VERSÃO FREE</a>
+      </div>
+      <a href="https://nuanced-culture-933304.framer.app/manual" target="_blank" class="hero-manual">Manual de Instruções</a>
+      <p class="hero-target">Para traders que buscam execução objetiva baseada em Smart Money Concepts</p>
+    </div>
+
+    <!-- Video thumbnail -->
+    <div class="video-wrapper reveal" onclick="window.open('https://www.youtube.com/watch?v=hfWOR8DyBgk','_blank')">
+      <img src="https://i.ytimg.com/vi_webp/hfWOR8DyBgk/sddefault.webp" alt="SMC Execution Engine Demo" loading="lazy">
+      <div class="video-play-btn"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ O PROBLEMA ═══════════════════ -->
+<section id="problema">
+  <div class="container">
+    <span class="section-number">01</span>
+    <div class="section-label">O Problema</div>
+    <div class="sep"></div>
+
+    <div class="alert-box reveal">
+      <div class="alert-tag">Análise Subjetiva Identificada</div>
+      <h2 class="alert-title">O Problema da Subjetividade</h2>
+      <div class="alert-prob">Probabilidade de erro: ALTA</div>
+    </div>
+
+    <p class="section-subtitle reveal">
+      A leitura manual de gráficos frequentemente introduz viés, ruído emocional e inconsistência. Sem uma estrutura clara, o mesmo mercado pode ser interpretado de formas diferentes, levando a erros de execução.
+    </p>
+
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <h3 class="problem-card-title"><span class="icon">⚠️</span> Trading Emocional</h3>
+        <p class="problem-card-desc">
+          Decisões baseadas em medo, ganância ou ansiedade, em vez de contexto, estrutura e regras claras.
+        </p>
+        <div class="risk-meters">
+          <div class="risk-meter">
+            <label>Impacto na Execução</label>
+            <div class="value">Alto</div>
+          </div>
+          <div class="risk-meter">
+            <label>Risco Operacional</label>
+            <div class="value">Altíssimo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="problem-card reveal">
+        <h3 class="problem-card-title"><span class="icon">⚠️</span> Falta de um Plano Definido</h3>
+        <p class="problem-card-desc">
+          Operar sem critérios objetivos de entrada, saída, gestão de risco e leitura de mercado consistente.
+        </p>
+        <div class="risk-meters">
+          <div class="risk-meter">
+            <label>Impacto na Execução</label>
+            <div class="value">Alto</div>
+          </div>
+          <div class="risk-meter">
+            <label>Risco Operacional</label>
+            <div class="value">Altíssimo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ARQUITETURA ═══════════════════ -->
+<section id="arquitetura">
+  <div class="container">
+    <span class="section-number">02</span>
+    <div class="section-label">Arquitetura</div>
+    <div class="sep"></div>
+    <h2 class="section-title reveal">Precisão Estrutural</h2>
+    <p class="section-subtitle reveal">
+      O SMC Execution Engine não é um robô nem um sistema de sinais cego. Ele transforma a leitura de preço em um framework visual estruturado, permitindo decisões mais objetivas, repetíveis e disciplinadas.
+    </p>
+
+    <div class="arch-image reveal">
+      <img src="https://framerusercontent.com/images/OjYrOj6rqOxnKOwp4WoDw1YRSQs.png" alt="Arquitetura do SMC Execution Engine" loading="lazy">
+    </div>
+
+    <div class="feature-list">
+      <div class="feature-item reveal">
+        <div class="feature-dot"></div>
+        <div>
+          <h4>Mapeamento Automático de Estrutura</h4>
+          <p>Identificação em tempo real de BOS (Break of Structure) e CHOCH (Change of Character).</p>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-dot"></div>
+        <div>
+          <h4>Lógica de Fibonacci Estrutural</h4>
+          <p>Cálculo automático de zonas de premium e discount com base na estrutura válida.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-dot"></div>
+        <div>
+          <h4>Validação de Order Blocks</h4>
+          <p>Destaque de order blocks relevantes alinhados ao contexto institucional.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-dot"></div>
+        <div>
+          <h4>Contexto de Execução</h4>
+          <p>Zonas de alta probabilidade destacadas para apoiar a tomada de decisão, sem substituir o julgamento do trader.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FUNCIONALIDADES FREE ═══════════════════ -->
+<section id="funcfree">
+  <div class="container">
+    <span class="section-number">03</span>
+    <div class="section-label">Principais Funcionalidades</div>
+    <div class="sep"></div>
+    <h2 class="section-title reveal">Versão Free</h2>
+
+    <div class="func-grid">
+      <div class="func-card reveal">
+        <h3>Estrutura de Mercado<br><small style="font-size:13px;color:var(--text-secondary);font-weight:400;">CHOCH & BOS</small></h3>
+        <p>Identifica mudanças e continuidades na estrutura de mercado, ajudando o trader a diferenciar reversões reais de correções.</p>
+        <div class="func-benefit">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
+      </div>
+
+      <div class="func-card reveal">
+        <h3>Zonas de Execução com Fibonacci</h3>
+        <p>Define automaticamente zonas de interesse com base na estrutura, facilitando entradas mais precisas em premium e discount.</p>
+        <div class="func-benefit">BENEFÍCIO: Ajuda o trader a aguardar zonas de maior probabilidade, reduzindo entradas antecipadas e melhorando o timing de execução.</div>
+      </div>
+
+      <div class="func-card reveal">
+        <h3>Order Blocks Contextuais</h3>
+        <p>Destaque visual de order blocks relevantes, filtrando zonas fracas e ruído de mercado.</p>
+        <div class="func-benefit">BENEFÍCIO: Filtra zonas de interesse relevantes, eliminando excesso de informação e ruído visual no gráfico.</div>
+      </div>
+
+      <div class="func-card reveal">
+        <h3>Execução Assistida</h3>
+        <p>Entrega contexto claro para execução disciplinada, reduzindo decisões impulsivas e entradas fora de contexto.</p>
+        <div class="func-benefit">BENEFÍCIO: Facilita decisões mais consistentes, reduzindo impacto emocional e entradas fora de contexto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FUNCIONALIDADES PRO ═══════════════════ -->
+<section id="funcpro">
+  <div class="container">
+    <span class="section-number">04</span>
+    <div class="section-label pro-label" style="color:var(--pro-accent);">Funcionalidades Exclusivas PRO</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
+    <h2 class="section-title reveal">Motor Avançado de Alertas</h2>
+    <p class="section-subtitle reveal">
+      O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, desenvolvido para transformar leitura de mercado em execução objetiva e disciplinada, sem depender de monitoramento constante do gráfico.
+    </p>
+
+    <div class="func-grid">
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO</div>
+        <h3>Alertas Intrabar em Tempo Real <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
+        <p>Alertas avaliados intrabar, em tempo real, sem esperar o fechamento do candle, combinando estrutura, Fibonacci e Order Blocks.</p>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO</div>
+        <h3>Inteligência de Contexto e Filtros Anti-Ruído</h3>
+        <p>O PRO entende quando não alertar, aplicando regras de qualidade para evitar ruído operacional.</p>
+        <ul class="pro-list">
+          <li>Um alerta por contexto</li>
+          <li>Bloqueio no candle de CHOCH ou BOS</li>
+          <li>Reativação apenas após nova mudança estrutural</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Reduz drasticamente ruído operacional e fadiga decisória, mantendo o foco apenas em oportunidades válidas.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO</div>
+        <h3>Execução Assistida com Leitura Estrutural Automática</h3>
+        <p>A função "any alert() function call" do PRO traz contexto claro: motivo do disparo, confluência envolvida e direção do mercado. Fibonacci estrutural é gerenciada automaticamente.</p>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO</div>
+        <h3>Presença Institucional Confirmada</h3>
+        <p>O PRO só confirma um Order Block quando há evidência real de atuação institucional:</p>
+        <ul class="pro-list">
+          <li>Deslocamento mínimo proporcional ao ATR</li>
+          <li>Impulso validado dentro de janela temporal</li>
+          <li>FVG opcional como assinatura de eficiência</li>
+          <li>Bloqueio automático de validações fracas</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
+      </div>
+
+      <div class="func-card pro reveal">
+        <div class="func-card-label pro-label">PRO <span class="beta-badge">BETA</span></div>
+        <h3>Modos Avançados de Confluência <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
+        <p>Múltiplos modos de alerta permitem ajustar seletividade entre Fibonacci, Order Blocks e confluências estruturais:</p>
+        <ul class="pro-list">
+          <li>Fibonacci profundo</li>
+          <li>Entrada direcional em OB</li>
+          <li>Confluência OB + Fibonacci</li>
+          <li>Sequência lógica Fib → OB</li>
+        </ul>
+        <div class="func-benefit pro-benefit">BENEFÍCIO: Adapta o motor de alertas ao seu estilo operacional, equilibrando frequência de sinais e qualidade de execução.</div>
+      </div>
+    </div>
+
+    <div class="unlock-banner reveal">
+      <p>Desbloqueie o motor avançado de alertas do SMC Execution Engine PRO</p>
+      <a href="#comprar" class="btn btn-pro">Desbloquear Agora →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ EXEMPLOS REAIS ═══════════════════ -->
+<section id="exemplos">
+  <div class="container">
+    <span class="section-number">05</span>
+    <div class="section-label">Exemplos Reais</div>
+    <div class="sep"></div>
+
+    <div class="trade-card reveal">
+      <div class="trade-card-img">
+        <img src="https://framerusercontent.com/images/Dn90xw2tbY9Soh5XWshJlgXKfM.png" alt="BTCUSDT Trade Setup" loading="lazy">
+      </div>
+      <div class="trade-card-body">
+        <div class="trade-card-header" style="padding:0 0 16px;border:none;">
+          <div>
+            <div class="trade-pair">BTCUSDT</div>
+            <div class="trade-id">ID: 001</div>
+          </div>
+          <div class="trade-rr">R:R 3.69:1</div>
+        </div>
+        <h3 class="trade-card-title">Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural</h3>
+        <p class="trade-card-desc">
+          Em 31/jan/2026, o Bitcoin testou a região de mínima no gráfico mensal. No tempo gráfico de 5 min, observamos o rompimento momentâneo do topo anterior ativando um evento de break-mode (wick).<br><br>
+          O SMC Execution Engine identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução.
+        </p>
+      </div>
+    </div>
+
+    <div class="trade-card reveal" style="margin-top:24px;">
+      <div class="trade-card-img">
+        <img src="https://framerusercontent.com/images/rHi1QXE5Un08DGMQqBmKWBeuo.png" alt="HYPEUSDT Trade Setup" loading="lazy">
+      </div>
+      <div class="trade-card-body">
+        <div class="trade-card-header" style="padding:0 0 16px;border:none;">
+          <div>
+            <div class="trade-pair">HYPEUSDT</div>
+            <div class="trade-id">ID: 002</div>
+          </div>
+          <div class="trade-rr">R:R 5.83:1</div>
+        </div>
+        <h3 class="trade-card-title">Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade</h3>
+        <p class="trade-card-desc">
+          Em 10/out/2025, após um forte movimento de queda no mercado cripto, o SMC Execution Engine PRO identificou a região de oferta responsável pela impulsão inicial do movimento.<br><br>
+          Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PARA QUEM ═══════════════════ -->
+<section id="praquem">
+  <div class="container">
+    <span class="section-number">06</span>
+    <div class="section-label">Para Quem É</div>
+    <div class="sep"></div>
+    <h2 class="section-title reveal">Pra Quem é o SMC Execution Engine</h2>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <h3>🚀 Traders Em Evolução</h3>
+        <p>Traders com conhecimento básico em análise técnica, que buscam sair da inconsistência e evoluir para uma abordagem de trade mais estruturada e consistente, utilizando conceitos avançados como Smart Money Concepts (SMC).</p>
+        <div class="xp-bar">
+          <label>Nível Exp</label>
+          <div class="xp-track"><div class="xp-fill" style="width:30%;"></div></div>
+          <span class="xp-level">Básico</span>
+        </div>
+        <div class="xp-bar">
+          <label>Conhecimento</label>
+          <div class="xp-track"><div class="xp-fill" style="width:50%;"></div></div>
+          <span class="xp-level">Intermediário</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal">
+        <h3>🎯 Experientes, porém Inconsistentes</h3>
+        <p>Traders com vários anos de experiência que já testaram diversas estratégias, mas enfrentam dificuldades com consistência e frequentemente caem em armadilhas de mercado.</p>
+        <div class="xp-bar">
+          <label>Nível Exp</label>
+          <div class="xp-track"><div class="xp-fill" style="width:70%;"></div></div>
+          <span class="xp-level">Avançado</span>
+        </div>
+        <div class="xp-bar">
+          <label>Conhecimento</label>
+          <div class="xp-track"><div class="xp-fill" style="width:60%;"></div></div>
+          <span class="xp-level">Proficiente</span>
+        </div>
+      </div>
+
+      <div class="audience-card reveal">
+        <h3>🧠 Entusiastas de SMC</h3>
+        <p>Traders que já possuem familiaridade com Smart Money Concepts e buscam ativamente ferramentas e indicadores para aprimorar sua análise, validar seus vieses e refinar pontos de entrada e saída.</p>
+        <div class="xp-bar">
+          <label>Nível Exp</label>
+          <div class="xp-track"><div class="xp-fill" style="width:85%;"></div></div>
+          <span class="xp-level">Avançado</span>
+        </div>
+        <div class="xp-bar">
+          <label>Conhecimento</label>
+          <div class="xp-track"><div class="xp-fill" style="width:90%;"></div></div>
+          <span class="xp-level">Avançado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COMPRAR ═══════════════════ -->
+<section id="comprar">
+  <div class="container">
+    <span class="section-number">07</span>
+    <div class="section-label">Solicitar Acesso PRO</div>
+    <div class="sep"></div>
+    <h2 class="section-title reveal">Como Adquirir</h2>
+
+    <div class="price-tag reveal">
+      <div class="label">Investimento</div>
+      <div class="price">12x <small>de</small> R$ 97<small>,00</small></div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-item reveal">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Realize a Compra</h4>
+          <p>Adquira o acesso através da plataforma oficial.</p>
+        </div>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Informe seu Usuário</h4>
+          <p>Após a compra, envie seu usuário do TradingView através do formulário por e-mail.</p>
+        </div>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Receba o Acesso</h4>
+          <p>Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;" class="reveal">
+      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn btn-primary" style="padding:16px 40px;font-size:15px;">COMPRAR AGORA →</a>
+    </div>
+
+    <div class="final-cta reveal">
+      <div class="tagline">Pare de adivinhar. Comece a executar.</div>
+      <p class="sub">Junte-se a traders que utilizam o SMC Execution Engine PRO</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="container">
+    <p class="copyright">© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
+    <p>
+      Proibida a cópia, redistribuição ou revenda. Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto.
+    </p>
+  </div>
+</footer>
+
+<!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+// Mobile nav toggle
+function toggleNav() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('navOverlay').classList.toggle('active');
+  document.body.style.overflow = document.getElementById('navOverlay').classList.contains('active') ? 'hidden' : '';
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// XP bar animation on scroll
+const xpObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.xp-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => bar.style.width = w, 200);
+      });
+      xpObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el));
+</script>
+
+</body>
+</html>
