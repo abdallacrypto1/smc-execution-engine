@@ -192,6 +192,11 @@ section:last-of-type { border-bottom: none; }
   font-size: 12px;
   color: var(--text-muted);
 }
+.toc-list .toc-main {
+  color: var(--text-primary);
+  font-weight: 600;
+  border-left: 2px solid var(--accent);
+}
 
 /* Desktop sidebar TOC */
 @media (min-width: 1100px) {
@@ -553,30 +558,30 @@ footer p {
 <aside class="toc-sidebar" id="tocSidebar">
   <div class="toc-title">Índice</div>
   <ul class="toc-list">
-    <li><a href="#intro">O que é</a></li>
-    <li><a href="#glossario">Glossário</a></li>
-    <li><a href="#conceitos">Conceitos Principais</a></li>
+    <li><a href="#intro" class="toc-main">O que é</a></li>
+    <li><a href="#glossario" class="toc-main">Glossário</a></li>
+    <li><a href="#conceitos" class="toc-main">Conceitos Principais</a></li>
     <li><a href="#conceitos" class="toc-sub">Swings (Fractal K)</a></li>
     <li><a href="#bos" class="toc-sub">BOS</a></li>
     <li><a href="#choch" class="toc-sub">CHOCH</a></li>
     <li><a href="#ancora" class="toc-sub">Âncora</a></li>
-    <li><a href="#fibonacci">Fibonacci</a></li>
+    <li><a href="#fibonacci" class="toc-main">Fibonacci</a></li>
     <li><a href="#fiba" class="toc-sub">Fib A</a></li>
     <li><a href="#fibb" class="toc-sub">Fib B</a></li>
-    <li><a href="#ob">Order Blocks</a></li>
+    <li><a href="#ob" class="toc-main">Order Blocks</a></li>
     <li><a href="#ob-status" class="toc-sub">Status (Pending → Valid)</a></li>
     <li><a href="#ob-confirmacao" class="toc-sub">Confirmação PRO</a></li>
     <li><a href="#ob-mitigacao" class="toc-sub">Mitigação</a></li>
     <li><a href="#ob-historico" class="toc-sub">Histórico</a></li>
-    <li><a href="#alertas">Alertas PRO</a></li>
+    <li><a href="#alertas" class="toc-main">Alertas PRO</a></li>
     <li><a href="#alert-modos" class="toc-sub">Modos de Alerta</a></li>
     <li><a href="#alert-regras" class="toc-sub">Regras Anti-Spam</a></li>
     <li><a href="#alert-config" class="toc-sub">Como Configurar</a></li>
-    <li><a href="#hud">HUD Multi-Timeframe</a></li>
+    <li><a href="#hud" class="toc-main">HUD Multi-Timeframe</a></li>
     <li><a href="#strictness" class="toc-sub">Strictness</a></li>
-    <li><a href="#configs">Configurações Recomendadas</a></li>
-    <li><a href="#uso">Como Usar na Prática</a></li>
-    <li><a href="#faq">FAQ / Troubleshooting</a></li>
+    <li><a href="#configs" class="toc-main">Configurações Recomendadas</a></li>
+    <li><a href="#uso" class="toc-main">Como Usar na Prática</a></li>
+    <li><a href="#faq" class="toc-main">FAQ / Troubleshooting</a></li>
     <li><a href="#aviso">Aviso Legal</a></li>
   </ul>
 </aside>
