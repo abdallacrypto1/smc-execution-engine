@@ -544,6 +544,27 @@ footer p {
   -webkit-overflow-scrolling: touch;
   margin: 16px 0;
 }
+
+/* ═══════════════════════════════════════════
+   LANG TOGGLE
+   ═══════════════════════════════════════════ */
+.lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 </style>
 </head>
 <body>
@@ -551,57 +572,58 @@ footer p {
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
   <div class="nav-logo">SMC EXECUTION ENGINE</div>
-  <a href="index.html" class="nav-back">← Voltar ao Início</a>
+  <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+  <a href="index.html" class="nav-back" data-pt="← Voltar ao Início" data-en="← Back to Home">← Voltar ao Início</a>
 </nav>
 
 <!-- ═══════════════════ TOC SIDEBAR (desktop) ═══════════════════ -->
 <aside class="toc-sidebar" id="tocSidebar">
-  <div class="toc-title">Índice</div>
+  <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
   <ul class="toc-list">
-    <li><a href="#intro" class="toc-main">O que é</a></li>
-    <li><a href="#glossario" class="toc-main">Glossário</a></li>
-    <li><a href="#conceitos" class="toc-main">Conceitos Principais</a></li>
-    <li><a href="#conceitos" class="toc-sub">Swings (Fractal K)</a></li>
+    <li><a href="#intro" class="toc-main" data-pt="O que é" data-en="What It Is">O que é</a></li>
+    <li><a href="#glossario" class="toc-main" data-pt="Glossário" data-en="Glossary">Glossário</a></li>
+    <li><a href="#conceitos" class="toc-main" data-pt="Conceitos Principais" data-en="Core Concepts">Conceitos Principais</a></li>
+    <li><a href="#conceitos" class="toc-sub" data-pt="Swings (Fractal K)" data-en="Swings (Fractal K)">Swings (Fractal K)</a></li>
     <li><a href="#bos" class="toc-sub">BOS</a></li>
     <li><a href="#choch" class="toc-sub">CHOCH</a></li>
-    <li><a href="#ancora" class="toc-sub">Âncora</a></li>
+    <li><a href="#ancora" class="toc-sub" data-pt="Âncora" data-en="Anchor">Âncora</a></li>
     <li><a href="#fibonacci" class="toc-main">Fibonacci</a></li>
     <li><a href="#fiba" class="toc-sub">Fib A</a></li>
     <li><a href="#fibb" class="toc-sub">Fib B</a></li>
     <li><a href="#ob" class="toc-main">Order Blocks</a></li>
     <li><a href="#ob-status" class="toc-sub">Status (Pending → Valid)</a></li>
-    <li><a href="#ob-confirmacao" class="toc-sub">Confirmação PRO</a></li>
-    <li><a href="#ob-mitigacao" class="toc-sub">Mitigação</a></li>
-    <li><a href="#ob-historico" class="toc-sub">Histórico</a></li>
-    <li><a href="#alertas" class="toc-main">Alertas PRO</a></li>
-    <li><a href="#alert-modos" class="toc-sub">Modos de Alerta</a></li>
-    <li><a href="#alert-regras" class="toc-sub">Regras Anti-Spam</a></li>
-    <li><a href="#alert-config" class="toc-sub">Como Configurar</a></li>
+    <li><a href="#ob-confirmacao" class="toc-sub" data-pt="Confirmação PRO" data-en="PRO Confirmation">Confirmação PRO</a></li>
+    <li><a href="#ob-mitigacao" class="toc-sub" data-pt="Mitigação" data-en="Mitigation">Mitigação</a></li>
+    <li><a href="#ob-historico" class="toc-sub" data-pt="Histórico" data-en="History">Histórico</a></li>
+    <li><a href="#alertas" class="toc-main" data-pt="Alertas PRO" data-en="PRO Alerts">Alertas PRO</a></li>
+    <li><a href="#alert-modos" class="toc-sub" data-pt="Modos de Alerta" data-en="Alert Modes">Modos de Alerta</a></li>
+    <li><a href="#alert-regras" class="toc-sub" data-pt="Regras Anti-Spam" data-en="Anti-Spam Rules">Regras Anti-Spam</a></li>
+    <li><a href="#alert-config" class="toc-sub" data-pt="Como Configurar" data-en="How to Configure">Como Configurar</a></li>
     <li><a href="#hud" class="toc-main">HUD Multi-Timeframe</a></li>
     <li><a href="#strictness" class="toc-sub">Strictness</a></li>
-    <li><a href="#configs" class="toc-main">Configurações Recomendadas</a></li>
-    <li><a href="#uso" class="toc-main">Como Usar na Prática</a></li>
+    <li><a href="#configs" class="toc-main" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</a></li>
+    <li><a href="#uso" class="toc-main" data-pt="Como Usar na Prática" data-en="How to Use in Practice">Como Usar na Prática</a></li>
     <li><a href="#faq" class="toc-main">FAQ / Troubleshooting</a></li>
-    <li><a href="#aviso">Aviso Legal</a></li>
+    <li><a href="#aviso" data-pt="Aviso Legal" data-en="Legal Disclaimer">Aviso Legal</a></li>
   </ul>
 </aside>
 
 <!-- ═══════════════════ TOC MOBILE BUTTON ═══════════════════ -->
 <button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
 <div class="toc-overlay" id="tocOverlay">
-  <div class="toc-title">Índice</div>
+  <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
   <ul class="toc-list">
-    <li><a href="#intro" onclick="toggleToc()">O que é</a></li>
-    <li><a href="#glossario" onclick="toggleToc()">Glossário</a></li>
-    <li><a href="#conceitos" onclick="toggleToc()">Conceitos Principais</a></li>
+    <li><a href="#intro" onclick="toggleToc()" data-pt="O que é" data-en="What It Is">O que é</a></li>
+    <li><a href="#glossario" onclick="toggleToc()" data-pt="Glossário" data-en="Glossary">Glossário</a></li>
+    <li><a href="#conceitos" onclick="toggleToc()" data-pt="Conceitos Principais" data-en="Core Concepts">Conceitos Principais</a></li>
     <li><a href="#fibonacci" onclick="toggleToc()">Fibonacci</a></li>
     <li><a href="#ob" onclick="toggleToc()">Order Blocks</a></li>
-    <li><a href="#alertas" onclick="toggleToc()">Alertas PRO</a></li>
+    <li><a href="#alertas" onclick="toggleToc()" data-pt="Alertas PRO" data-en="PRO Alerts">Alertas PRO</a></li>
     <li><a href="#hud" onclick="toggleToc()">HUD Multi-Timeframe</a></li>
-    <li><a href="#configs" onclick="toggleToc()">Configurações Recomendadas</a></li>
-    <li><a href="#uso" onclick="toggleToc()">Como Usar na Prática</a></li>
+    <li><a href="#configs" onclick="toggleToc()" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</a></li>
+    <li><a href="#uso" onclick="toggleToc()" data-pt="Como Usar na Prática" data-en="How to Use in Practice">Como Usar na Prática</a></li>
     <li><a href="#faq" onclick="toggleToc()">FAQ / Troubleshooting</a></li>
-    <li><a href="#aviso" onclick="toggleToc()">Aviso Legal</a></li>
+    <li><a href="#aviso" onclick="toggleToc()" data-pt="Aviso Legal" data-en="Legal Disclaimer">Aviso Legal</a></li>
   </ul>
 </div>
 
@@ -610,16 +632,16 @@ footer p {
 <!-- ═══════════════════ INTRO ═══════════════════ -->
 <section id="intro" style="padding-top:100px;">
   <div class="container">
-    <div class="section-label">Manual de Instruções</div>
+    <div class="section-label" data-pt="Manual de Instruções" data-en="User Manual">Manual de Instruções</div>
     <div class="sep"></div>
-    <h2 class="reveal">O que é o SMC Execution Engine</h2>
-    <p class="reveal">O <strong>SMC Execution Engine</strong> é uma ferramenta de leitura estrutural e apoio à execução baseada em Smart Money Concepts (SMC).</p>
-    <p class="reveal">Ele transforma a ação do preço em um mapa claro e consistente, usando swings, BOS e CHOCH, e projeta zonas de interesse por meio de Fibonacci automático e Order Blocks do contexto atual.</p>
-    <p class="reveal">O objetivo não é gerar sinais automáticos, mas oferecer <strong>contexto, níveis e alertas de evento (versão PRO)</strong>, para que o trader execute com mais disciplina e menos ruído.</p>
+    <h2 class="reveal" data-pt="O que é o SMC Execution Engine" data-en="What Is the SMC Execution Engine">O que é o SMC Execution Engine</h2>
+    <p class="reveal" data-pt="O <strong>SMC Execution Engine</strong> é uma ferramenta de leitura estrutural e apoio à execução baseada em Smart Money Concepts (SMC)." data-en="The <strong>SMC Execution Engine</strong> is a structural reading and execution support tool based on Smart Money Concepts (SMC).">O <strong>SMC Execution Engine</strong> é uma ferramenta de leitura estrutural e apoio à execução baseada em Smart Money Concepts (SMC).</p>
+    <p class="reveal" data-pt="Ele transforma a ação do preço em um mapa claro e consistente, usando swings, BOS e CHOCH, e projeta zonas de interesse por meio de Fibonacci automático e Order Blocks do contexto atual." data-en="It transforms price action into a clear and consistent map, using swings, BOS and CHoCH, and projects zones of interest through automatic Fibonacci and Order Blocks from the current context.">Ele transforma a ação do preço em um mapa claro e consistente, usando swings, BOS e CHOCH, e projeta zonas de interesse por meio de Fibonacci automático e Order Blocks do contexto atual.</p>
+    <p class="reveal" data-pt="O objetivo não é gerar sinais automáticos, mas oferecer <strong>contexto, níveis e alertas de evento (versão PRO)</strong>, para que o trader execute com mais disciplina e menos ruído." data-en="The goal is not to generate automatic signals, but to provide <strong>context, levels and event alerts (PRO version)</strong>, so the trader executes with more discipline and less noise.">O objetivo não é gerar sinais automáticos, mas oferecer <strong>contexto, níveis e alertas de evento (versão PRO)</strong>, para que o trader execute com mais disciplina e menos ruído.</p>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Princípio Central</div>
-      <p style="margin:0;">O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural.</p>
+      <div class="info-card-tag green" data-pt="Princípio Central" data-en="Core Principle">Princípio Central</div>
+      <p style="margin:0;" data-pt="O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural." data-en="The indicator operates on a <strong>persistent regime</strong> (UP, DOWN or NONE) that governs all subsequent logic — structure, zones, order blocks and alerts. Everything stems from structural reading.">O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural.</p>
     </div>
   </div>
 </section>
@@ -627,28 +649,28 @@ footer p {
 <!-- ═══════════════════ GLOSSÁRIO ═══════════════════ -->
 <section id="glossario">
   <div class="container">
-    <div class="section-label">Referência Rápida</div>
+    <div class="section-label" data-pt="Referência Rápida" data-en="Quick Reference">Referência Rápida</div>
     <div class="sep"></div>
-    <h2 class="reveal">Glossário</h2>
-    <p class="reveal">Termos essenciais utilizados ao longo deste manual e no indicador.</p>
+    <h2 class="reveal" data-pt="Glossário" data-en="Glossary">Glossário</h2>
+    <p class="reveal" data-pt="Termos essenciais utilizados ao longo deste manual e no indicador." data-en="Essential terms used throughout this manual and in the indicator.">Termos essenciais utilizados ao longo deste manual e no indicador.</p>
 
     <div class="table-wrap reveal">
       <table class="glossary-table">
         <thead>
-          <tr><th>Termo</th><th>Definição</th></tr>
+          <tr><th data-pt="Termo" data-en="Term">Termo</th><th data-pt="Definição" data-en="Definition">Definição</th></tr>
         </thead>
         <tbody>
-          <tr><td>BOS</td><td>Break of Structure — rompimento que confirma a continuidade da tendência vigente.</td></tr>
-          <tr><td>CHOCH</td><td>Change of Character — rompimento que indica possível inversão de regime (UP → DOWN ou vice-versa).</td></tr>
-          <tr><td>Regime</td><td>Estado persistente do mercado (UP, DOWN ou NONE) que governa toda a lógica do indicador.</td></tr>
-          <tr><td>Anchor</td><td>Nível de guarda estrutural — último fundo válido (regime UP) ou topo válido (regime DOWN).</td></tr>
-          <tr><td>OB</td><td>Order Block — zona de preço derivada do candle do anchor, representando área de interesse institucional.</td></tr>
-          <tr><td>FVG</td><td>Fair Value Gap — gap entre candles que indica desequilíbrio de preço e eficiência institucional.</td></tr>
-          <tr><td>ATR</td><td>Average True Range — medida de volatilidade média utilizada para calibrar gates de validação.</td></tr>
-          <tr><td>Mitigação</td><td>Quando o preço retorna e "preenche" um Order Block, invalidando-o como zona ativa.</td></tr>
-          <tr><td>Fractal K</td><td>Número de candles à esquerda e direita necessários para confirmar um swing (pivô).</td></tr>
-          <tr><td>Displacement</td><td>Impulso de preço pós-rompimento; precisa exceder ATR × multiplicador para validar um OB.</td></tr>
-          <tr><td>Strictness</td><td>Nível de exigência (0–10) para validação de Order Blocks. Quanto maior, mais rigoroso.</td></tr>
+          <tr><td>BOS</td><td data-pt="Break of Structure — rompimento que confirma a continuidade da tendência vigente." data-en="Break of Structure — breakout that confirms the continuation of the current trend.">Break of Structure — rompimento que confirma a continuidade da tendência vigente.</td></tr>
+          <tr><td>CHOCH</td><td data-pt="Change of Character — rompimento que indica possível inversão de regime (UP → DOWN ou vice-versa)." data-en="Change of Character — breakout that indicates a possible regime reversal (UP → DOWN or vice-versa).">Change of Character — rompimento que indica possível inversão de regime (UP → DOWN ou vice-versa).</td></tr>
+          <tr><td data-pt="Regime" data-en="Regime">Regime</td><td data-pt="Estado persistente do mercado (UP, DOWN ou NONE) que governa toda a lógica do indicador." data-en="Persistent market state (UP, DOWN or NONE) that governs all indicator logic.">Estado persistente do mercado (UP, DOWN ou NONE) que governa toda a lógica do indicador.</td></tr>
+          <tr><td>Anchor</td><td data-pt="Nível de guarda estrutural — último fundo válido (regime UP) ou topo válido (regime DOWN)." data-en="Structural guardrail level — last valid low (UP regime) or last valid high (DOWN regime).">Nível de guarda estrutural — último fundo válido (regime UP) ou topo válido (regime DOWN).</td></tr>
+          <tr><td>OB</td><td data-pt="Order Block — zona de preço derivada do candle do anchor, representando área de interesse institucional." data-en="Order Block — price zone derived from the anchor candle, representing an area of institutional interest.">Order Block — zona de preço derivada do candle do anchor, representando área de interesse institucional.</td></tr>
+          <tr><td>FVG</td><td data-pt="Fair Value Gap — gap entre candles que indica desequilíbrio de preço e eficiência institucional." data-en="Fair Value Gap — gap between candles indicating price imbalance and institutional efficiency.">Fair Value Gap — gap entre candles que indica desequilíbrio de preço e eficiência institucional.</td></tr>
+          <tr><td>ATR</td><td data-pt="Average True Range — medida de volatilidade média utilizada para calibrar gates de validação." data-en="Average True Range — measure of average volatility used to calibrate validation gates.">Average True Range — medida de volatilidade média utilizada para calibrar gates de validação.</td></tr>
+          <tr><td data-pt="Mitigação" data-en="Mitigation">Mitigação</td><td data-pt="Quando o preço retorna e &quot;preenche&quot; um Order Block, invalidando-o como zona ativa." data-en="When price returns and &quot;fills&quot; an Order Block, invalidating it as an active zone.">Quando o preço retorna e "preenche" um Order Block, invalidando-o como zona ativa.</td></tr>
+          <tr><td>Fractal K</td><td data-pt="Número de candles à esquerda e direita necessários para confirmar um swing (pivô)." data-en="Number of candles to the left and right required to confirm a swing (pivot).">Número de candles à esquerda e direita necessários para confirmar um swing (pivô).</td></tr>
+          <tr><td>Displacement</td><td data-pt="Impulso de preço pós-rompimento; precisa exceder ATR × multiplicador para validar um OB." data-en="Post-breakout price impulse; must exceed ATR × multiplier to validate an OB.">Impulso de preço pós-rompimento; precisa exceder ATR × multiplicador para validar um OB.</td></tr>
+          <tr><td>Strictness</td><td data-pt="Nível de exigência (0–10) para validação de Order Blocks. Quanto maior, mais rigoroso." data-en="Strictness level (0–10) for Order Block validation. Higher means more demanding.">Nível de exigência (0–10) para validação de Order Blocks. Quanto maior, mais rigoroso.</td></tr>
         </tbody>
       </table>
     </div>
@@ -658,185 +680,185 @@ footer p {
 <!-- ═══════════════════ CONCEITOS PRINCIPAIS ═══════════════════ -->
 <section id="conceitos">
   <div class="container">
-    <div class="section-label">Fundamentos</div>
+    <div class="section-label" data-pt="Fundamentos" data-en="Fundamentals">Fundamentos</div>
     <div class="sep"></div>
-    <h2 class="reveal">Conceitos Principais</h2>
+    <h2 class="reveal" data-pt="Conceitos Principais" data-en="Core Concepts">Conceitos Principais</h2>
 
     <!-- Swings -->
-    <h3 class="reveal" id="swings">Estrutura de Swings (Fractal K)</h3>
-    <p class="reveal">Os swings são definidos por pivôs de alta e baixa, controlados pelo parâmetro <strong>Fractal K</strong>. O indicador identifica um swing quando há K candles de cada lado confirmando o ponto como máxima ou mínima local.</p>
+    <h3 class="reveal" id="swings" data-pt="Estrutura de Swings (Fractal K)" data-en="Swing Structure (Fractal K)">Estrutura de Swings (Fractal K)</h3>
+    <p class="reveal" data-pt="Os swings são definidos por pivôs de alta e baixa, controlados pelo parâmetro <strong>Fractal K</strong>. O indicador identifica um swing quando há K candles de cada lado confirmando o ponto como máxima ou mínima local." data-en="Swings are defined by high and low pivots, controlled by the <strong>Fractal K</strong> parameter. The indicator identifies a swing when there are K candles on each side confirming the point as a local high or low.">Os swings são definidos por pivôs de alta e baixa, controlados pelo parâmetro <strong>Fractal K</strong>. O indicador identifica um swing quando há K candles de cada lado confirmando o ponto como máxima ou mínima local.</p>
     <ul class="manual-list reveal">
-      <li><strong>K maior</strong> → estrutura mais limpa e conservadora (menos swings, mais significativos)</li>
-      <li><strong>K menor</strong> → estrutura mais sensível e reativa (mais swings, mais ruído)</li>
+      <li data-pt="<strong>K maior</strong> → estrutura mais limpa e conservadora (menos swings, mais significativos)" data-en="<strong>Higher K</strong> → cleaner and more conservative structure (fewer swings, more significant)"><strong>K maior</strong> → estrutura mais limpa e conservadora (menos swings, mais significativos)</li>
+      <li data-pt="<strong>K menor</strong> → estrutura mais sensível e reativa (mais swings, mais ruído)" data-en="<strong>Lower K</strong> → more sensitive and reactive structure (more swings, more noise)"><strong>K menor</strong> → estrutura mais sensível e reativa (mais swings, mais ruído)</li>
     </ul>
-    <p class="reveal">A partir desses swings, o indicador detecta dois tipos de quebra estrutural: BOS e CHOCH.</p>
+    <p class="reveal" data-pt="A partir desses swings, o indicador detecta dois tipos de quebra estrutural: BOS e CHOCH." data-en="From these swings, the indicator detects two types of structural break: BOS and CHoCH.">A partir desses swings, o indicador detecta dois tipos de quebra estrutural: BOS e CHOCH.</p>
 
     <!-- BOS -->
     <h3 class="reveal" id="bos">Break of Structure (BOS)</h3>
-    <p class="reveal">O BOS ocorre quando o preço rompe o último swing na <strong>mesma direção</strong> do regime vigente, confirmando continuidade da tendência.</p>
+    <p class="reveal" data-pt="O BOS ocorre quando o preço rompe o último swing na <strong>mesma direção</strong> do regime vigente, confirmando continuidade da tendência." data-en="BOS occurs when price breaks the last swing in the <strong>same direction</strong> as the current regime, confirming trend continuation.">O BOS ocorre quando o preço rompe o último swing na <strong>mesma direção</strong> do regime vigente, confirmando continuidade da tendência.</p>
     <ul class="manual-list reveal">
-      <li>BOS de alta → rompe o último swing high (regime UP)</li>
-      <li>BOS de baixa → rompe o último swing low (regime DOWN)</li>
+      <li data-pt="BOS de alta → rompe o último swing high (regime UP)" data-en="Bullish BOS → breaks the last swing high (UP regime)">BOS de alta → rompe o último swing high (regime UP)</li>
+      <li data-pt="BOS de baixa → rompe o último swing low (regime DOWN)" data-en="Bearish BOS → breaks the last swing low (DOWN regime)">BOS de baixa → rompe o último swing low (regime DOWN)</li>
     </ul>
-    <p class="reveal">A cada BOS de continuação, o <strong>anchor</strong> é atualizado para o swing mais recente, e o Fib B é recriado.</p>
+    <p class="reveal" data-pt="A cada BOS de continuação, o <strong>anchor</strong> é atualizado para o swing mais recente, e o Fib B é recriado." data-en="With each continuation BOS, the <strong>anchor</strong> is updated to the most recent swing, and Fib B is recreated.">A cada BOS de continuação, o <strong>anchor</strong> é atualizado para o swing mais recente, e o Fib B é recriado.</p>
 
     <h4 class="reveal">Break Mode</h4>
-    <p class="reveal">O critério de rompimento é configurável via <strong>Break Mode</strong>:</p>
+    <p class="reveal" data-pt="O critério de rompimento é configurável via <strong>Break Mode</strong>:" data-en="The breakout criterion is configurable via <strong>Break Mode</strong>:">O critério de rompimento é configurável via <strong>Break Mode</strong>:</p>
     <ul class="manual-list reveal">
-      <li><code>close_strict</code> — o fechamento (close) deve exceder o nível</li>
-      <li><code>close_or_equal</code> — o fechamento pode igualar ou exceder</li>
-      <li><code>wick</code> — o pavio é suficiente para confirmar</li>
+      <li data-pt="<code>close_strict</code> — o fechamento (close) deve exceder o nível" data-en="<code>close_strict</code> — the close must exceed the level"><code>close_strict</code> — o fechamento (close) deve exceder o nível</li>
+      <li data-pt="<code>close_or_equal</code> — o fechamento pode igualar ou exceder" data-en="<code>close_or_equal</code> — the close can equal or exceed"><code>close_or_equal</code> — o fechamento pode igualar ou exceder</li>
+      <li data-pt="<code>wick</code> — o pavio é suficiente para confirmar" data-en="<code>wick</code> — the wick is sufficient to confirm"><code>wick</code> — o pavio é suficiente para confirmar</li>
     </ul>
 
     <!-- CHOCH -->
     <h3 class="reveal" id="choch">Change of Character (CHOCH)</h3>
-    <p class="reveal">O CHOCH indica uma <strong>possível inversão de regime</strong>. Ocorre em duas situações:</p>
+    <p class="reveal" data-pt="O CHOCH indica uma <strong>possível inversão de regime</strong>. Ocorre em duas situações:" data-en="CHoCH indicates a <strong>possible regime reversal</strong>. It occurs in two situations:">O CHOCH indica uma <strong>possível inversão de regime</strong>. Ocorre em duas situações:</p>
     <ul class="manual-list reveal">
-      <li>O preço quebra o <strong>"origin"</strong> do último BOS na direção oposta</li>
-      <li>O preço quebra o <strong>anchor</strong> (guardrail) do regime atual</li>
+      <li data-pt="O preço quebra o <strong>&quot;origin&quot;</strong> do último BOS na direção oposta" data-en="Price breaks the <strong>&quot;origin&quot;</strong> of the last BOS in the opposite direction">O preço quebra o <strong>"origin"</strong> do último BOS na direção oposta</li>
+      <li data-pt="O preço quebra o <strong>anchor</strong> (guardrail) do regime atual" data-en="Price breaks the <strong>anchor</strong> (guardrail) of the current regime">O preço quebra o <strong>anchor</strong> (guardrail) do regime atual</li>
     </ul>
-    <p class="reveal">O CHOCH muda o estado de UP para DOWN ou vice-versa, e redefine:</p>
+    <p class="reveal" data-pt="O CHOCH muda o estado de UP para DOWN ou vice-versa, e redefine:" data-en="CHoCH changes the state from UP to DOWN or vice-versa, and resets:">O CHOCH muda o estado de UP para DOWN ou vice-versa, e redefine:</p>
     <ul class="manual-list reveal">
-      <li>O regime operacional</li>
-      <li>O anchor válido</li>
-      <li>O Fib A (criado a partir do novo contexto)</li>
-      <li>O Order Block do novo contexto</li>
+      <li data-pt="O regime operacional" data-en="The operational regime">O regime operacional</li>
+      <li data-pt="O anchor válido" data-en="The valid anchor">O anchor válido</li>
+      <li data-pt="O Fib A (criado a partir do novo contexto)" data-en="Fib A (created from the new context)">O Fib A (criado a partir do novo contexto)</li>
+      <li data-pt="O Order Block do novo contexto" data-en="The Order Block of the new context">O Order Block do novo contexto</li>
     </ul>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Resumo</div>
-      <p style="margin:0;"><strong>BOS</strong> = mesma direção do regime → continuação. <strong>CHOCH</strong> = direção oposta → inversão. O regime (UP/DOWN/NONE) governa toda a lógica.</p>
+      <div class="info-card-tag green" data-pt="Resumo" data-en="Summary">Resumo</div>
+      <p style="margin:0;" data-pt="<strong>BOS</strong> = mesma direção do regime → continuação. <strong>CHOCH</strong> = direção oposta → inversão. O regime (UP/DOWN/NONE) governa toda a lógica." data-en="<strong>BOS</strong> = same direction as regime → continuation. <strong>CHoCH</strong> = opposite direction → reversal. The regime (UP/DOWN/NONE) governs all logic."><strong>BOS</strong> = mesma direção do regime → continuação. <strong>CHOCH</strong> = direção oposta → inversão. O regime (UP/DOWN/NONE) governa toda a lógica.</p>
     </div>
 
     <!-- Âncora -->
-    <h3 class="reveal" id="ancora">Âncora (Guardrail Estrutural)</h3>
-    <p class="reveal">A âncora é o nível que "protege" a estrutura atual e funciona como guardrail do regime:</p>
+    <h3 class="reveal" id="ancora" data-pt="Âncora (Guardrail Estrutural)" data-en="Anchor (Structural Guardrail)">Âncora (Guardrail Estrutural)</h3>
+    <p class="reveal" data-pt="A âncora é o nível que &quot;protege&quot; a estrutura atual e funciona como guardrail do regime:" data-en="The anchor is the level that &quot;protects&quot; the current structure and acts as the regime guardrail:">A âncora é o nível que "protege" a estrutura atual e funciona como guardrail do regime:</p>
     <ul class="manual-list reveal">
-      <li><strong>Regime UP:</strong> anchor = último fundo válido (swing low)</li>
-      <li><strong>Regime DOWN:</strong> anchor = último topo válido (swing high)</li>
+      <li data-pt="<strong>Regime UP:</strong> anchor = último fundo válido (swing low)" data-en="<strong>UP Regime:</strong> anchor = last valid low (swing low)"><strong>Regime UP:</strong> anchor = último fundo válido (swing low)</li>
+      <li data-pt="<strong>Regime DOWN:</strong> anchor = último topo válido (swing high)" data-en="<strong>DOWN Regime:</strong> anchor = last valid high (swing high)"><strong>Regime DOWN:</strong> anchor = último topo válido (swing high)</li>
     </ul>
-    <p class="reveal">A âncora é utilizada para:</p>
+    <p class="reveal" data-pt="A âncora é utilizada para:" data-en="The anchor is used for:">A âncora é utilizada para:</p>
     <ul class="manual-list reveal">
-      <li>Marcação visual no gráfico (com transparência configurável)</li>
-      <li>Lógica estrutural — se o preço quebra o anchor, dispara CHOCH</li>
-      <li>Construção do Order Block e da Fibonacci do contexto</li>
+      <li data-pt="Marcação visual no gráfico (com transparência configurável)" data-en="Visual marking on the chart (with configurable transparency)">Marcação visual no gráfico (com transparência configurável)</li>
+      <li data-pt="Lógica estrutural — se o preço quebra o anchor, dispara CHOCH" data-en="Structural logic — if price breaks the anchor, CHoCH is triggered">Lógica estrutural — se o preço quebra o anchor, dispara CHOCH</li>
+      <li data-pt="Construção do Order Block e da Fibonacci do contexto" data-en="Construction of the Order Block and Fibonacci for the context">Construção do Order Block e da Fibonacci do contexto</li>
     </ul>
-    <p class="reveal">A cada BOS de continuação, o anchor se move para frente, sempre acompanhando o swing mais recente pós-CHOCH.</p>
+    <p class="reveal" data-pt="A cada BOS de continuação, o anchor se move para frente, sempre acompanhando o swing mais recente pós-CHOCH." data-en="With each continuation BOS, the anchor moves forward, always tracking the most recent swing after CHoCH.">A cada BOS de continuação, o anchor se move para frente, sempre acompanhando o swing mais recente pós-CHOCH.</p>
   </div>
 </section>
 
 <!-- ═══════════════════ FIBONACCI ═══════════════════ -->
 <section id="fibonacci">
   <div class="container">
-    <div class="section-label">Zonas de Interesse</div>
+    <div class="section-label" data-pt="Zonas de Interesse" data-en="Zones of Interest">Zonas de Interesse</div>
     <div class="sep"></div>
-    <h2 class="reveal">Fibonacci Automática</h2>
-    <p class="reveal">O indicador projeta duas Fibonaccis independentes, cada uma ancorada em momentos estruturais distintos. Ambas são dinâmicas e se ajustam automaticamente ao contexto.</p>
+    <h2 class="reveal" data-pt="Fibonacci Automática" data-en="Automatic Fibonacci">Fibonacci Automática</h2>
+    <p class="reveal" data-pt="O indicador projeta duas Fibonaccis independentes, cada uma ancorada em momentos estruturais distintos. Ambas são dinâmicas e se ajustam automaticamente ao contexto." data-en="The indicator projects two independent Fibonacci levels, each anchored to different structural moments. Both are dynamic and automatically adjust to context.">O indicador projeta duas Fibonaccis independentes, cada uma ancorada em momentos estruturais distintos. Ambas são dinâmicas e se ajustam automaticamente ao contexto.</p>
 
-    <p class="reveal"><strong>Níveis utilizados:</strong></p>
+    <p class="reveal" data-pt="<strong>Níveis utilizados:</strong>" data-en="<strong>Levels used:</strong>"><strong>Níveis utilizados:</strong></p>
     <ul class="manual-list reveal">
-      <li>0% e 100% (extremos do range)</li>
-      <li>38.2% (opcional, configurável)</li>
+      <li data-pt="0% e 100% (extremos do range)" data-en="0% and 100% (range extremes)">0% e 100% (extremos do range)</li>
+      <li data-pt="38.2% (opcional, configurável)" data-en="38.2% (optional, configurable)">38.2% (opcional, configurável)</li>
       <li>50%</li>
       <li>61.8%</li>
       <li>79%</li>
     </ul>
 
     <!-- Fib A -->
-    <h3 class="reveal" id="fiba">Fib A — Fibonacci do CHOCH</h3>
-    <p class="reveal">Criada no momento do CHOCH. Representa a Fibonacci principal do novo contexto/regime.</p>
+    <h3 class="reveal" id="fiba" data-pt="Fib A — Fibonacci do CHOCH" data-en="Fib A — CHoCH Fibonacci">Fib A — Fibonacci do CHOCH</h3>
+    <p class="reveal" data-pt="Criada no momento do CHOCH. Representa a Fibonacci principal do novo contexto/regime." data-en="Created at the moment of CHoCH. Represents the main Fibonacci of the new context/regime.">Criada no momento do CHOCH. Representa a Fibonacci principal do novo contexto/regime.</p>
 
     <div class="info-card blue-border reveal">
-      <div class="info-card-tag blue">Comportamento Dinâmico</div>
-      <p style="margin:0;">O range da Fib A <strong>não é fixo</strong>. Ele se expande dinamicamente acompanhando o runHigh/runLow do impulso inicial e se consolida (trava) quando um novo pivot é confirmado. Isso significa que nos primeiros candles após o CHOCH, os níveis podem se ajustar — é comportamento esperado, não um bug.</p>
+      <div class="info-card-tag blue" data-pt="Comportamento Dinâmico" data-en="Dynamic Behavior">Comportamento Dinâmico</div>
+      <p style="margin:0;" data-pt="O range da Fib A <strong>não é fixo</strong>. Ele se expande dinamicamente acompanhando o runHigh/runLow do impulso inicial e se consolida (trava) quando um novo pivot é confirmado. Isso significa que nos primeiros candles após o CHOCH, os níveis podem se ajustar — é comportamento esperado, não um bug." data-en="Fib A's range is <strong>not fixed</strong>. It dynamically expands tracking the runHigh/runLow of the initial impulse and consolidates (locks) when a new pivot is confirmed. This means in the first candles after CHoCH, levels may adjust — this is expected behavior, not a bug.">O range da Fib A <strong>não é fixo</strong>. Ele se expande dinamicamente acompanhando o runHigh/runLow do impulso inicial e se consolida (trava) quando um novo pivot é confirmado. Isso significa que nos primeiros candles após o CHOCH, os níveis podem se ajustar — é comportamento esperado, não um bug.</p>
     </div>
 
     <!-- Fib B -->
-    <h3 class="reveal" id="fibb">Fib B — Fibonacci da Âncora Atual</h3>
-    <p class="reveal">Opcional e mais voltada à execução de curto prazo:</p>
+    <h3 class="reveal" id="fibb" data-pt="Fib B — Fibonacci da Âncora Atual" data-en="Fib B — Current Anchor Fibonacci">Fib B — Fibonacci da Âncora Atual</h3>
+    <p class="reveal" data-pt="Opcional e mais voltada à execução de curto prazo:" data-en="Optional and more focused on short-term execution:">Opcional e mais voltada à execução de curto prazo:</p>
     <ul class="manual-list reveal">
-      <li>Recriada a cada BOS de continuação</li>
-      <li>Ancorada no anchor atualizado</li>
-      <li>Mantém níveis mais "curtos" e atualizados</li>
+      <li data-pt="Recriada a cada BOS de continuação" data-en="Recreated with each continuation BOS">Recriada a cada BOS de continuação</li>
+      <li data-pt="Ancorada no anchor atualizado" data-en="Anchored to the updated anchor">Ancorada no anchor atualizado</li>
+      <li data-pt="Mantém níveis mais &quot;curtos&quot; e atualizados" data-en="Maintains shorter and more current levels">Mantém níveis mais "curtos" e atualizados</li>
     </ul>
 
     <div class="info-card warn-border reveal">
-      <div class="info-card-tag yellow">Atenção: Fib B Gating</div>
-      <p style="margin:0;">Quando o filtro de validação de OB está ativo (versão PRO), o <strong>Fib B só é desenhado depois que o Order Block correspondente passa de PENDING para VALID</strong>. Até lá, ele fica "gated" (bloqueado). Isso garante que as zonas de Fibonacci só apareçam quando o contexto estrutural for validado. Se o Fib B não está aparecendo, verifique se o OB ainda está pendente.</p>
+      <div class="info-card-tag yellow" data-pt="Atenção: Fib B Gating" data-en="Note: Fib B Gating">Atenção: Fib B Gating</div>
+      <p style="margin:0;" data-pt="Quando o filtro de validação de OB está ativo (versão PRO), o <strong>Fib B só é desenhado depois que o Order Block correspondente passa de PENDING para VALID</strong>. Até lá, ele fica &quot;gated&quot; (bloqueado). Isso garante que as zonas de Fibonacci só apareçam quando o contexto estrutural for validado. Se o Fib B não está aparecendo, verifique se o OB ainda está pendente." data-en="When the OB validation filter is active (PRO version), <strong>Fib B is only drawn after the corresponding Order Block moves from PENDING to VALID</strong>. Until then, it remains &quot;gated&quot; (blocked). This ensures Fibonacci zones only appear when the structural context is validated. If Fib B is not showing, check whether the OB is still pending.">Quando o filtro de validação de OB está ativo (versão PRO), o <strong>Fib B só é desenhado depois que o Order Block correspondente passa de PENDING para VALID</strong>. Até lá, ele fica "gated" (bloqueado). Isso garante que as zonas de Fibonacci só apareçam quando o contexto estrutural for validado. Se o Fib B não está aparecendo, verifique se o OB ainda está pendente.</p>
     </div>
 
-    <p class="reveal">No seletor de alertas, você pode escolher usar Fib A ou Fib B. Quando Fib B é selecionada mas ainda não está ativa (antes do primeiro BOS de continuação), os alertas usam a Fib A até que o Fib B seja criado.</p>
+    <p class="reveal" data-pt="No seletor de alertas, você pode escolher usar Fib A ou Fib B. Quando Fib B é selecionada mas ainda não está ativa (antes do primeiro BOS de continuação), os alertas usam a Fib A até que o Fib B seja criado." data-en="In the alert selector, you can choose to use Fib A or Fib B. When Fib B is selected but not yet active (before the first continuation BOS), alerts use Fib A until Fib B is created.">No seletor de alertas, você pode escolher usar Fib A ou Fib B. Quando Fib B é selecionada mas ainda não está ativa (antes do primeiro BOS de continuação), os alertas usam a Fib A até que o Fib B seja criado.</p>
   </div>
 </section>
 
 <!-- ═══════════════════ ORDER BLOCKS ═══════════════════ -->
 <section id="ob">
   <div class="container">
-    <div class="section-label">Zonas Institucionais</div>
+    <div class="section-label" data-pt="Zonas Institucionais" data-en="Institutional Zones">Zonas Institucionais</div>
     <div class="sep"></div>
     <h2 class="reveal">Order Blocks</h2>
-    <p class="reveal">O indicador desenha Order Blocks com base no anchor estrutural atual, garantindo que as zonas reflitam sempre o contexto de mercado mais relevante.</p>
+    <p class="reveal" data-pt="O indicador desenha Order Blocks com base no anchor estrutural atual, garantindo que as zonas reflitam sempre o contexto de mercado mais relevante." data-en="The indicator draws Order Blocks based on the current structural anchor, ensuring zones always reflect the most relevant market context.">O indicador desenha Order Blocks com base no anchor estrutural atual, garantindo que as zonas reflitam sempre o contexto de mercado mais relevante.</p>
 
-    <h4 class="reveal">Lógica de Construção</h4>
-    <p class="reveal">O OB é derivado do candle do anchor:</p>
+    <h4 class="reveal" data-pt="Lógica de Construção" data-en="Construction Logic">Lógica de Construção</h4>
+    <p class="reveal" data-pt="O OB é derivado do candle do anchor:" data-en="The OB is derived from the anchor candle:">O OB é derivado do candle do anchor:</p>
     <ul class="manual-list reveal">
-      <li><strong>OB Bullish:</strong> se o candle do anchor é bearish (vermelho), usa seu próprio range. Se é bullish (verde), busca o último candle bearish anterior — até <code>obLookback</code> candles para trás — e usa o high desse candle como topo do OB.</li>
-      <li><strong>OB Bearish:</strong> lógica espelhada. Busca o último candle bullish anterior ao anchor.</li>
+      <li data-pt="<strong>OB Bullish:</strong> se o candle do anchor é bearish (vermelho), usa seu próprio range. Se é bullish (verde), busca o último candle bearish anterior — até <code>obLookback</code> candles para trás — e usa o high desse candle como topo do OB." data-en="<strong>Bullish OB:</strong> if the anchor candle is bearish (red), uses its own range. If bullish (green), looks for the last prior bearish candle — up to <code>obLookback</code> candles back — and uses that candle's high as the OB top."><strong>OB Bullish:</strong> se o candle do anchor é bearish (vermelho), usa seu próprio range. Se é bullish (verde), busca o último candle bearish anterior — até <code>obLookback</code> candles para trás — e usa o high desse candle como topo do OB.</li>
+      <li data-pt="<strong>OB Bearish:</strong> lógica espelhada. Busca o último candle bullish anterior ao anchor." data-en="<strong>Bearish OB:</strong> mirrored logic. Looks for the last bullish candle prior to the anchor."><strong>OB Bearish:</strong> lógica espelhada. Busca o último candle bullish anterior ao anchor.</li>
     </ul>
-    <p class="reveal">O parâmetro <code>obLookback</code> controla quantos candles o indicador pode olhar para trás na busca do candle oposto. Quanto maior, mais flexível a busca.</p>
+    <p class="reveal" data-pt="O parâmetro <code>obLookback</code> controla quantos candles o indicador pode olhar para trás na busca do candle oposto. Quanto maior, mais flexível a busca." data-en="The <code>obLookback</code> parameter controls how many candles the indicator can look back when searching for the opposite candle. The higher the value, the more flexible the search.">O parâmetro <code>obLookback</code> controla quantos candles o indicador pode olhar para trás na busca do candle oposto. Quanto maior, mais flexível a busca.</p>
 
     <!-- Status -->
-    <h3 class="reveal" id="ob-status">Status do Order Block: PENDING → VALID</h3>
-    <p class="reveal">Por padrão, o indicador mantém apenas <strong>um Order Block ativo</strong>, atualizado dinamicamente à medida que o anchor evolui.</p>
+    <h3 class="reveal" id="ob-status" data-pt="Status do Order Block: PENDING → VALID" data-en="Order Block Status: PENDING → VALID">Status do Order Block: PENDING → VALID</h3>
+    <p class="reveal" data-pt="Por padrão, o indicador mantém apenas <strong>um Order Block ativo</strong>, atualizado dinamicamente à medida que o anchor evolui." data-en="By default, the indicator maintains only <strong>one active Order Block</strong>, dynamically updated as the anchor evolves.">Por padrão, o indicador mantém apenas <strong>um Order Block ativo</strong>, atualizado dinamicamente à medida que o anchor evolui.</p>
 
     <div class="info-card pro-border reveal">
-      <div class="info-card-tag purple">PRO — Filtro de Validação</div>
-      <p>Quando o filtro de validação está ativo (versão PRO), todo OB nasce como <strong>PENDING</strong> (status 2) e precisa passar por duas gates dentro de uma janela de avaliação para ser confirmado:</p>
-      <p><strong>1. Displacement Gate</strong> — o impulso desde o OB candle precisa exceder <code>ATR(14) × effAtrMult</code>. O ATR é amostrado no candle do OB (não no candle de confirmação). O impulso é medido como highestHigh − OB_bottom (bull) ou OB_top − lowestLow (bear).</p>
-      <p><strong>2. FVG Gate (opcional)</strong> — se <code>requireFVG</code> está ativo, precisa haver um Fair Value Gap dentro da janela de impulso. Para bull: <code>low > high[2]</code>. Para bear: <code>high < low[2]</code>. O candle do meio do FVG deve estar no ou após o startBar do OB.</p>
-      <p style="margin:0;">Visualmente: OBs <strong>PENDING</strong> aparecem com <strong>bordas tracejadas (dashed)</strong>. Quando validados, ficam com borda sólida. Se não validarem dentro da janela, são deletados.</p>
+      <div class="info-card-tag purple" data-pt="PRO — Filtro de Validação" data-en="PRO — Validation Filter">PRO — Filtro de Validação</div>
+      <p data-pt="Quando o filtro de validação está ativo (versão PRO), todo OB nasce como <strong>PENDING</strong> (status 2) e precisa passar por duas gates dentro de uma janela de avaliação para ser confirmado:" data-en="When the validation filter is active (PRO version), every OB starts as <strong>PENDING</strong> (status 2) and must pass two gates within an evaluation window to be confirmed:">Quando o filtro de validação está ativo (versão PRO), todo OB nasce como <strong>PENDING</strong> (status 2) e precisa passar por duas gates dentro de uma janela de avaliação para ser confirmado:</p>
+      <p data-pt="<strong>1. Displacement Gate</strong> — o impulso desde o OB candle precisa exceder <code>ATR(14) × effAtrMult</code>. O ATR é amostrado no candle do OB (não no candle de confirmação). O impulso é medido como highestHigh − OB_bottom (bull) ou OB_top − lowestLow (bear)." data-en="<strong>1. Displacement Gate</strong> — the impulse from the OB candle must exceed <code>ATR(14) × effAtrMult</code>. ATR is sampled at the OB candle (not the confirmation candle). Impulse is measured as highestHigh − OB_bottom (bull) or OB_top − lowestLow (bear)."><strong>1. Displacement Gate</strong> — o impulso desde o OB candle precisa exceder <code>ATR(14) × effAtrMult</code>. O ATR é amostrado no candle do OB (não no candle de confirmação). O impulso é medido como highestHigh − OB_bottom (bull) ou OB_top − lowestLow (bear).</p>
+      <p data-pt="<strong>2. FVG Gate (opcional)</strong> — se <code>requireFVG</code> está ativo, precisa haver um Fair Value Gap dentro da janela de impulso. Para bull: <code>low > high[2]</code>. Para bear: <code>high &lt; low[2]</code>. O candle do meio do FVG deve estar no ou após o startBar do OB." data-en="<strong>2. FVG Gate (optional)</strong> — if <code>requireFVG</code> is active, there must be a Fair Value Gap within the impulse window. For bull: <code>low > high[2]</code>. For bear: <code>high &lt; low[2]</code>. The middle candle of the FVG must be at or after the OB's startBar."><strong>2. FVG Gate (opcional)</strong> — se <code>requireFVG</code> está ativo, precisa haver um Fair Value Gap dentro da janela de impulso. Para bull: <code>low > high[2]</code>. Para bear: <code>high < low[2]</code>. O candle do meio do FVG deve estar no ou após o startBar do OB.</p>
+      <p style="margin:0;" data-pt="Visualmente: OBs <strong>PENDING</strong> aparecem com <strong>bordas tracejadas (dashed)</strong>. Quando validados, ficam com borda sólida. Se não validarem dentro da janela, são deletados." data-en="Visually: <strong>PENDING</strong> OBs appear with <strong>dashed borders</strong>. When validated, they get a solid border. If they don't validate within the window, they are deleted.">Visualmente: OBs <strong>PENDING</strong> aparecem com <strong>bordas tracejadas (dashed)</strong>. Quando validados, ficam com borda sólida. Se não validarem dentro da janela, são deletados.</p>
     </div>
 
     <div class="info-card danger-border reveal">
       <div class="info-card-tag red">Invalidation Lock</div>
-      <p style="margin:0;">Se um OB não valida dentro da janela de avaliação, ele expira e é deletado. Além disso, um <strong>invalidation lock</strong> é aplicado — impedindo que o sistema recrie um OB sob o mesmo contexto estrutural. Isso evita que o indicador fique "tentando" validar a mesma zona repetidamente.</p>
+      <p style="margin:0;" data-pt="Se um OB não valida dentro da janela de avaliação, ele expira e é deletado. Além disso, um <strong>invalidation lock</strong> é aplicado — impedindo que o sistema recrie um OB sob o mesmo contexto estrutural. Isso evita que o indicador fique &quot;tentando&quot; validar a mesma zona repetidamente." data-en="If an OB does not validate within the evaluation window, it expires and is deleted. Additionally, an <strong>invalidation lock</strong> is applied — preventing the system from recreating an OB under the same structural context. This prevents the indicator from repeatedly &quot;trying&quot; to validate the same zone.">Se um OB não valida dentro da janela de avaliação, ele expira e é deletado. Além disso, um <strong>invalidation lock</strong> é aplicado — impedindo que o sistema recrie um OB sob o mesmo contexto estrutural. Isso evita que o indicador fique "tentando" validar a mesma zona repetidamente.</p>
     </div>
 
     <!-- Confirmação PRO -->
-    <h3 class="reveal" id="ob-confirmacao">Confirmação de Order Blocks <span class="pro-badge">PRO</span></h3>
-    <p class="reveal">Um Order Block não deve existir apenas porque houve um rompimento. Ele precisa provar que o rompimento foi <strong>legítimo</strong>.</p>
-    <p class="reveal">Na estrutura tradicional, qualquer BOS pode gerar um OB. O problema é que nem todo rompimento representa deslocamento institucional real. Por isso a confirmação foi criada.</p>
+    <h3 class="reveal" id="ob-confirmacao" data-pt="Confirmação de Order Blocks <span class=&quot;pro-badge&quot;>PRO</span>" data-en="Order Block Confirmation <span class=&quot;pro-badge&quot;>PRO</span>">Confirmação de Order Blocks <span class="pro-badge">PRO</span></h3>
+    <p class="reveal" data-pt="Um Order Block não deve existir apenas porque houve um rompimento. Ele precisa provar que o rompimento foi <strong>legítimo</strong>." data-en="An Order Block should not exist simply because there was a breakout. It needs to prove the breakout was <strong>legitimate</strong>.">Um Order Block não deve existir apenas porque houve um rompimento. Ele precisa provar que o rompimento foi <strong>legítimo</strong>.</p>
+    <p class="reveal" data-pt="Na estrutura tradicional, qualquer BOS pode gerar um OB. O problema é que nem todo rompimento representa deslocamento institucional real. Por isso a confirmação foi criada." data-en="In traditional structure, any BOS can generate an OB. The problem is that not every breakout represents real institutional displacement. That is why the confirmation was created.">Na estrutura tradicional, qualquer BOS pode gerar um OB. O problema é que nem todo rompimento representa deslocamento institucional real. Por isso a confirmação foi criada.</p>
 
-    <h4 class="reveal">O que o sistema verifica</h4>
-    <p class="reveal">Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:</p>
+    <h4 class="reveal" data-pt="O que o sistema verifica" data-en="What the system verifies">O que o sistema verifica</h4>
+    <p class="reveal" data-pt="Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:" data-en="When a BOS or CHoCH occurs, the last candle opposite the impulse is identified as a potential OB. But it is not validated immediately. The system enters an observation period and verifies:">Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:</p>
     <ol class="steps reveal">
-      <li>Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)</li>
-      <li>Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)</li>
-      <li>Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas</li>
+      <li data-pt="Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)" data-en="Whether the <strong>displacement was strong enough</strong> relative to volatility (Displacement Gate)">Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)</li>
+      <li data-pt="Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)" data-en="Whether there was a <strong>Fair Value Gap</strong> as a signature of institutional efficiency (FVG Gate, if active)">Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)</li>
+      <li data-pt="Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas" data-en="Whether the move <strong>was not immediately absorbed</strong> — structure remains respected during the following candles">Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas</li>
     </ol>
-    <p class="reveal">Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock.</p>
+    <p class="reveal" data-pt="Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock." data-en="If these conditions are met within the validation window, the OB is confirmed. If not, it is discarded with an invalidation lock.">Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock.</p>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Conceito Central</div>
-      <p style="margin:0;">A confirmação não olha apenas para o rompimento. Ela olha para o que acontece <strong>depois</strong> do rompimento. É a diferença entre <em>"rompeu"</em> e <em>"rompeu e sustentou"</em>.</p>
+      <div class="info-card-tag green" data-pt="Conceito Central" data-en="Core Concept">Conceito Central</div>
+      <p style="margin:0;" data-pt="A confirmação não olha apenas para o rompimento. Ela olha para o que acontece <strong>depois</strong> do rompimento. É a diferença entre <em>&quot;rompeu&quot;</em> e <em>&quot;rompeu e sustentou&quot;</em>." data-en="Confirmation does not just look at the breakout. It looks at what happens <strong>after</strong> the breakout. It is the difference between <em>&quot;broke&quot;</em> and <em>&quot;broke and held&quot;</em>.">A confirmação não olha apenas para o rompimento. Ela olha para o que acontece <strong>depois</strong> do rompimento. É a diferença entre <em>"rompeu"</em> e <em>"rompeu e sustentou"</em>.</p>
     </div>
 
     <!-- Mitigação -->
-    <h3 class="reveal" id="ob-mitigacao">Mitigação</h3>
-    <p class="reveal">A mitigação ocorre quando o preço retorna e "preenche" o Order Block:</p>
+    <h3 class="reveal" id="ob-mitigacao" data-pt="Mitigação" data-en="Mitigation">Mitigação</h3>
+    <p class="reveal" data-pt="A mitigação ocorre quando o preço retorna e &quot;preenche&quot; o Order Block:" data-en="Mitigation occurs when price returns and &quot;fills&quot; the Order Block:">A mitigação ocorre quando o preço retorna e "preenche" o Order Block:</p>
     <ul class="manual-list reveal">
-      <li><strong>OB Bullish:</strong> mitigado quando <code>low ≤ OB_bottom</code></li>
-      <li><strong>OB Bearish:</strong> mitigado quando <code>high ≥ OB_top</code></li>
+      <li data-pt="<strong>OB Bullish:</strong> mitigado quando <code>low ≤ OB_bottom</code>" data-en="<strong>Bullish OB:</strong> mitigated when <code>low ≤ OB_bottom</code>"><strong>OB Bullish:</strong> mitigado quando <code>low ≤ OB_bottom</code></li>
+      <li data-pt="<strong>OB Bearish:</strong> mitigado quando <code>high ≥ OB_top</code>" data-en="<strong>Bearish OB:</strong> mitigated when <code>high ≥ OB_top</code>"><strong>OB Bearish:</strong> mitigado quando <code>high ≥ OB_top</code></li>
     </ul>
-    <p class="reveal">Quando mitigado, o OB é removido automaticamente como zona ativa.</p>
+    <p class="reveal" data-pt="Quando mitigado, o OB é removido automaticamente como zona ativa." data-en="When mitigated, the OB is automatically removed as an active zone.">Quando mitigado, o OB é removido automaticamente como zona ativa.</p>
 
     <!-- Histórico -->
-    <h3 class="reveal" id="ob-historico">Histórico de Order Blocks</h3>
-    <p class="reveal">Uma configuração opcional chamada <strong>"Preserve unmitigated OB history"</strong> permite exibir e preservar os últimos <strong>N</strong> Order Blocks não mitigados como contexto histórico (controlado por <code>maxHistOBs</code>).</p>
+    <h3 class="reveal" id="ob-historico" data-pt="Histórico de Order Blocks" data-en="Order Block History">Histórico de Order Blocks</h3>
+    <p class="reveal" data-pt="Uma configuração opcional chamada <strong>&quot;Preserve unmitigated OB history&quot;</strong> permite exibir e preservar os últimos <strong>N</strong> Order Blocks não mitigados como contexto histórico (controlado por <code>maxHistOBs</code>)." data-en="An optional setting called <strong>&quot;Preserve unmitigated OB history&quot;</strong> allows displaying and preserving the last <strong>N</strong> unmitigated Order Blocks as historical context (controlled by <code>maxHistOBs</code>).">Uma configuração opcional chamada <strong>"Preserve unmitigated OB history"</strong> permite exibir e preservar os últimos <strong>N</strong> Order Blocks não mitigados como contexto histórico (controlado por <code>maxHistOBs</code>).</p>
     <ul class="manual-list reveal">
-      <li>Zonas históricas permanecem estendidas para a direita com <strong>transparência extra</strong></li>
-      <li>OBs mitigados são removidos automaticamente</li>
-      <li>Adiciona memória estrutural sem comprometer a clareza do gráfico</li>
+      <li data-pt="Zonas históricas permanecem estendidas para a direita com <strong>transparência extra</strong>" data-en="Historical zones remain extended to the right with <strong>extra transparency</strong>">Zonas históricas permanecem estendidas para a direita com <strong>transparência extra</strong></li>
+      <li data-pt="OBs mitigados são removidos automaticamente" data-en="Mitigated OBs are removed automatically">OBs mitigados são removidos automaticamente</li>
+      <li data-pt="Adiciona memória estrutural sem comprometer a clareza do gráfico" data-en="Adds structural memory without compromising chart clarity">Adiciona memória estrutural sem comprometer a clareza do gráfico</li>
     </ul>
   </div>
 </section>
@@ -844,118 +866,124 @@ footer p {
 <!-- ═══════════════════ ALERTAS PRO ═══════════════════ -->
 <section id="alertas">
   <div class="container">
-    <div class="section-label" style="color:var(--pro-accent);">Versão PRO</div>
+    <div class="section-label" style="color:var(--pro-accent);" data-pt="Versão PRO" data-en="PRO Version">Versão PRO</div>
     <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
-    <h2 class="reveal">Alertas <span class="pro-badge">PRO</span></h2>
-    <p class="reveal">O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, avaliados <strong>intrabar em tempo real</strong>, combinando estrutura, Fibonacci e Order Blocks.</p>
+    <h2 class="reveal" data-pt="Alertas <span class=&quot;pro-badge&quot;>PRO</span>" data-en="Alerts <span class=&quot;pro-badge&quot;>PRO</span>">Alertas <span class="pro-badge">PRO</span></h2>
+    <p class="reveal" data-pt="O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, avaliados <strong>intrabar em tempo real</strong>, combinando estrutura, Fibonacci e Order Blocks." data-en="The SMC Execution Engine PRO adds a complete intelligent alert engine, evaluated <strong>intrabar in real time</strong>, combining structure, Fibonacci and Order Blocks.">O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, avaliados <strong>intrabar em tempo real</strong>, combinando estrutura, Fibonacci e Order Blocks.</p>
 
     <div style="text-align:center;margin:20px 0;" class="reveal">
-      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn-pro">Desbloquear Alertas PRO →</a>
+      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn-pro" data-pt="Desbloquear Alertas PRO →" data-en="Unlock PRO Alerts →">Desbloquear Alertas PRO →</a>
     </div>
 
     <!-- Alertas CHOCH -->
-    <h3 class="reveal">Alertas de CHOCH (fechamento)</h3>
-    <p class="reveal">Disparam somente no <strong>fechamento do candle</strong>. Disponíveis para:</p>
+    <h3 class="reveal" data-pt="Alertas de CHOCH (fechamento)" data-en="CHoCH Alerts (candle close)">Alertas de CHOCH (fechamento)</h3>
+    <p class="reveal" data-pt="Disparam somente no <strong>fechamento do candle</strong>. Disponíveis para:" data-en="Fire only on <strong>candle close</strong>. Available for:">Disparam somente no <strong>fechamento do candle</strong>. Disponíveis para:</p>
     <ul class="manual-list reveal">
       <li>CHOCH UP</li>
       <li>CHOCH DOWN</li>
-      <li>CHOCH (qualquer direção)</li>
+      <li data-pt="CHOCH (qualquer direção)" data-en="CHOCH (any direction)">CHOCH (qualquer direção)</li>
     </ul>
 
     <!-- Alertas Intrabar -->
-    <h3 class="reveal">Alertas Intrabar (OB + Fibo)</h3>
-    <p class="reveal">Alertas em tempo real, avaliados intrabar (sem esperar fechamento). Você pode escolher usar <strong>Fib A</strong> (CHOCH) ou <strong>Fib B</strong> (âncora atual). Quando Fib B é selecionada mas ainda não está ativa, os alertas usam Fib A automaticamente.</p>
+    <h3 class="reveal" data-pt="Alertas Intrabar (OB + Fibo)" data-en="Intrabar Alerts (OB + Fibo)">Alertas Intrabar (OB + Fibo)</h3>
+    <p class="reveal" data-pt="Alertas em tempo real, avaliados intrabar (sem esperar fechamento). Você pode escolher usar <strong>Fib A</strong> (CHOCH) ou <strong>Fib B</strong> (âncora atual). Quando Fib B é selecionada mas ainda não está ativa, os alertas usam Fib A automaticamente." data-en="Real-time alerts, evaluated intrabar (without waiting for close). You can choose to use <strong>Fib A</strong> (CHoCH) or <strong>Fib B</strong> (current anchor). When Fib B is selected but not yet active, alerts automatically use Fib A.">Alertas em tempo real, avaliados intrabar (sem esperar fechamento). Você pode escolher usar <strong>Fib A</strong> (CHOCH) ou <strong>Fib B</strong> (âncora atual). Quando Fib B é selecionada mas ainda não está ativa, os alertas usam Fib A automaticamente.</p>
 
     <!-- Modos -->
-    <h3 class="reveal" id="alert-modos">Modos Disponíveis</h3>
+    <h3 class="reveal" id="alert-modos" data-pt="Modos Disponíveis" data-en="Available Modes">Modos Disponíveis</h3>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_618</div>
-      <p>Dispara quando um candle <strong>atravessa</strong> o nível 0.618.</p>
-      <div class="req">Requisito: máxima acima da 0.618 E mínima abaixo da 0.618. Não exige toque exato — qualquer candle que alcance ou ultrapasse dispara.</div>
+      <p data-pt="Dispara quando um candle <strong>atravessa</strong> o nível 0.618." data-en="Fires when a candle <strong>crosses</strong> the 0.618 level.">Dispara quando um candle <strong>atravessa</strong> o nível 0.618.</p>
+      <div class="req" data-pt="Requisito: máxima acima da 0.618 E mínima abaixo da 0.618. Não exige toque exato — qualquer candle que alcance ou ultrapasse dispara." data-en="Requirement: high above 0.618 AND low below 0.618. No exact touch required — any candle that reaches or exceeds fires.">Requisito: máxima acima da 0.618 E mínima abaixo da 0.618. Não exige toque exato — qualquer candle que alcance ou ultrapasse dispara.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_079</div>
-      <p>Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos.</p>
-      <div class="req">Requisito: máxima acima da 0.79 E mínima abaixo da 0.79. Mesma lógica do FIBO_618, porém em nível mais profundo.</div>
+      <p data-pt="Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos." data-en="Fires when a candle <strong>crosses</strong> the 0.79 level. Captures deeper pullbacks.">Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos.</p>
+      <div class="req" data-pt="Requisito: máxima acima da 0.79 E mínima abaixo da 0.79. Mesma lógica do FIBO_618, porém em nível mais profundo." data-en="Requirement: high above 0.79 AND low below 0.79. Same logic as FIBO_618, but at a deeper level.">Requisito: máxima acima da 0.79 E mínima abaixo da 0.79. Mesma lógica do FIBO_618, porém em nível mais profundo.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_START</div>
-      <p>Dispara quando o preço <strong>entra no Order Block pelo lado correto</strong>.</p>
-      <div class="req">Requisito: OB bullish exige preço vindo de cima tocando o topo. OB bearish exige preço vindo de baixo tocando o fundo. Entrada direcional obrigatória — evita alertas com preço já dentro do OB.</div>
+      <p data-pt="Dispara quando o preço <strong>entra no Order Block pelo lado correto</strong>." data-en="Fires when price <strong>enters the Order Block from the correct side</strong>.">Dispara quando o preço <strong>entra no Order Block pelo lado correto</strong>.</p>
+      <div class="req" data-pt="Requisito: OB bullish exige preço vindo de cima tocando o topo. OB bearish exige preço vindo de baixo tocando o fundo. Entrada direcional obrigatória — evita alertas com preço já dentro do OB." data-en="Requirement: bullish OB requires price coming from above touching the top. Bearish OB requires price coming from below touching the bottom. Directional entry required — avoids alerts when price is already inside the OB.">Requisito: OB bullish exige preço vindo de cima tocando o topo. OB bearish exige preço vindo de baixo tocando o fundo. Entrada direcional obrigatória — evita alertas com preço já dentro do OB.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_OR_079</div>
-      <p>Dispara quando ocorre <strong>OB_START ou FIBO_079</strong> (qualquer uma das condições).</p>
-      <div class="req">Modo flexível. Captura reação estrutural ou pullback profundo em Fibonacci.</div>
+      <p data-pt="Dispara quando ocorre <strong>OB_START ou FIBO_079</strong> (qualquer uma das condições)." data-en="Fires when <strong>OB_START or FIBO_079</strong> occurs (either condition).">Dispara quando ocorre <strong>OB_START ou FIBO_079</strong> (qualquer uma das condições).</p>
+      <div class="req" data-pt="Modo flexível. Captura reação estrutural ou pullback profundo em Fibonacci." data-en="Flexible mode. Captures structural reaction or deep Fibonacci pullback.">Modo flexível. Captura reação estrutural ou pullback profundo em Fibonacci.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_AND_079</div>
-      <p>Dispara somente quando <strong>OB_START e FIBO_079</strong> ocorrem no mesmo candle.</p>
-      <div class="req">Alta confluência. Menos sinais, maior qualidade. Ambas as condições devem ocorrer simultaneamente.</div>
+      <p data-pt="Dispara somente quando <strong>OB_START e FIBO_079</strong> ocorrem no mesmo candle." data-en="Fires only when <strong>OB_START and FIBO_079</strong> occur on the same candle.">Dispara somente quando <strong>OB_START e FIBO_079</strong> ocorrem no mesmo candle.</p>
+      <div class="req" data-pt="Alta confluência. Menos sinais, maior qualidade. Ambas as condições devem ocorrer simultaneamente." data-en="High confluence. Fewer signals, higher quality. Both conditions must occur simultaneously.">Alta confluência. Menos sinais, maior qualidade. Ambas as condições devem ocorrer simultaneamente.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_ANY_TOUCH</div>
-      <p>Dispara quando o preço entra em <strong>qualquer parte</strong> do Order Block.</p>
-      <div class="req">O range do candle invade a zona do OB. Direção ainda é respeitada. Mais permissivo que OB_START.</div>
+      <p data-pt="Dispara quando o preço entra em <strong>qualquer parte</strong> do Order Block." data-en="Fires when price enters <strong>any part</strong> of the Order Block.">Dispara quando o preço entra em <strong>qualquer parte</strong> do Order Block.</p>
+      <div class="req" data-pt="O range do candle invade a zona do OB. Direção ainda é respeitada. Mais permissivo que OB_START." data-en="The candle range invades the OB zone. Direction is still respected. More permissive than OB_START.">O range do candle invade a zona do OB. Direção ainda é respeitada. Mais permissivo que OB_START.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_MID</div>
-      <p>Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block.</p>
-      <div class="req">O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo.</div>
+      <p data-pt="Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block." data-en="Fires when price touches the <strong>midpoint</strong> of the Order Block.">Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block.</p>
+      <div class="req" data-pt="O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo." data-en="The candle crosses the OB's midprice. Seeks equilibrium reactions. More selective.">O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_618_079_ZONE</div>
-      <p>Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79.</p>
-      <div class="req">Requisito: máxima ≥ 0.618 E mínima ≤ 0.79. O candle precisa cobrir toda a zona no mesmo candle — é uma varredura, não apenas um toque. Mais restritivo que FIBO_618.</div>
+      <p data-pt="Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79." data-en="Fires when a single candle <strong>sweeps the entire zone</strong> between 0.618 and 0.79.">Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79.</p>
+      <div class="req" data-pt="Requisito: máxima ≥ 0.618 E mínima ≤ 0.79. O candle precisa cobrir toda a zona no mesmo candle — é uma varredura, não apenas um toque. Mais restritivo que FIBO_618." data-en="Requirement: high ≥ 0.618 AND low ≤ 0.79. The candle must cover the entire zone in the same candle — it is a sweep, not just a touch. More restrictive than FIBO_618.">Requisito: máxima ≥ 0.618 E mínima ≤ 0.79. O candle precisa cobrir toda a zona no mesmo candle — é uma varredura, não apenas um toque. Mais restritivo que FIBO_618.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_PLUS_FIB</div>
-      <p>Dispara quando o preço entra no OB <strong>e toca pelo menos um nível</strong> de Fibonacci.</p>
-      <div class="req">Entrada no OB + toque em Fib 0.50, 0.618 ou 0.79. Confluência estrutural com Fibonacci. Não exige nível específico.</div>
+      <p data-pt="Dispara quando o preço entra no OB <strong>e toca pelo menos um nível</strong> de Fibonacci." data-en="Fires when price enters the OB <strong>and touches at least one</strong> Fibonacci level.">Dispara quando o preço entra no OB <strong>e toca pelo menos um nível</strong> de Fibonacci.</p>
+      <div class="req" data-pt="Entrada no OB + toque em Fib 0.50, 0.618 ou 0.79. Confluência estrutural com Fibonacci. Não exige nível específico." data-en="OB entry + touch at Fib 0.50, 0.618 or 0.79. Structural confluence with Fibonacci. No specific level required.">Entrada no OB + toque em Fib 0.50, 0.618 ou 0.79. Confluência estrutural com Fibonacci. Não exige nível específico.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_THEN_OB</div>
-      <p>Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB.</p>
-      <div class="req">Lógica sequencial. O toque no Fib deve ocorrer antes, no mesmo contexto estrutural, seguido da entrada no OB. Não precisa ocorrer no mesmo candle.</div>
+      <p data-pt="Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB." data-en="Fires when a Fibonacci level is touched <strong>first</strong> and then price enters the OB.">Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB.</p>
+      <div class="req" data-pt="Lógica sequencial. O toque no Fib deve ocorrer antes, no mesmo contexto estrutural, seguido da entrada no OB. Não precisa ocorrer no mesmo candle." data-en="Sequential logic. The Fib touch must occur first, within the same structural context, followed by OB entry. Does not need to occur on the same candle.">Lógica sequencial. O toque no Fib deve ocorrer antes, no mesmo contexto estrutural, seguido da entrada no OB. Não precisa ocorrer no mesmo candle.</div>
     </div>
 
     <!-- Regras Anti-Spam -->
-    <h3 class="reveal" id="alert-regras">Regras de Qualidade (Anti-Spam)</h3>
-    <p class="reveal">O motor de alertas opera com <strong>fire-once-per-context</strong> — bloqueios inteligentes que eliminam ruído:</p>
+    <h3 class="reveal" id="alert-regras" data-pt="Regras de Qualidade (Anti-Spam)" data-en="Quality Rules (Anti-Spam)">Regras de Qualidade (Anti-Spam)</h3>
+    <p class="reveal" data-pt="O motor de alertas opera com <strong>fire-once-per-context</strong> — bloqueios inteligentes que eliminam ruído:" data-en="The alert engine operates with <strong>fire-once-per-context</strong> — smart blocks that eliminate noise:">O motor de alertas opera com <strong>fire-once-per-context</strong> — bloqueios inteligentes que eliminam ruído:</p>
     <ul class="manual-list reveal">
-      <li>Apenas <strong>1 alerta por contexto</strong> estrutural</li>
-      <li>Alertas <strong>bloqueados</strong> no candle de CHOCH ou BOS (barra de evento estrutural)</li>
-      <li>Alertas <strong>bloqueados</strong> enquanto OBs estão em status PENDING</li>
-      <li>Reativação apenas após novo CHOCH ou BOS de continuação</li>
+      <li data-pt="Apenas <strong>1 alerta por contexto</strong> estrutural" data-en="Only <strong>1 alert per structural context</strong>">Apenas <strong>1 alerta por contexto</strong> estrutural</li>
+      <li data-pt="Alertas <strong>bloqueados</strong> no candle de CHOCH ou BOS (barra de evento estrutural)" data-en="Alerts <strong>blocked</strong> on the CHoCH or BOS candle (structural event bar)">Alertas <strong>bloqueados</strong> no candle de CHOCH ou BOS (barra de evento estrutural)</li>
+      <li data-pt="Alertas <strong>bloqueados</strong> enquanto OBs estão em status PENDING" data-en="Alerts <strong>blocked</strong> while OBs are in PENDING status">Alertas <strong>bloqueados</strong> enquanto OBs estão em status PENDING</li>
+      <li data-pt="Reativação apenas após novo CHOCH ou BOS de continuação" data-en="Reactivation only after a new CHoCH or continuation BOS">Reativação apenas após novo CHOCH ou BOS de continuação</li>
     </ul>
 
     <!-- Como Configurar -->
-    <h3 class="reveal" id="alert-config">Como Configurar Alertas no TradingView</h3>
-    <p class="reveal">Ativar a opção "Alert (intrabar)" no indicador habilita a lógica interna, mas você ainda precisa criar o alerta no TradingView para receber notificações.</p>
+    <h3 class="reveal" id="alert-config" data-pt="Como Configurar Alertas no TradingView" data-en="How to Configure Alerts in TradingView">Como Configurar Alertas no TradingView</h3>
+    <p class="reveal" data-pt="Ativar a opção &quot;Alert (intrabar)&quot; no indicador habilita a lógica interna, mas você ainda precisa criar o alerta no TradingView para receber notificações." data-en="Enabling the &quot;Alert (intrabar)&quot; option in the indicator activates the internal logic, but you still need to create the alert in TradingView to receive notifications.">Ativar a opção "Alert (intrabar)" no indicador habilita a lógica interna, mas você ainda precisa criar o alerta no TradingView para receber notificações.</p>
     <ol class="steps reveal">
-      <li>Adicione o indicador no gráfico</li>
-      <li>Abra <strong>Alertas</strong> e clique em <strong>Criar alerta</strong></li>
-      <li>Em <strong>Condição</strong>, selecione o indicador e escolha uma das condições:
+      <li data-pt="Adicione o indicador no gráfico" data-en="Add the indicator to the chart">Adicione o indicador no gráfico</li>
+      <li data-pt="Abra <strong>Alertas</strong> e clique em <strong>Criar alerta</strong>" data-en="Open <strong>Alerts</strong> and click <strong>Create alert</strong>">Abra <strong>Alertas</strong> e clique em <strong>Criar alerta</strong></li>
+      <li data-pt="Em <strong>Condição</strong>, selecione o indicador e escolha uma das condições:
+        <br>— CHOCH (UP/DOWN), CHOCH_UP, CHOCH_DOWN (alertas no fechamento)
+        <br>— OB &amp; Fibo Alerts (lógica intrabar)
+        <br>— <code>Any alert() function call</code> (qualquer gatilho)" data-en="Under <strong>Condition</strong>, select the indicator and choose one of the conditions:
+        <br>— CHOCH (UP/DOWN), CHOCH_UP, CHOCH_DOWN (close alerts)
+        <br>— OB &amp; Fibo Alerts (intrabar logic)
+        <br>— <code>Any alert() function call</code> (any trigger)">Em <strong>Condição</strong>, selecione o indicador e escolha uma das condições:
         <br>— CHOCH (UP/DOWN), CHOCH_UP, CHOCH_DOWN (alertas no fechamento)
         <br>— OB & Fibo Alerts (lógica intrabar)
         <br>— <code>Any alert() function call</code> (qualquer gatilho)</li>
-      <li>Para <strong>OB & Fibo Alerts</strong>, use Gatilho = <strong>"Uma vez por barra"</strong> (recomendado)</li>
-      <li>Escolha o método de notificação (popup, push, webhook, email) e crie o alerta</li>
+      <li data-pt="Para <strong>OB &amp; Fibo Alerts</strong>, use Gatilho = <strong>&quot;Uma vez por barra&quot;</strong> (recomendado)" data-en="For <strong>OB &amp; Fibo Alerts</strong>, use Trigger = <strong>&quot;Once per bar&quot;</strong> (recommended)">Para <strong>OB & Fibo Alerts</strong>, use Gatilho = <strong>"Uma vez por barra"</strong> (recomendado)</li>
+      <li data-pt="Escolha o método de notificação (popup, push, webhook, email) e crie o alerta" data-en="Choose the notification method (popup, push, webhook, email) and create the alert">Escolha o método de notificação (popup, push, webhook, email) e crie o alerta</li>
     </ol>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Contexto nos Alertas</div>
-      <p style="margin:0;">A função <code>any alert() function call</code> do PRO inclui informações contextuais: motivo do disparo, confluência envolvida e direção do mercado. Isso transforma cada alerta em uma decisão informada.</p>
+      <div class="info-card-tag green" data-pt="Contexto nos Alertas" data-en="Alert Context">Contexto nos Alertas</div>
+      <p style="margin:0;" data-pt="A função <code>any alert() function call</code> do PRO inclui informações contextuais: motivo do disparo, confluência envolvida e direção do mercado. Isso transforma cada alerta em uma decisão informada." data-en="The PRO's <code>any alert() function call</code> includes contextual information: trigger reason, involved confluence and market direction. This transforms each alert into an informed decision.">A função <code>any alert() function call</code> do PRO inclui informações contextuais: motivo do disparo, confluência envolvida e direção do mercado. Isso transforma cada alerta em uma decisão informada.</p>
     </div>
   </div>
 </section>
@@ -963,46 +991,46 @@ footer p {
 <!-- ═══════════════════ HUD MULTI-TIMEFRAME ═══════════════════ -->
 <section id="hud">
   <div class="container">
-    <div class="section-label" style="color:var(--pro-accent);">Versão PRO</div>
+    <div class="section-label" style="color:var(--pro-accent);" data-pt="Versão PRO" data-en="PRO Version">Versão PRO</div>
     <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
-    <h2 class="reveal">HUD Multi-Timeframe <span class="pro-badge">PRO</span></h2>
-    <p class="reveal">Painel opcional com 7 timeframes (5m a 1M), oferecendo leitura rápida de alinhamento de contexto.</p>
+    <h2 class="reveal" data-pt="HUD Multi-Timeframe <span class=&quot;pro-badge&quot;>PRO</span>" data-en="HUD Multi-Timeframe <span class=&quot;pro-badge&quot;>PRO</span>">HUD Multi-Timeframe <span class="pro-badge">PRO</span></h2>
+    <p class="reveal" data-pt="Painel opcional com 7 timeframes (5m a 1M), oferecendo leitura rápida de alinhamento de contexto." data-en="Optional panel with 7 timeframes (5m to 1M), providing quick context alignment reading.">Painel opcional com 7 timeframes (5m a 1M), oferecendo leitura rápida de alinhamento de contexto.</p>
 
-    <h4 class="reveal">Tendência Estrutural (Dots)</h4>
-    <p class="reveal">Cada timeframe mostra um dot colorido baseado na âncora:</p>
+    <h4 class="reveal" data-pt="Tendência Estrutural (Dots)" data-en="Structural Trend (Dots)">Tendência Estrutural (Dots)</h4>
+    <p class="reveal" data-pt="Cada timeframe mostra um dot colorido baseado na âncora:" data-en="Each timeframe shows a colored dot based on the anchor:">Cada timeframe mostra um dot colorido baseado na âncora:</p>
     <ul class="manual-list reveal">
-      <li><span style="color:var(--accent);">●</span> Verde = fundo válido = tendência de alta</li>
-      <li><span style="color:var(--danger);">●</span> Vermelho = topo válido = tendência de baixa</li>
+      <li data-pt="<span style=&quot;color:var(--accent);&quot;>●</span> Verde = fundo válido = tendência de alta" data-en="<span style=&quot;color:var(--accent);&quot;>●</span> Green = valid low = uptrend"><span style="color:var(--accent);">●</span> Verde = fundo válido = tendência de alta</li>
+      <li data-pt="<span style=&quot;color:var(--danger);&quot;>●</span> Vermelho = topo válido = tendência de baixa" data-en="<span style=&quot;color:var(--danger);&quot;>●</span> Red = valid high = downtrend"><span style="color:var(--danger);">●</span> Vermelho = topo válido = tendência de baixa</li>
     </ul>
 
     <h4 class="reveal">RSI</h4>
-    <p class="reveal">Exibe o RSI de cada timeframe para complementar a leitura estrutural.</p>
+    <p class="reveal" data-pt="Exibe o RSI de cada timeframe para complementar a leitura estrutural." data-en="Displays the RSI of each timeframe to complement structural reading.">Exibe o RSI de cada timeframe para complementar a leitura estrutural.</p>
 
     <h4 class="reveal">OB Mode</h4>
-    <p class="reveal"><strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier.</p>
+    <p class="reveal" data-pt="<strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier." data-en="<strong>Auto</strong> or <strong>Manual</strong>. Indicates whether the order block validation mechanism is in automatic mode (parameters calculated by the system) or manual (set by the trader in the settings). In Advanced/Manual mode, you can override the auto-calculated lookahead and ATR multiplier values."><strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier.</p>
 
     <h4 class="reveal" id="strictness">Strictness (0–10)</h4>
-    <p class="reveal">Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks.</p>
+    <p class="reveal" data-pt="Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks." data-en="Progress bar indicating the system's strictness level for validating Order Blocks.">Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks.</p>
     <ul class="manual-list reveal">
-      <li><strong>Menor (0–3):</strong> mais permissivo — aceita movimentos menores como válidos, gera mais OBs</li>
-      <li><strong>Médio (4–6):</strong> equilíbrio entre sensibilidade e qualidade</li>
-      <li><strong>Maior (7–10):</strong> mais rigoroso — exige deslocamentos fortes e claros, menos OBs</li>
+      <li data-pt="<strong>Menor (0–3):</strong> mais permissivo — aceita movimentos menores como válidos, gera mais OBs" data-en="<strong>Lower (0–3):</strong> more permissive — accepts smaller moves as valid, generates more OBs"><strong>Menor (0–3):</strong> mais permissivo — aceita movimentos menores como válidos, gera mais OBs</li>
+      <li data-pt="<strong>Médio (4–6):</strong> equilíbrio entre sensibilidade e qualidade" data-en="<strong>Medium (4–6):</strong> balance between sensitivity and quality"><strong>Médio (4–6):</strong> equilíbrio entre sensibilidade e qualidade</li>
+      <li data-pt="<strong>Maior (7–10):</strong> mais rigoroso — exige deslocamentos fortes e claros, menos OBs" data-en="<strong>Higher (7–10):</strong> more demanding — requires strong and clear displacements, fewer OBs"><strong>Maior (7–10):</strong> mais rigoroso — exige deslocamentos fortes e claros, menos OBs</li>
     </ul>
-    <p class="reveal">A escala interna é <code>0.70 + (strictness × 0.06)</code>, aplicada sobre baselines que variam por timeframe. Isso auto-ajusta o lookahead (janela de validação em barras) e o ATR multiplier proporcionalmente.</p>
+    <p class="reveal" data-pt="A escala interna é <code>0.70 + (strictness × 0.06)</code>, aplicada sobre baselines que variam por timeframe. Isso auto-ajusta o lookahead (janela de validação em barras) e o ATR multiplier proporcionalmente." data-en="The internal scale is <code>0.70 + (strictness × 0.06)</code>, applied to baselines that vary by timeframe. This auto-adjusts the lookahead (validation window in bars) and ATR multiplier proportionally.">A escala interna é <code>0.70 + (strictness × 0.06)</code>, aplicada sobre baselines que variam por timeframe. Isso auto-ajusta o lookahead (janela de validação em barras) e o ATR multiplier proporcionalmente.</p>
 
     <h4 class="reveal">BaseLA (Lookahead)</h4>
-    <p class="reveal">Indica a quantidade de velas que o indicador utiliza naquele timeframe para validar se um OB é válido ou não. O número entre parênteses (se houver) indica quantas velas restam para confirmar um OB pendente — funciona como um countdown.</p>
+    <p class="reveal" data-pt="Indica a quantidade de velas que o indicador utiliza naquele timeframe para validar se um OB é válido ou não. O número entre parênteses (se houver) indica quantas velas restam para confirmar um OB pendente — funciona como um countdown." data-en="Indicates the number of candles the indicator uses in that timeframe to validate whether an OB is valid or not. The number in parentheses (if present) indicates how many candles remain to confirm a pending OB — works as a countdown.">Indica a quantidade de velas que o indicador utiliza naquele timeframe para validar se um OB é válido ou não. O número entre parênteses (se houver) indica quantas velas restam para confirmar um OB pendente — funciona como um countdown.</p>
 
-    <h4 class="reveal">BaseATR (Multiplicador de Volatilidade)</h4>
-    <p class="reveal">Define o quanto o preço precisa se mover, em relação ao ATR, para que um movimento seja considerado forte o suficiente para validar o OB.</p>
+    <h4 class="reveal" data-pt="BaseATR (Multiplicador de Volatilidade)" data-en="BaseATR (Volatility Multiplier)">BaseATR (Multiplicador de Volatilidade)</h4>
+    <p class="reveal" data-pt="Define o quanto o preço precisa se mover, em relação ao ATR, para que um movimento seja considerado forte o suficiente para validar o OB." data-en="Defines how much price must move, relative to ATR, for a move to be considered strong enough to validate the OB.">Define o quanto o preço precisa se mover, em relação ao ATR, para que um movimento seja considerado forte o suficiente para validar o OB.</p>
     <ul class="manual-list reveal">
-      <li><strong>Maior BaseATR:</strong> deslocamento precisa ser mais forte → menos estruturas fracas passam → sistema mais seletivo</li>
-      <li><strong>Menor BaseATR:</strong> movimentos menores já são aceitos → mais sinais → sistema mais sensível</li>
+      <li data-pt="<strong>Maior BaseATR:</strong> deslocamento precisa ser mais forte → menos estruturas fracas passam → sistema mais seletivo" data-en="<strong>Higher BaseATR:</strong> displacement must be stronger → fewer weak structures pass → more selective system"><strong>Maior BaseATR:</strong> deslocamento precisa ser mais forte → menos estruturas fracas passam → sistema mais seletivo</li>
+      <li data-pt="<strong>Menor BaseATR:</strong> movimentos menores já são aceitos → mais sinais → sistema mais sensível" data-en="<strong>Lower BaseATR:</strong> smaller moves are accepted → more signals → more sensitive system"><strong>Menor BaseATR:</strong> movimentos menores já são aceitos → mais sinais → sistema mais sensível</li>
     </ul>
 
     <div class="info-card blue-border reveal">
-      <div class="info-card-tag blue">Exemplo Prático</div>
-      <p style="margin:0;">Se o BaseATR for 4.0, o rompimento precisa deslocar pelo menos 4 vezes o ATR base para ser validado. Em timeframes menores (5min), o baseline é naturalmente maior (4.0×) pois os movimentos são menores. Em timeframes maiores (mensal), o baseline é menor (1.6×) pois os movimentos já são significativos.</p>
+      <div class="info-card-tag blue" data-pt="Exemplo Prático" data-en="Practical Example">Exemplo Prático</div>
+      <p style="margin:0;" data-pt="Se o BaseATR for 4.0, o rompimento precisa deslocar pelo menos 4 vezes o ATR base para ser validado. Em timeframes menores (5min), o baseline é naturalmente maior (4.0×) pois os movimentos são menores. Em timeframes maiores (mensal), o baseline é menor (1.6×) pois os movimentos já são significativos." data-en="If BaseATR is 4.0, the breakout must displace at least 4 times the base ATR to be validated. In lower timeframes (5min), the baseline is naturally higher (4.0×) because individual moves are smaller. In higher timeframes (monthly), the baseline is lower (1.6×) because moves are already significant.">Se o BaseATR for 4.0, o rompimento precisa deslocar pelo menos 4 vezes o ATR base para ser validado. Em timeframes menores (5min), o baseline é naturalmente maior (4.0×) pois os movimentos são menores. Em timeframes maiores (mensal), o baseline é menor (1.6×) pois os movimentos já são significativos.</p>
     </div>
   </div>
 </section>
@@ -1010,17 +1038,17 @@ footer p {
 <!-- ═══════════════════ CONFIGURAÇÕES RECOMENDADAS ═══════════════════ -->
 <section id="configs">
   <div class="container">
-    <div class="section-label">Referência</div>
+    <div class="section-label" data-pt="Referência" data-en="Reference">Referência</div>
     <div class="sep"></div>
-    <h2 class="reveal">Configurações Recomendadas</h2>
+    <h2 class="reveal" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</h2>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Default Recomendado — Todos os Timeframes</div>
-      <p>Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:</p>
+      <div class="info-card-tag green" data-pt="Default Recomendado — Todos os Timeframes" data-en="Recommended Default — All Timeframes">Default Recomendado — Todos os Timeframes</div>
+      <p data-pt="Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:" data-en="For most scenarios and assets, the settings below work well as a universal starting point:">Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:</p>
       <div class="table-wrap">
         <table class="config-table" style="margin:0;">
           <thead>
-            <tr><th>Parâmetro</th><th>Valor</th></tr>
+            <tr><th data-pt="Parâmetro" data-en="Parameter">Parâmetro</th><th data-pt="Valor" data-en="Value">Valor</th></tr>
           </thead>
           <tbody>
             <tr><td>Fractal K</td><td>2</td></tr>
@@ -1029,36 +1057,36 @@ footer p {
           </tbody>
         </table>
       </div>
-      <p style="margin:12px 0 0;font-size:13px;">Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros.</p>
+      <p style="margin:12px 0 0;font-size:13px;" data-pt="Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros." data-en="These values offer a balance between structural sensitivity and validation quality. Auto mode automatically adjusts BaseLA and BaseATR per timeframe, so you don't need to touch those parameters.">Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros.</p>
     </div>
 
-    <h3 class="reveal">Referência Avançada: Baselines por Timeframe</h3>
-    <p class="reveal">A tabela abaixo mostra os <strong>baselines internos do modo Auto</strong> — os valores que o sistema calcula automaticamente para cada timeframe. Serve como referência para quem usa o modo <strong>Manual/Advanced</strong> e quer fazer override dos parâmetros.</p>
+    <h3 class="reveal" data-pt="Referência Avançada: Baselines por Timeframe" data-en="Advanced Reference: Baselines by Timeframe">Referência Avançada: Baselines por Timeframe</h3>
+    <p class="reveal" data-pt="A tabela abaixo mostra os <strong>baselines internos do modo Auto</strong> — os valores que o sistema calcula automaticamente para cada timeframe. Serve como referência para quem usa o modo <strong>Manual/Advanced</strong> e quer fazer override dos parâmetros." data-en="The table below shows the <strong>Auto mode internal baselines</strong> — the values the system automatically calculates for each timeframe. It serves as a reference for those using <strong>Manual/Advanced</strong> mode who want to override parameters.">A tabela abaixo mostra os <strong>baselines internos do modo Auto</strong> — os valores que o sistema calcula automaticamente para cada timeframe. Serve como referência para quem usa o modo <strong>Manual/Advanced</strong> e quer fazer override dos parâmetros.</p>
 
     <div class="table-wrap reveal">
       <table class="config-table">
         <thead>
           <tr>
-            <th>Timeframe</th>
+            <th data-pt="Timeframe" data-en="Timeframe">Timeframe</th>
             <th>BaseLA</th>
             <th>BaseATR</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>5 min</td><td>14 barras</td><td>4.0×</td></tr>
-          <tr><td>15 min</td><td>12 barras</td><td>3.5×</td></tr>
-          <tr><td>1 hora</td><td>10 barras</td><td>3.0×</td></tr>
-          <tr><td>4 horas</td><td>8 barras</td><td>2.5×</td></tr>
-          <tr><td>Diário</td><td>6 barras</td><td>2.0×</td></tr>
-          <tr><td>Semanal</td><td>5 barras</td><td>1.8×</td></tr>
-          <tr><td>Mensal</td><td>4 barras</td><td>1.6×</td></tr>
+          <tr><td>5 min</td><td data-pt="14 barras" data-en="14 bars">14 barras</td><td>4.0×</td></tr>
+          <tr><td>15 min</td><td data-pt="12 barras" data-en="12 bars">12 barras</td><td>3.5×</td></tr>
+          <tr><td data-pt="1 hora" data-en="1 hour">1 hora</td><td data-pt="10 barras" data-en="10 bars">10 barras</td><td>3.0×</td></tr>
+          <tr><td data-pt="4 horas" data-en="4 hours">4 horas</td><td data-pt="8 barras" data-en="8 bars">8 barras</td><td>2.5×</td></tr>
+          <tr><td data-pt="Diário" data-en="Daily">Diário</td><td data-pt="6 barras" data-en="6 bars">6 barras</td><td>2.0×</td></tr>
+          <tr><td data-pt="Semanal" data-en="Weekly">Semanal</td><td data-pt="5 barras" data-en="5 bars">5 barras</td><td>1.8×</td></tr>
+          <tr><td data-pt="Mensal" data-en="Monthly">Mensal</td><td data-pt="4 barras" data-en="4 bars">4 barras</td><td>1.6×</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="info-card warn-border reveal">
-      <div class="info-card-tag yellow">Nota</div>
-      <p style="margin:0;">A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo.</p>
+      <div class="info-card-tag yellow" data-pt="Nota" data-en="Note">Nota</div>
+      <p style="margin:0;" data-pt="A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo." data-en="The baseline logic is: lower timeframes require <strong>more confirmation</strong> (more lookahead bars and higher ATR multiplier, since individual moves are smaller). Higher timeframes are naturally more selective, so baselines are lower. In Manual mode, you can override any value to adapt to your asset and style.">A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo.</p>
     </div>
   </div>
 </section>
@@ -1066,23 +1094,23 @@ footer p {
 <!-- ═══════════════════ COMO USAR ═══════════════════ -->
 <section id="uso">
   <div class="container">
-    <div class="section-label">Workflow</div>
+    <div class="section-label" data-pt="Workflow" data-en="Workflow">Workflow</div>
     <div class="sep"></div>
-    <h2 class="reveal">Como Usar na Prática</h2>
-    <p class="reveal">Fluxo recomendado de uso do SMC Execution Engine:</p>
+    <h2 class="reveal" data-pt="Como Usar na Prática" data-en="How to Use in Practice">Como Usar na Prática</h2>
+    <p class="reveal" data-pt="Fluxo recomendado de uso do SMC Execution Engine:" data-en="Recommended workflow for using the SMC Execution Engine:">Fluxo recomendado de uso do SMC Execution Engine:</p>
 
     <ol class="steps reveal">
-      <li><strong>Identifique o CHOCH</strong> e o novo regime no timeframe operacional</li>
-      <li><strong>Observe o alinhamento no HUD</strong> — verifique se timeframes superiores confirmam a direção (PRO)</li>
-      <li><strong>Aguarde a retração</strong> até as zonas de Fibonacci 0.618–0.79 e/ou o Order Block</li>
-      <li><strong>Verifique a validação do OB</strong> — se está PENDING (borda tracejada), aguarde a confirmação (PRO)</li>
-      <li><strong>Use alertas intrabar</strong> para timing — escolha o modo de confluência adequado ao seu estilo (PRO)</li>
-      <li><strong>Execute com gestão de risco própria</strong> — o indicador fornece contexto, a decisão é do trader</li>
+      <li data-pt="<strong>Identifique o CHOCH</strong> e o novo regime no timeframe operacional" data-en="<strong>Identify the CHoCH</strong> and the new regime on the trading timeframe"><strong>Identifique o CHOCH</strong> e o novo regime no timeframe operacional</li>
+      <li data-pt="<strong>Observe o alinhamento no HUD</strong> — verifique se timeframes superiores confirmam a direção (PRO)" data-en="<strong>Check alignment on the HUD</strong> — verify whether higher timeframes confirm the direction (PRO)"><strong>Observe o alinhamento no HUD</strong> — verifique se timeframes superiores confirmam a direção (PRO)</li>
+      <li data-pt="<strong>Aguarde a retração</strong> até as zonas de Fibonacci 0.618–0.79 e/ou o Order Block" data-en="<strong>Wait for the pullback</strong> to the Fibonacci 0.618–0.79 zones and/or the Order Block"><strong>Aguarde a retração</strong> até as zonas de Fibonacci 0.618–0.79 e/ou o Order Block</li>
+      <li data-pt="<strong>Verifique a validação do OB</strong> — se está PENDING (borda tracejada), aguarde a confirmação (PRO)" data-en="<strong>Check OB validation</strong> — if PENDING (dashed border), wait for confirmation (PRO)"><strong>Verifique a validação do OB</strong> — se está PENDING (borda tracejada), aguarde a confirmação (PRO)</li>
+      <li data-pt="<strong>Use alertas intrabar</strong> para timing — escolha o modo de confluência adequado ao seu estilo (PRO)" data-en="<strong>Use intrabar alerts</strong> for timing — choose the confluence mode suited to your style (PRO)"><strong>Use alertas intrabar</strong> para timing — escolha o modo de confluência adequado ao seu estilo (PRO)</li>
+      <li data-pt="<strong>Execute com gestão de risco própria</strong> — o indicador fornece contexto, a decisão é do trader" data-en="<strong>Execute with your own risk management</strong> — the indicator provides context, the decision belongs to the trader"><strong>Execute com gestão de risco própria</strong> — o indicador fornece contexto, a decisão é do trader</li>
     </ol>
 
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green">Dica</div>
-      <p style="margin:0;">Comece com modos de alerta de <strong>alta confluência</strong> (OB_AND_079 ou OB_PLUS_FIB) para filtrar ruído e ganhar confiança no workflow. À medida que dominar a leitura, explore modos mais flexíveis como OB_OR_079 ou FIBO_THEN_OB.</p>
+      <div class="info-card-tag green" data-pt="Dica" data-en="Tip">Dica</div>
+      <p style="margin:0;" data-pt="Comece com modos de alerta de <strong>alta confluência</strong> (OB_AND_079 ou OB_PLUS_FIB) para filtrar ruído e ganhar confiança no workflow. À medida que dominar a leitura, explore modos mais flexíveis como OB_OR_079 ou FIBO_THEN_OB." data-en="Start with <strong>high confluence</strong> alert modes (OB_AND_079 or OB_PLUS_FIB) to filter noise and build confidence in the workflow. As you master the reading, explore more flexible modes like OB_OR_079 or FIBO_THEN_OB.">Comece com modos de alerta de <strong>alta confluência</strong> (OB_AND_079 ou OB_PLUS_FIB) para filtrar ruído e ganhar confiança no workflow. À medida que dominar a leitura, explore modos mais flexíveis como OB_OR_079 ou FIBO_THEN_OB.</p>
     </div>
   </div>
 </section>
@@ -1090,49 +1118,49 @@ footer p {
 <!-- ═══════════════════ FAQ ═══════════════════ -->
 <section id="faq">
   <div class="container">
-    <div class="section-label">Suporte</div>
+    <div class="section-label" data-pt="Suporte" data-en="Support">Suporte</div>
     <div class="sep"></div>
     <h2 class="reveal">FAQ / Troubleshooting</h2>
 
     <div class="info-card reveal" style="margin-top:0;">
-      <h4 style="margin-top:0;">Por que meu Order Block sumiu?</h4>
-      <p style="margin:0;">Duas possibilidades: (1) O OB foi <strong>mitigado</strong> — o preço retornou e preencheu a zona (low ≤ OB_bottom para bullish, high ≥ OB_top para bearish). (2) O OB estava PENDING e <strong>não validou</strong> dentro da janela de avaliação — foi descartado pelo filtro de validação, e o invalidation lock impede recriação no mesmo contexto.</p>
+      <h4 style="margin-top:0;" data-pt="Por que meu Order Block sumiu?" data-en="Why did my Order Block disappear?">Por que meu Order Block sumiu?</h4>
+      <p style="margin:0;" data-pt="Duas possibilidades: (1) O OB foi <strong>mitigado</strong> — o preço retornou e preencheu a zona (low ≤ OB_bottom para bullish, high ≥ OB_top para bearish). (2) O OB estava PENDING e <strong>não validou</strong> dentro da janela de avaliação — foi descartado pelo filtro de validação, e o invalidation lock impede recriação no mesmo contexto." data-en="Two possibilities: (1) The OB was <strong>mitigated</strong> — price returned and filled the zone (low ≤ OB_bottom for bullish, high ≥ OB_top for bearish). (2) The OB was PENDING and <strong>did not validate</strong> within the evaluation window — it was discarded by the validation filter, and the invalidation lock prevents recreation in the same context.">Duas possibilidades: (1) O OB foi <strong>mitigado</strong> — o preço retornou e preencheu a zona (low ≤ OB_bottom para bullish, high ≥ OB_top para bearish). (2) O OB estava PENDING e <strong>não validou</strong> dentro da janela de avaliação — foi descartado pelo filtro de validação, e o invalidation lock impede recriação no mesmo contexto.</p>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">Por que o Fib B não aparece?</h4>
-      <p style="margin:0;">O Fib B só é criado após um <strong>BOS de continuação</strong>. Se você está logo após um CHOCH e ainda não houve BOS, apenas o Fib A estará ativo. Além disso, se o filtro de validação de OB está ligado, o Fib B fica <strong>"gated"</strong> até que o OB correspondente passe de PENDING para VALID.</p>
+      <h4 style="margin-top:0;" data-pt="Por que o Fib B não aparece?" data-en="Why is Fib B not showing?">Por que o Fib B não aparece?</h4>
+      <p style="margin:0;" data-pt="O Fib B só é criado após um <strong>BOS de continuação</strong>. Se você está logo após um CHOCH e ainda não houve BOS, apenas o Fib A estará ativo. Além disso, se o filtro de validação de OB está ligado, o Fib B fica <strong>&quot;gated&quot;</strong> até que o OB correspondente passe de PENDING para VALID." data-en="Fib B is only created after a <strong>continuation BOS</strong>. If you are right after a CHoCH and no BOS has occurred yet, only Fib A will be active. Also, if the OB validation filter is on, Fib B remains <strong>&quot;gated&quot;</strong> until the corresponding OB moves from PENDING to VALID.">O Fib B só é criado após um <strong>BOS de continuação</strong>. Se você está logo após um CHOCH e ainda não houve BOS, apenas o Fib A estará ativo. Além disso, se o filtro de validação de OB está ligado, o Fib B fica <strong>"gated"</strong> até que o OB correspondente passe de PENDING para VALID.</p>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">Por que não recebi alerta?</h4>
-      <p>Verifique os seguintes pontos:</p>
+      <h4 style="margin-top:0;" data-pt="Por que não recebi alerta?" data-en="Why didn't I receive an alert?">Por que não recebi alerta?</h4>
+      <p data-pt="Verifique os seguintes pontos:" data-en="Check the following:">Verifique os seguintes pontos:</p>
       <ul class="manual-list" style="margin-top:8px;">
-        <li>A opção "Alert (intrabar)" está ativada no indicador?</li>
-        <li>Você <strong>criou o alerta</strong> no TradingView? (a opção no indicador só ativa a lógica interna)</li>
-        <li>O alerta pode estar <strong>bloqueado</strong>: barra de evento estrutural (CHOCH/BOS), OB pendente, ou alerta já disparado no contexto atual</li>
-        <li>Verifique se o modo de alerta selecionado é compatível com o cenário (ex: OB_AND_079 exige ambas as condições simultaneamente)</li>
+        <li data-pt="A opção &quot;Alert (intrabar)&quot; está ativada no indicador?" data-en="Is the &quot;Alert (intrabar)&quot; option enabled in the indicator?">A opção "Alert (intrabar)" está ativada no indicador?</li>
+        <li data-pt="Você <strong>criou o alerta</strong> no TradingView? (a opção no indicador só ativa a lógica interna)" data-en="Did you <strong>create the alert</strong> in TradingView? (the indicator option only activates the internal logic)">Você <strong>criou o alerta</strong> no TradingView? (a opção no indicador só ativa a lógica interna)</li>
+        <li data-pt="O alerta pode estar <strong>bloqueado</strong>: barra de evento estrutural (CHOCH/BOS), OB pendente, ou alerta já disparado no contexto atual" data-en="The alert may be <strong>blocked</strong>: structural event bar (CHoCH/BOS), pending OB, or alert already fired in the current context">O alerta pode estar <strong>bloqueado</strong>: barra de evento estrutural (CHOCH/BOS), OB pendente, ou alerta já disparado no contexto atual</li>
+        <li data-pt="Verifique se o modo de alerta selecionado é compatível com o cenário (ex: OB_AND_079 exige ambas as condições simultaneamente)" data-en="Check if the selected alert mode is compatible with the scenario (e.g.: OB_AND_079 requires both conditions simultaneously)">Verifique se o modo de alerta selecionado é compatível com o cenário (ex: OB_AND_079 exige ambas as condições simultaneamente)</li>
       </ul>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">Qual Fractal K usar?</h4>
-      <p style="margin:0;">Depende do timeframe e do seu estilo. Para <strong>scalp (5m–15m)</strong>, K entre 2–3 oferece sensibilidade. Para <strong>swing (4H–Diário)</strong>, K entre 4–6 filtra ruído. Comece com os valores da tabela de configurações recomendadas e ajuste conforme sua experiência.</p>
+      <h4 style="margin-top:0;" data-pt="Qual Fractal K usar?" data-en="Which Fractal K should I use?">Qual Fractal K usar?</h4>
+      <p style="margin:0;" data-pt="Depende do timeframe e do seu estilo. Para <strong>scalp (5m–15m)</strong>, K entre 2–3 oferece sensibilidade. Para <strong>swing (4H–Diário)</strong>, K entre 4–6 filtra ruído. Comece com os valores da tabela de configurações recomendadas e ajuste conforme sua experiência." data-en="It depends on the timeframe and your style. For <strong>scalp (5m–15m)</strong>, K between 2–3 offers sensitivity. For <strong>swing (4H–Daily)</strong>, K between 4–6 filters noise. Start with the values from the recommended settings table and adjust based on your experience.">Depende do timeframe e do seu estilo. Para <strong>scalp (5m–15m)</strong>, K entre 2–3 oferece sensibilidade. Para <strong>swing (4H–Diário)</strong>, K entre 4–6 filtra ruído. Comece com os valores da tabela de configurações recomendadas e ajuste conforme sua experiência.</p>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">O que é o OB com borda tracejada?</h4>
-      <p style="margin:0;">É um Order Block em status <strong>PENDING</strong> — ele foi identificado mas ainda não validou pelo filtro de confirmação (Displacement + FVG). Aguarde: ele pode se tornar sólido (VALID) ou desaparecer (expirado). Não execute com base em OBs pendentes.</p>
+      <h4 style="margin-top:0;" data-pt="O que é o OB com borda tracejada?" data-en="What is an OB with a dashed border?">O que é o OB com borda tracejada?</h4>
+      <p style="margin:0;" data-pt="É um Order Block em status <strong>PENDING</strong> — ele foi identificado mas ainda não validou pelo filtro de confirmação (Displacement + FVG). Aguarde: ele pode se tornar sólido (VALID) ou desaparecer (expirado). Não execute com base em OBs pendentes." data-en="It is an Order Block in <strong>PENDING</strong> status — it was identified but has not yet passed the confirmation filter (Displacement + FVG). Wait: it may become solid (VALID) or disappear (expired). Do not execute based on pending OBs.">É um Order Block em status <strong>PENDING</strong> — ele foi identificado mas ainda não validou pelo filtro de confirmação (Displacement + FVG). Aguarde: ele pode se tornar sólido (VALID) ou desaparecer (expirado). Não execute com base em OBs pendentes.</p>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">Posso usar em qualquer ativo?</h4>
-      <p style="margin:0;">Sim. O indicador funciona em qualquer ativo no TradingView — cripto, forex, ações, futuros, commodities. A lógica é baseada em estrutura de preço (price action), que é universal. Os parâmetros podem precisar de ajuste fino dependendo da volatilidade do ativo.</p>
+      <h4 style="margin-top:0;" data-pt="Posso usar em qualquer ativo?" data-en="Can I use it on any asset?">Posso usar em qualquer ativo?</h4>
+      <p style="margin:0;" data-pt="Sim. O indicador funciona em qualquer ativo no TradingView — cripto, forex, ações, futuros, commodities. A lógica é baseada em estrutura de preço (price action), que é universal. Os parâmetros podem precisar de ajuste fino dependendo da volatilidade do ativo." data-en="Yes. The indicator works on any asset in TradingView — crypto, forex, stocks, futures, commodities. The logic is based on price structure (price action), which is universal. Parameters may need fine-tuning depending on the asset's volatility.">Sim. O indicador funciona em qualquer ativo no TradingView — cripto, forex, ações, futuros, commodities. A lógica é baseada em estrutura de preço (price action), que é universal. Os parâmetros podem precisar de ajuste fino dependendo da volatilidade do ativo.</p>
     </div>
 
     <div class="info-card reveal">
-      <h4 style="margin-top:0;">Auto ou Manual — qual usar?</h4>
-      <p style="margin:0;">Comece com <strong>Auto</strong> — os parâmetros de Strictness, BaseLA e BaseATR são calibrados automaticamente por timeframe. Use <strong>Manual (Advanced)</strong> quando quiser fazer override dos valores para adaptar a sensibilidade ao seu ativo ou contexto específico.</p>
+      <h4 style="margin-top:0;" data-pt="Auto ou Manual — qual usar?" data-en="Auto or Manual — which to use?">Auto ou Manual — qual usar?</h4>
+      <p style="margin:0;" data-pt="Comece com <strong>Auto</strong> — os parâmetros de Strictness, BaseLA e BaseATR são calibrados automaticamente por timeframe. Use <strong>Manual (Advanced)</strong> quando quiser fazer override dos valores para adaptar a sensibilidade ao seu ativo ou contexto específico." data-en="Start with <strong>Auto</strong> — Strictness, BaseLA and BaseATR parameters are automatically calibrated per timeframe. Use <strong>Manual (Advanced)</strong> when you want to override values to adapt sensitivity to your specific asset or context.">Comece com <strong>Auto</strong> — os parâmetros de Strictness, BaseLA e BaseATR são calibrados automaticamente por timeframe. Use <strong>Manual (Advanced)</strong> quando quiser fazer override dos valores para adaptar a sensibilidade ao seu ativo ou contexto específico.</p>
     </div>
   </div>
 </section>
@@ -1140,11 +1168,11 @@ footer p {
 <!-- ═══════════════════ AVISO ═══════════════════ -->
 <section id="aviso">
   <div class="container">
-    <div class="section-label" style="color:var(--danger);">Aviso Legal</div>
+    <div class="section-label" style="color:var(--danger);" data-pt="Aviso Legal" data-en="Legal Disclaimer">Aviso Legal</div>
     <div class="sep" style="background:linear-gradient(90deg, var(--danger), transparent);"></div>
     <div class="info-card danger-border reveal">
-      <p>Este script <strong>não gera recomendações de compra ou venda</strong>. Ele fornece estrutura e contexto para apoiar decisões disciplinadas.</p>
-      <p style="margin:0;">Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto.</p>
+      <p data-pt="Este script <strong>não gera recomendações de compra ou venda</strong>. Ele fornece estrutura e contexto para apoiar decisões disciplinadas." data-en="This script <strong>does not generate buy or sell recommendations</strong>. It provides structure and context to support disciplined decisions.">Este script <strong>não gera recomendações de compra ou venda</strong>. Ele fornece estrutura e contexto para apoiar decisões disciplinadas.</p>
+      <p style="margin:0;" data-pt="Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto." data-en="Product of educational and analytical nature. Does not constitute investment advice or financial consulting. Results are not guaranteed. Use assumes prior knowledge of technical analysis and financial markets. TradingView is a third-party platform with no official affiliation or endorsement with this product.">Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto.</p>
     </div>
   </div>
 </section>
@@ -1154,7 +1182,7 @@ footer p {
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
   <div class="container">
-    <p>© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
+    <p data-pt="© 2026 SMC Execution Engine. Todos os direitos reservados." data-en="© 2026 SMC Execution Engine. All rights reserved.">© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
   </div>
 </footer>
 
@@ -1198,6 +1226,25 @@ if (window.innerWidth >= 1100) {
 
   sections.forEach(s => tocObserver.observe(s));
 }
+
+// Language toggle
+(function() {
+  const savedLang = localStorage.getItem('smc-lang') || 'pt';
+  applyLang(savedLang);
+  function applyLang(lang) {
+    document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      el.innerHTML = el.dataset[lang] || el.dataset.pt;
+    });
+    const btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    localStorage.setItem('smc-lang', lang);
+  }
+  window.toggleLang = function() {
+    const current = localStorage.getItem('smc-lang') || 'pt';
+    applyLang(current === 'pt' ? 'en' : 'pt');
+  };
+})();
 </script>
 
 </body>

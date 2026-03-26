@@ -102,6 +102,27 @@ main { position: relative; z-index: 1; }
 .nav-back:hover { color: var(--accent); opacity: 1; }
 
 /* ═══════════════════════════════════════════
+   LANG TOGGLE
+   ═══════════════════════════════════════════ */
+.lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════
    LAYOUT
    ═══════════════════════════════════════════ */
 .container {
@@ -351,7 +372,8 @@ main { position: relative; z-index: 1; }
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
   <div class="nav-logo">SMC EXECUTION ENGINE</div>
-  <a href="index.html" class="nav-back">← Página Principal</a>
+  <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+  <a href="index.html" class="nav-back" data-pt="← Página Principal" data-en="← Main Page">← Página Principal</a>
 </nav>
 
 <main>
@@ -359,16 +381,16 @@ main { position: relative; z-index: 1; }
 
   <!-- ═══════════════════ HEADER ═══════════════════ -->
   <header class="page-header">
-    <div class="page-label reveal">Biblioteca de Vídeos</div>
-    <h1 class="page-title reveal">Vídeos</h1>
-    <p class="page-subtitle reveal">Tutoriais e explicações sobre o SMC Execution Engine. Cada vídeo cobre um módulo ou conceito específico do indicador.</p>
+    <div class="page-label reveal" data-pt="Biblioteca de Vídeos" data-en="Video Library">Biblioteca de Vídeos</div>
+    <h1 class="page-title reveal" data-pt="Vídeos" data-en="Videos">Vídeos</h1>
+    <p class="page-subtitle reveal" data-pt="Tutoriais e explicações sobre o SMC Execution Engine. Cada vídeo cobre um módulo ou conceito específico do indicador." data-en="Tutorials and explanations about the SMC Execution Engine. Each video covers a specific module or concept of the indicator.">Tutoriais e explicações sobre o SMC Execution Engine. Cada vídeo cobre um módulo ou conceito específico do indicador.</p>
   </header>
 
   <!-- ═══════════════════ CATEGORIA: FUNDAMENTOS ═══════════════════ -->
   <section class="category">
     <div class="category-header reveal">
       <span class="category-label free">Free</span>
-      <span class="category-title">Fundamentos</span>
+      <span class="category-title" data-pt="Fundamentos" data-en="Fundamentals">Fundamentos</span>
     </div>
 
     <div class="video-grid">
@@ -379,9 +401,9 @@ main { position: relative; z-index: 1; }
           <div class="play-btn"></div>
         </div>
         <div class="video-info">
-          <div class="video-badge free">Visão Geral</div>
-          <h2 class="video-title">SMC Execution Engine — Apresentação Completa</h2>
-          <p class="video-desc">Introdução ao indicador: arquitetura, conceitos de Smart Money Concepts, BOS, CHoCH, Order Blocks e zonas de execução com Fibonacci.</p>
+          <div class="video-badge free" data-pt="Visão Geral" data-en="Overview">Visão Geral</div>
+          <h2 class="video-title" data-pt="SMC Execution Engine — Apresentação Completa" data-en="SMC Execution Engine — Full Presentation">SMC Execution Engine — Apresentação Completa</h2>
+          <p class="video-desc" data-pt="Introdução ao indicador: arquitetura, conceitos de Smart Money Concepts, BOS, CHoCH, Order Blocks e zonas de execução com Fibonacci." data-en="Introduction to the indicator: architecture, Smart Money Concepts, BOS, CHoCH, Order Blocks and execution zones with Fibonacci.">Introdução ao indicador: arquitetura, conceitos de Smart Money Concepts, BOS, CHoCH, Order Blocks e zonas de execução com Fibonacci.</p>
         </div>
       </div>
 
@@ -392,7 +414,7 @@ main { position: relative; z-index: 1; }
   <section class="category">
     <div class="category-header reveal">
       <span class="category-label pro">PRO</span>
-      <span class="category-title">Funcionalidades PRO</span>
+      <span class="category-title" data-pt="Funcionalidades PRO" data-en="PRO Features">Funcionalidades PRO</span>
     </div>
 
     <div class="video-grid">
@@ -403,9 +425,9 @@ main { position: relative; z-index: 1; }
           <div class="play-btn"></div>
         </div>
         <div class="video-info">
-          <div class="video-badge pro">Módulo de Alertas</div>
-          <h2 class="video-title">Motor de Alertas Inteligentes</h2>
-          <p class="video-desc">Como configurar e usar o sistema de alertas intrabar em tempo real, modos de confluência OB + Fibonacci e filtros de qualidade de sinal.</p>
+          <div class="video-badge pro" data-pt="Módulo de Alertas" data-en="Alert Module">Módulo de Alertas</div>
+          <h2 class="video-title" data-pt="Motor de Alertas Inteligentes" data-en="Intelligent Alert Engine">Motor de Alertas Inteligentes</h2>
+          <p class="video-desc" data-pt="Como configurar e usar o sistema de alertas intrabar em tempo real, modos de confluência OB + Fibonacci e filtros de qualidade de sinal." data-en="How to configure and use the real-time intrabar alert system, OB + Fibonacci confluence modes and signal quality filters.">Como configurar e usar o sistema de alertas intrabar em tempo real, modos de confluência OB + Fibonacci e filtros de qualidade de sinal.</p>
         </div>
       </div>
 
@@ -415,9 +437,9 @@ main { position: relative; z-index: 1; }
           <div class="play-btn"></div>
         </div>
         <div class="video-info">
-          <div class="video-badge pro">Order Blocks</div>
-          <h2 class="video-title">Validação de Order Blocks</h2>
-          <p class="video-desc">Explicação do módulo de validação de Order Blocks do PRO: presença institucional confirmada, controle de mitigação e filtros de tamanho e volume.</p>
+          <div class="video-badge pro" data-pt="Order Blocks" data-en="Order Blocks">Order Blocks</div>
+          <h2 class="video-title" data-pt="Validação de Order Blocks" data-en="Order Block Validation">Validação de Order Blocks</h2>
+          <p class="video-desc" data-pt="Explicação do módulo de validação de Order Blocks do PRO: presença institucional confirmada, controle de mitigação e filtros de tamanho e volume." data-en="Explanation of the PRO Order Block validation module: confirmed institutional presence, mitigation control and size and volume filters.">Explicação do módulo de validação de Order Blocks do PRO: presença institucional confirmada, controle de mitigação e filtros de tamanho e volume.</p>
         </div>
       </div>
 
@@ -445,6 +467,25 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Language toggle
+(function() {
+  const savedLang = localStorage.getItem('smc-lang') || 'pt';
+  applyLang(savedLang);
+  function applyLang(lang) {
+    document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      el.innerHTML = el.dataset[lang] || el.dataset.pt;
+    });
+    const btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    localStorage.setItem('smc-lang', lang);
+  }
+  window.toggleLang = function() {
+    const current = localStorage.getItem('smc-lang') || 'pt';
+    applyLang(current === 'pt' ? 'en' : 'pt');
+  };
+})();
 </script>
 </body>
 </html>

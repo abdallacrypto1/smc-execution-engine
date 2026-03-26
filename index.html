@@ -1003,6 +1003,27 @@ footer .copyright {
 }
 
 /* ═══════════════════════════════════════════
+   LANG TOGGLE
+   ═══════════════════════════════════════════ */
+.lang-toggle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════
    DESKTOP RESPONSIVE (768px+)
    ═══════════════════════════════════════════ */
 @media (min-width: 768px) {
@@ -1116,31 +1137,33 @@ footer .copyright {
 <nav class="nav">
   <div class="nav-logo">SMC EXECUTION ENGINE</div>
   <div class="nav-links-desktop">
-    <a href="#problema">O Problema</a>
-    <a href="#arquitetura">Arquitetura</a>
+    <a href="#problema" data-pt="O Problema" data-en="The Problem">O Problema</a>
+    <a href="#arquitetura" data-pt="Arquitetura" data-en="Architecture">Arquitetura</a>
     <a href="#funcfree">Free</a>
     <a href="#funcpro">PRO</a>
-    <a href="#exemplos">Exemplos</a>
-    <a href="#praquem">Para Quem</a>
-    <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank">Vídeos</a>
-    <a href="#comprar" class="btn btn-primary" style="padding:8px 18px;font-size:11px;">QUERO SER PRO</a>
+    <a href="#exemplos" data-pt="Exemplos" data-en="Examples">Exemplos</a>
+    <a href="#praquem" data-pt="Para Quem" data-en="Who It's For">Para Quem</a>
+    <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" data-pt="Vídeos" data-en="Videos">Vídeos</a>
+    <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+    <a href="#comprar" class="btn btn-primary" style="padding:8px 18px;font-size:11px;" data-pt="QUERO SER PRO" data-en="GO PRO">QUERO SER PRO</a>
   </div>
-  <div class="nav-status">ONLINE</div>
+  <div class="nav-status" data-pt="ONLINE" data-en="ONLINE">ONLINE</div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
 <div class="nav-overlay" id="navOverlay">
-  <a href="#hero" onclick="toggleNav()">Início</a>
-  <a href="#problema" onclick="toggleNav()">O Problema</a>
-  <a href="#arquitetura" onclick="toggleNav()">Arquitetura</a>
-  <a href="#funcfree" onclick="toggleNav()">Funcionalidades Free</a>
-  <a href="#funcpro" onclick="toggleNav()">Funcionalidades PRO</a>
-  <a href="#exemplos" onclick="toggleNav()">Exemplos</a>
-  <a href="#praquem" onclick="toggleNav()">Para Quem</a>
-  <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" onclick="toggleNav()">Vídeos</a>
-  <a href="#comprar" onclick="toggleNav()">Quero ser PRO</a>
+  <a href="#hero" onclick="toggleNav()" data-pt="Início" data-en="Home">Início</a>
+  <a href="#problema" onclick="toggleNav()" data-pt="O Problema" data-en="The Problem">O Problema</a>
+  <a href="#arquitetura" onclick="toggleNav()" data-pt="Arquitetura" data-en="Architecture">Arquitetura</a>
+  <a href="#funcfree" onclick="toggleNav()" data-pt="Funcionalidades Free" data-en="Free Features">Funcionalidades Free</a>
+  <a href="#funcpro" onclick="toggleNav()" data-pt="Funcionalidades PRO" data-en="PRO Features">Funcionalidades PRO</a>
+  <a href="#exemplos" onclick="toggleNav()" data-pt="Exemplos" data-en="Examples">Exemplos</a>
+  <a href="#praquem" onclick="toggleNav()" data-pt="Para Quem" data-en="Who It's For">Para Quem</a>
+  <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" onclick="toggleNav()" data-pt="Vídeos" data-en="Videos">Vídeos</a>
+  <a href="#comprar" onclick="toggleNav()" data-pt="Quero ser PRO" data-en="Go PRO">Quero ser PRO</a>
+  <button class="lang-toggle" id="lang-toggle-mobile" onclick="toggleLang()">EN</button>
 </div>
 
 <main>
@@ -1149,23 +1172,25 @@ footer .copyright {
 <section id="hero">
   <div class="container">
     <div class="reveal">
-      <div class="hero-badge"><span class="dot"></span> Status do Sistema: ONLINE</div>
+      <div class="hero-badge"><span class="dot"></span> <span data-pt="Status do Sistema: ONLINE" data-en="System Status: ONLINE">Status do Sistema: ONLINE</span></div>
       <div class="hero-title-line large">SMC</div>
       <div class="hero-title-line accent">EXECUTION</div>
       <div class="hero-title-line small">ENGINE</div>
-      <p class="hero-desc">
+      <p class="hero-desc" data-pt="Elimine a subjetividade. Execute com precisão.<br>
+        Indicador profissional de Smart Money Concepts para leitura estruturada e execução de alta probabilidade no TradingView." data-en="Eliminate subjectivity. Execute with precision.<br>
+        Professional Smart Money Concepts indicator for structured market reading and high-probability execution on TradingView.">
         Elimine a subjetividade. Execute com precisão.<br>
         Indicador profissional de Smart Money Concepts para leitura estruturada e execução de alta probabilidade no TradingView.
       </p>
       <div class="hero-ctas">
-        <a href="#funcpro" class="btn btn-primary">VERSÃO PRO →</a>
-        <a href="https://www.tradingview.com/script/ligGO7B5-SMC-Execution-Engine-by-abdallacrypto/" target="_blank" class="btn btn-secondary">VERSÃO FREE</a>
+        <a href="#funcpro" class="btn btn-primary" data-pt="VERSÃO PRO →" data-en="PRO VERSION →">VERSÃO PRO →</a>
+        <a href="https://www.tradingview.com/script/ligGO7B5-SMC-Execution-Engine-by-abdallacrypto/" target="_blank" class="btn btn-secondary" data-pt="VERSÃO FREE" data-en="FREE VERSION">VERSÃO FREE</a>
       </div>
       <div class="hero-links">
-        <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" class="hero-manual">Manual de Instruções</a>
-        <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-videos-link">▶ Ver todos os vídeos</a>
+        <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" class="hero-manual" data-pt="Manual de Instruções" data-en="User Manual">Manual de Instruções</a>
+        <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-videos-link" data-pt="▶ Ver todos os vídeos" data-en="▶ Watch all videos">▶ Ver todos os vídeos</a>
       </div>
-      <p class="hero-target">Para traders que buscam execução objetiva baseada em Smart Money Concepts</p>
+      <p class="hero-target" data-pt="Para traders que buscam execução objetiva baseada em Smart Money Concepts" data-en="For traders seeking objective execution based on Smart Money Concepts">Para traders que buscam execução objetiva baseada em Smart Money Concepts</p>
     </div>
 
     <!-- Video thumbnail -->
@@ -1181,50 +1206,50 @@ footer .copyright {
 <section id="problema">
   <div class="container">
     <span class="section-number">01</span>
-    <div class="section-label">O Problema</div>
+    <div class="section-label" data-pt="O Problema" data-en="The Problem">O Problema</div>
     <div class="sep"></div>
 
     <div class="alert-box reveal">
-      <div class="alert-tag">Análise Subjetiva Identificada</div>
-      <h2 class="alert-title">O Problema da Subjetividade</h2>
-      <div class="alert-prob">Probabilidade de erro: ALTA</div>
+      <div class="alert-tag" data-pt="Análise Subjetiva Identificada" data-en="Subjective Analysis Detected">Análise Subjetiva Identificada</div>
+      <h2 class="alert-title" data-pt="O Problema da Subjetividade" data-en="The Subjectivity Problem">O Problema da Subjetividade</h2>
+      <div class="alert-prob" data-pt="Probabilidade de erro: ALTA" data-en="Error probability: HIGH">Probabilidade de erro: ALTA</div>
     </div>
 
-    <p class="section-subtitle reveal">
+    <p class="section-subtitle reveal" data-pt="A leitura manual de gráficos frequentemente introduz viés, ruído emocional e inconsistência. Sem uma estrutura clara, o mesmo mercado pode ser interpretado de formas diferentes, levando a erros de execução." data-en="Manual chart reading frequently introduces bias, emotional noise and inconsistency. Without a clear framework, the same market can be interpreted in different ways, leading to execution errors.">
       A leitura manual de gráficos frequentemente introduz viés, ruído emocional e inconsistência. Sem uma estrutura clara, o mesmo mercado pode ser interpretado de formas diferentes, levando a erros de execução.
     </p>
 
     <div class="problem-grid">
       <div class="problem-card reveal">
-        <h3 class="problem-card-title"><span class="icon">⚠️</span> Trading Emocional</h3>
-        <p class="problem-card-desc">
+        <h3 class="problem-card-title"><span class="icon">⚠️</span> <span data-pt="Trading Emocional" data-en="Emotional Trading">Trading Emocional</span></h3>
+        <p class="problem-card-desc" data-pt="Decisões baseadas em medo, ganância ou ansiedade, em vez de contexto, estrutura e regras claras." data-en="Decisions driven by fear, greed or anxiety, instead of context, structure and clear rules.">
           Decisões baseadas em medo, ganância ou ansiedade, em vez de contexto, estrutura e regras claras.
         </p>
         <div class="risk-meters">
           <div class="risk-meter">
-            <label>Impacto na Execução</label>
-            <div class="value">Alto</div>
+            <label data-pt="Impacto na Execução" data-en="Execution Impact">Impacto na Execução</label>
+            <div class="value" data-pt="Alto" data-en="High">Alto</div>
           </div>
           <div class="risk-meter">
-            <label>Risco Operacional</label>
-            <div class="value">Altíssimo</div>
+            <label data-pt="Risco Operacional" data-en="Operational Risk">Risco Operacional</label>
+            <div class="value" data-pt="Altíssimo" data-en="Very High">Altíssimo</div>
           </div>
         </div>
       </div>
 
       <div class="problem-card reveal">
-        <h3 class="problem-card-title"><span class="icon">⚠️</span> Falta de um Plano Definido</h3>
-        <p class="problem-card-desc">
+        <h3 class="problem-card-title"><span class="icon">⚠️</span> <span data-pt="Falta de um Plano Definido" data-en="No Defined Plan">Falta de um Plano Definido</span></h3>
+        <p class="problem-card-desc" data-pt="Operar sem critérios objetivos de entrada, saída, gestão de risco e leitura de mercado consistente." data-en="Trading without objective criteria for entry, exit, risk management and consistent market reading.">
           Operar sem critérios objetivos de entrada, saída, gestão de risco e leitura de mercado consistente.
         </p>
         <div class="risk-meters">
           <div class="risk-meter">
-            <label>Impacto na Execução</label>
-            <div class="value">Alto</div>
+            <label data-pt="Impacto na Execução" data-en="Execution Impact">Impacto na Execução</label>
+            <div class="value" data-pt="Alto" data-en="High">Alto</div>
           </div>
           <div class="risk-meter">
-            <label>Risco Operacional</label>
-            <div class="value">Altíssimo</div>
+            <label data-pt="Risco Operacional" data-en="Operational Risk">Risco Operacional</label>
+            <div class="value" data-pt="Altíssimo" data-en="Very High">Altíssimo</div>
           </div>
         </div>
       </div>
@@ -1236,10 +1261,10 @@ footer .copyright {
 <section id="arquitetura">
   <div class="container">
     <span class="section-number">02</span>
-    <div class="section-label">Arquitetura</div>
+    <div class="section-label" data-pt="Arquitetura" data-en="Architecture">Arquitetura</div>
     <div class="sep"></div>
-    <h2 class="section-title reveal">Precisão Estrutural</h2>
-    <p class="section-subtitle reveal">
+    <h2 class="section-title reveal" data-pt="Precisão Estrutural" data-en="Structural Precision">Precisão Estrutural</h2>
+    <p class="section-subtitle reveal" data-pt="O SMC Execution Engine não é um robô nem um sistema de sinais cego. Ele transforma a leitura de preço em um framework visual estruturado, permitindo decisões mais objetivas, repetíveis e disciplinadas." data-en="The SMC Execution Engine is not a bot or a blind signal system. It transforms price reading into a structured visual framework, enabling more objective, repeatable and disciplined decisions.">
       O SMC Execution Engine não é um robô nem um sistema de sinais cego. Ele transforma a leitura de preço em um framework visual estruturado, permitindo decisões mais objetivas, repetíveis e disciplinadas.
     </p>
 
@@ -1251,29 +1276,29 @@ footer .copyright {
       <div class="feature-item reveal">
         <div class="feature-dot"></div>
         <div>
-          <h4>Mapeamento Automático de Estrutura</h4>
-          <p>Identificação em tempo real de BOS (Break of Structure) e CHOCH (Change of Character).</p>
+          <h4 data-pt="Mapeamento Automático de Estrutura" data-en="Automatic Structure Mapping">Mapeamento Automático de Estrutura</h4>
+          <p data-pt="Identificação em tempo real de BOS (Break of Structure) e CHOCH (Change of Character)." data-en="Real-time identification of BOS (Break of Structure) and CHoCH (Change of Character).">Identificação em tempo real de BOS (Break of Structure) e CHOCH (Change of Character).</p>
         </div>
       </div>
       <div class="feature-item reveal">
         <div class="feature-dot"></div>
         <div>
-          <h4>Lógica de Fibonacci Estrutural</h4>
-          <p>Cálculo automático de zonas de premium e discount com base na estrutura válida.</p>
+          <h4 data-pt="Lógica de Fibonacci Estrutural" data-en="Structural Fibonacci Logic">Lógica de Fibonacci Estrutural</h4>
+          <p data-pt="Cálculo automático de zonas de premium e discount com base na estrutura válida." data-en="Automatic calculation of premium and discount zones based on valid structure.">Cálculo automático de zonas de premium e discount com base na estrutura válida.</p>
         </div>
       </div>
       <div class="feature-item reveal">
         <div class="feature-dot"></div>
         <div>
-          <h4>Validação de Order Blocks</h4>
-          <p>Destaque de order blocks relevantes alinhados ao contexto institucional.</p>
+          <h4 data-pt="Validação de Order Blocks" data-en="Order Block Validation">Validação de Order Blocks</h4>
+          <p data-pt="Destaque de order blocks relevantes alinhados ao contexto institucional." data-en="Highlighting of relevant Order Blocks aligned with institutional context.">Destaque de order blocks relevantes alinhados ao contexto institucional.</p>
         </div>
       </div>
       <div class="feature-item reveal">
         <div class="feature-dot"></div>
         <div>
-          <h4>Contexto de Execução</h4>
-          <p>Zonas de alta probabilidade destacadas para apoiar a tomada de decisão, sem substituir o julgamento do trader.</p>
+          <h4 data-pt="Contexto de Execução" data-en="Execution Context">Contexto de Execução</h4>
+          <p data-pt="Zonas de alta probabilidade destacadas para apoiar a tomada de decisão, sem substituir o julgamento do trader." data-en="High-probability zones highlighted to support decision-making, without replacing the trader's judgment.">Zonas de alta probabilidade destacadas para apoiar a tomada de decisão, sem substituir o julgamento do trader.</p>
         </div>
       </div>
     </div>
@@ -1284,33 +1309,33 @@ footer .copyright {
 <section id="funcfree">
   <div class="container">
     <span class="section-number">03</span>
-    <div class="section-label">Principais Funcionalidades</div>
+    <div class="section-label" data-pt="Principais Funcionalidades" data-en="Core Features">Principais Funcionalidades</div>
     <div class="sep"></div>
-    <h2 class="section-title reveal">Versão Free</h2>
+    <h2 class="section-title reveal" data-pt="Versão Free" data-en="Free Version">Versão Free</h2>
 
     <div class="func-grid">
       <div class="func-card reveal">
-        <h3>Estrutura de Mercado<br><small style="font-size:13px;color:var(--text-secondary);font-weight:400;">CHOCH & BOS</small></h3>
-        <p>Identifica mudanças e continuidades na estrutura de mercado, ajudando o trader a diferenciar reversões reais de correções.</p>
-        <div class="func-benefit">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
+        <h3 data-pt="Estrutura de Mercado<br><small style=&quot;font-size:13px;color:var(--text-secondary);font-weight:400;&quot;>CHOCH & BOS</small>" data-en="Market Structure<br><small style=&quot;font-size:13px;color:var(--text-secondary);font-weight:400;&quot;>CHoCH & BOS</small>">Estrutura de Mercado<br><small style="font-size:13px;color:var(--text-secondary);font-weight:400;">CHOCH & BOS</small></h3>
+        <p data-pt="Identifica mudanças e continuidades na estrutura de mercado, ajudando o trader a diferenciar reversões reais de correções." data-en="Identifies changes and continuations in market structure, helping the trader differentiate real reversals from corrections.">Identifica mudanças e continuidades na estrutura de mercado, ajudando o trader a diferenciar reversões reais de correções.</p>
+        <div class="func-benefit" data-pt="BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias." data-en="BENEFIT: Allows you to act with precision at the ideal timing, anticipating relevant reactions and avoiding delays caused by late confirmations.">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
       </div>
 
       <div class="func-card reveal">
-        <h3>Zonas de Execução com Fibonacci</h3>
-        <p>Define automaticamente zonas de interesse com base na estrutura, facilitando entradas mais precisas em premium e discount.</p>
-        <div class="func-benefit">BENEFÍCIO: Ajuda o trader a aguardar zonas de maior probabilidade, reduzindo entradas antecipadas e melhorando o timing de execução.</div>
+        <h3 data-pt="Zonas de Execução com Fibonacci" data-en="Execution Zones with Fibonacci">Zonas de Execução com Fibonacci</h3>
+        <p data-pt="Define automaticamente zonas de interesse com base na estrutura, facilitando entradas mais precisas em premium e discount." data-en="Automatically defines zones of interest based on structure, facilitating more precise entries in premium and discount.">Define automaticamente zonas de interesse com base na estrutura, facilitando entradas mais precisas em premium e discount.</p>
+        <div class="func-benefit" data-pt="BENEFÍCIO: Ajuda o trader a aguardar zonas de maior probabilidade, reduzindo entradas antecipadas e melhorando o timing de execução." data-en="BENEFIT: Helps the trader wait for higher-probability zones, reducing premature entries and improving execution timing.">BENEFÍCIO: Ajuda o trader a aguardar zonas de maior probabilidade, reduzindo entradas antecipadas e melhorando o timing de execução.</div>
       </div>
 
       <div class="func-card reveal">
-        <h3>Order Blocks Contextuais</h3>
-        <p>Destaque visual de order blocks relevantes, filtrando zonas fracas e ruído de mercado.</p>
-        <div class="func-benefit">BENEFÍCIO: Filtra zonas de interesse relevantes, eliminando excesso de informação e ruído visual no gráfico.</div>
+        <h3 data-pt="Order Blocks Contextuais" data-en="Contextual Order Blocks">Order Blocks Contextuais</h3>
+        <p data-pt="Destaque visual de order blocks relevantes, filtrando zonas fracas e ruído de mercado." data-en="Visual highlight of relevant Order Blocks, filtering weak zones and market noise.">Destaque visual de order blocks relevantes, filtrando zonas fracas e ruído de mercado.</p>
+        <div class="func-benefit" data-pt="BENEFÍCIO: Filtra zonas de interesse relevantes, eliminando excesso de informação e ruído visual no gráfico." data-en="BENEFIT: Filters relevant zones of interest, eliminating information overload and visual noise on the chart.">BENEFÍCIO: Filtra zonas de interesse relevantes, eliminando excesso de informação e ruído visual no gráfico.</div>
       </div>
 
       <div class="func-card reveal">
-        <h3>Execução Assistida</h3>
-        <p>Entrega contexto claro para execução disciplinada, reduzindo decisões impulsivas e entradas fora de contexto.</p>
-        <div class="func-benefit">BENEFÍCIO: Facilita decisões mais consistentes, reduzindo impacto emocional e entradas fora de contexto.</div>
+        <h3 data-pt="Execução Assistida" data-en="Assisted Execution">Execução Assistida</h3>
+        <p data-pt="Entrega contexto claro para execução disciplinada, reduzindo decisões impulsivas e entradas fora de contexto." data-en="Delivers clear context for disciplined execution, reducing impulsive decisions and out-of-context entries.">Entrega contexto claro para execução disciplinada, reduzindo decisões impulsivas e entradas fora de contexto.</p>
+        <div class="func-benefit" data-pt="BENEFÍCIO: Facilita decisões mais consistentes, reduzindo impacto emocional e entradas fora de contexto." data-en="BENEFIT: Facilitates more consistent decisions, reducing emotional impact and out-of-context entries.">BENEFÍCIO: Facilita decisões mais consistentes, reduzindo impacto emocional e entradas fora de contexto.</div>
       </div>
     </div>
   </div>
@@ -1320,110 +1345,110 @@ footer .copyright {
 <section id="funcpro">
   <div class="container">
     <span class="section-number">04</span>
-    <div class="section-label pro-label" style="color:var(--pro-accent);">Funcionalidades Exclusivas PRO</div>
+    <div class="section-label pro-label" style="color:var(--pro-accent);" data-pt="Funcionalidades Exclusivas PRO" data-en="Exclusive PRO Features">Funcionalidades Exclusivas PRO</div>
     <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
-    <h2 class="section-title reveal">Motor Avançado de Alertas</h2>
-    <p class="section-subtitle reveal">
+    <h2 class="section-title reveal" data-pt="Motor Avançado de Alertas" data-en="Advanced Alert Engine">Motor Avançado de Alertas</h2>
+    <p class="section-subtitle reveal" data-pt="O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, desenvolvido para transformar leitura de mercado em execução objetiva e disciplinada, sem depender de monitoramento constante do gráfico." data-en="The SMC Execution Engine PRO adds a complete intelligent alert engine, built to transform market reading into objective and disciplined execution, without relying on constant chart monitoring.">
       O SMC Execution Engine PRO adiciona um motor completo de alertas inteligentes, desenvolvido para transformar leitura de mercado em execução objetiva e disciplinada, sem depender de monitoramento constante do gráfico.
     </p>
 
     <div class="func-grid">
       <div class="func-card pro reveal">
         <div class="func-card-label pro-label">PRO</div>
-        <h3>Alertas Intrabar em Tempo Real <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
-        <p>Alertas avaliados intrabar, em tempo real, sem esperar o fechamento do candle, combinando estrutura, Fibonacci e Order Blocks.</p>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
+        <h3 data-pt="Alertas Intrabar em Tempo Real <small style=&quot;font-size:12px;color:var(--text-secondary);font-weight:400;&quot;>(OB + Fibo)</small>" data-en="Real-Time Intrabar Alerts <small style=&quot;font-size:12px;color:var(--text-secondary);font-weight:400;&quot;>(OB + Fibo)</small>">Alertas Intrabar em Tempo Real <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
+        <p data-pt="Alertas avaliados intrabar, em tempo real, sem esperar o fechamento do candle, combinando estrutura, Fibonacci e Order Blocks." data-en="Alerts evaluated intrabar, in real time, without waiting for candle close, combining structure, Fibonacci and Order Blocks.">Alertas avaliados intrabar, em tempo real, sem esperar o fechamento do candle, combinando estrutura, Fibonacci e Order Blocks.</p>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias." data-en="BENEFIT: Allows you to act with precision at the ideal timing, anticipating relevant reactions and avoiding delays caused by late confirmations.">BENEFÍCIO: Permite agir com precisão no timing ideal, antecipando reações relevantes e evitando atrasos causados por confirmações tardias.</div>
       </div>
 
       <div class="func-card pro reveal">
         <div class="func-card-label pro-label">PRO</div>
-        <h3>Inteligência de Contexto e Filtros Anti-Ruído</h3>
-        <p>O PRO entende quando não alertar, aplicando regras de qualidade para evitar ruído operacional.</p>
+        <h3 data-pt="Inteligência de Contexto e Filtros Anti-Ruído" data-en="Context Intelligence and Anti-Noise Filters">Inteligência de Contexto e Filtros Anti-Ruído</h3>
+        <p data-pt="O PRO entende quando não alertar, aplicando regras de qualidade para evitar ruído operacional." data-en="PRO understands when not to alert, applying quality rules to avoid operational noise.">O PRO entende quando não alertar, aplicando regras de qualidade para evitar ruído operacional.</p>
         <ul class="pro-list">
-          <li>Um alerta por contexto</li>
-          <li>Bloqueio no candle de CHOCH ou BOS</li>
-          <li>Reativação apenas após nova mudança estrutural</li>
+          <li data-pt="Um alerta por contexto" data-en="One alert per context">Um alerta por contexto</li>
+          <li data-pt="Bloqueio no candle de CHOCH ou BOS" data-en="Block on CHoCH or BOS candle">Bloqueio no candle de CHOCH ou BOS</li>
+          <li data-pt="Reativação apenas após nova mudança estrutural" data-en="Reactivation only after new structural change">Reativação apenas após nova mudança estrutural</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Reduz drasticamente ruído operacional e fadiga decisória, mantendo o foco apenas em oportunidades válidas.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Reduz drasticamente ruído operacional e fadiga decisória, mantendo o foco apenas em oportunidades válidas." data-en="BENEFIT: Drastically reduces operational noise and decision fatigue, keeping focus only on valid opportunities.">BENEFÍCIO: Reduz drasticamente ruído operacional e fadiga decisória, mantendo o foco apenas em oportunidades válidas.</div>
       </div>
 
       <div class="func-card pro reveal">
         <div class="func-card-label pro-label">PRO</div>
-        <h3>Execução Assistida com Leitura Estrutural Automática</h3>
-        <p>A função "any alert() function call" do PRO traz contexto claro: motivo do disparo, confluência envolvida e direção do mercado. Fibonacci estrutural é gerenciada automaticamente.</p>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
+        <h3 data-pt="Execução Assistida com Leitura Estrutural Automática" data-en="Assisted Execution with Automatic Structural Reading">Execução Assistida com Leitura Estrutural Automática</h3>
+        <p data-pt="A função &quot;any alert() function call&quot; do PRO traz contexto claro: motivo do disparo, confluência envolvida e direção do mercado. Fibonacci estrutural é gerenciada automaticamente." data-en="The PRO's &quot;any alert() function call&quot; provides clear context: trigger reason, involved confluence and market direction. Structural Fibonacci is managed automatically.">A função "any alert() function call" do PRO traz contexto claro: motivo do disparo, confluência envolvida e direção do mercado. Fibonacci estrutural é gerenciada automaticamente.</p>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução." data-en="BENEFIT: Transforms alerts into informed decisions, reducing subjectivity and increasing consistency in execution.">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
       </div>
 
       <div class="func-card pro reveal">
         <div class="func-card-label pro-label">PRO</div>
-        <h3>Presença Institucional Confirmada</h3>
-        <p>O PRO só confirma um Order Block quando há evidência real de atuação institucional:</p>
+        <h3 data-pt="Presença Institucional Confirmada" data-en="Confirmed Institutional Presence">Presença Institucional Confirmada</h3>
+        <p data-pt="O PRO só confirma um Order Block quando há evidência real de atuação institucional:" data-en="PRO only confirms an Order Block when there is real evidence of institutional activity:">O PRO só confirma um Order Block quando há evidência real de atuação institucional:</p>
         <ul class="pro-list">
-          <li>Deslocamento mínimo proporcional ao ATR</li>
-          <li>Impulso validado dentro de janela temporal</li>
-          <li>FVG opcional como assinatura de eficiência</li>
-          <li>Bloqueio automático de validações fracas</li>
+          <li data-pt="Deslocamento mínimo proporcional ao ATR" data-en="Minimum displacement proportional to ATR">Deslocamento mínimo proporcional ao ATR</li>
+          <li data-pt="Impulso validado dentro de janela temporal" data-en="Impulse validated within time window">Impulso validado dentro de janela temporal</li>
+          <li data-pt="FVG opcional como assinatura de eficiência" data-en="Optional FVG as efficiency signature">FVG opcional como assinatura de eficiência</li>
+          <li data-pt="Bloqueio automático de validações fracas" data-en="Automatic blocking of weak validations">Bloqueio automático de validações fracas</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução." data-en="BENEFIT: Transforms alerts into informed decisions, reducing subjectivity and increasing consistency in execution.">BENEFÍCIO: Transforma alertas em decisões conscientes, reduzindo subjetividade e aumentando consistência na execução.</div>
       </div>
 
       <div class="func-card pro reveal">
         <div class="func-card-label pro-label">PRO</div>
-        <h3>Modos Avançados de Confluência <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
-        <p>Múltiplos modos de alerta permitem ajustar seletividade entre Fibonacci, Order Blocks e confluências estruturais:</p>
+        <h3 data-pt="Modos Avançados de Confluência <small style=&quot;font-size:12px;color:var(--text-secondary);font-weight:400;&quot;>(OB + Fibo)</small>" data-en="Advanced Confluence Modes <small style=&quot;font-size:12px;color:var(--text-secondary);font-weight:400;&quot;>(OB + Fibo)</small>">Modos Avançados de Confluência <small style="font-size:12px;color:var(--text-secondary);font-weight:400;">(OB + Fibo)</small></h3>
+        <p data-pt="Múltiplos modos de alerta permitem ajustar seletividade entre Fibonacci, Order Blocks e confluências estruturais:" data-en="Multiple alert modes allow you to adjust selectivity between Fibonacci, Order Blocks and structural confluences:">Múltiplos modos de alerta permitem ajustar seletividade entre Fibonacci, Order Blocks e confluências estruturais:</p>
         <ul class="pro-list">
-          <li>Fibonacci profundo</li>
-          <li>Entrada direcional em OB</li>
-          <li>Confluência OB + Fibonacci</li>
-          <li>Sequência lógica Fib → OB</li>
+          <li data-pt="Fibonacci profundo" data-en="Deep Fibonacci">Fibonacci profundo</li>
+          <li data-pt="Entrada direcional em OB" data-en="Directional OB entry">Entrada direcional em OB</li>
+          <li data-pt="Confluência OB + Fibonacci" data-en="OB + Fibonacci confluence">Confluência OB + Fibonacci</li>
+          <li data-pt="Sequência lógica Fib → OB" data-en="Logical sequence Fib → OB">Sequência lógica Fib → OB</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Adapta o motor de alertas ao seu estilo operacional, equilibrando frequência de sinais e qualidade de execução.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Adapta o motor de alertas ao seu estilo operacional, equilibrando frequência de sinais e qualidade de execução." data-en="BENEFIT: Adapts the alert engine to your trading style, balancing signal frequency and execution quality.">BENEFÍCIO: Adapta o motor de alertas ao seu estilo operacional, equilibrando frequência de sinais e qualidade de execução.</div>
       </div>
 
       <div class="func-card pro reveal">
-        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
-        <h3>Controle de Mitigação Inteligente</h3>
-        <p>Escolha como o indicador interpreta a mitigação de um Order Block, desde um simples toque de pavio até a exigência de fechamento além da metade da zona:</p>
+        <div class="func-card-label pro-label">PRO <span class="soon-badge" data-pt="EM BREVE" data-en="COMING SOON">EM BREVE</span></div>
+        <h3 data-pt="Controle de Mitigação Inteligente" data-en="Smart Mitigation Control">Controle de Mitigação Inteligente</h3>
+        <p data-pt="Escolha como o indicador interpreta a mitigação de um Order Block, desde um simples toque de pavio até a exigência de fechamento além da metade da zona:" data-en="Choose how the indicator interprets Order Block mitigation, from a simple wick touch to requiring a close beyond the midpoint of the zone:">Escolha como o indicador interpreta a mitigação de um Order Block, desde um simples toque de pavio até a exigência de fechamento além da metade da zona:</p>
         <ul class="pro-list">
-          <li>Wick touch — qualquer pavio na borda já mitiga</li>
-          <li>Body into zone — o candle precisa fechar dentro da zona</li>
-          <li>Body through mid — o close precisa ultrapassar a metade do OB</li>
+          <li data-pt="Wick touch — qualquer pavio na borda já mitiga" data-en="Wick touch — any wick at the edge mitigates">Wick touch — qualquer pavio na borda já mitiga</li>
+          <li data-pt="Body into zone — o candle precisa fechar dentro da zona" data-en="Body into zone — the candle must close inside the zone">Body into zone — o candle precisa fechar dentro da zona</li>
+          <li data-pt="Body through mid — o close precisa ultrapassar a metade do OB" data-en="Body through mid — the close must pass the midpoint of the OB">Body through mid — o close precisa ultrapassar a metade do OB</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Evita que sweeps de liquidez invalidem zonas que ainda são relevantes, mantendo OBs válidos por mais tempo para entradas mais seguras.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Evita que sweeps de liquidez invalidem zonas que ainda são relevantes, mantendo OBs válidos por mais tempo para entradas mais seguras." data-en="BENEFIT: Prevents liquidity sweeps from invalidating zones that are still relevant, keeping valid OBs active longer for safer entries.">BENEFÍCIO: Evita que sweeps de liquidez invalidem zonas que ainda são relevantes, mantendo OBs válidos por mais tempo para entradas mais seguras.</div>
       </div>
 
       <div class="func-card pro reveal">
-        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
-        <h3>Confirmação por Volume Institucional</h3>
-        <p>Filtro opcional que valida Order Blocks somente quando o candle de origem apresenta volume acima da média — evidência real de participação institucional:</p>
+        <div class="func-card-label pro-label">PRO <span class="soon-badge" data-pt="EM BREVE" data-en="COMING SOON">EM BREVE</span></div>
+        <h3 data-pt="Confirmação por Volume Institucional" data-en="Institutional Volume Confirmation">Confirmação por Volume Institucional</h3>
+        <p data-pt="Filtro opcional que valida Order Blocks somente quando o candle de origem apresenta volume acima da média — evidência real de participação institucional:" data-en="Optional filter that validates Order Blocks only when the origin candle shows above-average volume — real evidence of institutional participation:">Filtro opcional que valida Order Blocks somente quando o candle de origem apresenta volume acima da média — evidência real de participação institucional:</p>
         <ul class="pro-list">
-          <li>Threshold configurável (× SMA de 20 períodos)</li>
-          <li>Bypass automático em ativos sem volume (forex, CFDs)</li>
-          <li>Integrado ao sistema de validação existente</li>
+          <li data-pt="Threshold configurável (× SMA de 20 períodos)" data-en="Configurable threshold (× 20-period SMA)">Threshold configurável (× SMA de 20 períodos)</li>
+          <li data-pt="Bypass automático em ativos sem volume (forex, CFDs)" data-en="Automatic bypass for assets without volume (forex, CFDs)">Bypass automático em ativos sem volume (forex, CFDs)</li>
+          <li data-pt="Integrado ao sistema de validação existente" data-en="Integrated into the existing validation system">Integrado ao sistema de validação existente</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Elimina Order Blocks formados em candles de baixo volume, focando apenas em zonas com evidência real de atuação institucional.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Elimina Order Blocks formados em candles de baixo volume, focando apenas em zonas com evidência real de atuação institucional." data-en="BENEFIT: Eliminates Order Blocks formed on low-volume candles, focusing only on zones with real evidence of institutional activity.">BENEFÍCIO: Elimina Order Blocks formados em candles de baixo volume, focando apenas em zonas com evidência real de atuação institucional.</div>
       </div>
 
       <div class="func-card pro reveal">
-        <div class="func-card-label pro-label">PRO <span class="soon-badge">EM BREVE</span></div>
-        <h3>Filtro de Tamanho de Order Block</h3>
-        <p>Descarta automaticamente Order Blocks desproporcionais que cobrem grandes porções do gráfico — comuns em movimentos parabólicos ou timeframes elevados:</p>
+        <div class="func-card-label pro-label">PRO <span class="soon-badge" data-pt="EM BREVE" data-en="COMING SOON">EM BREVE</span></div>
+        <h3 data-pt="Filtro de Tamanho de Order Block" data-en="Order Block Size Filter">Filtro de Tamanho de Order Block</h3>
+        <p data-pt="Descarta automaticamente Order Blocks desproporcionais que cobrem grandes porções do gráfico — comuns em movimentos parabólicos ou timeframes elevados:" data-en="Automatically discards disproportionate Order Blocks that cover large portions of the chart — common in parabolic moves or higher timeframes:">Descarta automaticamente Order Blocks desproporcionais que cobrem grandes porções do gráfico — comuns em movimentos parabólicos ou timeframes elevados:</p>
         <ul class="pro-list">
-          <li>Altura máxima configurável em múltiplos de ATR</li>
-          <li>Mantém apenas zonas compactas e operáveis</li>
-          <li>Especialmente útil em cripto e ativos voláteis</li>
+          <li data-pt="Altura máxima configurável em múltiplos de ATR" data-en="Maximum height configurable in ATR multiples">Altura máxima configurável em múltiplos de ATR</li>
+          <li data-pt="Mantém apenas zonas compactas e operáveis" data-en="Keeps only compact and tradeable zones">Mantém apenas zonas compactas e operáveis</li>
+          <li data-pt="Especialmente útil em cripto e ativos voláteis" data-en="Especially useful in crypto and volatile assets">Especialmente útil em cripto e ativos voláteis</li>
         </ul>
-        <div class="func-benefit pro-benefit">BENEFÍCIO: Garante que apenas zonas de tamanho realista sejam exibidas, eliminando ruído visual de OBs gigantes sem utilidade prática.</div>
+        <div class="func-benefit pro-benefit" data-pt="BENEFÍCIO: Garante que apenas zonas de tamanho realista sejam exibidas, eliminando ruído visual de OBs gigantes sem utilidade prática." data-en="BENEFIT: Ensures only realistically-sized zones are displayed, eliminating visual noise from oversized OBs with no practical utility.">BENEFÍCIO: Garante que apenas zonas de tamanho realista sejam exibidas, eliminando ruído visual de OBs gigantes sem utilidade prática.</div>
       </div>
     </div>
 
     <div class="reveal" style="text-align:center;margin-top:40px;">
-      <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-videos-link">▶ Ver vídeos explicativos do PRO</a>
+      <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" class="hero-videos-link" data-pt="▶ Ver vídeos explicativos do PRO" data-en="▶ Watch PRO explainer videos">▶ Ver vídeos explicativos do PRO</a>
     </div>
 
     <div class="unlock-banner reveal">
-      <p>Desbloqueie o motor avançado de alertas do SMC Execution Engine PRO</p>
-      <a href="#comprar" class="btn btn-pro">Desbloquear Agora →</a>
+      <p data-pt="Desbloqueie o motor avançado de alertas do SMC Execution Engine PRO" data-en="Unlock the advanced alert engine of SMC Execution Engine PRO">Desbloqueie o motor avançado de alertas do SMC Execution Engine PRO</p>
+      <a href="#comprar" class="btn btn-pro" data-pt="Desbloquear Agora →" data-en="Unlock Now →">Desbloquear Agora →</a>
     </div>
   </div>
 </section>
@@ -1432,7 +1457,7 @@ footer .copyright {
 <section id="exemplos">
   <div class="container">
     <span class="section-number">05</span>
-    <div class="section-label">Exemplos Reais</div>
+    <div class="section-label" data-pt="Exemplos Reais" data-en="Real Examples">Exemplos Reais</div>
     <div class="sep"></div>
 
     <div class="trade-card reveal">
@@ -1447,8 +1472,10 @@ footer .copyright {
           </div>
           <div class="trade-rr">R:R 3.69:1</div>
         </div>
-        <h3 class="trade-card-title">Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural</h3>
-        <p class="trade-card-desc">
+        <h3 class="trade-card-title" data-pt="Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural" data-en="Scalp Trade in discount zone (0.79 Fibo) with structural confluence">Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural</h3>
+        <p class="trade-card-desc" data-pt="Em 31/jan/2026, o Bitcoin testou a região de mínima no gráfico mensal. No tempo gráfico de 5 min, observamos o rompimento momentâneo do topo anterior ativando um evento de break-mode (wick).<br><br>
+          O SMC Execution Engine identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução." data-en="On Jan 31, 2026, Bitcoin tested the monthly chart low region. On the 5-min timeframe, we observed a momentary break of the prior high activating a break-mode event (wick).<br><br>
+          The SMC Execution Engine identified the price return to the discount zone (0.79), aligned with the main institutional demand zone (order block), creating a clear high-probability context for execution.">
           Em 31/jan/2026, o Bitcoin testou a região de mínima no gráfico mensal. No tempo gráfico de 5 min, observamos o rompimento momentâneo do topo anterior ativando um evento de break-mode (wick).<br><br>
           O SMC Execution Engine identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução.
         </p>
@@ -1467,8 +1494,10 @@ footer .copyright {
           </div>
           <div class="trade-rr">R:R 5.83:1</div>
         </div>
-        <h3 class="trade-card-title">Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade</h3>
-        <p class="trade-card-desc">
+        <h3 class="trade-card-title" data-pt="Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade" data-en="Swing Trade with entry at Order Block, after structural confirmation of continuation">Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade</h3>
+        <p class="trade-card-desc" data-pt="Em 10/out/2025, após um forte movimento de queda no mercado cripto, o SMC Execution Engine PRO identificou a região de oferta responsável pela impulsão inicial do movimento.<br><br>
+          Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado." data-en="On Oct 10, 2025, after a strong downward move in the crypto market, the SMC Execution Engine PRO identified the supply region responsible for the initial impulse of the move.<br><br>
+          With the bearish structure validated, price returned to the origin Order Block, offering an entry aligned with the continuation of the dominant trend. The execution was structured with a target at the low generated during the October crash, maintaining controlled risk and clear market context.">
           Em 10/out/2025, após um forte movimento de queda no mercado cripto, o SMC Execution Engine PRO identificou a região de oferta responsável pela impulsão inicial do movimento.<br><br>
           Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado.
         </p>
@@ -1481,53 +1510,53 @@ footer .copyright {
 <section id="praquem">
   <div class="container">
     <span class="section-number">06</span>
-    <div class="section-label">Para Quem É</div>
+    <div class="section-label" data-pt="Para Quem É" data-en="Who It's For">Para Quem É</div>
     <div class="sep"></div>
-    <h2 class="section-title reveal">Pra Quem é o SMC Execution Engine</h2>
+    <h2 class="section-title reveal" data-pt="Pra Quem é o SMC Execution Engine" data-en="Who Is the SMC Execution Engine For">Pra Quem é o SMC Execution Engine</h2>
 
     <div class="audience-grid">
       <div class="audience-card reveal">
-        <h3>🚀 Traders Em Evolução</h3>
-        <p>Traders com conhecimento básico em análise técnica, que buscam sair da inconsistência e evoluir para uma abordagem de trade mais estruturada e consistente, utilizando conceitos avançados como Smart Money Concepts (SMC).</p>
+        <h3 data-pt="🚀 Traders Em Evolução" data-en="🚀 Developing Traders">🚀 Traders Em Evolução</h3>
+        <p data-pt="Traders com conhecimento básico em análise técnica, que buscam sair da inconsistência e evoluir para uma abordagem de trade mais estruturada e consistente, utilizando conceitos avançados como Smart Money Concepts (SMC)." data-en="Traders with basic technical analysis knowledge, looking to move past inconsistency and evolve towards a more structured and consistent trading approach using advanced concepts like Smart Money Concepts (SMC).">Traders com conhecimento básico em análise técnica, que buscam sair da inconsistência e evoluir para uma abordagem de trade mais estruturada e consistente, utilizando conceitos avançados como Smart Money Concepts (SMC).</p>
         <div class="xp-bar">
-          <label>Nível Exp</label>
+          <label data-pt="Nível Exp" data-en="Exp Level">Nível Exp</label>
           <div class="xp-track"><div class="xp-fill" style="width:30%;"></div></div>
-          <span class="xp-level">Básico</span>
+          <span class="xp-level" data-pt="Básico" data-en="Beginner">Básico</span>
         </div>
         <div class="xp-bar">
-          <label>Conhecimento</label>
+          <label data-pt="Conhecimento" data-en="Knowledge">Conhecimento</label>
           <div class="xp-track"><div class="xp-fill" style="width:50%;"></div></div>
-          <span class="xp-level">Intermediário</span>
+          <span class="xp-level" data-pt="Intermediário" data-en="Intermediate">Intermediário</span>
         </div>
       </div>
 
       <div class="audience-card reveal">
-        <h3>🎯 Experientes, porém Inconsistentes</h3>
-        <p>Traders com vários anos de experiência que já testaram diversas estratégias, mas enfrentam dificuldades com consistência e frequentemente caem em armadilhas de mercado.</p>
+        <h3 data-pt="🎯 Experientes, porém Inconsistentes" data-en="🎯 Experienced but Inconsistent">🎯 Experientes, porém Inconsistentes</h3>
+        <p data-pt="Traders com vários anos de experiência que já testaram diversas estratégias, mas enfrentam dificuldades com consistência e frequentemente caem em armadilhas de mercado." data-en="Traders with many years of experience who have tested various strategies, but struggle with consistency and frequently fall into market traps.">Traders com vários anos de experiência que já testaram diversas estratégias, mas enfrentam dificuldades com consistência e frequentemente caem em armadilhas de mercado.</p>
         <div class="xp-bar">
-          <label>Nível Exp</label>
+          <label data-pt="Nível Exp" data-en="Exp Level">Nível Exp</label>
           <div class="xp-track"><div class="xp-fill" style="width:70%;"></div></div>
-          <span class="xp-level">Avançado</span>
+          <span class="xp-level" data-pt="Avançado" data-en="Advanced">Avançado</span>
         </div>
         <div class="xp-bar">
-          <label>Conhecimento</label>
+          <label data-pt="Conhecimento" data-en="Knowledge">Conhecimento</label>
           <div class="xp-track"><div class="xp-fill" style="width:60%;"></div></div>
-          <span class="xp-level">Proficiente</span>
+          <span class="xp-level" data-pt="Proficiente" data-en="Proficient">Proficiente</span>
         </div>
       </div>
 
       <div class="audience-card reveal">
-        <h3>🧠 Entusiastas de SMC</h3>
-        <p>Traders que já possuem familiaridade com Smart Money Concepts e buscam ativamente ferramentas e indicadores para aprimorar sua análise, validar seus vieses e refinar pontos de entrada e saída.</p>
+        <h3 data-pt="🧠 Entusiastas de SMC" data-en="🧠 SMC Enthusiasts">🧠 Entusiastas de SMC</h3>
+        <p data-pt="Traders que já possuem familiaridade com Smart Money Concepts e buscam ativamente ferramentas e indicadores para aprimorar sua análise, validar seus vieses e refinar pontos de entrada e saída." data-en="Traders already familiar with Smart Money Concepts actively seeking tools and indicators to enhance their analysis, validate their biases and refine entry and exit points.">Traders que já possuem familiaridade com Smart Money Concepts e buscam ativamente ferramentas e indicadores para aprimorar sua análise, validar seus vieses e refinar pontos de entrada e saída.</p>
         <div class="xp-bar">
-          <label>Nível Exp</label>
+          <label data-pt="Nível Exp" data-en="Exp Level">Nível Exp</label>
           <div class="xp-track"><div class="xp-fill" style="width:85%;"></div></div>
-          <span class="xp-level">Avançado</span>
+          <span class="xp-level" data-pt="Avançado" data-en="Advanced">Avançado</span>
         </div>
         <div class="xp-bar">
-          <label>Conhecimento</label>
+          <label data-pt="Conhecimento" data-en="Knowledge">Conhecimento</label>
           <div class="xp-track"><div class="xp-fill" style="width:90%;"></div></div>
-          <span class="xp-level">Avançado</span>
+          <span class="xp-level" data-pt="Avançado" data-en="Advanced">Avançado</span>
         </div>
       </div>
     </div>
@@ -1538,46 +1567,46 @@ footer .copyright {
 <section id="comprar">
   <div class="container">
     <span class="section-number">07</span>
-    <div class="section-label">Solicitar Acesso PRO</div>
+    <div class="section-label" data-pt="Solicitar Acesso PRO" data-en="Request PRO Access">Solicitar Acesso PRO</div>
     <div class="sep"></div>
-    <h2 class="section-title reveal">Como Adquirir</h2>
+    <h2 class="section-title reveal" data-pt="Como Adquirir" data-en="How to Get It">Como Adquirir</h2>
 
     <div class="price-tag reveal">
-      <div class="label">Investimento</div>
-      <div class="price">12x <small>de</small> R$ 97<small>,00</small></div>
+      <div class="label" data-pt="Investimento" data-en="Investment">Investimento</div>
+      <div class="price">12x <small data-pt="de" data-en="of">de</small> R$ 97<small>,00</small></div>
     </div>
 
     <div class="steps-list">
       <div class="step-item reveal">
         <div class="step-number">1</div>
         <div class="step-content">
-          <h4>Realize a Compra</h4>
-          <p>Adquira o acesso através da plataforma oficial.</p>
+          <h4 data-pt="Realize a Compra" data-en="Complete the Purchase">Realize a Compra</h4>
+          <p data-pt="Adquira o acesso através da plataforma oficial." data-en="Purchase access through the official platform.">Adquira o acesso através da plataforma oficial.</p>
         </div>
       </div>
       <div class="step-item reveal">
         <div class="step-number">2</div>
         <div class="step-content">
-          <h4>Informe seu Usuário</h4>
-          <p>Após a compra, envie seu usuário do TradingView através do formulário por e-mail.</p>
+          <h4 data-pt="Informe seu Usuário" data-en="Provide Your Username">Informe seu Usuário</h4>
+          <p data-pt="Após a compra, envie seu usuário do TradingView através do formulário por e-mail." data-en="After the purchase, send your TradingView username through the email form.">Após a compra, envie seu usuário do TradingView através do formulário por e-mail.</p>
         </div>
       </div>
       <div class="step-item reveal">
         <div class="step-number">3</div>
         <div class="step-content">
-          <h4>Receba o Acesso</h4>
-          <p>Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView.</p>
+          <h4 data-pt="Receba o Acesso" data-en="Receive Access">Receba o Acesso</h4>
+          <p data-pt="Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView." data-en="You will receive the invitation to use PRO directly in your TradingView account.">Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView.</p>
         </div>
       </div>
     </div>
 
     <div style="text-align:center;" class="reveal">
-      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn btn-primary" style="padding:16px 40px;font-size:15px;">COMPRAR AGORA →</a>
+      <a href="https://hotmart.com/pt-br/marketplace/produtos/smc-execution-engine-pro/N103839549P" target="_blank" class="btn btn-primary" style="padding:16px 40px;font-size:15px;" data-pt="COMPRAR AGORA →" data-en="BUY NOW →">COMPRAR AGORA →</a>
     </div>
 
     <div class="final-cta reveal">
-      <div class="tagline">Pare de adivinhar. Comece a executar.</div>
-      <p class="sub">Junte-se a traders que utilizam o SMC Execution Engine PRO</p>
+      <div class="tagline" data-pt="Pare de adivinhar. Comece a executar." data-en="Stop guessing. Start executing.">Pare de adivinhar. Comece a executar.</div>
+      <p class="sub" data-pt="Junte-se a traders que utilizam o SMC Execution Engine PRO" data-en="Join traders using the SMC Execution Engine PRO">Junte-se a traders que utilizam o SMC Execution Engine PRO</p>
     </div>
   </div>
 </section>
@@ -1587,8 +1616,8 @@ footer .copyright {
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
   <div class="container">
-    <p class="copyright">© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
-    <p>
+    <p class="copyright" data-pt="© 2026 SMC Execution Engine. Todos os direitos reservados." data-en="© 2026 SMC Execution Engine. All rights reserved.">© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
+    <p data-pt="Proibida a cópia, redistribuição ou revenda. Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto." data-en="Copying, redistribution or resale is prohibited. Product of educational and analytical nature. Does not constitute investment advice or financial consulting. Results are not guaranteed. Use assumes prior knowledge of technical analysis and financial markets. TradingView is a third-party platform with no official affiliation or endorsement with this product.">
       Proibida a cópia, redistribuição ou revenda. Produto de caráter educacional e analítico. Não constitui recomendação de investimento ou consultoria financeira. Resultados não são garantidos. O uso pressupõe conhecimento prévio em análise técnica e mercados financeiros. TradingView é uma plataforma de terceiros, sem vínculo ou endosso oficial com este produto.
     </p>
   </div>
@@ -1630,6 +1659,27 @@ const xpObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 
 document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el));
+
+// Language toggle
+(function() {
+  const savedLang = localStorage.getItem('smc-lang') || 'pt';
+  applyLang(savedLang);
+  function applyLang(lang) {
+    document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      el.innerHTML = el.dataset[lang] || el.dataset.pt;
+    });
+    const btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    const btnMobile = document.getElementById('lang-toggle-mobile');
+    if (btnMobile) btnMobile.textContent = lang === 'pt' ? 'EN' : 'PT';
+    localStorage.setItem('smc-lang', lang);
+  }
+  window.toggleLang = function() {
+    const current = localStorage.getItem('smc-lang') || 'pt';
+    applyLang(current === 'pt' ? 'en' : 'pt');
+  };
+})();
 </script>
 
 </body>
