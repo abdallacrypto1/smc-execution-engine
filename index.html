@@ -1006,18 +1006,21 @@ footer .copyright {
    LANG TOGGLE
    ═══════════════════════════════════════════ */
 .lang-toggle {
-  font-size: 18px;
-  line-height: 1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent);
   background: transparent;
-  border: none;
-  padding: 2px 4px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 4px 9px;
   cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 .lang-toggle:hover {
-  opacity: 1;
-  transform: scale(1.15);
+  background: var(--accent);
+  color: var(--bg-primary);
 }
 
 /* ═══════════════════════════════════════════
@@ -1142,7 +1145,7 @@ footer .copyright {
     <a href="#praquem" data-pt="Para Quem" data-en="Who It's For">Para Quem</a>
     <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" data-pt="Manual" data-en="Manual">Manual</a>
     <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" data-pt="Vídeos" data-en="Videos">Vídeos</a>
-    <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">🇺🇸</button>
+    <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
     <a href="#comprar" class="btn btn-primary" style="padding:8px 18px;font-size:11px;" data-pt="QUERO SER PRO" data-en="GO PRO">QUERO SER PRO</a>
   </div>
   <div class="nav-status" data-pt="ONLINE" data-en="ONLINE">ONLINE</div>
@@ -1162,7 +1165,7 @@ footer .copyright {
   <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" onclick="toggleNav()" data-pt="Manual" data-en="Manual">Manual</a>
   <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" onclick="toggleNav()" data-pt="Vídeos" data-en="Videos">Vídeos</a>
   <a href="#comprar" onclick="toggleNav()" data-pt="Quero ser PRO" data-en="Go PRO">Quero ser PRO</a>
-  <button class="lang-toggle" id="lang-toggle-mobile" onclick="toggleLang()">🇺🇸</button>
+  <button class="lang-toggle" id="lang-toggle-mobile" onclick="toggleLang()">EN</button>
 </div>
 
 <main>
@@ -1669,7 +1672,7 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
       el.innerHTML = el.dataset[lang] || el.dataset.pt;
     });
     const btn = document.getElementById('lang-toggle');
-    if (btn) btn.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
+    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
     const btnMobile = document.getElementById('lang-toggle-mobile');
     if (btnMobile) btnMobile.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
     localStorage.setItem('smc-lang', lang);
