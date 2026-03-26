@@ -1006,21 +1006,18 @@ footer .copyright {
    LANG TOGGLE
    ═══════════════════════════════════════════ */
 .lang-toggle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1;
   background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 5px 10px;
+  border: none;
+  padding: 2px 4px;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
 }
 .lang-toggle:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  opacity: 1;
+  transform: scale(1.15);
 }
 
 /* ═══════════════════════════════════════════
@@ -1143,8 +1140,9 @@ footer .copyright {
     <a href="#funcpro">PRO</a>
     <a href="#exemplos" data-pt="Exemplos" data-en="Examples">Exemplos</a>
     <a href="#praquem" data-pt="Para Quem" data-en="Who It's For">Para Quem</a>
+    <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" data-pt="Manual" data-en="Manual">Manual</a>
     <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" data-pt="Vídeos" data-en="Videos">Vídeos</a>
-    <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+    <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">🇺🇸</button>
     <a href="#comprar" class="btn btn-primary" style="padding:8px 18px;font-size:11px;" data-pt="QUERO SER PRO" data-en="GO PRO">QUERO SER PRO</a>
   </div>
   <div class="nav-status" data-pt="ONLINE" data-en="ONLINE">ONLINE</div>
@@ -1161,9 +1159,10 @@ footer .copyright {
   <a href="#funcpro" onclick="toggleNav()" data-pt="Funcionalidades PRO" data-en="PRO Features">Funcionalidades PRO</a>
   <a href="#exemplos" onclick="toggleNav()" data-pt="Exemplos" data-en="Examples">Exemplos</a>
   <a href="#praquem" onclick="toggleNav()" data-pt="Para Quem" data-en="Who It's For">Para Quem</a>
+  <a href="https://abdallacrypto1.github.io/smc-execution-engine//manual" target="_blank" onclick="toggleNav()" data-pt="Manual" data-en="Manual">Manual</a>
   <a href="https://abdallacrypto1.github.io/smc-execution-engine//videos" target="_blank" onclick="toggleNav()" data-pt="Vídeos" data-en="Videos">Vídeos</a>
   <a href="#comprar" onclick="toggleNav()" data-pt="Quero ser PRO" data-en="Go PRO">Quero ser PRO</a>
-  <button class="lang-toggle" id="lang-toggle-mobile" onclick="toggleLang()">EN</button>
+  <button class="lang-toggle" id="lang-toggle-mobile" onclick="toggleLang()">🇺🇸</button>
 </div>
 
 <main>
@@ -1670,9 +1669,9 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
       el.innerHTML = el.dataset[lang] || el.dataset.pt;
     });
     const btn = document.getElementById('lang-toggle');
-    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    if (btn) btn.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
     const btnMobile = document.getElementById('lang-toggle-mobile');
-    if (btnMobile) btnMobile.textContent = lang === 'pt' ? 'EN' : 'PT';
+    if (btnMobile) btnMobile.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
     localStorage.setItem('smc-lang', lang);
   }
   window.toggleLang = function() {

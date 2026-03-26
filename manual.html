@@ -549,21 +549,18 @@ footer p {
    LANG TOGGLE
    ═══════════════════════════════════════════ */
 .lang-toggle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1;
   background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 5px 10px;
+  border: none;
+  padding: 2px 4px;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
 }
 .lang-toggle:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  opacity: 1;
+  transform: scale(1.15);
 }
 </style>
 </head>
@@ -572,7 +569,7 @@ footer p {
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
   <div class="nav-logo">SMC EXECUTION ENGINE</div>
-  <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+  <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">🇺🇸</button>
   <a href="index.html" class="nav-back" data-pt="← Voltar ao Início" data-en="← Back to Home">← Voltar ao Início</a>
 </nav>
 
@@ -1237,7 +1234,7 @@ if (window.innerWidth >= 1100) {
       el.innerHTML = el.dataset[lang] || el.dataset.pt;
     });
     const btn = document.getElementById('lang-toggle');
-    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    if (btn) btn.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
     localStorage.setItem('smc-lang', lang);
   }
   window.toggleLang = function() {
