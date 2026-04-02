@@ -173,7 +173,7 @@ function renderEquity(){
   eqChart=new Chart(document.getElementById('equityChart').getContext('2d'),{
     type:'line',
     data:{labels:labels,datasets:[{data:data,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:1.5,fill:true,pointRadius:0,tension:.1}]},
-    options:{responsive:true,plugins:{legend:{display:false},tooltip:{backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,titleFont:{family:"'IBM Plex Mono'"},bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{title:function(i){return 'Trade #'+i[0].label},label:function(i){return 'Equity: $'+fmt(i.raw)}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8},title:{display:true,text:'Trade #',color:'#555570',font:{family:"'IBM Plex Mono'",size:11}}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
+    options:{responsive:true,interaction:{mode:'index',intersect:false},hover:{mode:'index',intersect:false},animation:{duration:0},plugins:{legend:{display:false},tooltip:{animation:{duration:0},backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,titleFont:{family:"'IBM Plex Mono'"},bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{title:function(i){return 'Trade #'+i[0].label},label:function(i){return 'Equity: $'+fmt(i.raw)}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8},title:{display:true,text:'Trade #',color:'#555570',font:{family:"'IBM Plex Mono'",size:11}}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
   });
 }
 
@@ -210,7 +210,7 @@ function renderForward(){
       {label:'Treino (4 anos)',data:trainEq,borderColor:'#555570',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:.1},
       {label:'Teste (2 anos)',data:testEq,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:2,fill:true,pointRadius:0,tension:.1}
     ]},
-    options:{responsive:true,plugins:{legend:{display:true,labels:{color:'#8888a0',font:{family:"'IBM Plex Mono'",size:11}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
+    options:{responsive:true,interaction:{mode:'nearest',intersect:false,axis:'x'},hover:{mode:'nearest',intersect:false,axis:'x'},animation:{duration:0},plugins:{legend:{display:true,labels:{color:'#8888a0',font:{family:"'IBM Plex Mono'",size:11}}},tooltip:{animation:{duration:0}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
   });
 }
 
