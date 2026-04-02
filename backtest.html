@@ -193,6 +193,7 @@ Chart.defaults.animation = false;
 Chart.defaults.responsive = true;
 Chart.defaults.maintainAspectRatio = true;
 
+
 function fmt(n){if(n==null)return'-';var a=Math.abs(n);if(a>=1e6)return(n/1e6).toFixed(1)+'M';if(a>=1e3)return n.toLocaleString('en-US',{maximumFractionDigits:0});return String(n)}
 
 // ═══ PERIOD TABS + METRICS ═══
@@ -265,12 +266,12 @@ function renderForward(){
       {label:currentLang==='en'?'Training (4 years)':'Treino (4 anos)',data:trainEq,borderColor:'#555570',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:.1},
       {label:currentLang==='en'?'Test (2 years)':'Teste (2 anos)',data:testEq,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:2,fill:true,pointRadius:0,tension:.1}
     ]},
-    options:{responsive:true,interaction:{mode:'nearest',intersect:false,axis:'x'},hover:{mode:'nearest',intersect:false,axis:'x'},animation:{duration:0},plugins:{legend:{display:true,labels:{color:'#8888a0',font:{family:"'IBM Plex Mono'",size:11}}},tooltip:{animation:{duration:0}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
+    options:{responsive:true,interaction:{mode:'index',intersect:false},hover:{mode:'index',intersect:false},plugins:{legend:{display:true,labels:{color:'#8888a0',font:{family:"'IBM Plex Mono'",size:11}}},tooltip:{callbacks:{label:function(ctx){var v=ctx.raw;if(v==null)return null;return ctx.dataset.label+': $'+fmt(v)}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
   });
 }
 
 // ═══ REVEAL ═══
-var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+var obs=new IntersectionObserver(function(entries,observer){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);setTimeout(function(){e.target.style.transition='none'},700)}})},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 
 // ═══ MONTHLY HEATMAP ═══
