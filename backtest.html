@@ -69,18 +69,24 @@ canvas{width:100%!important;height:auto!important}
 <body>
 <div class="container">
 
+<!-- LANG TOGGLE -->
+<div style="position:fixed;top:16px;right:20px;z-index:100;display:flex;gap:4px">
+  <button class="tab" id="langPT" onclick="setLang('pt')" style="padding:4px 10px;font-size:10px">PT-BR</button>
+  <button class="tab" id="langEN" onclick="setLang('en')" style="padding:4px 10px;font-size:10px">EN</button>
+</div>
+
 <!-- HERO -->
 <section style="padding-top:40px;text-align:center">
-  <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">Python Backtest Engine</div>
-  <h1 style="font-family:var(--font-mono);font-size:clamp(24px,5vw,40px);font-weight:700;background:linear-gradient(135deg,var(--accent),#00ccaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px">Backtest Results</h1>
-  <p style="color:var(--text-secondary);font-size:14px;max-width:500px;margin:0 auto;line-height:1.7">BTCUSDT Perpetual 15m — 6 anos de dados historicos<br>Comissao real inclusa (Bybit maker+taker) — Forward test validado</p>
+  <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px" data-pt="SMC Execution Engine" data-en="SMC Execution Engine">SMC Execution Engine</div>
+  <h1 style="font-family:var(--font-mono);font-size:clamp(24px,5vw,40px);font-weight:700;background:linear-gradient(135deg,var(--accent),#00ccaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px" data-pt="Resultados do Backtest" data-en="Backtest Results">Resultados do Backtest</h1>
+  <p style="color:var(--text-secondary);font-size:14px;max-width:500px;margin:0 auto;line-height:1.7" data-pt="BTCUSDT Perpetual 15m — 6 anos de dados hist&oacute;ricos<br>Comiss&atilde;o real inclusa (Bybit maker+taker) — Forward test validado" data-en="BTCUSDT Perpetual 15m — 6 years of historical data<br>Real commission included (Bybit maker+taker) — Forward test validated">BTCUSDT Perpetual 15m — 6 anos de dados hist&oacute;ricos<br>Comiss&atilde;o real inclusa (Bybit maker+taker) — Forward test validado</p>
 </section>
 
 <!-- BACKTEST POR PERIODO -->
 <section class="reveal">
-  <div class="section-label">01 — Performance por periodo</div>
-  <h2 class="section-title">Consistencia ao longo do tempo</h2>
-  <p class="section-sub">O mesmo setup testado em 6 periodos diferentes. Sem re-otimizacao — parametros identicos do primeiro ao ultimo dia.</p>
+  <div class="section-label" data-pt="01 — Performance por per&iacute;odo" data-en="01 — Performance by period">01 — Performance por per&iacute;odo</div>
+  <h2 class="section-title" data-pt="Consist&ecirc;ncia ao longo do tempo" data-en="Consistency over time">Consist&ecirc;ncia ao longo do tempo</h2>
+  <p class="section-sub" data-pt="O mesmo setup testado em 6 per&iacute;odos diferentes. Sem re-otimiza&ccedil;&atilde;o — par&acirc;metros id&ecirc;nticos do primeiro ao &uacute;ltimo dia." data-en="Same setup tested across 6 different periods. No re-optimization — identical parameters from day one to the last.">O mesmo setup testado em 6 per&iacute;odos diferentes. Sem re-otimiza&ccedil;&atilde;o — par&acirc;metros id&ecirc;nticos do primeiro ao &uacute;ltimo dia.</p>
   <div class="tabs" id="periodTabs"></div>
   <div class="metrics-grid" id="metricsGrid"></div>
   <div class="chart-container">
@@ -90,24 +96,24 @@ canvas{width:100%!important;height:auto!important}
 
 <!-- SETUP RECOMENDADO -->
 <section class="reveal">
-  <div class="section-label">02 — Configuracao testada</div>
-  <h2 class="section-title">Setup da estrategia</h2>
-  <p class="section-sub">Parametros recomendados para uso no indicador. Ranges indicados onde ha flexibilidade.</p>
+  <div class="section-label" data-pt="02 — Configura&ccedil;&atilde;o testada" data-en="02 — Tested configuration">02 — Configura&ccedil;&atilde;o testada</div>
+  <h2 class="section-title" data-pt="Setup da estrat&eacute;gia" data-en="Strategy setup">Setup da estrat&eacute;gia</h2>
+  <p class="section-sub" data-pt="Par&acirc;metros recomendados para uso no indicador. Ranges indicados onde h&aacute; flexibilidade." data-en="Recommended parameters for the indicator. Ranges shown where flexibility exists.">Par&acirc;metros recomendados para uso no indicador. Ranges indicados onde h&aacute; flexibilidade.</p>
   <div class="setup-box">
-    <h4>Parametros do backtest</h4>
+    <h4 data-pt="Par&acirc;metros do backtest" data-en="Backtest parameters">Par&acirc;metros do backtest</h4>
     <div class="setup-grid">
       <div>Alert mode: <span>FIBO_618_079_ZONE</span></div>
       <div>Break mode: <span>close_strict</span></div>
       <div>K (swings): <span>2</span></div>
-      <div>OB Strictness: <span>1-3 (testado: 2)</span></div>
-      <div>TP1: <span>1.5:1 (fechar 40%)</span></div>
-      <div>TP2: <span>6.0:1 (fechar resto)</span></div>
-      <div>Move SL to BE: <span>Sim (apos TP1)</span></div>
-      <div>Risk per trade: <span>2-3%</span></div>
+      <div>OB Strictness: <span>1-3 (<span data-pt="testado" data-en="tested">testado</span>: 2)</span></div>
+      <div>TP1: <span>1.5:1 (<span data-pt="fechar" data-en="close">fechar</span> 40%)</span></div>
+      <div>TP2: <span>6.0:1 (<span data-pt="fechar resto" data-en="close remainder">fechar resto</span>)</span></div>
+      <div>Move SL to BE: <span data-pt="Sim (ap&oacute;s TP1)" data-en="Yes (after TP1)">Sim (ap&oacute;s TP1)</span></div>
+      <div><span data-pt="Risco por trade" data-en="Risk per trade">Risco por trade</span>: <span>2-3%</span></div>
       <div>Max leverage: <span>3-5x</span></div>
       <div>Min stop distance: <span>0.25%</span></div>
       <div>Macro filter: <span>1D EMA200+MA200</span></div>
-      <div>OB Filter (FVG): <span>Ligado</span></div>
+      <div>OB Filter (FVG): <span data-pt="Ligado" data-en="Enabled">Ligado</span></div>
     </div>
   </div>
 </section>
@@ -115,8 +121,8 @@ canvas{width:100%!important;height:auto!important}
 <!-- FORWARD TEST -->
 <section class="reveal">
   <div class="section-label">03 — Forward test (Walk-Forward)</div>
-  <h2 class="section-title">Validacao em dados nao vistos</h2>
-  <p class="section-sub">Otimizamos nos 4 primeiros anos. Depois travamos os parametros e testamos nos 2 anos mais recentes sem mudar nada. Se funciona no periodo nao visto, nao e overfitting.</p>
+  <h2 class="section-title" data-pt="Valida&ccedil;&atilde;o em dados n&atilde;o vistos" data-en="Validation on unseen data">Valida&ccedil;&atilde;o em dados n&atilde;o vistos</h2>
+  <p class="section-sub" data-pt="Otimizamos nos 4 primeiros anos. Depois travamos os par&acirc;metros e testamos nos 2 anos mais recentes sem mudar nada. Se funciona no per&iacute;odo n&atilde;o visto, n&atilde;o &eacute; overfitting." data-en="Optimized on the first 4 years. Then locked the parameters and tested on the most recent 2 years without changing anything. If it works on unseen data, it's not overfitting.">Otimizamos nos 4 primeiros anos. Depois travamos os par&acirc;metros e testamos nos 2 anos mais recentes sem mudar nada. Se funciona no per&iacute;odo n&atilde;o visto, n&atilde;o &eacute; overfitting.</p>
   <div class="forward-grid" id="forwardGrid"></div>
   <div id="verdictBox"></div>
   <div class="chart-container" style="margin-top:16px">
@@ -126,17 +132,17 @@ canvas{width:100%!important;height:auto!important}
 
 <!-- MONTHLY RETURNS -->
 <section class="reveal">
-  <div class="section-label">04 — Retornos mensais</div>
-  <h2 class="section-title">Performance mes a mes (6 anos)</h2>
-  <p class="section-sub">Cada celula mostra o retorno % do mes. Meses negativos existem — nenhuma estrategia ganha sempre. Voce pode verificar cruzando com o que aconteceu no mercado.</p>
+  <div class="section-label" data-pt="04 — Retornos mensais" data-en="04 — Monthly returns">04 — Retornos mensais</div>
+  <h2 class="section-title" data-pt="Performance m&ecirc;s a m&ecirc;s (6 anos)" data-en="Month by month performance (6 years)">Performance m&ecirc;s a m&ecirc;s (6 anos)</h2>
+  <p class="section-sub" data-pt="Cada c&eacute;lula mostra o retorno % do m&ecirc;s. Meses negativos existem — nenhuma estrat&eacute;gia ganha sempre. Voc&ecirc; pode verificar cruzando com o que aconteceu no mercado." data-en="Each cell shows the monthly return %. Negative months exist — no strategy wins every time. You can cross-check against what happened in the market.">Cada c&eacute;lula mostra o retorno % do m&ecirc;s. Meses negativos existem — nenhuma estrat&eacute;gia ganha sempre. Voc&ecirc; pode verificar cruzando com o que aconteceu no mercado.</p>
   <div id="heatmap" style="overflow-x:auto"></div>
 </section>
 
 <!-- DISTRIBUTION -->
 <section class="reveal">
-  <div class="section-label">05 — Distribuicao dos trades</div>
-  <h2 class="section-title">Histograma de P&L por trade</h2>
-  <p class="section-sub">A maioria dos trades fica entre -3% e +3%. Resultados reais tem essa distribuicao natural — resultados fabricados sao simetricos demais.</p>
+  <div class="section-label" data-pt="05 — Distribui&ccedil;&atilde;o dos trades" data-en="05 — Trade distribution">05 — Distribui&ccedil;&atilde;o dos trades</div>
+  <h2 class="section-title" data-pt="Histograma de P&amp;L por trade" data-en="P&amp;L histogram per trade">Histograma de P&amp;L por trade</h2>
+  <p class="section-sub" data-pt="A maioria dos trades fica entre -3% e +3%. Resultados reais t&ecirc;m essa distribui&ccedil;&atilde;o natural — resultados fabricados s&atilde;o sim&eacute;tricos demais." data-en="Most trades fall between -3% and +3%. Real results have this natural distribution — fabricated ones are too symmetrical.">A maioria dos trades fica entre -3% e +3%. Resultados reais t&ecirc;m essa distribui&ccedil;&atilde;o natural — resultados fabricados s&atilde;o sim&eacute;tricos demais.</p>
   <div class="chart-container">
     <canvas id="histChart" height="250"></canvas>
   </div>
@@ -144,25 +150,25 @@ canvas{width:100%!important;height:auto!important}
 
 <!-- HONESTY STATS -->
 <section class="reveal">
-  <div class="section-label">06 — Estatisticas de transparencia</div>
-  <h2 class="section-title">Numeros que provam que e real</h2>
-  <p class="section-sub">So quem rodou de verdade tem esses dados. Resultados fantasiosos nao mostram o lado feio.</p>
+  <div class="section-label" data-pt="06 — Estat&iacute;sticas de transpar&ecirc;ncia" data-en="06 — Transparency statistics">06 — Estat&iacute;sticas de transpar&ecirc;ncia</div>
+  <h2 class="section-title" data-pt="N&uacute;meros que provam que &eacute; real" data-en="Numbers that prove it's real">N&uacute;meros que provam que &eacute; real</h2>
+  <p class="section-sub" data-pt="S&oacute; quem rodou de verdade tem esses dados. Resultados fantasiosos n&atilde;o mostram o lado feio." data-en="Only those who actually ran the test have these numbers. Fantasy results don't show the ugly side.">S&oacute; quem rodou de verdade tem esses dados. Resultados fantasiosos n&atilde;o mostram o lado feio.</p>
   <div class="metrics-grid" id="honestyGrid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))"></div>
 </section>
 
 <!-- LONG vs SHORT -->
 <section class="reveal">
   <div class="section-label">07 — Long vs Short</div>
-  <h2 class="section-title">Opera dos dois lados</h2>
-  <p class="section-sub">Nao depende so de mercado subindo. A estrategia lucra em bull e bear markets.</p>
+  <h2 class="section-title" data-pt="Opera dos dois lados" data-en="Trades both sides">Opera dos dois lados</h2>
+  <p class="section-sub" data-pt="N&atilde;o depende s&oacute; de mercado subindo. A estrat&eacute;gia lucra em bull e bear markets." data-en="Doesn't depend on a rising market. The strategy profits in both bull and bear markets.">N&atilde;o depende s&oacute; de mercado subindo. A estrat&eacute;gia lucra em bull e bear markets.</p>
   <div class="forward-grid" id="longShortGrid"></div>
 </section>
 
 <!-- RECENT TRADES -->
 <section class="reveal">
-  <div class="section-label">08 — Trades recentes</div>
-  <h2 class="section-title">Ultimos 20 trades</h2>
-  <p class="section-sub">Datas e precos reais. Abra o grafico BTCUSDT.P 15m no TradingView e confira voce mesmo.</p>
+  <div class="section-label" data-pt="08 — Trades recentes" data-en="08 — Recent trades">08 — Trades recentes</div>
+  <h2 class="section-title" data-pt="&Uacute;ltimos 20 trades" data-en="Last 20 trades">&Uacute;ltimos 20 trades</h2>
+  <p class="section-sub" data-pt="Datas e pre&ccedil;os reais. Abra o gr&aacute;fico BTCUSDT.P 15m no TradingView e confira voc&ecirc; mesmo." data-en="Real dates and prices. Open the BTCUSDT.P 15m chart on TradingView and verify yourself.">Datas e pre&ccedil;os reais. Abra o gr&aacute;fico BTCUSDT.P 15m no TradingView e confira voc&ecirc; mesmo.</p>
   <div style="overflow-x:auto">
     <table id="recentTable" style="width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:12px">
     </table>
@@ -172,7 +178,7 @@ canvas{width:100%!important;height:auto!important}
 <!-- DISCLAIMER -->
 <section class="reveal">
   <div class="disclaimer">
-    Resultados de backtest nao garantem performance futura. Todos os testes incluem comissao real da Bybit (maker + taker). O indicador fornece sinais — a execucao, gestao de risco e decisao final sao de responsabilidade do trader. Opere apenas com capital que voce pode perder.
+    <span data-pt="Resultados de backtest n&atilde;o garantem performance futura. Todos os testes incluem comiss&atilde;o real da Bybit (maker + taker). O indicador fornece sinais — a execu&ccedil;&atilde;o, gest&atilde;o de risco e decis&atilde;o final s&atilde;o de responsabilidade do trader. Opere apenas com capital que voc&ecirc; pode perder." data-en="Backtest results do not guarantee future performance. All tests include real Bybit commissions (maker + taker). The indicator provides signals — execution, risk management and final decisions are the trader's responsibility. Only trade with capital you can afford to lose.">Resultados de backtest n&atilde;o garantem performance futura. Todos os testes incluem comiss&atilde;o real da Bybit (maker + taker). O indicador fornece sinais — a execu&ccedil;&atilde;o, gest&atilde;o de risco e decis&atilde;o final s&atilde;o de responsabilidade do trader. Opere apenas com capital que voc&ecirc; pode perder.</span>
   </div>
 </section>
 
@@ -189,7 +195,7 @@ function fmt(n){if(n==null)return'-';var a=Math.abs(n);if(a>=1e6)return(n/1e6).t
 function renderPeriods(){
   var tabs=document.getElementById('periodTabs');
   tabs.innerHTML=D.periods.map(function(p,i){
-    return '<button class="tab '+(i===selPeriod?'active':'')+'" data-idx="'+i+'">'+p.years+' Ano'+(p.years>1?'s':'')+'</button>';
+    return '<button class="tab '+(i===selPeriod?'active':'')+'" data-idx="'+i+'">'+p.years+' '+(p.years>1?t('years'):t('year'))+'</button>';
   }).join('');
   tabs.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){
     selPeriod=parseInt(t.dataset.idx);renderPeriods();renderEquity();
@@ -201,7 +207,7 @@ function renderPeriods(){
     {l:'Win Rate',v:p.wr+'%'},
     {l:'Max Drawdown',v:p.dd+'%',vcls:'danger'},
     {l:'Total Trades',v:fmt(p.trades),vcls:'neutral'},
-    {l:'Retorno',v:'+'+fmt(p.pnl_pct)+'%',cls:'highlight'},
+    {l:t('return_label'),v:'+'+fmt(p.pnl_pct)+'%',cls:'highlight'},
   ].map(function(c){
     return '<div class="metric-card '+(c.cls||'')+'"><div class="metric-label">'+c.l+'</div><div class="metric-value '+(c.vcls||'')+'">'+c.v+'</div></div>';
   }).join('');
@@ -218,7 +224,7 @@ function renderEquity(){
   eqChart=new Chart(document.getElementById('equityChart').getContext('2d'),{
     type:'line',
     data:{labels:labels,datasets:[{data:data,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:1.5,fill:true,pointRadius:0,tension:.1}]},
-    options:{responsive:true,interaction:{mode:'index',intersect:false},hover:{mode:'index',intersect:false},animation:{duration:0},plugins:{legend:{display:false},tooltip:{animation:{duration:0},backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,titleFont:{family:"'IBM Plex Mono'"},bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{title:function(i){return 'Trade #'+i[0].label},label:function(i){return 'Equity: $'+fmt(i.raw)}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8},title:{display:true,text:'Trade #',color:'#555570',font:{family:"'IBM Plex Mono'",size:11}}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
+    options:{responsive:true,interaction:{mode:'index',intersect:false},hover:{mode:'index',intersect:false},animation:{duration:0},plugins:{legend:{display:false},tooltip:{animation:{duration:0},backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,titleFont:{family:"'IBM Plex Mono'"},bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{title:function(i){return t('tooltip_trade')+' #'+i[0].label},label:function(i){return t('tooltip_equity')+': $'+fmt(i.raw)}}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8},title:{display:true,text:'Trade #',color:'#555570',font:{family:"'IBM Plex Mono'",size:11}}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
   });
 }
 
@@ -234,14 +240,14 @@ function renderForward(){
       '<div class="fwd-stat">Win Rate <span>'+data.wr+'%</span></div>'+
       '<div class="fwd-stat">Max Drawdown <span style="color:'+(data.dd>30?'var(--danger)':'var(--accent)')+'">'+data.dd+'%</span></div>'+
       '<div class="fwd-stat">Trades <span>'+data.trades+'</span></div>'+
-      '<div class="fwd-stat">Retorno <span style="color:var(--accent)">+'+fmt(data.pnl_pct)+'%</span></div>'+
+      '<div class="fwd-stat">'+t('return_label')+' <span style="color:var(--accent)">+'+fmt(data.pnl_pct)+'%</span></div>'+
     '</div>';
   }
-  grid.innerHTML=card('TREINO (4 ANOS)','',D.forward.train)+card('TESTE (2 ANOS) — DADOS NAO VISTOS','test',D.forward.test);
+  grid.innerHTML=card(t('train'),'',D.forward.train)+card(t('test'),'test',D.forward.test);
 
   var decay=((D.forward.test.pf/D.forward.train.pf)-1)*100;
   document.getElementById('verdictBox').innerHTML=
-    '<div class="verdict">FORWARD TEST APROVADO — PF '+D.forward.test.pf.toFixed(2)+' no periodo nao-visto ('+(decay>=0?'+':'')+decay.toFixed(1)+'% vs treino)</div>';
+    '<div class="verdict">'+t('approved')+' — PF '+D.forward.test.pf.toFixed(2)+' '+t('fwd_unseen')+' ('+(decay>=0?'+':'')+decay.toFixed(1)+'% '+t('vs_train')+')</div>';
 
   // Chart
   var trainEq=D.forward.train.equity_curve.map(function(e){return e.e});
@@ -252,8 +258,8 @@ function renderForward(){
   fwdChart=new Chart(document.getElementById('fwdChart').getContext('2d'),{
     type:'line',
     data:{labels:labels,datasets:[
-      {label:'Treino (4 anos)',data:trainEq,borderColor:'#555570',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:.1},
-      {label:'Teste (2 anos)',data:testEq,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:2,fill:true,pointRadius:0,tension:.1}
+      {label:currentLang==='en'?'Training (4 years)':'Treino (4 anos)',data:trainEq,borderColor:'#555570',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:.1},
+      {label:currentLang==='en'?'Test (2 years)':'Teste (2 anos)',data:testEq,borderColor:'#00ff88',backgroundColor:'#00ff8815',borderWidth:2,fill:true,pointRadius:0,tension:.1}
     ]},
     options:{responsive:true,interaction:{mode:'nearest',intersect:false,axis:'x'},hover:{mode:'nearest',intersect:false,axis:'x'},animation:{duration:0},plugins:{legend:{display:true,labels:{color:'#8888a0',font:{family:"'IBM Plex Mono'",size:11}}},tooltip:{animation:{duration:0}}},scales:{x:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},maxTicksLimit:8}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10},callback:function(v){return '$'+fmt(v)}}}}}
   });
@@ -275,11 +281,11 @@ function renderHeatmap(){
     if(!years[y])years[y]={};
     years[y][mo]=m[ym];
   });
-  var moNames=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var moNames=currentLang==='en'?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   var html='<table style="width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11px">';
-  html+='<thead><tr><th style="padding:6px 8px;color:var(--text-muted);text-align:left">Ano</th>';
+  html+='<thead><tr><th style="padding:6px 8px;color:var(--text-muted);text-align:left">'+t('heatmap_year')+'</th>';
   moNames.forEach(function(n){html+='<th style="padding:6px 8px;color:var(--text-muted);text-align:center">'+n+'</th>'});
-  html+='<th style="padding:6px 8px;color:var(--text-muted);text-align:center">Total</th></tr></thead><tbody>';
+  html+='<th style="padding:6px 8px;color:var(--text-muted);text-align:center">'+t('heatmap_total')+'</th></tr></thead><tbody>';
   Object.keys(years).sort().forEach(function(y){
     html+='<tr><td style="padding:6px 8px;font-weight:700;color:var(--accent)">'+y+'</td>';
     var total=0;
@@ -304,16 +310,18 @@ function renderHeatmap(){
 }
 
 // ═══ HISTOGRAM ═══
+var histChart;
 function renderHistogram(){
   var h=D.histogram;
   if(!h||!h.length)return;
-  var labels=h.map(function(b){return b.label});
+  var labels=h.map(function(b){return currentLang==='en'?b.label.replace(' a ',' to '):b.label});
   var counts=h.map(function(b){return b.count});
   var colors=h.map(function(b){return b.label.indexOf('-')===0?'#ff4466':'#00ff88'});
-  new Chart(document.getElementById('histChart').getContext('2d'),{
+  if(histChart)histChart.destroy();
+  histChart=new Chart(document.getElementById('histChart').getContext('2d'),{
     type:'bar',
     data:{labels:labels,datasets:[{data:counts,backgroundColor:colors,borderWidth:0}]},
-    options:{responsive:true,interaction:{mode:'index',intersect:false},animation:{duration:0},plugins:{legend:{display:false},tooltip:{animation:{duration:0},backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{label:function(i){return i.raw+' trades'}}}},scales:{x:{grid:{display:false},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:9},maxRotation:45}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10}}}}}
+    options:{responsive:true,interaction:{mode:'index',intersect:false},animation:{duration:0},plugins:{legend:{display:false},tooltip:{animation:{duration:0},backgroundColor:'#12121e',borderColor:'#1a1a2e',borderWidth:1,bodyFont:{family:"'IBM Plex Mono'",size:11},callbacks:{label:function(i){return i.raw+' '+t('tooltip_trades')}}}},scales:{x:{grid:{display:false},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:9},maxRotation:45}},y:{grid:{color:'#1a1a2e'},ticks:{color:'#555570',font:{family:"'IBM Plex Mono'",size:10}}}}}
   });
 }
 
@@ -322,12 +330,12 @@ function renderHonesty(){
   var h=D.honesty;
   if(!h)return;
   var items=[
-    {l:'Max Losses Seguidos',v:h.max_consec_losses,vcls:'danger'},
-    {l:'Max Wins Seguidos',v:h.max_consec_wins},
-    {l:'Maior Loss',v:h.biggest_loss_pct+'%',vcls:'danger'},
-    {l:'Maior Win',v:'+'+h.biggest_win_pct+'%'},
-    {l:'Duracao Media',v:h.avg_trade_hours+'h',vcls:'neutral'},
-    {l:'Duracao Mediana',v:h.median_trade_hours+'h',vcls:'neutral'},
+    {l:t('max_cl'),v:h.max_consec_losses,vcls:'danger'},
+    {l:t('max_cw'),v:h.max_consec_wins},
+    {l:t('biggest_loss'),v:h.biggest_loss_pct+'%',vcls:'danger'},
+    {l:t('biggest_win'),v:'+'+h.biggest_win_pct+'%'},
+    {l:t('avg_dur'),v:h.avg_trade_hours+'h',vcls:'neutral'},
+    {l:t('med_dur'),v:h.median_trade_hours+'h',vcls:'neutral'},
   ];
   document.getElementById('honestyGrid').innerHTML=items.map(function(c){
     return '<div class="metric-card"><div class="metric-label">'+c.l+'</div><div class="metric-value '+(c.vcls||'')+'">'+c.v+'</div></div>';
@@ -355,7 +363,7 @@ function renderRecent(){
   var trades=D.recent_trades;
   if(!trades||!trades.length)return;
   var html='<thead><tr>';
-  ['Dir','Entrada','Entry','Exit','Motivo','P&L'].forEach(function(h){
+  [t('col_dir'),t('col_entry_date'),t('col_entry'),t('col_exit'),t('col_reason'),t('col_pnl')].forEach(function(h){
     html+='<th style="background:var(--bg-secondary);padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border-color)">'+h+'</th>';
   });
   html+='</tr></thead><tbody>';
@@ -378,6 +386,47 @@ function renderRecent(){
   document.getElementById('recentTable').innerHTML=html;
 }
 
+// ═══ LANGUAGE TOGGLE ═══
+var currentLang = 'pt';
+var T = {
+  pt: {
+    year: 'Ano', years: 'Anos', return_label: 'Retorno',
+    train: 'TREINO (4 ANOS)', test: 'TESTE (2 ANOS) — DADOS N\u00c3O VISTOS',
+    approved: 'FORWARD TEST APROVADO', fwd_unseen: 'no per\u00edodo n\u00e3o visto',
+    vs_train: 'vs treino', heatmap_year: 'Ano', heatmap_total: 'Total',
+    max_cl: 'Max Losses Seguidos', max_cw: 'Max Wins Seguidos',
+    biggest_loss: 'Maior Loss', biggest_win: 'Maior Win',
+    avg_dur: 'Dura\u00e7\u00e3o M\u00e9dia', med_dur: 'Dura\u00e7\u00e3o Mediana',
+    col_dir: 'Dir', col_entry_date: 'Entrada', col_entry: 'Entry',
+    col_exit: 'Exit', col_reason: 'Motivo', col_pnl: 'P&L',
+    tooltip_trade: 'Trade', tooltip_equity: 'Capital', tooltip_trades: 'trades',
+  },
+  en: {
+    year: 'Year', years: 'Years', return_label: 'Return',
+    train: 'TRAINING (4 YEARS)', test: 'TEST (2 YEARS) — UNSEEN DATA',
+    approved: 'FORWARD TEST APPROVED', fwd_unseen: 'on unseen period',
+    vs_train: 'vs training', heatmap_year: 'Year', heatmap_total: 'Total',
+    max_cl: 'Max Consec Losses', max_cw: 'Max Consec Wins',
+    biggest_loss: 'Biggest Loss', biggest_win: 'Biggest Win',
+    avg_dur: 'Avg Duration', med_dur: 'Median Duration',
+    col_dir: 'Dir', col_entry_date: 'Entry Date', col_entry: 'Entry',
+    col_exit: 'Exit', col_reason: 'Reason', col_pnl: 'P&L',
+    tooltip_trade: 'Trade', tooltip_equity: 'Equity', tooltip_trades: 'trades',
+  }
+};
+function t(key){return T[currentLang][key]||key}
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-'+lang+']').forEach(function(el) {
+    el.innerHTML = el.getAttribute('data-'+lang);
+  });
+  document.getElementById('langPT').className = 'tab' + (lang==='pt' ? ' active' : '');
+  document.getElementById('langEN').className = 'tab' + (lang==='en' ? ' active' : '');
+  // Re-render dynamic content
+  renderPeriods(); renderEquity(); renderForward();
+  renderHeatmap(); renderHistogram(); renderHonesty(); renderLongShort(); renderRecent();
+}
+
 // ═══ INIT ═══
 renderPeriods();
 renderEquity();
@@ -387,6 +436,7 @@ renderHistogram();
 renderHonesty();
 renderLongShort();
 renderRecent();
+setLang('pt');
 </script>
 </body>
 </html>
