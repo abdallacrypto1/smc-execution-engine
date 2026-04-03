@@ -280,7 +280,7 @@ function renderForward(){
       '<div class="fwd-title">'+data.date_range+'</div>'+
       '<div class="fwd-stat">Profit Factor <span style="color:'+(data.pf>=1.5?'var(--accent)':'var(--warning)')+'">'+data.pf.toFixed(2)+'</span></div>'+
       '<div class="fwd-stat">Win Rate <span>'+data.wr+'%</span></div>'+
-      '<div class="fwd-stat">Max Drawdown <span style="color:'+(data.dd>30?'var(--danger)':'var(--accent)')+'">'+data.dd+'%</span></div>'+
+      '<div class="fwd-stat">Max Drawdown <span style="color:var(--danger)">'+data.dd+'%</span></div>'+
       '<div class="fwd-stat">Trades <span>'+data.trades+'</span></div>'+
       '<div class="fwd-stat">'+t('return_label')+' <span style="color:var(--accent)">+'+fmt(data.pnl_pct)+'%</span></div>'+
     '</div>';
