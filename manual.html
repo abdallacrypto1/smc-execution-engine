@@ -1063,30 +1063,71 @@ footer p {
     <div class="sep"></div>
     <h2 class="reveal" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</h2>
 
+    <p class="reveal" data-pt="Configura&ccedil;&otilde;es otimizadas por perfil de trader, validadas com backtest em BTCUSDT (2 a 6 anos de dados, forward test aprovado)." data-en="Settings optimized by trader profile, validated with BTCUSDT backtests (2 to 6 years of data, forward test approved).">Configura&ccedil;&otilde;es otimizadas por perfil de trader, validadas com backtest em BTCUSDT (2 a 6 anos de dados, forward test aprovado).</p>
+
+    <!-- Scalper -->
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green" data-pt="Default Recomendado — Todos os Timeframes" data-en="Recommended Default — All Timeframes">Default Recomendado — Todos os Timeframes</div>
-      <p data-pt="Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:" data-en="For most scenarios and assets, the settings below work well as a universal starting point:">Para a maioria dos cenários e ativos, a configuração abaixo funciona bem como ponto de partida universal:</p>
+      <div class="info-card-tag green" data-pt="Scalper / Day Trader &mdash; 15m" data-en="Scalper / Day Trader &mdash; 15m">Scalper / Day Trader &mdash; 15m</div>
+      <p data-pt="Opera no 15 minutos, entra e sai no mesmo dia. Macro filter ativo para operar s&oacute; a favor da tend&ecirc;ncia di&aacute;ria." data-en="Trades on the 15-minute chart, enters and exits same day. Macro filter active to trade only with the daily trend.">Opera no 15 minutos, entra e sai no mesmo dia. Macro filter ativo para operar s&oacute; a favor da tend&ecirc;ncia di&aacute;ria.</p>
       <div class="table-wrap">
         <table class="config-table" style="margin:0;">
-          <thead>
-            <tr><th data-pt="Parâmetro" data-en="Parameter">Parâmetro</th><th data-pt="Valor" data-en="Value">Valor</th></tr>
-          </thead>
+          <thead><tr><th data-pt="Par&acirc;metro" data-en="Parameter">Par&acirc;metro</th><th data-pt="Valor" data-en="Value">Valor</th></tr></thead>
           <tbody>
             <tr><td>Fractal K</td><td>2</td></tr>
-            <tr><td>Strictness</td><td>5</td></tr>
-            <tr><td>OB Mode</td><td>Auto</td></tr>
+            <tr><td>Break mode</td><td>close_strict</td></tr>
+            <tr><td>Strictness</td><td>2</td></tr>
+            <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
+            <tr><td>Macro filter</td><td>ON (1D)</td></tr>
+            <tr><td>Min stop</td><td>0.25%</td></tr>
           </tbody>
         </table>
       </div>
-      <p style="margin:12px 0 0;font-size:13px;" data-pt="Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros." data-en="These values offer a balance between structural sensitivity and validation quality. Auto mode automatically adjusts BaseLA and BaseATR per timeframe, so you don't need to touch those parameters.">Esses valores oferecem um equilíbrio entre sensibilidade estrutural e qualidade de validação. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe, então você não precisa mexer nesses parâmetros.</p>
+      <p style="margin:12px 0 0;font-size:15px;" data-pt="Forward test: PF 2.93 em dados n&atilde;o vistos. Melhor que o per&iacute;odo de treino." data-en="Forward test: PF 2.93 on unseen data. Better than the training period.">Forward test: PF 2.93 em dados n&atilde;o vistos. Melhor que o per&iacute;odo de treino.</p>
     </div>
 
-    <h3 class="reveal" data-pt="Referência Avançada: Baselines por Timeframe" data-en="Advanced Reference: Baselines by Timeframe">Referência Avançada: Baselines por Timeframe</h3>
-    <p class="reveal" data-pt="No modo Auto, o sistema seleciona automaticamente a sensibilidade de validação adequada para cada timeframe. Timeframes menores recebem configurações mais conservadoras para compensar a ação de preço mais ruidosa de barras curtas. A calibração exata é gerenciada internamente." data-en="In Auto mode, the system automatically selects appropriate validation sensitivity for each timeframe. Lower timeframes receive more conservative settings to compensate for the noisier price action typical of shorter bars. The exact calibration is managed internally.">No modo Auto, o sistema seleciona automaticamente a sensibilidade de validação adequada para cada timeframe. Timeframes menores recebem configurações mais conservadoras para compensar a ação de preço mais ruidosa de barras curtas. A calibração exata é gerenciada internamente.</p>
+    <!-- Swing 1h -->
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Swing Trader &mdash; 1h" data-en="Swing Trader &mdash; 1h">Swing Trader &mdash; 1h</div>
+      <p data-pt="Opera no gr&aacute;fico de 1 hora. Segura posi&ccedil;&atilde;o por horas a dias. Macro filter ativo." data-en="Trades on the 1-hour chart. Holds positions for hours to days. Macro filter active.">Opera no gr&aacute;fico de 1 hora. Segura posi&ccedil;&atilde;o por horas a dias. Macro filter ativo.</p>
+      <div class="table-wrap">
+        <table class="config-table" style="margin:0;">
+          <thead><tr><th data-pt="Par&acirc;metro" data-en="Parameter">Par&acirc;metro</th><th data-pt="Valor" data-en="Value">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Fractal K</td><td>1</td></tr>
+            <tr><td>Break mode</td><td>close_strict</td></tr>
+            <tr><td>Strictness</td><td>5</td></tr>
+            <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
+            <tr><td>Macro filter</td><td>ON (1D)</td></tr>
+            <tr><td>Min stop</td><td>0.25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0;font-size:15px;" data-pt="Forward test: PF 2.29 em dados n&atilde;o vistos (+51% vs treino)." data-en="Forward test: PF 2.29 on unseen data (+51% vs training).">Forward test: PF 2.29 em dados n&atilde;o vistos (+51% vs treino).</p>
+    </div>
+
+    <!-- Swing 4h -->
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Swing Trader &mdash; 4h" data-en="Swing Trader &mdash; 4h">Swing Trader &mdash; 4h</div>
+      <p data-pt="Opera no gr&aacute;fico de 4 horas. Trades duram dias a semanas. Sem macro filter (a pr&oacute;pria estrutura 4h j&aacute; filtra)." data-en="Trades on the 4-hour chart. Trades last days to weeks. No macro filter (4h structure already filters).">Opera no gr&aacute;fico de 4 horas. Trades duram dias a semanas. Sem macro filter (a pr&oacute;pria estrutura 4h j&aacute; filtra).</p>
+      <div class="table-wrap">
+        <table class="config-table" style="margin:0;">
+          <thead><tr><th data-pt="Par&acirc;metro" data-en="Parameter">Par&acirc;metro</th><th data-pt="Valor" data-en="Value">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Fractal K</td><td>3</td></tr>
+            <tr><td>Break mode</td><td>close_strict</td></tr>
+            <tr><td>Strictness</td><td>5</td></tr>
+            <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
+            <tr><td>Macro filter</td><td>OFF</td></tr>
+            <tr><td>Min stop</td><td>0.25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0;font-size:15px;" data-pt="Forward test: PF 3.99 em dados n&atilde;o vistos. Melhor resultado entre todos os timeframes." data-en="Forward test: PF 3.99 on unseen data. Best result across all timeframes.">Forward test: PF 3.99 em dados n&atilde;o vistos. Melhor resultado entre todos os timeframes.</p>
+    </div>
 
     <div class="info-card warn-border reveal">
       <div class="info-card-tag yellow" data-pt="Nota" data-en="Note">Nota</div>
-      <p style="margin:0;" data-pt="A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo." data-en="The baseline logic is: lower timeframes require <strong>more confirmation</strong> (more lookahead bars and higher ATR multiplier, since individual moves are smaller). Higher timeframes are naturally more selective, so baselines are lower. In Manual mode, you can override any value to adapt to your asset and style.">A lógica dos baselines é: timeframes menores exigem <strong>mais confirmação</strong> (mais barras de lookahead e multiplicador ATR maior, pois os movimentos individuais são menores). Timeframes maiores são naturalmente mais seletivos, então os baselines são menores. No modo Manual, você pode sobrescrever qualquer valor para adaptar ao seu ativo e estilo.</p>
+      <p style="margin:0;" data-pt="Estas recomenda&ccedil;&otilde;es foram validadas com backtest em BTCUSDT Perpetual (Bybit). Outros ativos podem exigir ajustes. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe. No modo Manual, voc&ecirc; pode sobrescrever qualquer valor." data-en="These recommendations were validated with BTCUSDT Perpetual (Bybit) backtests. Other assets may require adjustments. Auto mode automatically adjusts BaseLA and BaseATR per timeframe. In Manual mode, you can override any value.">Estas recomenda&ccedil;&otilde;es foram validadas com backtest em BTCUSDT Perpetual (Bybit). Outros ativos podem exigir ajustes. O modo Auto ajusta automaticamente BaseLA e BaseATR por timeframe. No modo Manual, voc&ecirc; pode sobrescrever qualquer valor.</p>
     </div>
   </div>
 </section>
