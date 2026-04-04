@@ -53,7 +53,7 @@ var T=[{"side":"LONG","symbol":"BTCUSDT","entry":66862.2,"sl":66802.7,"tp1":6707
 var lang=localStorage.getItem("lt_lang")||"pt";
 function setLang(l){
   lang=l;localStorage.setItem("lt_lang",l);
-  document.querySelectorAll("[data-pt]").forEach(function(e){e.textContent=e.getAttribute("data-"+l);});
+  document.querySelectorAll("[data-pt]").forEach(function(e){e.innerHTML=e.getAttribute("data-"+l);});
   document.getElementById("langBtn").textContent=l==="pt"?"EN":"PT";
   render();
 }
