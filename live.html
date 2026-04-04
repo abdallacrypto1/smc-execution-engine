@@ -33,12 +33,35 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
 .cta a{display:inline-block;font-size:14px;font-weight:700;padding:14px 36px;border-radius:12px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff;text-decoration:none;letter-spacing:1px;box-shadow:0 0 20px rgba(167,139,250,.3)}
 .ft{font-size:13px;color:var(--muted);text-align:center;padding:24px 0}
 .disc{font-size:13px;color:var(--muted);line-height:1.8;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin:24px 0}
+.params{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px;margin-bottom:32px}
+.params-title{font-size:16px;font-weight:700;margin-bottom:14px}
+.params-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px 20px;font-size:14px}
+@media(max-width:600px){.params-grid{grid-template-columns:1fr 1fr}}
+.pl{color:#9999b0}
+.pv{color:var(--text);font-weight:600}
 .lang{background:none;border:1px solid var(--border);color:var(--sub);font-family:var(--mono);font-size:13px;padding:4px 10px;border-radius:6px;cursor:pointer;position:absolute;top:16px;right:16px}
 .lang:hover{border-color:var(--green);color:var(--text)}</style></head>
 <body><div class="c" style="position:relative">
 <button class="lang" id="langBtn">EN</button>
 <h1><span class="dot"></span>Live Track Record</h1>
-<p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br><span data-pt="Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x" data-en="Setup C (OB_OR_079) | Starting capital: $96.25 USDT | Leverage: 8x">Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x</span><br><span data-pt="Acompanhamento iniciado em 04/Abr/2026. Todos os sinais identificados pelo indicador sao registrados aqui com timestamp, entrada, alvos e resultado." data-en="Tracking started on Apr 04, 2026. All signals identified by the indicator are recorded here with timestamp, entry, targets and result.">Acompanhamento iniciado em 04/Abr/2026. Todos os sinais identificados pelo indicador sao registrados aqui com timestamp, entrada, alvos e resultado.</span><br><span data-pt="Verifique cada trade no grafico BTCUSDT.P 15m do TradingView." data-en="Verify each trade on the BTCUSDT.P 15m chart on TradingView.">Verifique cada trade no grafico BTCUSDT.P 15m do TradingView.</span></p>
+<p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br><span data-pt="Acompanhamento iniciado em 04/Abr/2026. Verifique cada trade no grafico BTCUSDT.P 15m do TradingView." data-en="Tracking started on Apr 04, 2026. Verify each trade on the BTCUSDT.P 15m chart on TradingView.">Acompanhamento iniciado em 04/Abr/2026. Verifique cada trade no grafico BTCUSDT.P 15m do TradingView.</span></p>
+<div class="params">
+  <div class="params-title" data-pt="Parametros do backtest" data-en="Backtest parameters">Parametros do backtest</div>
+  <div class="params-grid">
+    <div><span class="pl">Alert mode:</span> <span class="pv">OB_OR_079</span></div>
+    <div><span class="pl">Break mode:</span> <span class="pv">close_or_equal</span></div>
+    <div><span class="pl">K (swings):</span> <span class="pv">2</span></div>
+    <div><span class="pl">OB Strictness:</span> <span class="pv">2</span></div>
+    <div><span class="pl">TP1:</span> <span class="pv">3.5:1 (30%)</span></div>
+    <div><span class="pl">TP2:</span> <span class="pv">7.0:1 (resto)</span></div>
+    <div><span class="pl">Move SL to BE:</span> <span class="pv" data-pt="Sim (apos TP1)" data-en="Yes (after TP1)">Sim (apos TP1)</span></div>
+    <div><span class="pl" data-pt="Risco por trade:" data-en="Risk per trade:">Risco por trade:</span> <span class="pv">3%</span></div>
+    <div><span class="pl">Max leverage:</span> <span class="pv">8x</span></div>
+    <div><span class="pl">Min stop distance:</span> <span class="pv">0.25%</span></div>
+    <div><span class="pl">Macro filter:</span> <span class="pv">OFF</span></div>
+    <div><span class="pl" data-pt="Capital inicial:" data-en="Starting capital:">Capital inicial:</span> <span class="pv">$96.25 USDT</span></div>
+  </div>
+</div>
 <div class="stats" id="st"></div>
 <div id="tr"></div>
 <div class="cta">
