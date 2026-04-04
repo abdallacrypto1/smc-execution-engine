@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual — SMC Execution Engine</title>
+<title>Manual — SMC Execution Engine PRO v3.0</title>
 <meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -823,7 +823,7 @@ footer p {
     <p class="reveal" data-pt="Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:" data-en="When a BOS or CHoCH occurs, the last candle opposite the impulse is identified as a potential OB. But it is not validated immediately. The system enters an observation period and verifies:">Quando ocorre um BOS ou CHOCH, o último candle oposto ao impulso é identificado como potencial OB. Mas ele não é validado imediatamente. O sistema entra em um período de observação e verifica:</p>
     <ol class="steps reveal">
       <li data-pt="Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)" data-en="Whether the <strong>displacement was strong enough</strong> relative to volatility (Displacement Gate)">Se o <strong>deslocamento foi forte o suficiente</strong> em relação à volatilidade (Displacement Gate)</li>
-      <li data-pt="Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)" data-en="Whether there was a <strong>Fair Value Gap</strong> as a signature of institutional efficiency (FVG Gate, if active)">Se houve <strong>Fair Value Gap</strong> como assinatura de eficiência institucional (FVG Gate, se ativo)</li>
+      <li data-pt="Se houve <strong>Fair Value Gap</strong> como assinatura de efici&ecirc;ncia institucional (FVG Gate, se ativo). Opcionalmente, o tamanho m&iacute;nimo do gap pode ser configurado como fra&ccedil;&atilde;o do ATR para filtrar micro-gaps sem signific&acirc;ncia." data-en="Whether there was a <strong>Fair Value Gap</strong> as a signature of institutional efficiency (FVG Gate, if active). Optionally, the minimum gap size can be configured as a fraction of ATR to filter out insignificant micro-gaps.">Se houve <strong>Fair Value Gap</strong> como assinatura de efici&ecirc;ncia institucional (FVG Gate, se ativo). Opcionalmente, o tamanho m&iacute;nimo do gap pode ser configurado como fra&ccedil;&atilde;o do ATR para filtrar micro-gaps sem signific&acirc;ncia.</li>
       <li data-pt="Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas" data-en="Whether the move <strong>was not immediately absorbed</strong> — structure remains respected during the following candles">Se o movimento <strong>não foi imediatamente absorvido</strong> — a estrutura continua respeitada durante as próximas velas</li>
     </ol>
     <p class="reveal" data-pt="Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock." data-en="If these conditions are met within the validation window, the OB is confirmed. If not, it is discarded with an invalidation lock.">Se essas condições forem atendidas dentro da janela de validação, o OB é confirmado. Se não, ele é descartado com invalidation lock.</p>
@@ -1015,6 +1015,43 @@ footer p {
     <div class="info-card blue-border reveal">
       <div class="info-card-tag blue" data-pt="Exemplo Prático" data-en="Practical Example">Exemplo Prático</div>
       <p style="margin:0;" data-pt="Timeframes menores exigem um sinal de deslocamento proporcionalmente mais forte para confirmar uma estrutura válida. No modo Auto, o sistema cuida dessa calibração sem necessidade de input manual." data-en="Lower timeframes require a proportionally stronger displacement signal to confirm a valid structure. In Auto mode, the system handles this calibration without manual input.">Timeframes menores exigem um sinal de deslocamento proporcionalmente mais forte para confirmar uma estrutura válida. No modo Auto, o sistema cuida dessa calibração sem necessidade de input manual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TRADE FILTERS ═══════════════════ -->
+<section id="filters">
+  <div class="container">
+    <div class="section-label" style="color:var(--pro-accent);" data-pt="Vers&atilde;o PRO" data-en="PRO Version">Vers&atilde;o PRO</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
+    <h2 class="reveal" data-pt="Filtros de Trade <span class=&quot;pro-badge&quot;>PRO</span>" data-en="Trade Filters <span class=&quot;pro-badge&quot;>PRO</span>">Filtros de Trade <span class="pro-badge">PRO</span></h2>
+    <p class="reveal" data-pt="Camadas adicionais de filtragem que evitam alertas em contextos desfavor&aacute;veis." data-en="Additional filtering layers that prevent alerts in unfavorable contexts.">Camadas adicionais de filtragem que evitam alertas em contextos desfavor&aacute;veis.</p>
+
+    <h4 class="reveal" data-pt="Macro Trend Filter" data-en="Macro Trend Filter">Macro Trend Filter</h4>
+    <p class="reveal" data-pt="Usa EMA 200 e MA 200 de um timeframe superior (padr&atilde;o: 1D) para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara se o pre&ccedil;o di&aacute;rio est&aacute; acima de ambas. Short s&oacute; se abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas m&eacute;dias (neutro), nenhum alerta &eacute; enviado." data-en="Uses EMA 200 and MA 200 from a higher timeframe (default: 1D) to filter alerts against the macro trend. Long only fires if the daily price is above both. Short only if below both. When the price is between the two averages (neutral), no alerts are sent.">Usa EMA 200 e MA 200 de um timeframe superior (padr&atilde;o: 1D) para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara se o pre&ccedil;o di&aacute;rio est&aacute; acima de ambas. Short s&oacute; se abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas m&eacute;dias (neutro), nenhum alerta &eacute; enviado.</p>
+
+    <h4 class="reveal" data-pt="Dist&acirc;ncia M&iacute;nima do Stop" data-en="Min Stop Distance">Min Stop Distance</h4>
+    <p class="reveal" data-pt="Suprime alertas quando a dist&acirc;ncia entre entry e stop loss &eacute; menor que um percentual m&iacute;nimo do pre&ccedil;o de entrada (padr&atilde;o: 0.25%). Evita trades com stop loss extremamente apertado que teriam alta chance de ser atingidos por ru&iacute;do." data-en="Suppresses alerts when the distance between entry and stop loss is less than a minimum percentage of the entry price (default: 0.25%). Avoids trades with extremely tight stop losses that would likely get hit by noise.">Suprime alertas quando a dist&acirc;ncia entre entry e stop loss &eacute; menor que um percentual m&iacute;nimo do pre&ccedil;o de entrada (padr&atilde;o: 0.25%). Evita trades com stop loss extremamente apertado que teriam alta chance de ser atingidos por ru&iacute;do.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ RSI PRICE LEVELS ═══════════════════ -->
+<section id="rsi-levels">
+  <div class="container">
+    <div class="section-label" style="color:var(--pro-accent);" data-pt="Vers&atilde;o PRO" data-en="PRO Version">Vers&atilde;o PRO</div>
+    <div class="sep" style="background:linear-gradient(90deg, var(--pro-accent), transparent);"></div>
+    <h2 class="reveal" data-pt="RSI Price Levels <span class=&quot;pro-badge&quot;>PRO</span>" data-en="RSI Price Levels <span class=&quot;pro-badge&quot;>PRO</span>">RSI Price Levels <span class="pro-badge">PRO</span></h2>
+    <p class="reveal" data-pt="Projeta no gr&aacute;fico o pre&ccedil;o exato onde o RSI atingiria overbought ou oversold, como linhas pontilhadas. Desligado por padr&atilde;o." data-en="Projects on the chart the exact price where RSI would hit overbought or oversold, drawn as dotted lines. OFF by default.">Projeta no gr&aacute;fico o pre&ccedil;o exato onde o RSI atingiria overbought ou oversold, como linhas pontilhadas. Desligado por padr&atilde;o.</p>
+
+    <h4 class="reveal" data-pt="Como funciona" data-en="How it works">Como funciona</h4>
+    <p class="reveal" data-pt="O indicador calcula, com base no estado atual do RSI, qual seria o pre&ccedil;o necess&aacute;rio para que o RSI toque 70 (overbought, label SC) ou 30 (oversold, label SV). Esse pre&ccedil;o &eacute; desenhado como uma linha pontilhada &agrave; direita do gr&aacute;fico." data-en="The indicator calculates, based on the current RSI state, what price would be needed for RSI to reach 70 (overbought, label SC) or 30 (oversold, label SV). This price is drawn as a dotted line to the right of the chart.">O indicador calcula, com base no estado atual do RSI, qual seria o pre&ccedil;o necess&aacute;rio para que o RSI toque 70 (overbought, label SC) ou 30 (oversold, label SV). Esse pre&ccedil;o &eacute; desenhado como uma linha pontilhada &agrave; direita do gr&aacute;fico.</p>
+
+    <h4 class="reveal" data-pt="Conflu&ecirc;ncia com OB e Fib" data-en="Confluence with OB and Fib">Conflu&ecirc;ncia com OB e Fib</h4>
+    <p class="reveal" data-pt="Quando a linha SC (overbought) coincide com uma zona de Fib ou Order Block bearish, a conflu&ecirc;ncia &eacute; forte para short. Quando a linha SV (oversold) coincide com uma zona bullish, a conflu&ecirc;ncia favorece long." data-en="When the SC (overbought) line coincides with a Fib zone or bearish Order Block, the confluence is strong for short. When the SV (oversold) line coincides with a bullish zone, the confluence favors long.">Quando a linha SC (overbought) coincide com uma zona de Fib ou Order Block bearish, a conflu&ecirc;ncia &eacute; forte para short. Quando a linha SV (oversold) coincide com uma zona bullish, a conflu&ecirc;ncia favorece long.</p>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Dica" data-en="Tip">Dica</div>
+      <p style="margin:0;" data-pt="Ative &quot;Show lower TF levels&quot; para ver tamb&eacute;m os n&iacute;veis de RSI de um timeframe menor (ex: no 15m, mostra onde o RSI do 1m atingiria OB/OS). Isso adiciona uma camada de timing mais precisa." data-en="Enable &quot;Show lower TF levels&quot; to also see RSI levels from a lower timeframe (e.g., on 15m, shows where the 1m RSI would hit OB/OS). This adds a more precise timing layer.">Ative "Show lower TF levels" para ver tamb&eacute;m os n&iacute;veis de RSI de um timeframe menor (ex: no 15m, mostra onde o RSI do 1m atingiria OB/OS). Isso adiciona uma camada de timing mais precisa.</p>
     </div>
   </div>
 </section>
