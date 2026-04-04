@@ -36,7 +36,7 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
 .lang{background:none;border:1px solid var(--border);color:var(--sub);font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:6px;cursor:pointer;position:absolute;top:16px;right:16px}
 .lang:hover{border-color:var(--green);color:var(--text)}</style></head>
 <body><div class="c" style="position:relative">
-<button class="lang" id="langBtn" onclick="setLang(lang==='pt'?'en':'pt')">EN</button>
+<button class="lang" id="langBtn">EN</button>
 <h1><span class="dot"></span>Live Track Record</h1>
 <p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br><span data-pt="Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x" data-en="Setup C (OB_OR_079) | Starting capital: $96.25 USDT | Leverage: 8x">Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x</span><br><span data-pt="Sinais reais, timestamps reais. Verifique no TradingView." data-en="Real signals, real timestamps. Verify on TradingView.">Sinais reais, timestamps reais. Verifique no TradingView.</span></p>
 <div class="stats" id="st"></div>
@@ -89,5 +89,6 @@ function render(){
   }
 }
 setLang(lang);
+document.getElementById("langBtn").onclick=function(){setLang(lang==="pt"?"en":"pt");};
 </script>
 </body></html>
