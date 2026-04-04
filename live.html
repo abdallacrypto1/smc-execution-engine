@@ -1,66 +1,93 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Live Track Record</title>
+<html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Track Record - SMC Engine PRO v3.0</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0a0a0f;--card:#12121e;--border:#1a1a2e;--text:#e8e8f0;--sub:#8888a0;--muted:#555570;--green:#00ff88;--red:#ff4466;--purple:#a78bfa;--mono:"IBM Plex Mono",monospace}
+<style>:root{--bg:#0a0a0f;--card:#12121e;--border:#1a1a2e;--text:#e8e8f0;--sub:#8888a0;--muted:#555570;--green:#00ff88;--red:#ff4466;--purple:#a78bfa;--mono:"IBM Plex Mono",monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--mono);background:var(--bg);color:var(--text);padding:24px}
 .c{max-width:800px;margin:0 auto}
 h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
-.sub{color:var(--sub);font-size:16px;text-align:center;margin-bottom:32px}
+.sub{color:var(--sub);font-size:16px;text-align:center;margin-bottom:32px;line-height:1.7}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px;animation:p 2s infinite}
 @keyframes p{0%,100%{opacity:1}50%{opacity:.3}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
 .stat b{display:block;font-size:13px;letter-spacing:2px;color:var(--muted);margin-bottom:4px;text-transform:uppercase}
 .stat span{font-size:28px;font-weight:700}
 .g{color:var(--green)}.r{color:var(--red)}.n{color:var(--text)}
 .t{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:8px}
 .t.w{border-left:3px solid var(--green)}.t.l{border-left:3px solid var(--red)}.t.o{border-left:3px solid var(--purple)}
-.hdr{display:flex;justify-content:space-between;margin-bottom:8px}
+.hdr{display:flex;justify-content:space-between;margin-bottom:8px;align-items:center}
 .side{font-weight:700;font-size:17px}.side.lg{color:var(--green)}.side.sh{color:var(--red)}
 .tm{font-size:14px;color:var(--muted)}
 .bd{font-size:15px;color:var(--sub);display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:600px){.bd{grid-template-columns:1fr}}
 .bd span{color:var(--text)}
 .ev{font-size:14px;color:var(--sub);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 .res{font-size:20px;font-weight:700;text-align:right;margin-top:10px}
 .bg{font-size:12px;padding:4px 12px;border-radius:4px;letter-spacing:1px}
 .bg.w{color:var(--green);background:rgba(0,255,136,.1)}.bg.l{color:var(--red);background:rgba(255,68,102,.1)}.bg.o{color:var(--purple);background:rgba(167,139,250,.1)}
 .cta{text-align:center;padding:32px 0}
-.cta a{display:inline-block;font-size:13px;font-weight:700;padding:14px 36px;border-radius:12px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff;text-decoration:none}
+.cta a{display:inline-block;font-size:14px;font-weight:700;padding:14px 36px;border-radius:12px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff;text-decoration:none;letter-spacing:1px;box-shadow:0 0 20px rgba(167,139,250,.3)}
 .ft{font-size:12px;color:var(--muted);text-align:center;padding:24px 0}
-</style></head><body><div class="c">
+.disc{font-size:11px;color:var(--muted);line-height:1.8;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin:24px 0}
+.lang{background:none;border:1px solid var(--border);color:var(--sub);font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:6px;cursor:pointer;position:absolute;top:16px;right:16px}
+.lang:hover{border-color:var(--green);color:var(--text)}</style></head>
+<body><div class="c" style="position:relative">
+<button class="lang" id="langBtn" onclick="setLang(lang==='pt'?'en':'pt')">EN</button>
 <h1><span class="dot"></span>Live Track Record</h1>
-<p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br>Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x<br>Real signals, real timestamps. Verify on TradingView.</p>
+<p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br><span data-pt="Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x" data-en="Setup C (OB_OR_079) | Starting capital: $96.25 USDT | Leverage: 8x">Setup C (OB_OR_079) | Capital inicial: $96.25 USDT | Leverage: 8x</span><br><span data-pt="Sinais reais, timestamps reais. Verifique no TradingView." data-en="Real signals, real timestamps. Verify on TradingView.">Sinais reais, timestamps reais. Verifique no TradingView.</span></p>
 <div class="stats" id="st"></div>
 <div id="tr"></div>
-<div class="cta"><a href="https://engine.abdallacrypto.com/#comprar">GET PRO ACCESS</a></div>
+<div class="cta">
+  <p style="font-size:14px;color:var(--sub);margin-bottom:16px"><span data-pt="Estes sinais sao do SMC Execution Engine PRO v3.0." data-en="These signals are from the SMC Execution Engine PRO v3.0.">Estes sinais sao do SMC Execution Engine PRO v3.0.</span></p>
+  <a href="https://engine.abdallacrypto.com/#comprar"><span data-pt="QUERO SER PRO" data-en="GET PRO ACCESS">QUERO SER PRO</span></a>
+</div>
+<div class="disc"><span data-pt="Resultados mostrados sao de deteccao de sinais ao vivo, nao backtests. Performance passada nao garante resultados futuros. O indicador fornece sinais - execucao, gestao de risco e decisoes finais sao responsabilidade do trader. Opere apenas com capital que voce pode perder." data-en="Results shown are from live signal detection, not backtests. Past performance does not guarantee future results. The indicator provides signals - execution, risk management and final decisions are the trader's responsibility. Only trade with capital you can afford to lose.">Resultados mostrados sao de deteccao de sinais ao vivo, nao backtests. Performance passada nao garante resultados futuros. O indicador fornece sinais - execucao, gestao de risco e decisoes finais sao responsabilidade do trader. Opere apenas com capital que voce pode perder.</span></div>
 <div class="ft">SMC Execution Engine PRO v3.0 | @abdallacrypto</div>
 </div>
 <script>
-var T=[{"side":"LONG","symbol":"BTCUSDT","entry":66862.2,"sl":66802.7,"tp1":67070.45,"tp2":67278.7,"entry_time":"04/Apr/2026 07:00 BRT","events":[{"type":"TP1","price":67070.45,"pnl":0.69,"qty":0.003},{"type":"TP2","price":67278.7,"pnl":2.65,"qty":0.008}],"status":"WIN","total_pnl":3.34,"qty":0.011}];
-var cl=[];var op=0;var w=0;var lo=0;
-for(var i=0;i<T.length;i++){
-  if(T[i].status=="WIN"||T[i].status=="LOSS"){cl.push(T[i]);if(T[i].status=="WIN")w++;else lo++;}
-  if(T[i].status=="OPEN")op++;
+var T=[{"side":"LONG","symbol":"BTCUSDT","entry":66862.2,"sl":66802.7,"tp1":67070.45,"tp2":67278.7,"entry_time":"04/Apr/2026 07:00 BRT","events":[{"type":"TP1","price":67070.45,"pnl":0.69},{"type":"TP2","price":67278.7,"pnl":2.65}],"status":"WIN","total_pnl":3.34,"qty":0.011}];
+var lang=localStorage.getItem("lt_lang")||"pt";
+function setLang(l){
+  lang=l;localStorage.setItem("lt_lang",l);
+  document.querySelectorAll("[data-pt]").forEach(function(e){e.textContent=e.getAttribute("data-"+l);});
+  document.getElementById("langBtn").textContent=l==="pt"?"EN":"PT";
+  render();
 }
-var wr=cl.length>0?Math.round(w/cl.length*100):0;
-document.getElementById("st").innerHTML="<div class=stat><b>Total Trades</b><span class=n>"+cl.length+"</span></div><div class=stat><b>Win Rate</b><span class="+(wr>=50?"g":"r")+">"+wr+"%</span></div><div class=stat><b>Wins/Losses</b><span class=n>"+w+"/"+lo+"</span></div><div class=stat><b>Open</b><span class=n>"+op+"</span></div>";
-var c=document.getElementById("tr");
-for(var i=T.length-1;i>=0;i--){
-  var t=T[i];
-  var tc=t.status=="WIN"?"w":t.status=="LOSS"?"l":"o";
-  var sc=t.side=="LONG"?"lg":"sh";
-  var pc=t.total_pnl>=0?"g":"r";
-  var bg=t.status=="OPEN"?"<span class='bg o'>OPEN</span>":t.status=="WIN"?"<span class='bg w'>WIN</span>":"<span class='bg l'>LOSS</span>";
-  var ev="";for(var j=0;j<t.events.length;j++){if(j>0)ev+=" > ";ev+=t.events[j].type+" @ $"+t.events[j].price.toFixed(1);}
-  var h="<div class='t "+tc+"'>";
-  h+="<div class=hdr><div><span class='side "+sc+"'>"+t.side+"</span> "+t.symbol+" "+bg+"</div><div class=tm>"+t.entry_time+"</div></div>";
-  var notional=Math.round(t.qty*t.entry);
-  h+="<div class=bd><div>Entry: <span>$"+t.entry.toLocaleString()+"</span></div><div>Size: <span>"+t.qty+" BTC ($"+notional.toLocaleString()+")</span></div><div>SL: <span>$"+t.sl.toLocaleString()+"</span></div><div>TP1: <span>$"+t.tp1.toLocaleString()+"</span></div><div>TP2: <span>$"+t.tp2.toLocaleString()+"</span></div></div>";
-  if(ev)h+="<div class=ev>"+ev+"</div>";
-  if(t.status!=="OPEN")h+="<div class='res "+pc+"'>$"+t.total_pnl.toFixed(2)+"</div>";
-  h+="</div>";
-  c.innerHTML+=h;
+function render(){
+  var cl=[];var op=0;var w=0;var lo=0;
+  for(var i=0;i<T.length;i++){
+    if(T[i].status=="WIN"||T[i].status=="LOSS"){cl.push(T[i]);if(T[i].status=="WIN")w++;else lo++;}
+    if(T[i].status=="OPEN")op++;
+  }
+  var wr=cl.length>0?Math.round(w/cl.length*100):0;
+  var L={
+    pt:{trades:"Total Trades",wr:"Win Rate",wl:"Wins/Losses",open:"Abertos",entry:"Entrada",size:"Tamanho",sl:"Stop Loss"},
+    en:{trades:"Total Trades",wr:"Win Rate",wl:"Wins/Losses",open:"Open Now",entry:"Entry",size:"Size",sl:"Stop Loss"}
+  }[lang];
+  document.getElementById("st").innerHTML="<div class=stat><b>"+L.trades+"</b><span class=n>"+cl.length+"</span></div><div class=stat><b>"+L.wr+"</b><span class="+(wr>=50?"g":"r")+">"+wr+"%</span></div><div class=stat><b>"+L.wl+"</b><span class=n>"+w+"/"+lo+"</span></div><div class=stat><b>"+L.open+"</b><span class=n>"+op+"</span></div>";
+  var c=document.getElementById("tr");
+  c.innerHTML="";
+  for(var i=T.length-1;i>=0;i--){
+    var t=T[i];
+    var tc=t.status=="WIN"?"w":t.status=="LOSS"?"l":"o";
+    var sc=t.side=="LONG"?"lg":"sh";
+    var pc=t.total_pnl>=0?"g":"r";
+    var bg=t.status=="OPEN"?"<span class='bg o'>OPEN</span>":t.status=="WIN"?"<span class='bg w'>WIN</span>":"<span class='bg l'>LOSS</span>";
+    var ev="";for(var j=0;j<t.events.length;j++){if(j>0)ev+=" > ";ev+=t.events[j].type+" @ $"+t.events[j].price.toFixed(1);}
+    var notional=Math.round(t.qty*t.entry);
+    var h="<div class='t "+tc+"'>";
+    h+="<div class=hdr><div><span class='side "+sc+"'>"+t.side+"</span> "+t.symbol+" "+bg+"</div><div class=tm>"+t.entry_time+"</div></div>";
+    h+="<div class=bd><div>"+L.entry+": <span>$"+t.entry.toLocaleString()+"</span></div><div>"+L.size+": <span>"+t.qty+" BTC ($"+notional.toLocaleString()+")</span></div><div>"+L.sl+": <span>$"+t.sl.toLocaleString()+"</span></div><div>TP1: <span>$"+t.tp1.toLocaleString()+"</span></div><div>TP2: <span>$"+t.tp2.toLocaleString()+"</span></div></div>";
+    if(ev)h+="<div class=ev>"+ev+"</div>";
+    if(t.status!=="OPEN")h+="<div class='res "+pc+"'>$"+t.total_pnl.toFixed(2)+"</div>";
+    h+="</div>";
+    c.innerHTML+=h;
+  }
 }
-</script></body></html>
+setLang(lang);
+</script>
+</body></html>
