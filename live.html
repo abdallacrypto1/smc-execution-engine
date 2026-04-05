@@ -42,11 +42,14 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
 .lang{background:none;border:1px solid var(--border);color:var(--sub);font-family:var(--mono);font-size:13px;padding:4px 10px;border-radius:6px;cursor:pointer;position:absolute;top:16px;right:16px}
 .lang:hover{border-color:var(--green);color:var(--text)}</style></head>
 <body><div class="c" style="position:relative">
-<button class="lang" id="langBtn">EN</button>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+  <a href="https://engine.abdallacrypto.com" style="font-family:var(--mono);font-size:14px;color:var(--sub);text-decoration:none" data-pt="&larr; Voltar ao Inicio" data-en="&larr; Back to Home">&larr; Voltar ao Inicio</a>
+  <button class="lang" id="langBtn" style="position:static">EN</button>
+</div>
 <h1><span class="dot"></span>Live Track Record</h1>
 <p class="sub">SMC Execution Engine PRO v3.0 | BTCUSDT Perpetual 15m<br><span data-pt="Acompanhamento iniciado em 04/Abr/2026. Verifique cada trade no grafico BTCUSDT.P 15m do TradingView." data-en="Tracking started on Apr 04, 2026. Verify each trade on the BTCUSDT.P 15m chart on TradingView.">Acompanhamento iniciado em 04/Abr/2026. Verifique cada trade no grafico BTCUSDT.P 15m do TradingView.</span></p>
 <div class="params">
-  <div class="params-title" data-pt="Parametros do backtest" data-en="Backtest parameters">Parametros do backtest</div>
+  <div class="params-title" data-pt="Parametrizacao do indicador" data-en="Indicator settings">Parametrizacao do indicador</div>
   <div class="params-grid">
     <div><span class="pl">Alert mode:</span> <span class="pv">OB_OR_079</span></div>
     <div><span class="pl">Break mode:</span> <span class="pv">close_or_equal</span></div>

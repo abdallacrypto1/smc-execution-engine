@@ -111,10 +111,13 @@ footer .copyright{font-family:var(--font-mono);color:var(--text-secondary);margi
 
 <div class="container" id="root">
 
-<!-- LANG TOGGLE -->
-<div style="position:fixed;top:16px;right:20px;z-index:100;display:flex;gap:4px">
-  <button class="tab" id="langPT" onclick="setLang('pt')" style="padding:4px 10px;font-size:13px">PT</button>
-  <button class="tab" id="langEN" onclick="setLang('en')" style="padding:4px 10px;font-size:13px">EN</button>
+<!-- NAV -->
+<div style="position:fixed;top:16px;left:20px;right:20px;z-index:100;display:flex;justify-content:space-between;align-items:center">
+  <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);text-decoration:none" data-pt="&larr; Voltar ao Inicio" data-en="&larr; Back to Home">&larr; Voltar ao Inicio</a>
+  <div style="display:flex;gap:4px">
+    <button class="tab" id="langPT" onclick="setLang('pt')" style="padding:4px 10px;font-size:13px">PT</button>
+    <button class="tab" id="langEN" onclick="setLang('en')" style="padding:4px 10px;font-size:13px">EN</button>
+  </div>
 </div>
 
 <!-- HERO -->
