@@ -992,22 +992,7 @@ footer .copyright {
 /* ═══════════════════════════════════════════
    SCANLINE EFFECT (subtle)
    ═══════════════════════════════════════════ */
-.scanline {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.15;
-  animation: scanline 8s linear infinite;
-  pointer-events: none;
-  z-index: 200;
-}
-@keyframes scanline {
-  0% { top: -2px; }
-  100% { top: 100vh; }
-}
+.scanline { display: none; }
 
 /* ═══════════════════════════════════════════
    SEPARATOR
