@@ -31,6 +31,7 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
 .bg.w{color:var(--green);background:rgba(0,255,136,.1)}.bg.l{color:var(--red);background:rgba(255,68,102,.1)}.bg.o{color:var(--purple);background:rgba(167,139,250,.1)}
 .cta{text-align:center;padding:32px 0}
 .cta a{display:inline-block;font-size:14px;font-weight:700;padding:14px 36px;border-radius:12px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff;text-decoration:none;letter-spacing:1px;box-shadow:0 0 20px rgba(167,139,250,.3)}
+.bal{text-align:center;margin-bottom:24px;font-size:15px;color:var(--sub)}.bal span{font-size:24px;font-weight:700;color:var(--green)}
 .ft{font-size:13px;color:var(--muted);text-align:center;padding:24px 0}
 .disc{font-size:13px;color:var(--muted);line-height:1.8;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin:24px 0}
 .params{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px;margin-bottom:32px}
@@ -65,6 +66,7 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
     <div><span class="pl" data-pt="Capital inicial:" data-en="Starting capital:">Capital inicial:</span> <span class="pv">$96.25 USDT</span></div>
   </div>
 </div>
+<div class="bal"><span data-pt="Saldo atual:" data-en="Current balance:">Saldo atual:</span> <span>$94.38 USDT</span></div>
 <div class="stats" id="st"></div>
 <div id="tr"></div>
 <div class="cta">
@@ -103,11 +105,12 @@ function render(){
     var sc=t.side=="LONG"?"lg":"sh";
     var pc=t.total_pnl>=0?"g":"r";
     var bg=t.status=="OPEN"?"<span class='bg o'>OPEN</span>":t.status=="WIN"?"<span class='bg w'>WIN</span>":"<span class='bg l'>LOSS</span>";
-    var ev="";for(var j=0;j<t.events.length;j++){if(j>0)ev+=" > ";ev+=t.events[j].type+" @ $"+t.events[j].price.toFixed(1);}
+    var ev="";for(var j=0;j<t.events.length;j++){if(j>0)ev+=" > ";ev+=t.events[j].type+" @ $"+t.events[j].price.toFixed(1);if(t.events[j].real_price&&Math.abs(t.events[j].real_price-t.events[j].price)>0.1){ev+=" (real: $"+t.events[j].real_price.toFixed(1)+")";}}
     var notional=Math.round(t.qty*t.entry);
     var h="<div class='t "+tc+"'>";
     h+="<div class=hdr><div><span class='side "+sc+"'>"+t.side+"</span> "+t.symbol+" "+bg+"</div><div class=tm>"+t.entry_time+"</div></div>";
-    h+="<div class=bd><div>"+L.entry+": <span>$"+t.entry.toLocaleString()+"</span></div><div>"+L.size+": <span>"+t.qty+" BTC ($"+notional.toLocaleString()+")</span></div><div>"+L.sl+": <span>$"+t.sl.toLocaleString()+"</span></div><div>TP1: <span>$"+t.tp1.toLocaleString()+"</span></div><div>TP2: <span>$"+t.tp2.toLocaleString()+"</span></div></div>";
+    var entryTxt="$"+t.entry.toLocaleString();if(t.real_entry&&Math.abs(t.real_entry-t.entry)>0.1){entryTxt+=" (real: $"+t.real_entry.toFixed(1)+")";}
+    h+="<div class=bd><div>"+L.entry+": <span>"+entryTxt+"</span></div><div>"+L.size+": <span>"+t.qty+" BTC ($"+notional.toLocaleString()+")</span></div><div>"+L.sl+": <span>$"+t.sl.toLocaleString()+"</span></div><div>TP1: <span>$"+t.tp1.toLocaleString()+"</span></div><div>TP2: <span>$"+t.tp2.toLocaleString()+"</span></div></div>";
     if(ev)h+="<div class=ev>"+ev+"</div>";
     if(t.status!=="OPEN")h+="<div class='res "+pc+"'>$"+t.total_pnl.toFixed(2)+"</div>";
     h+="</div>";
