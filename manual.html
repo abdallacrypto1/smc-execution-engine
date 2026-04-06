@@ -883,14 +883,14 @@ footer p {
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_618</div>
-      <p data-pt="Dispara quando um candle <strong>atravessa</strong> o nível 0.618." data-en="Fires when a candle <strong>crosses</strong> the 0.618 level.">Dispara quando um candle <strong>atravessa</strong> o nível 0.618.</p>
-      <div class="req" data-pt="Dispara quando um candle cruza o nível 0.618, indicando interação do preço com a zona. Nenhuma precisão exata é necessária." data-en="Fires when a candle crosses through the 0.618 level, indicating price interaction with the zone. No exact precision required.">Dispara quando um candle cruza o nível 0.618, indicando interação do preço com a zona. Nenhuma precisão exata é necessária.</div>
+      <p data-pt="Dispara quando o preço <strong>toca</strong> o nível 0.618." data-en="Fires when price <strong>touches</strong> the 0.618 level.">Dispara quando o preço <strong>toca</strong> o nível 0.618.</p>
+      <div class="req" data-pt="O range do candle (low/high) alcança o nível 0.618. Basta tocar — não precisa cruzar." data-en="The candle range (low/high) reaches the 0.618 level. A touch is enough — no need to cross through.">O range do candle (low/high) alcança o nível 0.618. Basta tocar — não precisa cruzar.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_079</div>
-      <p data-pt="Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos." data-en="Fires when a candle <strong>crosses</strong> the 0.79 level. Captures deeper pullbacks.">Dispara quando um candle <strong>atravessa</strong> o nível 0.79. Captura pullbacks mais profundos.</p>
-      <div class="req" data-pt="Dispara quando um candle cruza o nível 0.79, indicando interação do preço com a zona mais profunda." data-en="Fires when a candle crosses through the 0.79 level, indicating price interaction with the deeper zone.">Dispara quando um candle cruza o nível 0.79, indicando interação do preço com a zona mais profunda.</div>
+      <p data-pt="Dispara quando o preço <strong>toca</strong> o nível 0.79. Captura pullbacks mais profundos." data-en="Fires when price <strong>touches</strong> the 0.79 level. Captures deeper pullbacks.">Dispara quando o preço <strong>toca</strong> o nível 0.79. Captura pullbacks mais profundos.</p>
+      <div class="req" data-pt="O range do candle (low/high) alcança o nível 0.79. Basta tocar — não precisa cruzar. Captura retrações mais profundas que o 0.618." data-en="The candle range (low/high) reaches the 0.79 level. A touch is enough — no need to cross through. Captures deeper retracements than 0.618.">O range do candle (low/high) alcança o nível 0.79. Basta tocar — não precisa cruzar. Captura retrações mais profundas que o 0.618.</div>
     </div>
 
     <div class="alert-mode reveal">
@@ -919,14 +919,14 @@ footer p {
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">OB_MID</div>
-      <p data-pt="Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block." data-en="Fires when price touches the <strong>midpoint</strong> of the Order Block.">Dispara quando o preço toca o <strong>ponto médio</strong> do Order Block.</p>
-      <div class="req" data-pt="O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo." data-en="The candle crosses the OB's midprice. Seeks equilibrium reactions. More selective.">O candle atravessa o preço médio do OB. Busca reações de equilíbrio. Mais seletivo.</div>
+      <p data-pt="Dispara quando o preço <strong>toca o ponto médio</strong> do Order Block, entrando pela direção correta." data-en="Fires when price <strong>touches the midpoint</strong> of the Order Block, entering from the correct direction.">Dispara quando o preço <strong>toca o ponto médio</strong> do Order Block, entrando pela direção correta.</p>
+      <div class="req" data-pt="O range do candle alcança o preço médio do OB, e o candle anterior estava fora da zona. Busca reações de equilíbrio. Mais seletivo que OB_ANY_TOUCH." data-en="The candle range reaches the OB midprice, and the previous candle was outside the zone. Seeks equilibrium reactions. More selective than OB_ANY_TOUCH.">O range do candle alcança o preço médio do OB, e o candle anterior estava fora da zona. Busca reações de equilíbrio. Mais seletivo que OB_ANY_TOUCH.</div>
     </div>
 
     <div class="alert-mode reveal">
       <div class="alert-mode-name">FIBO_618_079_ZONE</div>
-      <p data-pt="Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79." data-en="Fires when a single candle <strong>sweeps the entire zone</strong> between 0.618 and 0.79.">Dispara quando um único candle <strong>atravessa toda a zona</strong> entre 0.618 e 0.79.</p>
-      <div class="req" data-pt="Dispara quando um único candle varre toda a zona de confluência, indicando uma interação de alto momentum com ambos os níveis simultaneamente." data-en="Fires when a single candle sweeps through the full confluence zone, indicating a high-momentum interaction with both key levels simultaneously.">Dispara quando um único candle varre toda a zona de confluência, indicando uma interação de alto momentum com ambos os níveis simultaneamente.</div>
+      <p data-pt="Dispara quando o preço <strong>entra na zona</strong> entre 0.618 e 0.79." data-en="Fires when price <strong>enters the zone</strong> between 0.618 and 0.79.">Dispara quando o preço <strong>entra na zona</strong> entre 0.618 e 0.79.</p>
+      <div class="req" data-pt="Basta o range do candle tocar qualquer parte da zona entre os níveis 0.618 e 0.79. Não precisa varrer a zona inteira — qualquer interação com a área de confluência já dispara." data-en="The candle range just needs to touch any part of the zone between the 0.618 and 0.79 levels. No need to sweep the entire zone — any interaction with the confluence area triggers.">Basta o range do candle tocar qualquer parte da zona entre os níveis 0.618 e 0.79. Não precisa varrer a zona inteira — qualquer interação com a área de confluência já dispara.</div>
     </div>
 
     <div class="alert-mode reveal">
