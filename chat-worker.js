@@ -4,7 +4,7 @@
  * Deploy: paste this code into Cloudflare Workers dashboard
  */
 
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 
 const SYSTEM_PROMPT = `You are the AI assistant for the SMC Execution Engine PRO, a TradingView indicator for Smart Money Concepts (SMC) trading. You help users understand and configure the indicator.
 
@@ -159,7 +159,7 @@ export default {
 
       if (!geminiRes.ok) {
         console.error('Gemini error:', JSON.stringify(data));
-        return jsonResponse({ error: 'AI service error' }, 502);
+        return jsonResponse({ error: 'AI service error', detail: data?.error?.message || JSON.stringify(data).slice(0, 300) }, 502);
       }
 
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
