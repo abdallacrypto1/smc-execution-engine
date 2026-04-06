@@ -3,7 +3,7 @@
  * Add to any page: <script src="chat-widget.js"></script>
  */
 (function () {
-  const WORKER_URL = 'https://smc-engine-chat.abdallacrypto.workers.dev';
+  const WORKER_URL = 'https://smc-engine-chat.ricardoabdalla.workers.dev';
   const MAX_HISTORY = 6;
 
   // Detect language
