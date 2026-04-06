@@ -108,8 +108,12 @@
   function addMsg(role, text) {
     const div = document.createElement('div');
     div.className = 'smc-msg ' + (role === 'user' ? 'user' : 'ai');
-    // Simple markdown: **bold**
-    div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    // Simple markdown: **bold**, [text](url), *italic*
+    div.innerHTML = text
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#a78bfa;text-decoration:underline">$1</a>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
     return div;
