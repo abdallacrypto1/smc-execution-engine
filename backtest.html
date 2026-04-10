@@ -352,6 +352,32 @@ function renderPeriods(){
   var p=D.periods[selPeriod];
   var pnlDollar=pctToDollar(p.pnl_pct);
   var ddDollar=pctToDollar(p.dd);
+  var tips={
+    'Profit Factor':{
+      pt:'Lucro total / Perda total. Acima de 2.0 = excelente. Se PF=2.21, a cada $1 perdido voce ganhou $2.21.',
+      en:'Total profit / Total loss. Above 2.0 = excellent. If PF=2.21, for every $1 lost you earned $2.21.'
+    },
+    'Win Rate':{
+      pt:'Porcentagem de trades que deram lucro. 55% significa que a cada 100 trades, 55 sairam no positivo.',
+      en:'Percentage of profitable trades. 55% means out of 100 trades, 55 were winners.'
+    },
+    'Max Drawdown':{
+      pt:'Maior queda da equity em relacao ao pico. Se DD=15%, no pior momento sua banca caiu 15% antes de se recuperar.',
+      en:'Largest equity drop from peak. If DD=15%, at the worst moment your balance fell 15% before recovering.'
+    },
+    'Total Trades':{
+      pt:'Quantidade de trades executados no periodo. Mais trades = mais confianca estatistica no resultado.',
+      en:'Number of trades executed in the period. More trades = more statistical confidence in the result.'
+    },
+  };
+  tips[t('return_label')]={
+    pt:'Retorno total sobre o capital inicial em porcentagem.',
+    en:'Total return on initial capital as a percentage.'
+  };
+  tips['P&L $']={
+    pt:'Lucro liquido em dolares, ja descontando todas as perdas e comissoes.',
+    en:'Net profit in dollars, after deducting all losses and commissions.'
+  };
   document.getElementById('metricsGrid').innerHTML=[
     {l:'Profit Factor',v:p.pf.toFixed(2),cls:'highlight'},
     {l:'Win Rate',v:p.wr+'%'},
@@ -360,7 +386,9 @@ function renderPeriods(){
     {l:t('return_label'),v:'+'+fmt(p.pnl_pct)+'%',cls:'highlight',sub:'+'+fmtDollar(pnlDollar)},
     {l:'P&L $',v:'+'+fmtDollar(pnlDollar),cls:'highlight'},
   ].map(function(c){
-    return '<div class="metric-card '+(c.cls||'')+'"><div class="metric-label">'+c.l+'</div><div class="metric-value '+(c.vcls||'')+'">'+c.v+'</div>'+(c.sub?'<div class="pnl-dollar">'+c.sub+'</div>':'')+'</div>';
+    var tip=tips[c.l];
+    var tipHtml=tip?'<span style="cursor:help;margin-left:4px;font-size:11px;color:var(--text-muted);opacity:0.6" title="'+(currentLang==='en'?tip.en:tip.pt)+'">\u24d8</span>':'';
+    return '<div class="metric-card '+(c.cls||'')+'"><div class="metric-label">'+c.l+tipHtml+'</div><div class="metric-value '+(c.vcls||'')+'">'+c.v+'</div>'+(c.sub?'<div class="pnl-dollar">'+c.sub+'</div>':'')+'</div>';
   }).join('');
 }
 
