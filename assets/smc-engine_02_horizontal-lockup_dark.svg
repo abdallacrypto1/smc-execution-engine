@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 279 124" role="img">
+<title>SMC Execution Engine — horizontal lockup (dark mode)</title>
+<desc>Wordmark horizontal pra headers e assinaturas, fundos escuros. Verde neon #00ff64.</desc>
+<path d="M20 24 L20 38 M20 24 L34 24" stroke="#00ff64" stroke-width="2" fill="none"/>
+<path d="M249 24 L249 38 M249 24 L235 24" stroke="#00ff64" stroke-width="2" fill="none"/>
+<path d="M20 104 L20 90 M20 104 L34 104" stroke="#00ff64" stroke-width="2" fill="none"/>
+<path d="M249 104 L249 90 M249 104 L235 104" stroke="#00ff64" stroke-width="2" fill="none"/>
+<text x="37" y="76" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="38" font-weight="500" fill="#00ff64" text-anchor="start" letter-spacing="2">SMC</text>
+<line x1="132" y1="44" x2="132" y2="84" stroke="#00ff64" stroke-width="0.6" stroke-opacity="0.5"/>
+<text x="148" y="61" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#00ff64" text-anchor="start" letter-spacing="3" fill-opacity="0.85">EXECUTION</text>
+<text x="148" y="77" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#00ff64" text-anchor="start" letter-spacing="3" fill-opacity="0.85">ENGINE</text>
+<circle cx="256" cy="20" r="3" fill="#00ff64"/>
+</svg>

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vídeos — SMC Execution Engine</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
+<link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <meta name="description" content="Biblioteca de vídeos do SMC Execution Engine. Aprenda a usar o indicador com tutoriais sobre alertas, order blocks, estrutura de mercado e mais.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,11 +89,12 @@ main { position: relative; z-index: 1; }
 }
 
 .nav-logo {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+.nav-logo img {
+  height: 40px;
+  width: auto;
 }
 
 .nav-back {
@@ -377,7 +380,7 @@ main { position: relative; z-index: 1; }
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
-  <div class="nav-logo">SMC EXECUTION ENGINE</div>
+  <a href="index.html" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:80px"></a>
   <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
   <a href="index.html" class="nav-back" data-pt="← Página Principal" data-en="← Main Page">← Página Principal</a>
 </nav>

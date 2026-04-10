@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMC Execution Engine PRO v3.0.3 — Backtest Results</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
+<link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +18,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 body::after{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 0%,var(--accent-glow) 0%,transparent 50%);pointer-events:none;z-index:0}
 main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 20px}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-color);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--accent);letter-spacing:1px}
+.nav-logo{display:flex;align-items:center}.nav-logo img{height:80px;width:auto}
 .nav-status{font-family:var(--font-mono);font-size:13px;color:var(--accent);display:flex;align-items:center;gap:6px}
 .nav-status::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
@@ -125,7 +127,7 @@ footer .copyright{font-family:var(--font-mono);color:var(--text-secondary);margi
 
 <!-- NAV -->
 <div style="position:fixed;top:16px;left:20px;right:20px;z-index:100;display:flex;justify-content:space-between;align-items:center">
-  <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:14px;color:var(--text-secondary);text-decoration:none" data-pt="&larr; Voltar ao Inicio" data-en="&larr; Back to Home">&larr; Voltar ao Inicio</a>
+  <a href="https://engine.abdallacrypto.com" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:80px"></a>
   <div style="display:flex;gap:4px">
     <button class="tab" id="langPT" onclick="setLang('pt')" style="padding:4px 10px;font-size:13px">PT</button>
     <button class="tab" id="langEN" onclick="setLang('en')" style="padding:4px 10px;font-size:13px">EN</button>

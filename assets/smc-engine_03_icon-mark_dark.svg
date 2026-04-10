@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 140" role="img">
+<title>SMC Execution Engine — icon mark (dark mode)</title>
+<desc>Marca reduzida pra avatares, favicons e aplicações em tamanhos pequenos. Verde neon #00ff64.</desc>
+<path d="M18 22 L18 38 M18 22 L34 22" stroke="#00ff64" stroke-width="2.4" fill="none"/>
+<path d="M118 22 L118 38 M118 22 L102 22" stroke="#00ff64" stroke-width="2.4" fill="none"/>
+<path d="M18 122 L18 106 M18 122 L34 122" stroke="#00ff64" stroke-width="2.4" fill="none"/>
+<path d="M118 122 L118 106 M118 122 L102 122" stroke="#00ff64" stroke-width="2.4" fill="none"/>
+<text x="68" y="84" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" font-weight="500" fill="#00ff64" text-anchor="middle" letter-spacing="2">SMC</text>
+<circle cx="124" cy="18" r="2.6" fill="#00ff64"/>
+</svg>

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manual — SMC Execution Engine PRO v3.0</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
+<link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,11 +112,12 @@ section:last-of-type { border-bottom: none; }
   justify-content: space-between;
 }
 .nav-logo {
-  font-family: var(--font-mono);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+.nav-logo img {
+  height: 40px;
+  width: auto;
 }
 .nav-back {
   font-family: var(--font-mono);
@@ -571,7 +574,7 @@ footer p {
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
 <nav class="nav">
-  <div class="nav-logo">SMC EXECUTION ENGINE</div>
+  <a href="index.html" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:80px"></a>
   <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
   <a href="index.html" class="nav-back" data-pt="← Voltar ao Início" data-en="← Back to Home">← Voltar ao Início</a>
 </nav>
