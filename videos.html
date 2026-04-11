@@ -379,11 +379,14 @@ main { position: relative; z-index: 1; }
 <body>
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:80px"></a>
-  <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
-  <a href="index.html" class="nav-back" data-pt="← Página Principal" data-en="← Main Page">← Página Principal</a>
-</nav>
+<div style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #1a1a2e">
+  <a href="https://engine.abdallacrypto.com" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:40px"></a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;padding:4px 10px;border:1px solid var(--border-color);border-radius:6px" data-pt="&larr; Inicio" data-en="&larr; Home">&larr; Inicio</a>
+    <button class="tab" id="langPT" onclick="setLang('pt')" style="font-family:var(--font-mono);font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--border-color);background:transparent;color:var(--text-secondary);cursor:pointer">PT</button>
+    <button class="tab" id="langEN" onclick="setLang('en')" style="font-family:var(--font-mono);font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--border-color);background:transparent;color:var(--text-secondary);cursor:pointer">EN</button>
+  </div>
+</div>
 
 <main>
 <div class="container">
@@ -502,13 +505,16 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     document.querySelectorAll('[data-pt]').forEach(el => {
       el.innerHTML = el.dataset[lang] || el.dataset.pt;
     });
-    const btn = document.getElementById('lang-toggle');
-    if (btn) btn.textContent = lang === 'pt' ? 'EN' : 'PT';
+    const ptBtn = document.getElementById('langPT');
+    const enBtn = document.getElementById('langEN');
+    if (ptBtn) ptBtn.style.borderColor = lang === 'pt' ? '#00cc6a' : '';
+    if (ptBtn) ptBtn.style.color = lang === 'pt' ? '#00ff88' : '';
+    if (enBtn) enBtn.style.borderColor = lang === 'en' ? '#00cc6a' : '';
+    if (enBtn) enBtn.style.color = lang === 'en' ? '#00ff88' : '';
     localStorage.setItem('smc-lang', lang);
   }
-  window.toggleLang = function() {
-    const current = localStorage.getItem('smc-lang') || 'pt';
-    applyLang(current === 'pt' ? 'en' : 'pt');
+  window.setLang = function(lang) {
+    applyLang(lang);
   };
 })();
 </script>
