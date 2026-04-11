@@ -170,20 +170,27 @@ footer .copyright{font-family:var(--font-mono);color:var(--text-secondary);margi
   <h2 class="section-title" data-pt="Setup da estrat&eacute;gia" data-en="Strategy setup">Setup da estrat&eacute;gia</h2>
   <p class="section-sub" data-pt="Par&acirc;metros recomendados para uso no indicador. Ranges indicados onde h&aacute; flexibilidade." data-en="Recommended parameters for the indicator. Ranges shown where flexibility exists.">Par&acirc;metros recomendados para uso no indicador. Ranges indicados onde h&aacute; flexibilidade.</p>
   <div class="setup-box">
-    <h4 data-pt="Par&acirc;metros do backtest" data-en="Backtest parameters">Par&acirc;metros do backtest</h4>
+    <h4 data-pt="Detec&ccedil;&atilde;o do sinal (indicador)" data-en="Signal detection (indicator)">Detec&ccedil;&atilde;o do sinal (indicador)</h4>
+    <p style="font-size:12px;color:var(--text-secondary);margin:-8px 0 12px" data-pt="Par&acirc;metros que determinam quando o indicador identifica uma oportunidade de entrada." data-en="Parameters that determine when the indicator identifies an entry opportunity.">Par&acirc;metros que determinam quando o indicador identifica uma oportunidade de entrada.</p>
     <div class="setup-grid">
       <div>Alert mode: <span>FIBO_618_079_ZONE</span></div>
       <div>Break mode: <span>close_strict</span></div>
       <div>K (swings): <span>2</span></div>
       <div>OB Strictness: <span>1-10 (<span data-pt="testado" data-en="tested">testado</span>: 7)</span></div>
+      <div>Min stop distance: <span>0.25%</span></div>
+      <div>Macro filter: <span>12h OR 1D EMA200+MA200</span></div>
+      <div>OB Filter (FVG): <span data-pt="Ligado" data-en="Enabled">Ligado</span></div>
+    </div>
+  </div>
+  <div class="setup-box" style="margin-top:12px">
+    <h4 data-pt="Gest&atilde;o da posi&ccedil;&atilde;o (ap&oacute;s entrada)" data-en="Position management (after entry)">Gest&atilde;o da posi&ccedil;&atilde;o (ap&oacute;s entrada)</h4>
+    <p style="font-size:12px;color:var(--text-secondary);margin:-8px 0 12px" data-pt="Como o trade &eacute; gerenciado depois de aberto. Quem opera manualmente controla esses par&acirc;metros." data-en="How the trade is managed after opening. Manual traders control these parameters.">Como o trade &eacute; gerenciado depois de aberto. Quem opera manualmente controla esses par&acirc;metros.</p>
+    <div class="setup-grid">
       <div>TP1: <span>2.5:1 (<span data-pt="fechar" data-en="close">fechar</span> 30%)</span></div>
       <div>TP2: <span>6.0:1 (<span data-pt="fechar resto" data-en="close remainder">fechar resto</span>)</span></div>
       <div>Move SL to BE: <span data-pt="Sim (ap&oacute;s TP1)" data-en="Yes (after TP1)">Sim (ap&oacute;s TP1)</span></div>
       <div><span data-pt="Risco por trade" data-en="Risk per trade">Risco por trade</span>: <span>2-3%</span></div>
       <div>Max leverage: <span>5-8x</span></div>
-      <div>Min stop distance: <span>0.25%</span></div>
-      <div>Macro filter: <span>12h OR 1D EMA200+MA200</span></div>
-      <div>OB Filter (FVG): <span data-pt="Ligado" data-en="Enabled">Ligado</span></div>
     </div>
   </div>
   <div style="background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:14px 16px;margin-top:16px;font-size:13px;color:var(--text-secondary);line-height:1.8">
