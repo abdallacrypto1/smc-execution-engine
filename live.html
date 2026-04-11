@@ -250,6 +250,14 @@ function render(){
         "<div class=tl-desc>"+icon+" "+desc+(e.amount?": <b style='color:var(--purple)'>$"+e.amount.toFixed(2)+"</b>":"")+"</div>"+
         "<div class=tl-bal>"+(lang==="pt"?"Saldo":"Balance")+": <span>$"+balance.toFixed(2)+"</span></div>"+
         "</div>";
+      if(item.type==="start"&&T.length===0){
+        var notePt="A estrat\u00e9gia opera com alta seletividade \u2014 o indicador analisa o mercado 24/7 mas s\u00f3 executa quando todas as condi\u00e7\u00f5es se alinham (estrutura, Order Block validado, Fibonacci, filtro macro). Com base no backtest de 6 anos, a m\u00e9dia \u00e9 de <b>3 a 4 trades por m\u00eas</b>. Poucos trades n\u00e3o significa inatividade \u2014 significa disciplina. Cada opera\u00e7\u00e3o que aparece aqui passou por todos os filtros.";
+        var noteEn="The strategy operates with high selectivity \u2014 the indicator monitors the market 24/7 but only executes when all conditions align (structure, validated Order Block, Fibonacci, macro filter). Based on the 6-year backtest, the average is <b>3 to 4 trades per month</b>. Few trades doesn\u2019t mean inactivity \u2014 it means discipline. Every trade shown here passed through all filters.";
+        c.innerHTML+="<div style='background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.15);border-radius:10px;padding:16px 18px;margin:12px 0 8px 36px;font-size:13px;color:var(--sub);line-height:1.8'>"
+          +"<span style='color:#22d3ee;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:6px'>"+(lang==="pt"?"Sobre a frequ\u00eancia de trades":"About trade frequency")+"</span>"
+          +"<span data-pt=\""+notePt.replace(/"/g,'&quot;')+"\" data-en=\""+noteEn.replace(/"/g,'&quot;')+"\">"+(lang==="pt"?notePt:noteEn)+"</span>"
+          +"</div>";
+      }
     } else {
       var t=item.data;
       var ti=item.idx;
