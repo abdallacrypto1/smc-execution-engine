@@ -181,8 +181,8 @@ function setLang(l){
   document.querySelectorAll("[data-pt]").forEach(function(e){e.innerHTML=e.getAttribute("data-"+l);});
   var ptBtn=document.getElementById("langPT");
   var enBtn=document.getElementById("langEN");
-  if(ptBtn){ptBtn.style.borderColor=l==="pt"?"#00cc6a":"";ptBtn.style.color=l==="pt"?"#00ff88":"";}
-  if(enBtn){enBtn.style.borderColor=l==="en"?"#00cc6a":"";enBtn.style.color=l==="en"?"#00ff88":"";}
+  if(ptBtn){ptBtn.style.borderColor=l==="pt"?"#00cc6a":"#1a1a2e";ptBtn.style.color=l==="pt"?"#00ff88":"#8888a0";}
+  if(enBtn){enBtn.style.borderColor=l==="en"?"#00cc6a":"#1a1a2e";enBtn.style.color=l==="en"?"#00ff88":"#8888a0";}
   render();
 }
 function render(){

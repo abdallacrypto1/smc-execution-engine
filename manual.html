@@ -1315,10 +1315,10 @@ if (window.innerWidth >= 1100) {
     });
     const ptBtn = document.getElementById('langPT');
     const enBtn = document.getElementById('langEN');
-    if (ptBtn) ptBtn.style.borderColor = lang === 'pt' ? '#00cc6a' : '';
-    if (ptBtn) ptBtn.style.color = lang === 'pt' ? '#00ff88' : '';
-    if (enBtn) enBtn.style.borderColor = lang === 'en' ? '#00cc6a' : '';
-    if (enBtn) enBtn.style.color = lang === 'en' ? '#00ff88' : '';
+    if (ptBtn) ptBtn.style.borderColor = lang === 'pt' ? '#00cc6a' : '#1a1a2e';
+    if (ptBtn) ptBtn.style.color = lang === 'pt' ? '#00ff88' : '#8888a0';
+    if (enBtn) enBtn.style.borderColor = lang === 'en' ? '#00cc6a' : '#1a1a2e';
+    if (enBtn) enBtn.style.color = lang === 'en' ? '#00ff88' : '#8888a0';
     localStorage.setItem('smc-lang', lang);
   }
   window.setLang = function(lang) {
