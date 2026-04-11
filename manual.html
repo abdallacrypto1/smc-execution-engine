@@ -46,7 +46,7 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-sans);
@@ -1293,7 +1293,7 @@ if (window.innerWidth >= 1100) {
   const tocObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        tocLinks.forEach(l => l.style.color = '');
+        tocLinks.forEach(l => { l.style.color = '#8888a0'; l.style.borderLeftColor = 'transparent'; });
         const active = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
         if (active) {
           active.style.color = 'var(--accent)';
@@ -1301,7 +1301,7 @@ if (window.innerWidth >= 1100) {
         }
       }
     });
-  }, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+  }, { threshold: 0.1, rootMargin: '-70px 0px -50% 0px' });
 
   sections.forEach(s => tocObserver.observe(s));
 }
