@@ -172,33 +172,37 @@ section:last-of-type { border-bottom: none; }
   text-transform: uppercase;
   margin-bottom: 20px;
 }
-.toc-list { list-style: none; }
-.toc-list li { margin-bottom: 4px; }
+.toc-list { list-style: none; position: relative; z-index: 1; }
+.toc-list li { margin-bottom: 2px; }
 .toc-list a {
   display: block;
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-secondary);
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: color 0.15s, background 0.15s;
   border-left: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
 }
 .toc-list a:hover {
-  color: var(--accent);
+  color: var(--accent) !important;
   background: var(--accent-bg);
-  border-left-color: var(--accent);
-  opacity: 1;
-}
-.toc-list .toc-sub {
-  padding-left: 28px;
-  font-size: 15px;
-  color: var(--text-muted);
 }
 .toc-list .toc-main {
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-primary);
-  font-weight: 600;
-  border-left: 2px solid var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+.toc-list .toc-sub {
+  padding-left: 22px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 /* Desktop sidebar TOC */
@@ -217,6 +221,7 @@ section:last-of-type { border-bottom: none; }
     overflow-x: hidden;
     padding-right: 12px;
     padding-bottom: 40px;
+    z-index: 50;
   }
   .toc-sidebar::-webkit-scrollbar { width: 3px; }
   .toc-sidebar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
@@ -585,7 +590,7 @@ footer p {
 </div>
 
 <!-- ═══════════════════ TOC SIDEBAR (desktop) ═══════════════════ -->
-<aside class="toc-sidebar" id="tocSidebar" style="overflow-y:auto !important">
+<aside class="toc-sidebar" id="tocSidebar">
   <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
   <ul class="toc-list">
     <li><a href="#intro" class="toc-main" data-pt="O que é" data-en="What It Is">O que é</a></li>
@@ -1293,11 +1298,16 @@ if (window.innerWidth >= 1100) {
   const tocObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        tocLinks.forEach(l => { l.style.color = '#8888a0'; l.style.borderLeftColor = 'transparent'; });
+        tocLinks.forEach(l => {
+          l.style.color = '';
+          l.style.borderLeftColor = 'transparent';
+          l.style.background = '';
+        });
         const active = document.querySelector(`.toc-sidebar a[href="#${entry.target.id}"]`);
         if (active) {
           active.style.color = 'var(--accent)';
           active.style.borderLeftColor = 'var(--accent)';
+          active.style.background = 'var(--accent-bg)';
         }
       }
     });
