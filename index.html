@@ -2236,7 +2236,7 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
         : ('<span>' + escapeHtml(h) + '</span><span>&middot;</span>');
     }
     return (
-      '<div class="testimonial-card reveal">' +
+      '<div class="testimonial-card reveal visible">' +
         '<div class="testimonial-header">' +
           '<div class="testimonial-avatar">' + avatarHtml(t) + '</div>' +
           '<div class="testimonial-info">' +
@@ -2252,7 +2252,7 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
     );
   }
 
-  fetch('testimonials.json', {cache: 'no-cache'})
+  fetch('testimonials.json?t=' + Date.now(), {cache: 'no-store'})
     .then(function(r){ return r.ok ? r.json() : []; })
     .then(function(list){
       if(!Array.isArray(list) || list.length === 0) return;
