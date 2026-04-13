@@ -2216,14 +2216,21 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
   }
   function avatarHtml(t){
     var ini = initials(t.nome);
-    if(t.autorizacao === 'com_foto' && t.handle){
-      var platform = (t.platform || 'instagram').toLowerCase();
-      var h = t.handle.replace(/^@/, '');
-      // unavatar.io resolves profile photo by handle; fallback to initials on error
-      var src = 'https://unavatar.io/' + encodeURIComponent(platform) + '/' + encodeURIComponent(h) + '?fallback=false';
-      return '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(t.nome) + '" ' +
-             'onerror="this.parentNode.textContent=\'' + ini + '\'">';
+    var onerr = 'onerror="this.parentNode.textContent=\'' + ini + '\'"';
+    // Priority 1: local photo (manual upload in assets/testimonials/...)
+    if(t.photo){
+      return '<img src="' + escapeHtml(t.photo) + '" alt="' + escapeHtml(t.nome) + '" ' + onerr + '>';
     }
+    // Priority 2: X/Twitter via unavatar (free tier works for these)
+    if(t.autorizacao === 'com_foto' && t.handle){
+      var platform = (t.platform || '').toLowerCase();
+      if(platform === 'x' || platform === 'twitter'){
+        var h = t.handle.replace(/^@/, '');
+        var src = 'https://unavatar.io/x/' + encodeURIComponent(h) + '?fallback=false';
+        return '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(t.nome) + '" ' + onerr + '>';
+      }
+    }
+    // Priority 3: initials fallback (Instagram, private, or no photo)
     return ini;
   }
   function renderCard(t){
