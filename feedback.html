@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback - SMC Execution Engine PRO</title>
+<link rel="icon" type="image/png" href="assets/smc-engine_03_icon-mark_dark_512.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--card:#12121e;--border:#1a1a2e;--text:#e8e8f0;--sub:#8888a0;--muted:#555570;--green:#00ff88;--red:#ff4466;--purple:#a78bfa;--cyan:#22d3ee;--mono:"IBM Plex Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--mono);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+
+/* Nav (matches other pages) */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav a.logo img{height:40px;display:block}
+.nav-right{display:flex;gap:8px;align-items:center}
+.nav-right a,.nav-right button{font-family:var(--mono);font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--sub);text-decoration:none;cursor:pointer}
+.nav-right button.active{color:var(--text);border-color:var(--green)}
+
+/* Progress bar */
+.progress{position:fixed;top:64px;left:0;right:0;height:3px;background:var(--border);z-index:99}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));transition:width .3s ease;width:0}
+
+/* Main container */
+.stage{max-width:640px;margin:0 auto;padding:120px 24px 80px;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.slide{width:100%;display:none;animation:fadeIn .35s ease}
+.slide.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Slide content */
+.slide-tag{font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.slide h1{font-size:28px;font-weight:700;line-height:1.3;margin-bottom:12px}
+.slide h2{font-size:22px;font-weight:700;line-height:1.3;margin-bottom:12px}
+.slide p.hint{color:var(--sub);font-size:14px;line-height:1.6;margin-bottom:28px}
+.slide p.intro{color:var(--sub);font-size:15px;line-height:1.7;margin-bottom:32px}
+
+/* Inputs */
+input[type=text],input[type=email],textarea{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:15px;padding:14px 16px;border-radius:10px;outline:none;transition:border-color .2s}
+input[type=text]:focus,input[type=email]:focus,textarea:focus{border-color:var(--green)}
+input[type=text]::placeholder,input[type=email]::placeholder,textarea::placeholder{color:var(--muted)}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:13px;color:var(--sub);margin-bottom:8px}
+.char-count{font-size:12px;color:var(--muted);text-align:right;margin-top:6px}
+
+/* Radio options */
+.option{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:all .2s;font-size:14px;line-height:1.5}
+.option:hover{border-color:var(--sub)}
+.option.selected{border-color:var(--green);background:rgba(0,255,136,0.04)}
+.option input{display:none}
+.option .opt-title{font-weight:600;color:var(--text);margin-bottom:4px}
+.option .opt-desc{color:var(--sub);font-size:12px}
+
+/* Buttons */
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:32px;gap:12px}
+.btn{font-family:var(--mono);font-size:14px;font-weight:600;padding:12px 24px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:all .2s}
+.btn:hover:not(:disabled){border-color:var(--green)}
+.btn-primary{background:var(--green);color:#0a0a0f;border-color:var(--green)}
+.btn-primary:hover:not(:disabled){background:#00cc6e;border-color:#00cc6e}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-back{color:var(--sub);border:none;padding:12px 8px}
+.btn-back:hover{color:var(--text)}
+.kbd{font-size:11px;color:var(--muted);margin-left:8px}
+
+/* Honeypot (hidden from users) */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Success state */
+.success-icon{font-size:64px;margin-bottom:16px;text-align:center}
+.success h1{text-align:center;color:var(--green)}
+.success p{text-align:center}
+.success .next-steps{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:24px;font-size:14px;line-height:1.8;color:var(--sub)}
+.success .next-steps b{color:var(--text)}
+
+/* Star rating picker */
+.stars-picker{display:flex;gap:8px;justify-content:center;margin:24px 0 12px;font-size:42px;user-select:none}
+.stars-picker .star{cursor:pointer;color:var(--border);transition:color .15s,transform .15s}
+.stars-picker .star:hover{transform:scale(1.1)}
+.stars-picker .star.hover,.stars-picker .star.on{color:#ffaa00}
+.stars-label{text-align:center;font-size:13px;color:var(--sub);min-height:20px;margin-bottom:8px}
+
+/* Testimonial preview (mirrors index.html testimonials) */
+.preview-label{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:24px 0 10px;font-weight:600}
+.preview-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .3s,opacity .3s}
+.preview-card.denied{opacity:.35;pointer-events:none}
+.preview-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.preview-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(0,255,136,0.3),var(--green));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);font-size:15px;flex-shrink:0;overflow:hidden;font-family:var(--mono)}
+.preview-avatar.no-photo{background:var(--border);color:var(--muted);font-size:18px}
+.preview-info{flex:1;min-width:0}
+.preview-name{font-weight:700;font-size:13px;color:var(--text);margin-bottom:2px}
+.preview-meta{font-size:11px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.preview-meta .handle{color:var(--cyan)}
+.preview-stars{margin-left:auto;color:#ffaa00;font-size:12px;letter-spacing:1px}
+.preview-text{font-size:13px;line-height:1.7;color:var(--sub);margin:0}
+.preview-text::before{content:'"';color:var(--green);font-size:28px;font-family:Georgia,serif;line-height:0.5;vertical-align:-6px;margin-right:3px}
+.preview-text::after{content:'"';color:var(--green);font-size:28px;font-family:Georgia,serif;line-height:0.5;vertical-align:-10px;margin-left:2px}
+.preview-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+.preview-denied-msg{font-size:12px;color:var(--red);margin-top:10px;font-weight:600}
+
+/* Error banner */
+.err{background:rgba(255,68,102,0.1);border:1px solid var(--red);color:var(--red);padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}
+.err.show{display:block}
+
+@media(max-width:600px){
+  .stage{padding:100px 18px 60px}
+  .slide h1{font-size:22px}
+  .slide h2{font-size:19px}
+  .actions{flex-direction:column-reverse}
+  .actions .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<div class="nav">
+  <a href="https://engine.abdallacrypto.com" class="logo">
+    <img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine">
+  </a>
+  <div class="nav-right">
+    <a href="https://engine.abdallacrypto.com" data-pt="&larr; Início" data-en="&larr; Home">&larr; Início</a>
+    <button id="langPT" onclick="setLang('pt')">PT</button>
+    <button id="langEN" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="stage">
+  <form id="feedbackForm" autocomplete="off">
+    <div id="err" class="err"></div>
+
+    <!-- Honeypot field (bots fill, humans don't see) -->
+    <div class="hp">
+      <label>Se você é humano, deixe em branco: <input type="text" name="website" id="hp_website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <!-- Slide 1: Intro -->
+    <div class="slide active" data-slide="1">
+      <div class="slide-tag" data-pt="Depoimento" data-en="Testimonial">Depoimento</div>
+      <h1 data-pt="Seu feedback ajuda outros traders" data-en="Your feedback helps other traders">Seu feedback ajuda outros traders</h1>
+
+      <p class="intro" data-pt="Traders confiam mais em quem já usou do que em promessa de marketing. Seu depoimento honesto ajuda outros a decidir se o SMC Engine faz sentido pra eles &mdash; seja positivo ou crítico. Leva menos de 1 minuto." data-en="Traders trust those who already used the product more than marketing promises. Your honest testimonial helps others decide if SMC Engine fits them &mdash; positive or critical. Takes under 1 minute.">Traders confiam mais em quem já usou do que em promessa de marketing. Seu depoimento honesto ajuda outros a decidir se o SMC Engine faz sentido pra eles &mdash; seja positivo ou crítico. Leva menos de 1 minuto.</p>
+      <div class="actions">
+        <span></span>
+        <button type="button" class="btn btn-primary" onclick="next()"><span data-pt="Começar" data-en="Start">Começar</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 2: Nome + Email -->
+    <div class="slide" data-slide="2">
+      <div class="slide-tag">1 / 4</div>
+      <h2 data-pt="Quem é você?" data-en="Who are you?">Quem é você?</h2>
+      <p class="hint" data-pt="Nome para publicação e email para contato." data-en="Name for publishing and email for contact.">Nome para publicação e email para contato.</p>
+      <div class="field">
+        <label data-pt="Nome (como quer aparecer no site)" data-en="Name (how it appears on site)">Nome (como quer aparecer no site)</label>
+        <input type="text" name="nome" id="f_nome" required maxlength="60" placeholder="Ex: Ricardo A. / @abdallacrypto" data-placeholder-pt="Ex: Ricardo A. / @abdallacrypto" data-placeholder-en="Ex: Richard S. / @yourhandle">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" id="f_email" required maxlength="120" placeholder="você@email.com">
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-back" onclick="prev()" data-pt="&larr; Voltar" data-en="&larr; Back">&larr; Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="next()"><span data-pt="Próximo" data-en="Next">Próximo</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Depoimento -->
+    <div class="slide" data-slide="3">
+      <div class="slide-tag">2 / 4</div>
+      <h2 data-pt="Em 1-2 frases, o que você achou?" data-en="In 1-2 sentences, what did you think?">Em 1-2 frases, o que você achou?</h2>
+      <p class="hint" data-pt="Seja direto. Pode falar o que funcionou, o que te surpreendeu, o que você achou da qualidade dos sinais. Depoimentos honestos geram mais confiança que elogios vazios." data-en="Be direct. Talk about what worked, what surprised you, the signal quality. Honest testimonials generate more trust than empty praise.">Seja direto. Pode falar o que funcionou, o que te surpreendeu, o que você achou da qualidade dos sinais. Depoimentos honestos geram mais confiança que elogios vazios.</p>
+      <div class="field">
+        <textarea name="depoimento" id="f_depoimento" required maxlength="500" placeholder="Ex: Os sinais têm sido consistentes e o autotrade fechou o primeiro trade com +4% em menos de 24h..."></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 500</div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-back" onclick="prev()" data-pt="&larr; Voltar" data-en="&larr; Back">&larr; Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="next()"><span data-pt="Próximo" data-en="Next">Próximo</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 4: Nota (1-5 estrelas) -->
+    <div class="slide" data-slide="4">
+      <div class="slide-tag">3 / 4</div>
+      <h2 data-pt="Qual sua nota geral?" data-en="Your overall rating?">Qual sua nota geral?</h2>
+      <p class="hint" data-pt="De 1 a 5 estrelas, quanto você recomenda o SMC Engine?" data-en="From 1 to 5 stars, how much do you recommend SMC Engine?">De 1 a 5 estrelas, quanto você recomenda o SMC Engine?</p>
+      <div class="stars-picker" id="starsPicker" role="radiogroup" aria-label="Nota">
+        <span class="star" data-v="1" role="radio" tabindex="0">★</span>
+        <span class="star" data-v="2" role="radio" tabindex="0">★</span>
+        <span class="star" data-v="3" role="radio" tabindex="0">★</span>
+        <span class="star" data-v="4" role="radio" tabindex="0">★</span>
+        <span class="star" data-v="5" role="radio" tabindex="0">★</span>
+      </div>
+      <div class="stars-label" id="starsLabel">&nbsp;</div>
+      <input type="hidden" name="nota" id="f_nota" value="">
+      <div class="actions">
+        <button type="button" class="btn btn-back" onclick="prev()" data-pt="&larr; Voltar" data-en="&larr; Back">&larr; Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="next()"><span data-pt="Próximo" data-en="Next">Próximo</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 5: Autorizacao -->
+    <div class="slide" data-slide="5">
+      <div class="slide-tag">4 / 4</div>
+      <h2 data-pt="Como posso publicar?" data-en="How can I publish?">Como posso publicar?</h2>
+      <p class="hint" data-pt="Selecione uma opção. Você pode retirar a autorização a qualquer momento." data-en="Choose one. You can revoke authorization anytime.">Selecione uma opção. Você pode retirar a autorização a qualquer momento.</p>
+      <label class="option" onclick="selectOption(this,'com_foto')">
+        <input type="radio" name="autorizacao" value="com_foto">
+        <div class="opt-title" data-pt="Autorizo com foto do meu perfil" data-en="Authorize with my profile photo">Autorizo com foto do meu perfil</div>
+        <div class="opt-desc" data-pt="Vamos usar a foto do seu Instagram ou X (próximo passo)" data-en="We will use your Instagram or X profile photo (next step)">Vamos usar a foto do seu Instagram ou X (próximo passo)</div>
+      </label>
+      <label class="option" onclick="selectOption(this,'sem_foto')">
+        <input type="radio" name="autorizacao" value="sem_foto">
+        <div class="opt-title" data-pt="Autorizo sem foto" data-en="Authorize without photo">Autorizo sem foto</div>
+        <div class="opt-desc" data-pt="Apenas nome e texto do depoimento" data-en="Only name and testimonial text">Apenas nome e texto do depoimento</div>
+      </label>
+      <label class="option" onclick="selectOption(this,'nao')">
+        <input type="radio" name="autorizacao" value="nao">
+        <div class="opt-title" data-pt="Não autorizo publicação" data-en="Do not authorize publishing">Não autorizo publicação</div>
+        <div class="opt-desc" data-pt="Feedback fica privado, só para o Abdalla" data-en="Feedback stays private, only for Abdalla">Feedback fica privado, só para o Abdalla</div>
+      </label>
+
+      <div class="preview-label" data-pt="Prévia de como seu depoimento aparecerá:" data-en="Preview of how your testimonial will appear:">Prévia de como seu depoimento aparecerá:</div>
+      <div class="preview-card" id="previewCard">
+        <div class="preview-header">
+          <div class="preview-avatar" id="previewAvatar">—</div>
+          <div class="preview-info">
+            <div class="preview-name" id="previewName" data-pt="Seu nome" data-en="Your name">Seu nome</div>
+            <div class="preview-meta">
+              <span class="handle" id="previewHandle" style="display:none"></span>
+              <span id="previewDot" style="display:none">&middot;</span>
+              <span id="previewDate">—</span>
+            </div>
+          </div>
+          <div class="preview-stars" id="previewStars">★★★★★</div>
+        </div>
+        <div class="preview-text" id="previewText" data-pt="(seu depoimento aparecerá aqui)" data-en="(your testimonial will appear here)">(seu depoimento aparecerá aqui)</div>
+        <div class="preview-note" id="previewNote"></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-back" onclick="prev()" data-pt="&larr; Voltar" data-en="&larr; Back">&larr; Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="next()"><span data-pt="Próximo" data-en="Next">Próximo</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 6: @ social (conditional — only if "com_foto") -->
+    <div class="slide" data-slide="6">
+      <div class="slide-tag" data-pt="Último passo" data-en="Last step">Último passo</div>
+      <h2 data-pt="Qual rede social usamos pra foto?" data-en="Which social for the photo?">Qual rede social usamos pra foto?</h2>
+      <p class="hint" data-pt="Informe seu @ do Instagram ou X/Twitter. Vamos pegar sua foto do perfil público." data-en="Enter your Instagram or X/Twitter @ handle. We will fetch your public profile photo.">Informe seu @ do Instagram ou X/Twitter. Vamos pegar sua foto do perfil público.</p>
+      <div class="field">
+        <label data-pt="Rede social + @ (ex: instagram @joaosilva)" data-en="Social + @ (ex: instagram @johnsmith)">Rede social + @ (ex: instagram @joaosilva)</label>
+        <input type="text" name="social" id="f_social" maxlength="80" placeholder="instagram @seuperfil">
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-back" onclick="prev()" data-pt="&larr; Voltar" data-en="&larr; Back">&larr; Voltar</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm()"><span data-pt="Enviar" data-en="Submit">Enviar</span> <span class="kbd">&crarr;</span></button>
+      </div>
+    </div>
+
+    <!-- Slide 7: Success -->
+    <div class="slide success" data-slide="7">
+      <div class="success-icon">&#x2705;</div>
+      <h1 data-pt="Depoimento enviado!" data-en="Testimonial sent!">Depoimento enviado!</h1>
+      <p class="intro" data-pt="Obrigado por compartilhar sua experiência." data-en="Thanks for sharing your experience.">Obrigado por compartilhar sua experiência.</p>
+      <div class="next-steps">
+        <b data-pt="O que acontece agora:" data-en="What happens now:">O que acontece agora:</b><br>
+        <span data-pt="1. Abdalla vai revisar seu depoimento nas próximas 24h" data-en="1. Abdalla will review within 24h">1. Abdalla vai revisar seu depoimento nas próximas 24h</span><br>
+        <span data-pt="2. Se aprovado, você recebe uma confirmação por email" data-en="2. If approved, you receive a confirmation by email">2. Se aprovado, você recebe uma confirmação por email</span><br>
+        <span data-pt="3. Seu depoimento pode aparecer no site e nas redes sociais" data-en="3. Your testimonial may appear on the site and social media">3. Seu depoimento pode aparecer no site e nas redes sociais</span>
+      </div>
+      <div class="actions" style="justify-content:center">
+        <a href="https://engine.abdallacrypto.com" class="btn btn-primary" data-pt="&larr; Voltar ao início" data-en="&larr; Back to home">&larr; Voltar ao início</a>
+      </div>
+    </div>
+
+    <!-- Submission error slide -->
+    <div class="slide" data-slide="err">
+      <div class="success-icon" style="color:var(--red)">&#x26A0;</div>
+      <h2 data-pt="Erro ao enviar" data-en="Submission error">Erro ao enviar</h2>
+      <p class="hint" data-pt="Ocorreu um problema. Tente novamente em alguns segundos ou envie por email para ricardoabdalla@gmail.com." data-en="Something went wrong. Please retry or email ricardoabdalla@gmail.com.">Ocorreu um problema. Tente novamente em alguns segundos ou envie por email para ricardoabdalla@gmail.com.</p>
+
+      <div class="actions">
+        <span></span>
+        <button type="button" class="btn btn-primary" onclick="go(5)" data-pt="Tentar novamente" data-en="Retry">Tentar novamente</button>
+
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<script>
+// ==== i18n (matches other pages) ====
+var lang = localStorage.getItem('feedback_lang') || 'pt';
+function setLang(l){
+  lang = l;
+  localStorage.setItem('feedback_lang', l);
+  document.querySelectorAll('[data-pt],[data-en]').forEach(function(el){
+    var t = el.getAttribute('data-' + l);
+    if(t !== null) el.innerHTML = t;
+  });
+  document.getElementById('langPT').classList.toggle('active', l === 'pt');
+  document.getElementById('langEN').classList.toggle('active', l === 'en');
+  document.documentElement.lang = l;
+}
+
+// ==== Slide state ====
+var state = {
+  current: 1,
+  max: 7,
+  history: [1]
+};
+
+function go(n){
+  document.querySelectorAll('.slide').forEach(function(s){ s.classList.remove('active'); });
+  var target = document.querySelector('[data-slide="' + n + '"]');
+  if(target){
+    target.classList.add('active');
+    state.current = n;
+    updateProgress();
+    // autofocus first input
+    var inp = target.querySelector('input:not([type=hidden]):not([type=radio]), textarea');
+    if(inp && typeof n === 'number') setTimeout(function(){ inp.focus(); }, 100);
+    if(n === 5) updatePreview();
+  }
+}
+
+function updateProgress(){
+  var n = state.current;
+  if(typeof n !== 'number') { document.getElementById('progressFill').style.width = '0%'; return; }
+  var authValue = getRadio('autorizacao');
+  var totalSlides = (authValue === 'com_foto') ? 5 : 4;  // 2..5 or 2..6
+  var step;
+  if(n === 1) step = 0;
+  else if(n <= 5) step = n - 1;        // slides 2,3,4,5 → steps 1,2,3,4
+  else step = totalSlides;              // slide 6 (social) → last
+  var pct = (step / totalSlides) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function getRadio(name){
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : null;
+}
+
+function showErr(msg){
+  var e = document.getElementById('err');
+  e.textContent = msg;
+  e.classList.add('show');
+  setTimeout(function(){ e.classList.remove('show'); }, 5000);
+}
+
+function validate(slide){
+  if(slide === 2){
+    var nome = document.getElementById('f_nome').value.trim();
+    var email = document.getElementById('f_email').value.trim();
+    if(!nome){ showErr(lang==='pt'?'Preencha seu nome':'Enter your name'); return false; }
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      showErr(lang==='pt'?'Email inválido':'Invalid email'); return false;
+    }
+  }
+  if(slide === 3){
+    var dep = document.getElementById('f_depoimento').value.trim();
+    if(dep.length < 20){
+      showErr(lang==='pt'?'Depoimento muito curto (mín 20 caracteres)':'Testimonial too short (min 20 chars)');
+      return false;
+    }
+  }
+  if(slide === 4){
+    var nota = document.getElementById('f_nota').value;
+    if(!nota){ showErr(lang==='pt'?'Escolha uma nota de 1 a 5':'Pick a rating from 1 to 5'); return false; }
+  }
+  if(slide === 5){
+    if(!getRadio('autorizacao')){
+      showErr(lang==='pt'?'Escolha uma opção':'Choose an option'); return false;
+    }
+  }
+  if(slide === 6){
+    var s = document.getElementById('f_social').value.trim();
+    if(!s){ showErr(lang==='pt'?'Informe seu @ da rede social':'Enter your social handle'); return false; }
+  }
+  return true;
+}
+
+function next(){
+  if(!validate(state.current)) return;
+  var n;
+  if(state.current === 5){
+    var auth = getRadio('autorizacao');
+    n = (auth === 'com_foto') ? 6 : null; // skip slide 6 (social) if not "com_foto"
+    if(!n){ submitForm(); return; }
+  } else {
+    n = state.current + 1;
+  }
+  state.history.push(n);
+  go(n);
+}
+
+function prev(){
+  if(state.history.length <= 1) return;
+  state.history.pop();
+  var n = state.history[state.history.length - 1];
+  go(n);
+}
+
+function selectOption(el, value){
+  document.querySelectorAll('.option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  updatePreview();
+}
+
+function initialsFrom(name){
+  if(!name) return '—';
+  var parts = name.trim().replace(/^@/, '').split(/[\s._-]+/).filter(Boolean);
+  if(parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function todayLabel(){
+  var d = new Date();
+  var months = (lang === 'pt')
+    ? ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var dd = String(d.getDate()).padStart(2, '0');
+  return (lang === 'pt') ? (dd + '/' + months[d.getMonth()] + '/' + d.getFullYear())
+                         : (months[d.getMonth()] + ' ' + dd + ', ' + d.getFullYear());
+}
+
+function updatePreview(){
+  var nome = document.getElementById('f_nome').value.trim() || (lang === 'pt' ? 'Seu nome' : 'Your name');
+  var dep = document.getElementById('f_depoimento').value.trim() || (lang === 'pt' ? '(seu depoimento aparecerá aqui)' : '(your testimonial will appear here)');
+  var auth = getRadio('autorizacao');
+  var card = document.getElementById('previewCard');
+  var avatar = document.getElementById('previewAvatar');
+  var handleEl = document.getElementById('previewHandle');
+  var dotEl = document.getElementById('previewDot');
+  var noteEl = document.getElementById('previewNote');
+
+  document.getElementById('previewName').textContent = nome;
+  document.getElementById('previewText').textContent = dep;
+  document.getElementById('previewDate').textContent = todayLabel();
+  var nota = parseInt(document.getElementById('f_nota').value || '0', 10);
+  document.getElementById('previewStars').textContent = nota > 0
+    ? '★'.repeat(nota) + '☆'.repeat(5 - nota)
+    : '☆☆☆☆☆';
+
+  // Reset states
+  card.classList.remove('denied');
+  avatar.classList.remove('no-photo');
+  handleEl.style.display = 'none';
+  dotEl.style.display = 'none';
+  noteEl.innerHTML = '';
+
+  if(auth === 'com_foto'){
+    avatar.textContent = initialsFrom(nome);
+    avatar.title = (lang === 'pt') ? 'Será substituído pela foto do perfil' : 'Will be replaced by profile photo';
+    handleEl.textContent = '@' + (lang === 'pt' ? 'seuperfil' : 'yourhandle');
+    handleEl.style.display = 'inline';
+    dotEl.style.display = 'inline';
+    noteEl.innerHTML = (lang === 'pt')
+      ? '<b style="color:var(--green)">✓</b> Publicado com foto do perfil e @ no próximo passo.'
+      : '<b style="color:var(--green)">✓</b> Published with profile photo and handle from next step.';
+  } else if(auth === 'sem_foto'){
+    avatar.textContent = initialsFrom(nome);
+    avatar.classList.add('no-photo');
+    noteEl.innerHTML = (lang === 'pt')
+      ? '<b style="color:var(--green)">✓</b> Publicado apenas com nome e texto, sem foto.'
+      : '<b style="color:var(--green)">✓</b> Published with name and text only, no photo.';
+  } else if(auth === 'nao'){
+    avatar.textContent = initialsFrom(nome);
+    card.classList.add('denied');
+    noteEl.innerHTML = (lang === 'pt')
+      ? '<span style="color:var(--red);font-weight:600">✕ Não será publicado.</span> Seu feedback fica privado.'
+      : '<span style="color:var(--red);font-weight:600">✕ Will not be published.</span> Your feedback stays private.';
+  } else {
+    avatar.textContent = '—';
+    avatar.classList.add('no-photo');
+    noteEl.innerHTML = (lang === 'pt')
+      ? '<i>Selecione uma opção acima para ver a prévia.</i>'
+      : '<i>Select an option above to see the preview.</i>';
+  }
+}
+
+// Char counter
+document.getElementById('f_depoimento').addEventListener('input', function(){
+  document.getElementById('charCount').textContent = this.value.length;
+});
+
+// Star picker
+var STAR_LABELS_PT = ['', 'Ruim', 'Fraco', 'Ok', 'Bom', 'Excelente'];
+var STAR_LABELS_EN = ['', 'Bad', 'Weak', 'Ok', 'Good', 'Excellent'];
+(function(){
+  var picker = document.getElementById('starsPicker');
+  var label = document.getElementById('starsLabel');
+  var hidden = document.getElementById('f_nota');
+  function paint(v, hover){
+    picker.querySelectorAll('.star').forEach(function(s){
+      var sv = parseInt(s.dataset.v, 10);
+      s.classList.toggle('on', !hover && sv <= v);
+      s.classList.toggle('hover', hover && sv <= v);
+    });
+  }
+  function currentValue(){ return parseInt(hidden.value || '0', 10); }
+  picker.addEventListener('mousemove', function(e){
+    var star = e.target.closest('.star');
+    if(!star) return;
+    paint(parseInt(star.dataset.v, 10), true);
+  });
+  picker.addEventListener('mouseleave', function(){ paint(currentValue(), false); });
+  picker.addEventListener('click', function(e){
+    var star = e.target.closest('.star');
+    if(!star) return;
+    var v = parseInt(star.dataset.v, 10);
+    hidden.value = v;
+    paint(v, false);
+    var arr = (lang === 'pt') ? STAR_LABELS_PT : STAR_LABELS_EN;
+    label.textContent = v + ' / 5 — ' + arr[v];
+  });
+  picker.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var star = e.target.closest('.star');
+    if(!star) return;
+    e.preventDefault();
+    star.click();
+  });
+})();
+
+// Enter key = next (except in textarea)
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Enter') return;
+  if(e.target.tagName === 'TEXTAREA') return;
+  if(typeof state.current !== 'number') return;
+  e.preventDefault();
+  if(state.current === 7) return;
+  if(state.current === 6){ submitForm(); } else { next(); }
+});
+
+// ==== Submit ====
+// Apps Script Web App endpoint (doPost handles type:"feedback")
+var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwESBpdowCt70AGhHZ2hRej_HMPK6xeAyRTU4J1_HKyC6WYaMPrvYS13j0Itbm97efH/exec';
+
+function submitForm(){
+  // Honeypot check
+  if(document.getElementById('hp_website').value){
+    console.log('spam blocked');
+    go(7); // pretend success
+    return;
+  }
+
+  var payload = {
+    type: 'feedback',
+    nome: document.getElementById('f_nome').value.trim(),
+    email: document.getElementById('f_email').value.trim(),
+    depoimento: document.getElementById('f_depoimento').value.trim(),
+    nota: parseInt(document.getElementById('f_nota').value || '0', 10),
+    autorizacao: getRadio('autorizacao'),
+    social: document.getElementById('f_social').value.trim(),
+    lang: lang,
+    ts: Date.now()
+  };
+
+  if(!ENDPOINT_URL){
+    // Stub mode — log payload and show success (dev only)
+    console.log('FEEDBACK PAYLOAD (stub):', payload);
+    setTimeout(function(){ go(7); }, 500);
+    return;
+  }
+
+  fetch(ENDPOINT_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    if(!r.ok) throw new Error('http ' + r.status);
+    go(7);
+  }).catch(function(err){
+    console.error('submit error', err);
+    go('err');
+  });
+}
+
+// Init
+setLang(lang);
+updateProgress();
+</script>
+
+</body>
+</html>
