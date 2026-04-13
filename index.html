@@ -1431,6 +1431,142 @@ footer .copyright {
   </div>
 </section>
 
+<!-- ═══════════════════ DEPOIMENTOS ═══════════════════ -->
+<style>
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+@media(max-width:900px){.testimonials-grid{grid-template-columns:1fr}}
+.testimonial-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
+.testimonial-card:hover{border-color:var(--accent-dim);transform:translateY(-2px)}
+.testimonial-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.testimonial-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent-dim),var(--accent));display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;color:var(--bg-primary);font-size:18px;flex-shrink:0;overflow:hidden}
+.testimonial-avatar img{width:100%;height:100%;object-fit:cover}
+.testimonial-info{flex:1;min-width:0}
+.testimonial-name{font-family:var(--font-mono);font-weight:700;font-size:14px;color:var(--text-primary);margin-bottom:2px}
+.testimonial-meta{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);display:flex;gap:8px;flex-wrap:wrap}
+.testimonial-meta a{color:var(--accent);text-decoration:none}
+.testimonial-meta a:hover{text-decoration:underline}
+.testimonial-stars{display:flex;gap:2px;margin-left:auto;color:var(--warning);font-size:13px}
+.testimonial-text{font-size:14px;line-height:1.7;color:var(--text-secondary);flex:1;margin-bottom:12px}
+.testimonial-text::before{content:'"';color:var(--accent);font-size:32px;font-family:Georgia,serif;line-height:0.5;vertical-align:-8px;margin-right:4px}
+.testimonial-text::after{content:'"';color:var(--accent);font-size:32px;font-family:Georgia,serif;line-height:0.5;vertical-align:-12px;margin-left:2px}
+.testimonial-dummy-note{background:rgba(255,170,0,0.08);border:1px solid rgba(255,170,0,0.25);border-radius:8px;padding:10px 14px;margin-top:20px;font-family:var(--font-mono);font-size:12px;color:var(--warning);text-align:center}
+</style>
+<section id="depoimentos">
+  <div class="container">
+    <span class="section-number">00</span>
+    <div class="section-label reveal" data-pt="Depoimentos" data-en="Testimonials">Depoimentos</div>
+    <div class="sep"></div>
+    <h2 class="section-title reveal" data-pt="O que traders est&atilde;o dizendo" data-en="What traders are saying">O que traders est&atilde;o dizendo</h2>
+    <p class="reveal" style="color:var(--text-secondary);font-size:14px;max-width:600px;line-height:1.7;margin-bottom:16px" data-pt="Depoimentos reais de quem usou o indicador em opera&ccedil;&otilde;es reais. Sem sele&ccedil;&atilde;o, sem edi&ccedil;&atilde;o." data-en="Real testimonials from traders who used the indicator in real operations. No selection, no editing.">Depoimentos reais de quem usou o indicador em opera&ccedil;&otilde;es reais. Sem sele&ccedil;&atilde;o, sem edi&ccedil;&atilde;o.</p>
+
+    <div class="testimonials-grid" id="testimonials-grid">
+      <!-- DUMMY 1 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">RP</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Rafael P.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@rafaelp_trader</a>
+              <span>&middot;</span>
+              <span>12/Abr/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+        <div class="testimonial-text">Comecei testando c&eacute;tico, achando que seria mais um indicador qualquer. Em 3 semanas j&aacute; tinha pago a assinatura com 2 trades. O backtest p&uacute;blico de 6 anos foi o que me convenceu a n&atilde;o desistir no primeiro loss.</div>
+      </div>
+
+      <!-- DUMMY 2 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">MC</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Marina C.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@marinacrypto</a>
+              <span>&middot;</span>
+              <span>10/Abr/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+        <div class="testimonial-text">O que mais me impressionou foi a disciplina do setup. Antes eu operava no "eu acho", agora tenho regras claras: CHOCH, Order Block, Fib 0.79. Reduziu muito meu FOMO e meus losses por impulso.</div>
+      </div>
+
+      <!-- DUMMY 3 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">LV</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Lucas V.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@lucasv.trades</a>
+              <span>&middot;</span>
+              <span>08/Abr/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+        <div class="testimonial-text">Opero crypto h&aacute; 4 anos e j&aacute; gastei muito em indicadores que n&atilde;o entregavam. Esse foi o primeiro que bateu com o backtest na pr&aacute;tica. A p&aacute;gina de live track com cada trade p&uacute;blico me passou muita confian&ccedil;a pra come&ccedil;ar.</div>
+      </div>
+
+      <!-- DUMMY 4 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">AN</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Andre N.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@andrenakamoto</a>
+              <span>&middot;</span>
+              <span>05/Abr/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+        <div class="testimonial-text">Setup A conservador pra mim foi perfeito. 2% de risco, macro filter no 12h OR 1D e deixo o bot operar. J&aacute; fechei TP2 em 4 dos &uacute;ltimos 6 trades. E o pico foi ver o rob&ocirc; operar sozinho enquanto eu dormia.</div>
+      </div>
+
+      <!-- DUMMY 5 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">CB</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Carol B.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@carolbtc</a>
+              <span>&middot;</span>
+              <span>02/Abr/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★☆</div>
+        </div>
+        <div class="testimonial-text">Pontos positivos: manual super claro, backtest p&uacute;blico, suporte r&aacute;pido no Telegram. O &uacute;nico contra &eacute; que operando 15m d&aacute; poucos trades por m&ecirc;s, exige paci&ecirc;ncia. Mas quando entra, entra com qualidade.</div>
+      </div>
+
+      <!-- DUMMY 6 -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">TF</div>
+          <div class="testimonial-info">
+            <div class="testimonial-name">Thiago F.</div>
+            <div class="testimonial-meta">
+              <a href="#" onclick="return false">@tfutures</a>
+              <span>&middot;</span>
+              <span>28/Mar/2026</span>
+            </div>
+          </div>
+          <div class="testimonial-stars">★★★★★</div>
+        </div>
+        <div class="testimonial-text">J&aacute; usei LuxAlgo, SMC Concepts e outros. Esse &eacute; o &uacute;nico que tem backtest p&uacute;blico verific&aacute;vel. A honestidade de publicar perdas junto com os wins me fez virar cliente no dia que descobri.</div>
+      </div>
+    </div>
+
+    <div class="testimonial-dummy-note" id="testimonials-dummy-note">&#x26A0; Se&ccedil;&atilde;o de depoimentos com dados de exemplo (dummy). Substituir conforme depoimentos reais forem aprovados.</div>
+  </div>
+</section>
+
 <!-- ═══════════════════ BACKTESTS ═══════════════════ -->
 <section id="backtests">
   <div class="container">
@@ -2038,6 +2174,99 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
     const current = localStorage.getItem('smc-lang') || 'pt';
     applyLang(current === 'pt' ? 'en' : 'pt');
   };
+})();
+</script>
+
+<script>
+// Dynamic testimonials loader — replaces dummy cards when testimonials.json has real entries
+(function(){
+  var PT_MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var EN_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function escapeHtml(s){
+    return String(s || '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function initials(name){
+    var parts = String(name || '').trim().replace(/^@/, '').split(/[\s._-]+/).filter(Boolean);
+    if(parts.length === 0) return '—';
+    if(parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  function formatDate(iso){
+    var lang = localStorage.getItem('smc-lang') || 'pt';
+    var d = iso ? new Date(iso) : new Date();
+    if(isNaN(d.getTime())) return '';
+    var dd = String(d.getDate()).padStart(2, '0');
+    var months = lang === 'pt' ? PT_MONTHS : EN_MONTHS;
+    return lang === 'pt'
+      ? (dd + '/' + months[d.getMonth()] + '/' + d.getFullYear())
+      : (months[d.getMonth()] + ' ' + dd + ', ' + d.getFullYear());
+  }
+  function stars(n){
+    n = Math.max(0, Math.min(5, parseInt(n, 10) || 0));
+    return '★'.repeat(n) + '☆'.repeat(5 - n);
+  }
+  function profileUrl(platform, handle){
+    if(!handle) return null;
+    var h = handle.replace(/^@/, '');
+    if(platform === 'x' || platform === 'twitter') return 'https://x.com/' + h;
+    return 'https://instagram.com/' + h; // default instagram
+  }
+  function avatarHtml(t){
+    var ini = initials(t.nome);
+    if(t.autorizacao === 'com_foto' && t.handle){
+      var platform = (t.platform || 'instagram').toLowerCase();
+      var h = t.handle.replace(/^@/, '');
+      // unavatar.io resolves profile photo by handle; fallback to initials on error
+      var src = 'https://unavatar.io/' + encodeURIComponent(platform) + '/' + encodeURIComponent(h) + '?fallback=false';
+      return '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(t.nome) + '" ' +
+             'onerror="this.parentNode.textContent=\'' + ini + '\'">';
+    }
+    return ini;
+  }
+  function renderCard(t){
+    var handleEl = '';
+    if(t.handle){
+      var url = profileUrl(t.platform, t.handle);
+      var h = '@' + String(t.handle).replace(/^@/, '');
+      handleEl = url
+        ? ('<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(h) + '</a><span>&middot;</span>')
+        : ('<span>' + escapeHtml(h) + '</span><span>&middot;</span>');
+    }
+    return (
+      '<div class="testimonial-card reveal">' +
+        '<div class="testimonial-header">' +
+          '<div class="testimonial-avatar">' + avatarHtml(t) + '</div>' +
+          '<div class="testimonial-info">' +
+            '<div class="testimonial-name">' + escapeHtml(t.nome) + '</div>' +
+            '<div class="testimonial-meta">' + handleEl +
+              '<span>' + escapeHtml(formatDate(t.data)) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="testimonial-stars">' + stars(t.nota) + '</div>' +
+        '</div>' +
+        '<div class="testimonial-text">' + escapeHtml(t.texto) + '</div>' +
+      '</div>'
+    );
+  }
+
+  fetch('testimonials.json', {cache: 'no-cache'})
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(list){
+      if(!Array.isArray(list) || list.length === 0) return;
+      var grid = document.getElementById('testimonials-grid');
+      var note = document.getElementById('testimonials-dummy-note');
+      if(!grid) return;
+      // Sort newest first
+      list.sort(function(a, b){
+        return new Date(b.data || 0) - new Date(a.data || 0);
+      });
+      grid.innerHTML = list.map(renderCard).join('');
+      if(note) note.remove();
+    })
+    .catch(function(){ /* keep dummies on error */ });
 })();
 </script>
 
