@@ -18,11 +18,20 @@
     "autorizacao": "sem_foto",
     "data": "2026-04-13"
   },
-    {
+  {
     "nome": "Decotrader",
     "handle": "jecson_barbosa",
     "platform": "instagram",
     "photo": "assets/testimonials/jecson_barbosa.jpg",
+    "nota": 5,
+    "texto": "Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏",
+    "autorizacao": "com_foto",
+    "data": "2026-04-13"
+  },
+  {
+    "nome": "Decotrader",
+    "handle": "jecson_barbosa",
+    "platform": "instagram",
     "nota": 5,
     "texto": "Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏",
     "autorizacao": "com_foto",
