@@ -168,6 +168,12 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
     <button onclick="closeSnaps()" style="position:absolute;top:0;right:0;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;padding:8px 16px">&times;</button>
     <h2 id="snapsTitle" style="color:var(--green);margin-bottom:20px"></h2>
     <div id="snapsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px"></div>
+  </div>
+  <!-- Fullscreen image lightbox (nested inside snaps modal) -->
+  <div id="snapsLightbox" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.95);padding:40px;cursor:zoom-out" onclick="closeSnapLightbox(event)">
+    <button onclick="closeSnapLightbox(event)" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--text);font-size:32px;cursor:pointer">&times;</button>
+    <img id="snapsLightboxImg" src="" alt="" style="max-width:100%;max-height:100%;margin:auto;display:block;object-fit:contain;position:absolute;inset:40px">
+    <div id="snapsLightboxCaption" style="position:absolute;bottom:12px;left:0;right:0;text-align:center;color:var(--text);font-family:var(--mono);font-size:14px"></div>
 </div>
 <script>
 var T=[
@@ -323,17 +329,27 @@ function openSnaps(idx){
   var grid=document.getElementById('snapsGrid');grid.innerHTML='';
   t.snapshots.forEach(function(s){
     var src=s.local_path||s.tv_url;
-    var link=s.tv_url||s.local_path;
+    var label=snapLabel(s.event);
     var card=document.createElement('div');
-    card.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden';
+    card.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:zoom-in';
+    card.onclick=function(){openSnapLightbox(src,label);};
     card.innerHTML=
-      '<a href="'+link+'" target="_blank" rel="noopener"><img src="'+src+'" alt="'+s.event+'" style="width:100%;display:block;cursor:zoom-in" onerror="this.style.display=\'none\'"></a>'+
-      '<div style="padding:10px 14px;font-size:13px;color:var(--text);font-weight:600">'+snapLabel(s.event)+'</div>'+
+      '<img src="'+src+'" alt="'+s.event+'" style="width:100%;display:block" onerror="this.style.display=\'none\'">'+
+      '<div style="padding:10px 14px;font-size:13px;color:var(--text);font-weight:600">'+label+'</div>'+
       (s.captured_at?'<div style="padding:0 14px 10px;font-size:11px;color:var(--muted)">'+s.captured_at.substring(0,19).replace('T',' ')+' UTC</div>':'');
     grid.appendChild(card);
   });
 }
-function closeSnaps(){document.getElementById('snapsModal').style.display='none';document.body.style.overflow='';}
+function openSnapLightbox(src,label){
+  document.getElementById('snapsLightboxImg').src=src;
+  document.getElementById('snapsLightboxCaption').textContent=label||'';
+  document.getElementById('snapsLightbox').style.display='block';
+}
+function closeSnapLightbox(e){
+  if(e)e.stopPropagation();
+  document.getElementById('snapsLightbox').style.display='none';
+}
+function closeSnaps(){document.getElementById('snapsModal').style.display='none';document.body.style.overflow='';closeSnapLightbox();}
 
 function openReplayFrom(arr,idx){
   var t=arr[idx];if(!t||!t.replay)return;
