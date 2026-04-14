@@ -245,7 +245,6 @@ function render(){
         var sc=t.side=="LONG"?"lg":"sh";
         var pc=t.total_pnl>=0?"g":"r";
         var bg=t.status=="WIN"?"<span class='bg w'>WIN</span>":"<span class='bg l'>LOSS</span>";
-        var rpBtn=t.replay?"<button class='replay-btn' onclick='openReplayOld("+j+")'>\u{1F4CA} "+(lang==="pt"?"Ver gr\u00e1fico":"View chart")+"</button>":"";
         var snapBtn=(t.snapshots&&t.snapshots.length)?"<button class='replay-btn' onclick='openSnapsOld("+j+")'>\u{1F4F8} "+(lang==="pt"?"Ver gr\u00e1ficos ("+t.snapshots.length+")":"View charts ("+t.snapshots.length+")")+"</button>":"";
         var ev="";for(var k=0;k<t.events.length;k++){if(k>0)ev+=" > ";ev+=t.events[k].type+" @ $"+t.events[k].price.toFixed(1);}
         var notional=Math.round(t.qty*t.entry);
@@ -262,7 +261,6 @@ function render(){
         h+="<span>"+L.size+": <b>"+t.qty+" BTC ($"+notional.toLocaleString()+")</b></span>";
         h+="</div>";
         if(ev)h+="<div class='tl-trade-events'>"+ev+"</div>";
-        h+=rpBtn;
         h+=snapBtn;
         h+="</div></div>";
         c.innerHTML+=h;
