@@ -11,11 +11,12 @@
   },
   {
     "nome": "Sérgio Miranda",
-    "handle": "",
-    "platform": "",
+    "handle": "sergiomirandacuba",
+    "platform": "instagram",
+    "photo": "assets/testimonials/sergiomirandacuba.jpg",
     "nota": 5,
     "texto": "O indicador realmente segue lógica de execução baseada em estrutura e liquidez. Os sinais têm consistência e contexto, o que é raro hoje, não é milagre, mas está claramente acima da média. BTC/USDT no 15m (contexto no 1H): esperei sweep de liquidez nos fundos, CHOCH confirmando mudança de estrutura e entrei no pullback em FVG/OB; stop abaixo da mínima e alvo no topo. Trade limpo, cerca de 3:1 de retorno.",
-    "autorizacao": "sem_foto",
+    "autorizacao": "com_foto",
     "data": "2026-04-13"
   },
   {
