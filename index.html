@@ -2169,6 +2169,8 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
     const btnMobile = document.getElementById('lang-toggle-mobile');
     if (btnMobile) btnMobile.textContent = lang === 'pt' ? '🇺🇸' : '🇧🇷';
     localStorage.setItem('smc-lang', lang);
+    // Notify dynamic sections (e.g. testimonials) that language changed so they can re-render
+    window.dispatchEvent(new CustomEvent('smc-lang-changed', { detail: { lang: lang } }));
   }
   window.toggleLang = function() {
     const current = localStorage.getItem('smc-lang') || 'pt';
@@ -2242,6 +2244,16 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
         ? ('<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(h) + '</a><span>&middot;</span>')
         : ('<span>' + escapeHtml(h) + '</span><span>&middot;</span>');
     }
+    var lang = localStorage.getItem('smc-lang') || 'pt';
+    var text = (lang === 'en' && t.texto_en) ? t.texto_en : (t.texto || '');
+    var textHtml = escapeHtml(text);
+    // Mark translated ones so users know it's not the original
+    if (lang === 'en' && t.texto_en) {
+      textHtml += ' <span style="font-size:11px;color:var(--text-muted);opacity:0.7">(translated)</span>';
+    } else if (lang === 'en' && !t.texto_en) {
+      // PT original, English not available
+      textHtml += ' <span style="font-size:11px;color:var(--text-muted);opacity:0.7">(original in Portuguese)</span>';
+    }
     return (
       '<div class="testimonial-card reveal visible">' +
         '<div class="testimonial-header">' +
@@ -2254,10 +2266,20 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
           '</div>' +
           '<div class="testimonial-stars">' + stars(t.nota) + '</div>' +
         '</div>' +
-        '<div class="testimonial-text">' + escapeHtml(t.texto) + '</div>' +
+        '<div class="testimonial-text">' + textHtml + '</div>' +
       '</div>'
     );
   }
+
+  var _testimonialsList = null;
+  function renderTestimonials() {
+    if (!_testimonialsList || _testimonialsList.length === 0) return;
+    var grid = document.getElementById('testimonials-grid');
+    if (!grid) return;
+    grid.innerHTML = _testimonialsList.map(renderCard).join('');
+  }
+  // Re-render on language toggle
+  window.addEventListener('smc-lang-changed', renderTestimonials);
 
   fetch('testimonials.json?t=' + Date.now(), {cache: 'no-store'})
     .then(function(r){ return r.ok ? r.json() : []; })
@@ -2270,6 +2292,7 @@ document.querySelectorAll('.audience-card').forEach(el => xpObserver.observe(el)
       list.sort(function(a, b){
         return new Date(b.data || 0) - new Date(a.data || 0);
       });
+      _testimonialsList = list;
       grid.innerHTML = list.map(renderCard).join('');
       if(note) note.remove();
     })
