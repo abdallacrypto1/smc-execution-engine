@@ -170,10 +170,10 @@ h1{font-size:28px;color:var(--green);text-align:center;margin-bottom:8px}
     <div id="snapsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px"></div>
   </div>
   <!-- Fullscreen image lightbox (nested inside snaps modal) -->
-  <div id="snapsLightbox" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.95);padding:40px;cursor:zoom-out" onclick="closeSnapLightbox(event)">
-    <button onclick="closeSnapLightbox(event)" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--text);font-size:32px;cursor:pointer">&times;</button>
-    <img id="snapsLightboxImg" src="" alt="" style="max-width:100%;max-height:100%;margin:auto;display:block;object-fit:contain;position:absolute;inset:40px">
-    <div id="snapsLightboxCaption" style="position:absolute;bottom:12px;left:0;right:0;text-align:center;color:var(--text);font-family:var(--mono);font-size:14px"></div>
+  <div id="snapsLightbox" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.95);cursor:zoom-out;overflow:auto" onclick="closeSnapLightbox(event)">
+    <button onclick="closeSnapLightbox(event)" style="position:fixed;top:8px;right:12px;background:none;border:none;color:var(--text);font-size:32px;cursor:pointer;z-index:2">&times;</button>
+    <img id="snapsLightboxImg" src="" alt="" style="max-width:95vw;max-height:92vh;margin:2.5vh auto;display:block;object-fit:contain;cursor:zoom-in" onclick="toggleSnapZoom(event)">
+    <div id="snapsLightboxCaption" style="position:fixed;bottom:12px;left:0;right:0;text-align:center;color:var(--text);font-family:var(--mono);font-size:14px;pointer-events:none"></div>
 </div>
 <script>
 var T=[
@@ -341,12 +341,29 @@ function openSnaps(idx){
   });
 }
 function openSnapLightbox(src,label){
-  document.getElementById('snapsLightboxImg').src=src;
+  var img=document.getElementById('snapsLightboxImg');
+  img.src=src;
+  img.style.maxWidth='95vw';img.style.maxHeight='92vh';img.style.cursor='zoom-in';
   document.getElementById('snapsLightboxCaption').textContent=label||'';
   document.getElementById('snapsLightbox').style.display='block';
+  document.getElementById('snapsLightbox').scrollTop=0;
+}
+function toggleSnapZoom(e){
+  e.stopPropagation();
+  var img=document.getElementById('snapsLightboxImg');
+  var zoomed=img.dataset.zoom==='1';
+  if(zoomed){
+    img.style.maxWidth='95vw';img.style.maxHeight='92vh';img.style.width='';img.style.height='';
+    img.style.cursor='zoom-in';img.dataset.zoom='0';
+  } else {
+    img.style.maxWidth='none';img.style.maxHeight='none';img.style.width='auto';img.style.height='auto';
+    img.style.cursor='zoom-out';img.dataset.zoom='1';
+  }
 }
 function closeSnapLightbox(e){
   if(e)e.stopPropagation();
+  var img=document.getElementById('snapsLightboxImg');
+  img.dataset.zoom='0';
   document.getElementById('snapsLightbox').style.display='none';
 }
 function closeSnaps(){document.getElementById('snapsModal').style.display='none';document.body.style.overflow='';closeSnapLightbox();}
