@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual — SMC Execution Engine PRO v3.0</title>
+<title>Manual — SMC Execution Engine PRO v3.1</title>
 <link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
 <link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
@@ -583,6 +583,7 @@ footer p {
 <div style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #1a1a2e">
   <a href="https://engine.abdallacrypto.com" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:40px"></a>
   <div style="display:flex;gap:8px;align-items:center">
+    <a href="release-notes.html" style="font-family:var(--font-mono);font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--accent);border-radius:6px" data-pt="Novidades v3.1" data-en="What's New v3.1">Novidades v3.1</a>
     <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;padding:4px 10px;border:1px solid var(--border-color);border-radius:6px" data-pt="&larr; Inicio" data-en="&larr; Home">&larr; Inicio</a>
     <button class="tab" id="langPT" onclick="setLang('pt')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">PT</button>
     <button class="tab" id="langEN" onclick="setLang('en')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">EN</button>
@@ -594,6 +595,7 @@ footer p {
   <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
   <ul class="toc-list">
     <li><a href="#intro" class="toc-main" data-pt="O que é" data-en="What It Is">O que é</a></li>
+    <li><a href="#quick-start" class="toc-main" data-pt="Início Rápido" data-en="Getting Started">Início Rápido</a></li>
     <li><a href="#glossario" class="toc-main" data-pt="Glossário" data-en="Glossary">Glossário</a></li>
     <li><a href="#conceitos" class="toc-main" data-pt="Conceitos Principais" data-en="Core Concepts">Conceitos Principais</a></li>
     <li><a href="#conceitos" class="toc-sub" data-pt="Swings (Fractal K)" data-en="Swings (Fractal K)">Swings (Fractal K)</a></li>
@@ -613,7 +615,9 @@ footer p {
     <li><a href="#alert-regras" class="toc-sub" data-pt="Regras Anti-Spam" data-en="Anti-Spam Rules">Regras Anti-Spam</a></li>
     <li><a href="#alert-config" class="toc-sub" data-pt="Como Configurar" data-en="How to Configure">Como Configurar</a></li>
     <li><a href="#hud" class="toc-main">HUD Multi-Timeframe</a></li>
+    <li><a href="#hud-gates" class="toc-sub" data-pt="Linha de Gates" data-en="Gates Row">Linha de Gates</a></li>
     <li><a href="#strictness" class="toc-sub">Strictness</a></li>
+    <li><a href="#emas" class="toc-main" data-pt="EMAs" data-en="EMAs">EMAs</a></li>
     <li><a href="#configs" class="toc-main" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</a></li>
     <li><a href="#uso" class="toc-main" data-pt="Como Usar na Prática" data-en="How to Use in Practice">Como Usar na Prática</a></li>
     <li><a href="#faq" class="toc-main">FAQ / Troubleshooting</a></li>
@@ -627,12 +631,14 @@ footer p {
   <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
   <ul class="toc-list">
     <li><a href="#intro" onclick="toggleToc()" data-pt="O que é" data-en="What It Is">O que é</a></li>
+    <li><a href="#quick-start" onclick="toggleToc()" data-pt="Início Rápido" data-en="Getting Started">Início Rápido</a></li>
     <li><a href="#glossario" onclick="toggleToc()" data-pt="Glossário" data-en="Glossary">Glossário</a></li>
     <li><a href="#conceitos" onclick="toggleToc()" data-pt="Conceitos Principais" data-en="Core Concepts">Conceitos Principais</a></li>
     <li><a href="#fibonacci" onclick="toggleToc()">Fibonacci</a></li>
     <li><a href="#ob" onclick="toggleToc()">Order Blocks</a></li>
     <li><a href="#alertas" onclick="toggleToc()" data-pt="Alertas PRO" data-en="PRO Alerts">Alertas PRO</a></li>
     <li><a href="#hud" onclick="toggleToc()">HUD Multi-Timeframe</a></li>
+    <li><a href="#emas" onclick="toggleToc()" data-pt="EMAs" data-en="EMAs">EMAs</a></li>
     <li><a href="#configs" onclick="toggleToc()" data-pt="Configurações Recomendadas" data-en="Recommended Settings">Configurações Recomendadas</a></li>
     <li><a href="#uso" onclick="toggleToc()" data-pt="Como Usar na Prática" data-en="How to Use in Practice">Como Usar na Prática</a></li>
     <li><a href="#faq" onclick="toggleToc()">FAQ / Troubleshooting</a></li>
@@ -655,6 +661,61 @@ footer p {
     <div class="info-card accent-border reveal">
       <div class="info-card-tag green" data-pt="Princípio Central" data-en="Core Principle">Princípio Central</div>
       <p style="margin:0;" data-pt="O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural." data-en="The indicator operates on a <strong>persistent regime</strong> (UP, DOWN or NONE) that governs all subsequent logic — structure, zones, order blocks and alerts. Everything stems from structural reading.">O indicador opera sobre um <strong>regime persistente</strong> (UP, DOWN ou NONE) que governa toda a lógica subsequente — estrutura, zonas, order blocks e alertas. Tudo nasce da leitura estrutural.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ INÍCIO RÁPIDO ═══════════════════ -->
+<section id="quick-start">
+  <div class="container">
+    <div class="section-label" data-pt="Início Rápido" data-en="Getting Started">Início Rápido</div>
+    <div class="sep"></div>
+    <h2 class="reveal" data-pt="Começando em 5 Minutos" data-en="Getting Started in 5 Minutes">Começando em 5 Minutos</h2>
+    <p class="reveal" data-pt="Se você acabou de adquirir o indicador e quer começar a usar imediatamente, siga estes quatro passos. Cada etapa aponta para a seção correspondente do manual, caso você queira se aprofundar depois. Se já é cliente e atualizou recentemente, veja também as <a href='release-notes.html'>Notas de Lançamento</a> com o que mudou." data-en="If you just purchased the indicator and want to start using it immediately, follow these four steps. Each step links to the corresponding section of the manual if you want to dive deeper afterwards. If you are an existing user who recently updated, also see the <a href='release-notes.html'>Release Notes</a> with what's new.">Se você acabou de adquirir o indicador e quer começar a usar imediatamente, siga estes quatro passos. Cada etapa aponta para a seção correspondente do manual, caso você queira se aprofundar depois. Se já é cliente e atualizou recentemente, veja também as <a href="release-notes.html">Notas de Lançamento</a> com o que mudou.</p>
+
+    <ol class="steps reveal">
+      <li data-pt="<strong>Adicione o indicador ao gráfico.</strong> No TradingView, abra o menu <em>Indicators</em>, localize o <em>SMC Engine PRO</em> na aba <em>Invite-only scripts</em> e clique em <em>Add to chart</em>." data-en="<strong>Add the indicator to the chart.</strong> In TradingView, open the <em>Indicators</em> menu, locate <em>SMC Engine PRO</em> under the <em>Invite-only scripts</em> tab and click <em>Add to chart</em>."><strong>Adicione o indicador ao gráfico.</strong> No TradingView, abra o menu <em>Indicators</em>, localize o <em>SMC Engine PRO</em> na aba <em>Invite-only scripts</em> e clique em <em>Add to chart</em>.</li>
+      <li data-pt="<strong>Escolha um perfil pré-validado.</strong> Nas configurações do indicador, no grupo <em>📡 SIGNAL — Profile</em>, selecione o perfil compatível com seu estilo de operação. A tabela abaixo resume cada opção." data-en="<strong>Pick a pre-validated profile.</strong> In the indicator settings, under <em>📡 SIGNAL — Profile</em>, select the profile that matches your trading style. The table below summarizes each option."><strong>Escolha um perfil pré-validado.</strong> Nas configurações do indicador, no grupo <em>📡 SIGNAL — Profile</em>, selecione o perfil compatível com seu estilo de operação. A tabela abaixo resume cada opção.</li>
+      <li data-pt="<strong>Crie o alerta no TradingView.</strong> Clique no ícone de relógio, selecione a condição <em>OB &amp; Fibo Alerts</em>, defina o gatilho como <em>Uma vez por barra</em> e escolha o método de notificação. Passo a passo completo em <a href='#alert-config'>Como Configurar Alertas</a>." data-en="<strong>Create the alert in TradingView.</strong> Click the clock icon, select the <em>OB &amp; Fibo Alerts</em> condition, set the trigger to <em>Once per bar</em> and choose the notification method. Full step-by-step in <a href='#alert-config'>How to Configure Alerts</a>."><strong>Crie o alerta no TradingView.</strong> Clique no ícone de relógio, selecione a condição <em>OB &amp; Fibo Alerts</em>, defina o gatilho como <em>Uma vez por barra</em> e escolha o método de notificação. Passo a passo completo em <a href="#alert-config">Como Configurar Alertas</a>.</li>
+      <li data-pt="<strong>Acompanhe os alertas.</strong> O indicador passa a monitorar o gráfico continuamente e notifica quando uma confluência válida é identificada. Para entender o significado de cada modo de alerta, consulte <a href='#alert-modos'>Modos de Alerta</a>." data-en="<strong>Monitor the alerts.</strong> The indicator will continuously monitor the chart and notify you when a valid confluence is identified. To understand each alert mode, see <a href='#alert-modos'>Alert Modes</a>."><strong>Acompanhe os alertas.</strong> O indicador passa a monitorar o gráfico continuamente e notifica quando uma confluência válida é identificada. Para entender o significado de cada modo de alerta, consulte <a href="#alert-modos">Modos de Alerta</a>.</li>
+    </ol>
+
+    <div class="table-wrap reveal" style="margin-top:28px;">
+      <table class="glossary-table">
+        <thead>
+          <tr>
+            <th data-pt="Perfil" data-en="Profile">Perfil</th>
+            <th data-pt="Para quem é" data-en="Who it is for">Para quem é</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong data-pt="Backtest Público 15m" data-en="Public Backtest 15m">Backtest Público 15m</strong></td>
+            <td data-pt="Replica a configuração exata do backtest divulgado em <a href='backtest.html'>engine.abdallacrypto.com/backtest</a>. Recomendado para quem deseja resultados alinhados com o histórico publicado." data-en="Replicates the exact configuration of the backtest published at <a href='backtest.html'>engine.abdallacrypto.com/backtest</a>. Recommended for users who want results aligned with the published history.">Replica a configuração exata do backtest divulgado em <a href="backtest.html">engine.abdallacrypto.com/backtest</a>. Recomendado para quem deseja resultados alinhados com o histórico publicado.</td>
+          </tr>
+          <tr>
+            <td><strong>Scalper 15m</strong></td>
+            <td data-pt="Opera ativamente no gráfico de 15 minutos. Maior frequência de sinais, trades de minutos a poucas horas, filtro macro ativo." data-en="Actively trades on the 15-minute chart. Higher signal frequency, trades lasting minutes to a few hours, macro filter active.">Opera ativamente no gráfico de 15 minutos. Maior frequência de sinais, trades de minutos a poucas horas, filtro macro ativo.</td>
+          </tr>
+          <tr>
+            <td><strong>Day Trade 1h</strong></td>
+            <td data-pt="Equilíbrio entre frequência e qualidade dos sinais. Basta verificar o gráfico algumas vezes por dia. Trades duram de horas a um dia." data-en="Balance between signal frequency and quality. Just check the chart a few times per day. Trades last from hours to one day.">Equilíbrio entre frequência e qualidade dos sinais. Basta verificar o gráfico algumas vezes por dia. Trades duram de horas a um dia.</td>
+          </tr>
+          <tr>
+            <td><strong>Swing 4h</strong></td>
+            <td data-pt="Poucos sinais de alta convicção. Configura o alerta e aguarda. Trades duram de dias a semanas. Filtro macro desativado." data-en="Few high-conviction signals. Set the alert and wait. Trades last days to weeks. Macro filter off.">Poucos sinais de alta convicção. Configura o alerta e aguarda. Trades duram de dias a semanas. Filtro macro desativado.</td>
+          </tr>
+          <tr>
+            <td><strong>Custom</strong></td>
+            <td data-pt="Permite ajustar manualmente cada parâmetro. Indicado para quem já conhece o funcionamento do indicador. Consulte <a href='#configs'>Configurações Recomendadas</a> para valores de referência." data-en="Allows manual adjustment of each parameter. Recommended for users already familiar with the indicator. See <a href='#configs'>Recommended Settings</a> for reference values.">Permite ajustar manualmente cada parâmetro. Indicado para quem já conhece o funcionamento do indicador. Consulte <a href="#configs">Configurações Recomendadas</a> para valores de referência.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-card accent-border reveal" style="margin-top:20px;">
+      <div class="info-card-tag green" data-pt="Dica" data-en="Tip">Dica</div>
+      <p style="margin:0;" data-pt="Ao selecionar qualquer perfil exceto Custom, o indicador ajusta automaticamente todos os parâmetros técnicos — Fractal K, Strictness, Break Mode, Alert Mode e filtro macro. Não é necessário alterar mais nada no grupo SIGNAL além do perfil escolhido." data-en="When you select any profile except Custom, the indicator automatically adjusts all technical parameters — Fractal K, Strictness, Break Mode, Alert Mode and macro filter. No further changes are needed in the SIGNAL group beyond the profile selection.">Ao selecionar qualquer perfil exceto Custom, o indicador ajusta automaticamente todos os parâmetros técnicos — Fractal K, Strictness, Break Mode, Alert Mode e filtro macro. Não é necessário alterar mais nada no grupo SIGNAL além do perfil escolhido.</p>
     </div>
   </div>
 </section>
@@ -1006,6 +1067,21 @@ footer p {
     <h4 class="reveal">OB Mode</h4>
     <p class="reveal" data-pt="<strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier." data-en="<strong>Auto</strong> or <strong>Manual</strong>. Indicates whether the order block validation mechanism is in automatic mode (parameters calculated by the system) or manual (set by the trader in the settings). In Advanced/Manual mode, you can override the auto-calculated lookahead and ATR multiplier values."><strong>Auto</strong> ou <strong>Manual</strong>. Indica se o mecanismo de validação de order blocks está em modo automático (parâmetros calculados pelo sistema) ou manual (parametrizado pelo trader nas configurações). No modo Advanced/Manual, você pode fazer override dos valores auto-calculados de lookahead e ATR multiplier.</p>
 
+    <h4 class="reveal" id="hud-gates" data-pt="Linha de Gates (Status em Tempo Real)" data-en="Gates Row (Real-Time Status)">Linha de Gates (Status em Tempo Real)</h4>
+    <p class="reveal" data-pt="A &uacute;ltima linha do HUD resume o estado dos filtros de valida&ccedil;&atilde;o do Order Block em formato compacto, atualizado intrabar:" data-en="The last HUD row summarizes the state of the Order Block validation gates in compact format, updated intrabar:">A &uacute;ltima linha do HUD resume o estado dos filtros de valida&ccedil;&atilde;o do Order Block em formato compacto, atualizado intrabar:</p>
+    <p class="reveal" style="text-align:center;font-family:monospace;font-size:18px;padding:10px;background:rgba(255,255,255,0.03);border-radius:6px;"><code>S7 A✓ F✓ V— L10</code></p>
+    <ul class="manual-list reveal">
+      <li data-pt="<strong>S</strong> &mdash; Strictness configurado (0 a 10)." data-en="<strong>S</strong> &mdash; configured Strictness (0 to 10)."><strong>S</strong> &mdash; Strictness configurado (0 a 10).</li>
+      <li data-pt="<strong>A</strong> &mdash; Displacement ATR. <code>✓</code> atingido, <code>✗</code> ainda n&atilde;o, <code>—</code> desativado, <code>·</code> sem OB pendente." data-en="<strong>A</strong> &mdash; ATR displacement. <code>✓</code> reached, <code>✗</code> not yet, <code>—</code> disabled, <code>·</code> no pending OB."><strong>A</strong> &mdash; Displacement ATR. <code>✓</code> atingido, <code>✗</code> ainda n&atilde;o, <code>—</code> desativado, <code>·</code> sem OB pendente.</li>
+      <li data-pt="<strong>F</strong> &mdash; Fair Value Gap. Mesma legenda de s&iacute;mbolos." data-en="<strong>F</strong> &mdash; Fair Value Gap. Same symbol legend."><strong>F</strong> &mdash; Fair Value Gap. Mesma legenda de s&iacute;mbolos.</li>
+      <li data-pt="<strong>V</strong> &mdash; Volume (quando o filtro est&aacute; ativo). Mesma legenda." data-en="<strong>V</strong> &mdash; Volume (when filter is active). Same legend."><strong>V</strong> &mdash; Volume (quando o filtro est&aacute; ativo). Mesma legenda.</li>
+      <li data-pt="<strong>L</strong> &mdash; Lookahead restante em velas. Quando um OB est&aacute; pendente, indica quantas velas ainda est&atilde;o dispon&iacute;veis para valida&ccedil;&atilde;o antes da expira&ccedil;&atilde;o." data-en="<strong>L</strong> &mdash; remaining Lookahead in candles. When an OB is pending, indicates how many candles remain available for validation before expiration."><strong>L</strong> &mdash; Lookahead restante em velas. Quando um OB est&aacute; pendente, indica quantas velas ainda est&atilde;o dispon&iacute;veis para valida&ccedil;&atilde;o antes da expira&ccedil;&atilde;o.</li>
+    </ul>
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Utilidade" data-en="Use Case">Utilidade</div>
+      <p style="margin:0;" data-pt="Permite avaliar rapidamente, sem abrir as configura&ccedil;&otilde;es, por que um alerta n&atilde;o disparou. Se um OB est&aacute; pendente e <code>A✗</code> ou <code>F✗</code> aparecem, a valida&ccedil;&atilde;o ainda n&atilde;o foi satisfeita." data-en="Allows a quick assessment, without opening the settings, of why an alert did not fire. If an OB is pending and <code>A✗</code> or <code>F✗</code> are shown, the validation has not yet been met.">Permite avaliar rapidamente, sem abrir as configura&ccedil;&otilde;es, por que um alerta n&atilde;o disparou. Se um OB est&aacute; pendente e <code>A✗</code> ou <code>F✗</code> aparecem, a valida&ccedil;&atilde;o ainda n&atilde;o foi satisfeita.</p>
+    </div>
+
     <h4 class="reveal" id="strictness">Strictness (0–10)</h4>
     <p class="reveal" data-pt="Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks." data-en="Progress bar indicating the system's strictness level for validating Order Blocks.">Barra de progresso que indica o nível de exigência do sistema para validar Order Blocks.</p>
     <ul class="manual-list reveal">
@@ -1041,7 +1117,14 @@ footer p {
     <p class="reveal" data-pt="Camadas adicionais de filtragem que evitam alertas em contextos desfavor&aacute;veis." data-en="Additional filtering layers that prevent alerts in unfavorable contexts.">Camadas adicionais de filtragem que evitam alertas em contextos desfavor&aacute;veis.</p>
 
     <h4 class="reveal" data-pt="Macro Trend Filter" data-en="Macro Trend Filter">Macro Trend Filter</h4>
-    <p class="reveal" data-pt="Usa EMA 200 e MA 200 de um timeframe superior (padr&atilde;o: 1D) para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara se o pre&ccedil;o di&aacute;rio est&aacute; acima de ambas. Short s&oacute; se abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas m&eacute;dias (neutro), nenhum alerta &eacute; enviado." data-en="Uses EMA 200 and MA 200 from a higher timeframe (default: 1D) to filter alerts against the macro trend. Long only fires if the daily price is above both. Short only if below both. When the price is between the two averages (neutral), no alerts are sent.">Usa EMA 200 e MA 200 de um timeframe superior (padr&atilde;o: 1D) para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara se o pre&ccedil;o di&aacute;rio est&aacute; acima de ambas. Short s&oacute; se abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas m&eacute;dias (neutro), nenhum alerta &eacute; enviado.</p>
+    <p class="reveal" data-pt="Usa EMA 200 e MA 200 de um timeframe superior para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara quando o pre&ccedil;o do timeframe superior est&aacute; acima de ambas as m&eacute;dias. Short s&oacute; quando est&aacute; abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas (neutro), nenhum alerta &eacute; enviado." data-en="Uses EMA 200 and MA 200 from a higher timeframe to filter alerts against the macro trend. Long only fires when the higher timeframe price is above both averages. Short only when it is below both. When the price is between the two (neutral), no alerts are sent.">Usa EMA 200 e MA 200 de um timeframe superior para filtrar alertas contra a tend&ecirc;ncia macro. Long s&oacute; dispara quando o pre&ccedil;o do timeframe superior est&aacute; acima de ambas as m&eacute;dias. Short s&oacute; quando est&aacute; abaixo de ambas. Quando o pre&ccedil;o est&aacute; entre as duas (neutro), nenhum alerta &eacute; enviado.</p>
+
+    <h5 class="reveal" style="margin-top:16px;" data-pt="Timeframes Dispon&iacute;veis" data-en="Available Timeframes">Timeframes Dispon&iacute;veis</h5>
+    <ul class="manual-list reveal">
+      <li data-pt="<strong>4h, 12h, 1D, 1W, 2W, 1M</strong> &mdash; utilizam um &uacute;nico timeframe como refer&ecirc;ncia." data-en="<strong>4h, 12h, 1D, 1W, 2W, 1M</strong> &mdash; use a single timeframe as reference."><strong>4h, 12h, 1D, 1W, 2W, 1M</strong> &mdash; utilizam um &uacute;nico timeframe como refer&ecirc;ncia.</li>
+      <li data-pt="<strong>12h OR 1D</strong> &mdash; modo dual que aprova o alerta quando <em>pelo menos um</em> dos dois timeframes (12h ou 1D) est&aacute; alinhado com a dire&ccedil;&atilde;o do sinal. Menos restritivo que 1D puro, mantendo prote&ccedil;&atilde;o macro." data-en="<strong>12h OR 1D</strong> &mdash; dual mode that approves the alert when <em>at least one</em> of the two timeframes (12h or 1D) aligns with the signal direction. Less restrictive than 1D alone, while preserving macro protection."><strong>12h OR 1D</strong> &mdash; modo dual que aprova o alerta quando <em>pelo menos um</em> dos dois timeframes (12h ou 1D) est&aacute; alinhado com a dire&ccedil;&atilde;o do sinal. Menos restritivo que 1D puro, mantendo prote&ccedil;&atilde;o macro.</li>
+    </ul>
+    <p class="reveal" data-pt="O modo dual &eacute; o padr&atilde;o do perfil <strong>Backtest P&uacute;blico 15m</strong> e foi escolhido por reduzir o n&uacute;mero de trades bloqueados em transi&ccedil;&otilde;es de regime sem sacrificar a qualidade do filtro." data-en="The dual mode is the default for the <strong>Public Backtest 15m</strong> profile and was chosen for reducing the number of trades blocked during regime transitions without sacrificing filter quality.">O modo dual &eacute; o padr&atilde;o do perfil <strong>Backtest P&uacute;blico 15m</strong> e foi escolhido por reduzir o n&uacute;mero de trades bloqueados em transi&ccedil;&otilde;es de regime sem sacrificar a qualidade do filtro.</p>
 
     <h4 class="reveal" data-pt="Dist&acirc;ncia M&iacute;nima do Stop" data-en="Min Stop Distance">Min Stop Distance</h4>
     <p class="reveal" data-pt="Suprime alertas quando a dist&acirc;ncia entre entry e stop loss &eacute; menor que um percentual m&iacute;nimo do pre&ccedil;o de entrada (padr&atilde;o: 0.25%). Evita trades com stop loss extremamente apertado que teriam alta chance de ser atingidos por ru&iacute;do." data-en="Suppresses alerts when the distance between entry and stop loss is less than a minimum percentage of the entry price (default: 0.25%). Avoids trades with extremely tight stop losses that would likely get hit by noise.">Suprime alertas quando a dist&acirc;ncia entre entry e stop loss &eacute; menor que um percentual m&iacute;nimo do pre&ccedil;o de entrada (padr&atilde;o: 0.25%). Evita trades com stop loss extremamente apertado que teriam alta chance de ser atingidos por ru&iacute;do.</p>
@@ -1069,6 +1152,29 @@ footer p {
   </div>
 </section>
 
+<!-- ═══════════════════ EMAs ═══════════════════ -->
+<section id="emas">
+  <div class="container">
+    <div class="section-label" data-pt="Ferramentas Visuais" data-en="Visual Tools">Ferramentas Visuais</div>
+    <div class="sep"></div>
+    <h2 class="reveal" data-pt="M&eacute;dias M&oacute;veis Exponenciais (EMAs)" data-en="Exponential Moving Averages (EMAs)">M&eacute;dias M&oacute;veis Exponenciais (EMAs)</h2>
+    <p class="reveal" data-pt="O indicador oferece tr&ecirc;s EMAs opcionais no gr&aacute;fico, &uacute;teis como refer&ecirc;ncia visual de momentum e tend&ecirc;ncia. Todas s&atilde;o desativadas por padr&atilde;o e n&atilde;o afetam a l&oacute;gica de sinais." data-en="The indicator offers three optional EMAs on the chart, useful as a visual reference for momentum and trend. All are disabled by default and do not affect signal logic.">O indicador oferece tr&ecirc;s EMAs opcionais no gr&aacute;fico, &uacute;teis como refer&ecirc;ncia visual de momentum e tend&ecirc;ncia. Todas s&atilde;o desativadas por padr&atilde;o e n&atilde;o afetam a l&oacute;gica de sinais.</p>
+
+    <ul class="manual-list reveal">
+      <li data-pt="<strong>EMA 12</strong> (verde) &mdash; momentum de curto prazo." data-en="<strong>EMA 12</strong> (green) &mdash; short-term momentum."><strong>EMA 12</strong> (verde) &mdash; momentum de curto prazo.</li>
+      <li data-pt="<strong>EMA 26</strong> (azul) &mdash; tend&ecirc;ncia de m&eacute;dio prazo." data-en="<strong>EMA 26</strong> (blue) &mdash; medium-term trend."><strong>EMA 26</strong> (azul) &mdash; tend&ecirc;ncia de m&eacute;dio prazo.</li>
+      <li data-pt="<strong>EMA 200</strong> (vermelha) &mdash; tend&ecirc;ncia de longo prazo." data-en="<strong>EMA 200</strong> (red) &mdash; long-term trend."><strong>EMA 200</strong> (vermelha) &mdash; tend&ecirc;ncia de longo prazo.</li>
+    </ul>
+
+    <p class="reveal" data-pt="As cores e a espessura das linhas s&atilde;o configur&aacute;veis no grupo <em>🎨 VISUAL &mdash; EMAs</em>. Ative cada EMA individualmente conforme sua prefer&ecirc;ncia de leitura." data-en="Line colors and width are configurable in the <em>🎨 VISUAL &mdash; EMAs</em> group. Enable each EMA individually according to your reading preference.">As cores e a espessura das linhas s&atilde;o configur&aacute;veis no grupo <em>🎨 VISUAL &mdash; EMAs</em>. Ative cada EMA individualmente conforme sua prefer&ecirc;ncia de leitura.</p>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Nota" data-en="Note">Nota</div>
+      <p style="margin:0;" data-pt="As EMAs s&atilde;o puramente visuais. O filtro macro interno utiliza EMA 200 e MA 200 do timeframe superior (ver <a href='#filters'>Filtros de Trade</a>) &mdash; independente destas EMAs no gr&aacute;fico." data-en="The EMAs are purely visual. The internal macro filter uses EMA 200 and MA 200 from the higher timeframe (see <a href='#filters'>Trade Filters</a>) &mdash; independent from these chart EMAs.">As EMAs s&atilde;o puramente visuais. O filtro macro interno utiliza EMA 200 e MA 200 do timeframe superior (ver <a href="#filters">Filtros de Trade</a>) &mdash; independente destas EMAs no gr&aacute;fico.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════════ CONFIGURAÇÕES RECOMENDADAS ═══════════════════ -->
 <section id="configs">
   <div class="container">
@@ -1083,9 +1189,31 @@ footer p {
       <p data-pt="Para cada timeframe (15m, 1h, 4h e 1D), testamos mais de 180 combina&ccedil;&otilde;es de par&acirc;metros (K, Strictness, Break Mode, Alert Mode e Macro Filter) usando dados hist&oacute;ricos de BTCUSDT Perpetual na Bybit com comiss&atilde;o real inclusa.<br><br>Os dados foram divididos ao meio: a primeira metade para otimiza&ccedil;&atilde;o (treino) e a segunda metade para valida&ccedil;&atilde;o (forward test). Apenas configura&ccedil;&otilde;es que mantiveram Profit Factor acima de 1.5 em dados nunca vistos foram aprovadas.<br><br>O timeframe de 5 minutos foi testado e <strong>reprovado</strong> no forward test (PF 0.93), demonstrando que o processo &eacute; rigoroso e n&atilde;o promove configura&ccedil;&otilde;es que n&atilde;o funcionam." data-en="For each timeframe (15m, 1h, 4h and 1D), we tested over 180 parameter combinations (K, Strictness, Break Mode, Alert Mode and Macro Filter) using historical BTCUSDT Perpetual data from Bybit with real commissions included.<br><br>Data was split in half: the first half for optimization (training) and the second half for validation (forward test). Only configurations that maintained a Profit Factor above 1.5 on unseen data were approved.<br><br>The 5-minute timeframe was tested and <strong>rejected</strong> on the forward test (PF 0.93), demonstrating that the process is rigorous and does not promote configurations that don't work.">Para cada timeframe (15m, 1h, 4h e 1D), testamos mais de 180 combina&ccedil;&otilde;es de par&acirc;metros (K, Strictness, Break Mode, Alert Mode e Macro Filter) usando dados hist&oacute;ricos de BTCUSDT Perpetual na Bybit com comiss&atilde;o real inclusa.<br><br>Os dados foram divididos ao meio: a primeira metade para otimiza&ccedil;&atilde;o (treino) e a segunda metade para valida&ccedil;&atilde;o (forward test). Apenas configura&ccedil;&otilde;es que mantiveram Profit Factor acima de 1.5 em dados nunca vistos foram aprovadas.<br><br>O timeframe de 5 minutos foi testado e <strong>reprovado</strong> no forward test (PF 0.93), demonstrando que o processo &eacute; rigoroso e n&atilde;o promove configura&ccedil;&otilde;es que n&atilde;o funcionam.</p>
     </div>
 
+    <!-- Backtest Publico 15m -->
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Backtest P&uacute;blico &mdash; 15m" data-en="Public Backtest &mdash; 15m">Backtest P&uacute;blico &mdash; 15m</div>
+      <p data-pt="Configura&ccedil;&atilde;o exata utilizada no <a href='backtest.html'>backtest publicado</a>. Replica a mesma l&oacute;gica que produziu o hist&oacute;rico divulgado. Macro dual (12h OR 1D), alto Strictness e exig&ecirc;ncia de FVG no impulso." data-en="Exact configuration used in the <a href='backtest.html'>published backtest</a>. Replicates the same logic that produced the disclosed history. Dual macro (12h OR 1D), high Strictness and FVG requirement in the impulse.">Configura&ccedil;&atilde;o exata utilizada no <a href="backtest.html">backtest publicado</a>. Replica a mesma l&oacute;gica que produziu o hist&oacute;rico divulgado. Macro dual (12h OR 1D), alto Strictness e exig&ecirc;ncia de FVG no impulso.</p>
+      <div class="table-wrap">
+        <table class="config-table" style="margin:0;">
+          <thead><tr><th data-pt="Par&acirc;metro" data-en="Parameter">Par&acirc;metro</th><th data-pt="Valor" data-en="Value">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Fractal K</td><td>2</td></tr>
+            <tr><td>Break mode</td><td>close_strict</td></tr>
+            <tr><td>Strictness</td><td>7</td></tr>
+            <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
+            <tr><td>Macro filter</td><td>ON (12h OR 1D)</td></tr>
+            <tr><td>OB validity filter</td><td>ON</td></tr>
+            <tr><td>Require FVG</td><td>ON</td></tr>
+            <tr><td>Min stop</td><td>0.25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0;font-size:15px;" data-pt="Recomendado para usu&aacute;rios que querem resultados alinhados com o hist&oacute;rico publicado em <a href='backtest.html'>engine.abdallacrypto.com/backtest</a>." data-en="Recommended for users who want results aligned with the history published at <a href='backtest.html'>engine.abdallacrypto.com/backtest</a>.">Recomendado para usu&aacute;rios que querem resultados alinhados com o hist&oacute;rico publicado em <a href="backtest.html">engine.abdallacrypto.com/backtest</a>.</p>
+    </div>
+
     <!-- Scalper -->
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green" data-pt="Scalper / Day Trader &mdash; 15m" data-en="Scalper / Day Trader &mdash; 15m">Scalper / Day Trader &mdash; 15m</div>
+      <div class="info-card-tag green" data-pt="Scalper &mdash; 15m" data-en="Scalper &mdash; 15m">Scalper &mdash; 15m</div>
       <p data-pt="Opera no 15 minutos, entra e sai no mesmo dia. Macro filter ativo para operar s&oacute; a favor da tend&ecirc;ncia di&aacute;ria." data-en="Trades on the 15-minute chart, enters and exits same day. Macro filter active to trade only with the daily trend.">Opera no 15 minutos, entra e sai no mesmo dia. Macro filter ativo para operar s&oacute; a favor da tend&ecirc;ncia di&aacute;ria.</p>
       <div class="table-wrap">
         <table class="config-table" style="margin:0;">
@@ -1095,7 +1223,7 @@ footer p {
             <tr><td>Break mode</td><td>close_strict</td></tr>
             <tr><td>Strictness</td><td>2</td></tr>
             <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
-            <tr><td>Macro filter</td><td>ON (1D)</td></tr>
+            <tr><td>Macro filter</td><td>ON</td></tr>
             <tr><td>Min stop</td><td>0.25%</td></tr>
           </tbody>
         </table>
@@ -1105,7 +1233,7 @@ footer p {
 
     <!-- Swing 1h -->
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green" data-pt="Swing Trader &mdash; 1h" data-en="Swing Trader &mdash; 1h">Swing Trader &mdash; 1h</div>
+      <div class="info-card-tag green" data-pt="Day Trade &mdash; 1h" data-en="Day Trade &mdash; 1h">Day Trade &mdash; 1h</div>
       <p data-pt="Opera no gr&aacute;fico de 1 hora. Segura posi&ccedil;&atilde;o por horas a dias. Macro filter ativo." data-en="Trades on the 1-hour chart. Holds positions for hours to days. Macro filter active.">Opera no gr&aacute;fico de 1 hora. Segura posi&ccedil;&atilde;o por horas a dias. Macro filter ativo.</p>
       <div class="table-wrap">
         <table class="config-table" style="margin:0;">
@@ -1115,7 +1243,7 @@ footer p {
             <tr><td>Break mode</td><td>close_strict</td></tr>
             <tr><td>Strictness</td><td>5</td></tr>
             <tr><td>Alert mode</td><td>FIBO_618_079_ZONE</td></tr>
-            <tr><td>Macro filter</td><td>ON (1D)</td></tr>
+            <tr><td>Macro filter</td><td>ON</td></tr>
             <tr><td>Min stop</td><td>0.25%</td></tr>
           </tbody>
         </table>
@@ -1125,7 +1253,7 @@ footer p {
 
     <!-- Swing 4h -->
     <div class="info-card accent-border reveal">
-      <div class="info-card-tag green" data-pt="Swing Trader &mdash; 4h" data-en="Swing Trader &mdash; 4h">Swing Trader &mdash; 4h</div>
+      <div class="info-card-tag green" data-pt="Swing &mdash; 4h" data-en="Swing &mdash; 4h">Swing &mdash; 4h</div>
       <p data-pt="Opera no gr&aacute;fico de 4 horas. Trades duram dias a semanas. Sem macro filter (a pr&oacute;pria estrutura 4h j&aacute; filtra)." data-en="Trades on the 4-hour chart. Trades last days to weeks. No macro filter (4h structure already filters).">Opera no gr&aacute;fico de 4 horas. Trades duram dias a semanas. Sem macro filter (a pr&oacute;pria estrutura 4h j&aacute; filtra).</p>
       <div class="table-wrap">
         <table class="config-table" style="margin:0;">
@@ -1182,11 +1310,12 @@ footer p {
     <h2 class="reveal">FAQ / Troubleshooting</h2>
 
     <div class="info-card reveal" style="margin-top:0;">
-      <h4 style="margin-top:0;" data-pt="Qual a diferença entre os perfis Scalper, Day Trade e Swing?" data-en="What is the difference between the Scalper, Day Trade and Swing profiles?">Qual a diferença entre os perfis Scalper, Day Trade e Swing?</h4>
+      <h4 style="margin-top:0;" data-pt="Qual a diferença entre os perfis disponíveis?" data-en="What is the difference between the available profiles?">Qual a diferença entre os perfis disponíveis?</h4>
       <p data-pt="Cada perfil ajusta automaticamente a sensibilidade do indicador para um estilo de operação diferente:" data-en="Each profile automatically adjusts the indicator's sensitivity for a different trading style:">Cada perfil ajusta automaticamente a sensibilidade do indicador para um estilo de operação diferente:</p>
       <ul class="manual-list" style="margin-top:8px;">
-        <li data-pt="<strong>Scalper 15m</strong> — Use no gráfico de 15 minutos. Mais sinais, mais oportunidades. Ideal para quem acompanha o gráfico ativamente. Trades duram de minutos a poucas horas. Opera apenas a favor da tendência macro (filtro 1D ativo)." data-en="<strong>Scalper 15m</strong> — Use on the 15-minute chart. More signals, more opportunities. Ideal for those who actively watch the chart. Trades last from minutes to a few hours. Only trades in the direction of the macro trend (1D filter active)."><strong>Scalper 15m</strong> — Use no gráfico de 15 minutos. Mais sinais, mais oportunidades. Ideal para quem acompanha o gráfico ativamente. Trades duram de minutos a poucas horas. Opera apenas a favor da tendência macro (filtro 1D ativo).</li>
-        <li data-pt="<strong>Day Trade 1h</strong> — Use no gráfico de 1 hora. Equilíbrio entre frequência e qualidade dos sinais. Não precisa ficar grudado no gráfico — basta checar a cada hora. Trades duram de horas a 1 dia. Opera apenas a favor da tendência macro (filtro 1D ativo)." data-en="<strong>Day Trade 1h</strong> — Use on the 1-hour chart. Balance between signal frequency and quality. No need to watch the chart constantly — just check every hour. Trades last from hours to 1 day. Only trades in the direction of the macro trend (1D filter active)."><strong>Day Trade 1h</strong> — Use no gráfico de 1 hora. Equilíbrio entre frequência e qualidade dos sinais. Não precisa ficar grudado no gráfico — basta checar a cada hora. Trades duram de horas a 1 dia. Opera apenas a favor da tendência macro (filtro 1D ativo).</li>
+        <li data-pt="<strong>Backtest Público 15m</strong> — Use no gráfico de 15 minutos. Replica a configuração exata do backtest publicado em engine.abdallacrypto.com/backtest. Strictness alto (7), exigência de FVG no impulso e filtro macro dual (12h OR 1D). Recomendado para usuários que querem resultados alinhados com o histórico divulgado." data-en="<strong>Public Backtest 15m</strong> — Use on the 15-minute chart. Replicates the exact configuration of the backtest published at engine.abdallacrypto.com/backtest. High strictness (7), FVG requirement in the impulse and dual macro filter (12h OR 1D). Recommended for users who want results aligned with the disclosed history."><strong>Backtest Público 15m</strong> — Use no gráfico de 15 minutos. Replica a configuração exata do backtest publicado em engine.abdallacrypto.com/backtest. Strictness alto (7), exigência de FVG no impulso e filtro macro dual (12h OR 1D). Recomendado para usuários que querem resultados alinhados com o histórico divulgado.</li>
+        <li data-pt="<strong>Scalper 15m</strong> — Use no gráfico de 15 minutos. Mais sinais, mais oportunidades. Ideal para quem acompanha o gráfico ativamente. Trades duram de minutos a poucas horas. Opera apenas a favor da tendência macro (filtro ativo)." data-en="<strong>Scalper 15m</strong> — Use on the 15-minute chart. More signals, more opportunities. Ideal for those who actively watch the chart. Trades last from minutes to a few hours. Only trades in the direction of the macro trend (filter active)."><strong>Scalper 15m</strong> — Use no gráfico de 15 minutos. Mais sinais, mais oportunidades. Ideal para quem acompanha o gráfico ativamente. Trades duram de minutos a poucas horas. Opera apenas a favor da tendência macro (filtro ativo).</li>
+        <li data-pt="<strong>Day Trade 1h</strong> — Use no gráfico de 1 hora. Equilíbrio entre frequência e qualidade dos sinais. Não precisa ficar grudado no gráfico — basta checar a cada hora. Trades duram de horas a 1 dia. Opera apenas a favor da tendência macro (filtro ativo)." data-en="<strong>Day Trade 1h</strong> — Use on the 1-hour chart. Balance between signal frequency and quality. No need to watch the chart constantly — just check every hour. Trades last from hours to 1 day. Only trades in the direction of the macro trend (filter active)."><strong>Day Trade 1h</strong> — Use no gráfico de 1 hora. Equilíbrio entre frequência e qualidade dos sinais. Não precisa ficar grudado no gráfico — basta checar a cada hora. Trades duram de horas a 1 dia. Opera apenas a favor da tendência macro (filtro ativo).</li>
         <li data-pt="<strong>Swing 4h</strong> — Use no gráfico de 4 horas. Poucos sinais, mas com alta convicção. Ideal para quem prefere configurar o alerta e esperar. Trades duram de dias a semanas. Opera em ambas as direções (filtro macro desativado, pois os movimentos já são grandes o suficiente)." data-en="<strong>Swing 4h</strong> — Use on the 4-hour chart. Fewer signals, but with high conviction. Ideal for those who prefer to set alerts and wait. Trades last from days to weeks. Trades in both directions (macro filter off, as moves are already large enough)."><strong>Swing 4h</strong> — Use no gráfico de 4 horas. Poucos sinais, mas com alta convicção. Ideal para quem prefere configurar o alerta e esperar. Trades duram de dias a semanas. Opera em ambas as direções (filtro macro desativado, pois os movimentos já são grandes o suficiente).</li>
       </ul>
       <p style="margin-top:10px;" data-pt="<strong>Dica:</strong> Selecione o perfil no dropdown e o indicador ajusta tudo automaticamente. Você não precisa alterar nenhum outro parâmetro. Se quiser personalizar, escolha &quot;Custom&quot;." data-en="<strong>Tip:</strong> Select the profile from the dropdown and the indicator adjusts everything automatically. You don't need to change any other parameter. If you want to customize, choose &quot;Custom&quot;."><strong>Dica:</strong> Selecione o perfil no dropdown e o indicador ajusta tudo automaticamente. Você não precisa alterar nenhum outro parâmetro. Se quiser personalizar, escolha "Custom".</p>
@@ -1196,7 +1325,7 @@ footer p {
       <h4 style="margin-top:0;" data-pt="Como configurar o alerta corretamente?" data-en="How to set up alerts correctly?">Como configurar o alerta corretamente?</h4>
       <p data-pt="Selecionar um perfil e adicionar o indicador no gráfico <strong>não é suficiente</strong>. Você precisa criar o alerta manualmente no TradingView. Siga estes passos:" data-en="Selecting a profile and adding the indicator to the chart <strong>is not enough</strong>. You need to manually create the alert in TradingView. Follow these steps:">Selecionar um perfil e adicionar o indicador no gráfico <strong>não é suficiente</strong>. Você precisa criar o alerta manualmente no TradingView. Siga estes passos:</p>
       <ol class="manual-list" style="margin-top:8px;">
-        <li data-pt="Abra o gráfico <strong>no timeframe do perfil escolhido</strong> (15m para Scalper, 1h para Day Trade, 4h para Swing)" data-en="Open the chart <strong>on the timeframe of your chosen profile</strong> (15m for Scalper, 1h for Day Trade, 4h for Swing)">Abra o gráfico <strong>no timeframe do perfil escolhido</strong> (15m para Scalper, 1h para Day Trade, 4h para Swing)</li>
+        <li data-pt="Abra o gráfico <strong>no timeframe do perfil escolhido</strong> (15m para Backtest Público ou Scalper, 1h para Day Trade, 4h para Swing)" data-en="Open the chart <strong>on the timeframe of your chosen profile</strong> (15m for Public Backtest or Scalper, 1h for Day Trade, 4h for Swing)">Abra o gráfico <strong>no timeframe do perfil escolhido</strong> (15m para Backtest Público ou Scalper, 1h para Day Trade, 4h para Swing)</li>
         <li data-pt="Adicione o indicador e selecione o perfil desejado" data-en="Add the indicator and select the desired profile">Adicione o indicador e selecione o perfil desejado</li>
         <li data-pt="Clique no ícone de <strong>Alertas</strong> (sino) e depois em <strong>Criar alerta</strong>" data-en="Click the <strong>Alerts</strong> icon (bell) then <strong>Create alert</strong>">Clique no ícone de <strong>Alertas</strong> (sino) e depois em <strong>Criar alerta</strong></li>
         <li data-pt="Em Condição, selecione o indicador SMC Engine PRO e escolha <strong>&quot;Any alert() function call&quot;</strong>" data-en="Under Condition, select the SMC Engine PRO indicator and choose <strong>&quot;Any alert() function call&quot;</strong>">Em Condição, selecione o indicador SMC Engine PRO e escolha <strong>"Any alert() function call"</strong></li>
@@ -1266,6 +1395,11 @@ footer p {
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer>
   <div class="container">
+    <p style="text-align:center;margin-bottom:14px;font-family:var(--font-mono);font-size:13px;">
+      <a href="release-notes.html" style="color:var(--text-secondary);text-decoration:none;margin:0 12px;" data-pt="Notas de Lançamento" data-en="Release Notes">Notas de Lançamento</a>
+      <span style="color:var(--text-muted);">·</span>
+      <a href="https://engine.abdallacrypto.com" style="color:var(--text-secondary);text-decoration:none;margin:0 12px;" data-pt="Início" data-en="Home">Início</a>
+    </p>
     <p data-pt="© 2026 SMC Execution Engine. Todos os direitos reservados." data-en="© 2026 SMC Execution Engine. All rights reserved.">© 2026 SMC Execution Engine. Todos os direitos reservados.</p>
   </div>
 </footer>
@@ -1340,5 +1474,6 @@ if (window.innerWidth >= 1100) {
 </script>
 
 <script src="chat-widget.js"></script>
+<script src="release-banner.js"></script>
 </body>
 </html>
