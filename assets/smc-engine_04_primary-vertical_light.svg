@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 298 192" role="img">
+<title>SMC Execution Engine — primary vertical (light mode)</title>
+<desc>Wordmark vertical pra fundos claros. Cor base #030a06 com accent dot em verde neon #00ff64.</desc>
+<path d="M24 28 L24 42 M24 28 L38 28" stroke="#030a06" stroke-width="2" fill="none"/>
+<path d="M264 28 L264 42 M264 28 L250 28" stroke="#030a06" stroke-width="2" fill="none"/>
+<path d="M24 168 L24 154 M24 168 L38 168" stroke="#030a06" stroke-width="2" fill="none"/>
+<path d="M264 168 L264 154 M264 168 L250 168" stroke="#030a06" stroke-width="2" fill="none"/>
+<text x="144" y="115" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="50" font-weight="500" fill="#030a06" text-anchor="middle" letter-spacing="3">SMC</text>
+<line x1="54" y1="128" x2="234" y2="128" stroke="#030a06" stroke-width="0.6" stroke-opacity="0.35"/>
+<text x="144" y="148" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#030a06" text-anchor="middle" letter-spacing="6" fill-opacity="0.85">EXECUTION ENGINE</text>
+<circle cx="271" cy="24" r="3" fill="#00ff64"/>
+</svg>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 2 — Backtest Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0a0a0f; font-family: 'DM Sans', sans-serif; color: #e8e8f0; }
+body {
+  position: relative;
+  padding: 90px 80px;
+  display: flex;
+  flex-direction: column;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,46,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.label {
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  letter-spacing: 5px;
+  color: #00ff88;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.title {
+  position: relative;
+  font-size: 92px;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+.title .accent { color: #00ff88; }
+.subtitle {
+  position: relative;
+  font-size: 38px;
+  color: #8888a0;
+  line-height: 1.4;
+  margin-bottom: 50px;
+  max-width: 880px;
+}
+.dropdown-mock {
+  position: relative;
+  background: #12121e;
+  border: 2px solid #1a1a2e;
+  border-radius: 14px;
+  padding: 28px 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 32px;
+  margin-top: auto;
+}
+.dropdown-mock .field-label {
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: #555570;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.option {
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #555570;
+}
+.option.selected {
+  background: rgba(0,255,136,0.10);
+  border-left: 4px solid #00ff88;
+  color: #00ff88;
+  font-weight: 700;
+}
+.option.selected::before {
+  content: '✓ ';
+  color: #00ff88;
+}
+.footer {
+  position: relative;
+  margin-top: 30px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  color: #555570;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+<div class="label">NOVO PERFIL</div>
+<h1 class="title">A config <span class="accent">exata</span><br>do backtest<br>publicado.</h1>
+<p class="subtitle">Em 1 clique. Sem ajuste manual. Mesmo resultado.</p>
+
+<div class="dropdown-mock">
+  <div class="field-label">📡 SIGNAL — Profile</div>
+  <div class="option selected">Backtest Público 15m</div>
+  <div class="option">Scalper 15m</div>
+  <div class="option">Day Trade 1h</div>
+  <div class="option">Swing 4h</div>
+  <div class="option">Custom</div>
+</div>
+
+<div class="footer">engine.abdallacrypto.com/backtest</div>
+</body>
+</html>

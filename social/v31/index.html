@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>v3.1 — Carrossel Instagram (Preview + Captura)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a2e; color: #e8e8f0; font-family: system-ui, sans-serif; padding: 40px 20px; }
+h1 { font-size: 24px; margin-bottom: 8px; }
+p { color: #aaa; margin-bottom: 30px; line-height: 1.6; }
+.instructions {
+  background: #12121e;
+  border: 1px solid #00ff88;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 40px;
+  max-width: 900px;
+}
+.instructions ol { padding-left: 24px; line-height: 1.8; }
+.instructions code { background: #1a1a2e; padding: 2px 6px; border-radius: 4px; color: #00ff88; font-size: 13px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.slide-card {
+  background: #0a0a0f;
+  border: 1px solid #2a2a3a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.slide-card header {
+  padding: 12px 16px;
+  background: #12121e;
+  border-bottom: 1px solid #2a2a3a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slide-card header h2 { font-size: 14px; color: #00ff88; }
+.slide-card header a { font-size: 12px; color: #aaa; text-decoration: none; padding: 4px 10px; border: 1px solid #2a2a3a; border-radius: 4px; }
+.slide-card header a:hover { border-color: #00ff88; color: #00ff88; }
+.slide-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.slide-frame iframe {
+  width: 1080px;
+  height: 1080px;
+  border: 0;
+  transform: scale(0.555);
+  transform-origin: top left;
+}
+.slide-frame {
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+@media (max-width: 1280px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<h1>v3.1 — Carrossel Instagram (6 slides)</h1>
+<p>Preview de cada slide a 55%. Clique em "Abrir slide" pra ver em 1080×1080 real e capturar.</p>
+
+<div class="instructions">
+  <strong style="color:#00ff88;font-size:16px;">Como capturar cada slide:</strong>
+  <ol>
+    <li>Clique em <code>Abrir slide</code> abaixo de cada um pra abrir no tamanho real (1080×1080)</li>
+    <li>No Windows: usa o <code>Ferramenta de Captura</code> (Win+Shift+S) → seleciona área → cola no Paint → salva como PNG</li>
+    <li>No Mac: <code>Cmd+Shift+4</code> → seleciona área → arquivo vai pro Desktop</li>
+    <li>Alternativa mais limpa: instala extensão "GoFullPage" ou similar no Chrome → captura página inteira</li>
+    <li>Posta no Instagram na ordem 1 → 6</li>
+  </ol>
+</div>
+
+<div class="grid">
+  <div class="slide-card">
+    <header><h2>Slide 1 — Hero</h2><a href="slide-1-hero.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-1-hero.html"></iframe></div>
+  </div>
+  <div class="slide-card">
+    <header><h2>Slide 2 — Backtest Profile</h2><a href="slide-2-backtest-profile.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-2-backtest-profile.html"></iframe></div>
+  </div>
+  <div class="slide-card">
+    <header><h2>Slide 3 — HUD Gates</h2><a href="slide-3-hud-gates.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-3-hud-gates.html"></iframe></div>
+  </div>
+  <div class="slide-card">
+    <header><h2>Slide 4 — EMAs</h2><a href="slide-4-emas.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-4-emas.html"></iframe></div>
+  </div>
+  <div class="slide-card">
+    <header><h2>Slide 5 — Reorganization</h2><a href="slide-5-reorganization.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-5-reorganization.html"></iframe></div>
+  </div>
+  <div class="slide-card">
+    <header><h2>Slide 6 — CTA</h2><a href="slide-6-cta.html" target="_blank">Abrir slide ↗</a></header>
+    <div class="slide-frame"><iframe src="slide-6-cta.html"></iframe></div>
+  </div>
+</div>
+</body>
+</html>

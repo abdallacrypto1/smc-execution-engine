@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 4 — EMAs</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0a0a0f; font-family: 'DM Sans', sans-serif; color: #e8e8f0; }
+body {
+  position: relative;
+  padding: 90px 80px;
+  display: flex;
+  flex-direction: column;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,46,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.label {
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  letter-spacing: 5px;
+  color: #00ff88;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.title {
+  position: relative;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+.title .accent { color: #00ff88; }
+.subtitle {
+  position: relative;
+  font-size: 38px;
+  color: #8888a0;
+  line-height: 1.4;
+  margin-bottom: 60px;
+  max-width: 880px;
+}
+.emas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 20px;
+}
+.ema {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 40px;
+  background: #12121e;
+  border: 2px solid #1a1a2e;
+  border-radius: 14px;
+}
+.ema .swatch {
+  width: 90px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.ema-12 .swatch { background: #12f81d; box-shadow: 0 0 14px rgba(18,248,29,0.5); }
+.ema-26 .swatch { background: #2420f8; box-shadow: 0 0 14px rgba(36,32,248,0.5); }
+.ema-200 .swatch { background: #f70303; box-shadow: 0 0 14px rgba(247,3,3,0.5); }
+.ema-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 42px;
+  font-weight: 700;
+  color: #e8e8f0;
+  flex-shrink: 0;
+  width: 240px;
+}
+.ema-desc {
+  font-size: 30px;
+  color: #8888a0;
+}
+.footer {
+  position: relative;
+  margin-top: auto;
+  padding-top: 36px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  color: #555570;
+  text-align: center;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+<div class="label">VISUAL — EMAs</div>
+<h1 class="title">EMAs<br><span class="accent">opcionais</span>.</h1>
+<p class="subtitle">Três médias móveis exponenciais quando você quiser. Cor e espessura customizáveis.</p>
+
+<div class="emas">
+  <div class="ema ema-12">
+    <div class="swatch"></div>
+    <div class="ema-name">EMA 12</div>
+    <div class="ema-desc">Momentum curto</div>
+  </div>
+  <div class="ema ema-26">
+    <div class="swatch"></div>
+    <div class="ema-name">EMA 26</div>
+    <div class="ema-desc">Tendência média</div>
+  </div>
+  <div class="ema ema-200">
+    <div class="swatch"></div>
+    <div class="ema-name">EMA 200</div>
+    <div class="ema-desc">Tendência longa</div>
+  </div>
+</div>
+
+<div class="footer">DESATIVADAS POR PADRÃO · NÃO AFETAM SINAIS</div>
+</body>
+</html>

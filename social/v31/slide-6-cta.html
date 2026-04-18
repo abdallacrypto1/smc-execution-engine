@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 6 — CTA</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0a0a0f; font-family: 'DM Sans', sans-serif; color: #e8e8f0; }
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 70px 80px;
+  background:
+    radial-gradient(ellipse at center, rgba(0,255,136,0.10) 0%, transparent 65%),
+    #0a0a0f;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,46,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.label {
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  letter-spacing: 6px;
+  color: #00ff88;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.title {
+  position: relative;
+  font-size: 104px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+}
+.title .accent {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.subtitle {
+  position: relative;
+  font-size: 34px;
+  color: #8888a0;
+  line-height: 1.4;
+  margin-bottom: 44px;
+  max-width: 800px;
+}
+.box {
+  position: relative;
+  background: linear-gradient(135deg, #12121e, #181828);
+  border: 2px solid #1a1a2e;
+  border-radius: 18px;
+  padding: 28px 48px;
+  margin-bottom: 22px;
+  width: 100%;
+  max-width: 760px;
+}
+.box .step-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #00ff88;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.box .step-desc {
+  font-size: 32px;
+  color: #e8e8f0;
+  text-align: left;
+  line-height: 1.4;
+}
+.box .step-desc .url {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #00ff88;
+  font-size: 28px;
+}
+.bio-cta {
+  position: relative;
+  margin-top: 18px;
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  padding: 18px 44px;
+  border-radius: 14px;
+  color: #0a0a0f;
+  box-shadow: 0 0 50px rgba(0,255,136,0.4);
+}
+</style>
+</head>
+<body>
+<div class="label">DISPONÍVEL AGORA</div>
+<h1 class="title">Atualize<br><span class="accent">no TradingView</span>.</h1>
+<p class="subtitle">A v3.1 é gratuita pra todos os clientes PRO. Atualização automática.</p>
+
+<div class="box">
+  <div class="step-label">📖 Manual completo</div>
+  <div class="step-desc"><span class="url">engine.abdallacrypto.com/manual</span></div>
+</div>
+
+<div class="box">
+  <div class="step-label">📋 Notas de lançamento</div>
+  <div class="step-desc"><span class="url">engine.abdallacrypto.com/release-notes</span></div>
+</div>
+
+<div class="bio-cta">🔗 Link na bio</div>
+</body>
+</html>

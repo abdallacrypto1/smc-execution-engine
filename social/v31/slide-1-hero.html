@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 1 — Hero</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0a0a0f; font-family: 'DM Sans', sans-serif; color: #e8e8f0; }
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at center top, rgba(0,255,136,0.12) 0%, transparent 60%),
+    #0a0a0f;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,46,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.brand {
+  position: absolute;
+  top: 56px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  letter-spacing: 6px;
+  color: #8888a0;
+  text-transform: uppercase;
+}
+.brand b { color: #00ff88; }
+.badge {
+  position: relative;
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: #00ff88;
+  background: rgba(0,255,136,0.10);
+  border: 3px solid #00ff88;
+  padding: 18px 42px;
+  border-radius: 60px;
+  margin-bottom: 56px;
+  box-shadow: 0 0 60px rgba(0,255,136,0.35);
+}
+.title {
+  position: relative;
+  font-size: 180px;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  background: linear-gradient(135deg, #ffffff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 32px;
+}
+.subtitle {
+  position: relative;
+  font-size: 42px;
+  color: #8888a0;
+  font-weight: 400;
+  max-width: 800px;
+  line-height: 1.4;
+}
+.url {
+  position: absolute;
+  bottom: 56px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: #555570;
+}
+</style>
+</head>
+<body>
+<div class="brand">SMC <b>EXECUTION ENGINE</b> PRO</div>
+<div class="badge">v3.1</div>
+<h1 class="title">ESTÁ<br>AQUI.</h1>
+<p class="subtitle">A maior atualização desde o lançamento da v3.0 chegou ao TradingView.</p>
+<div class="url">engine.abdallacrypto.com</div>
+</body>
+</html>

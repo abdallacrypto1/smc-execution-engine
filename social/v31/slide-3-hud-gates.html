@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Slide 3 — HUD Gates</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0a0a0f; font-family: 'DM Sans', sans-serif; color: #e8e8f0; }
+body {
+  position: relative;
+  padding: 90px 80px;
+  display: flex;
+  flex-direction: column;
+}
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,26,46,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,26,46,0.7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+.label {
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 26px;
+  letter-spacing: 5px;
+  color: #a78bfa;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.title {
+  position: relative;
+  font-size: 88px;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+.title .accent { color: #00ff88; }
+.subtitle {
+  position: relative;
+  font-size: 36px;
+  color: #8888a0;
+  line-height: 1.4;
+  margin-bottom: 50px;
+  max-width: 880px;
+}
+.hud-line {
+  position: relative;
+  background: linear-gradient(135deg, #12121e, #181828);
+  border: 2px solid #00ff88;
+  border-radius: 16px;
+  padding: 38px 44px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 78px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 6px;
+  margin: 0 auto 50px;
+  box-shadow: 0 0 60px rgba(0,255,136,0.25);
+  display: inline-block;
+}
+.hud-line .ok { color: #00ff88; }
+.hud-line .off { color: #555570; }
+.hud-line .warn { color: #ffaa00; }
+.hud-line .label-s { color: #a78bfa; }
+.legend {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 40px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  margin-top: auto;
+}
+.legend .item { color: #8888a0; }
+.legend .item b { color: #e8e8f0; }
+.legend .ok { color: #00ff88; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="label">HUD EM TEMPO REAL</div>
+<h1 class="title">Veja por que<br>o alerta <span class="accent">não disparou</span>.</h1>
+<p class="subtitle">Status compacto dos filtros do Order Block, atualizado intrabar.</p>
+
+<div style="text-align:center; position:relative;">
+  <div class="hud-line">
+    <span class="label-s">S7</span> <span class="ok">A✓</span> <span class="ok">F✓</span> <span class="off">V—</span> <span class="warn">L10</span>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="item"><b>S</b> Strictness configurado</div>
+  <div class="item"><b>A</b> ATR displacement</div>
+  <div class="item"><b>F</b> Fair Value Gap</div>
+  <div class="item"><b>V</b> Volume</div>
+  <div class="item"><b>L</b> Lookahead restante</div>
+  <div class="item"><span class="ok">✓ ok</span> &nbsp;✗ falta &nbsp;— off &nbsp;· n/a</div>
+</div>
+</body>
+</html>
