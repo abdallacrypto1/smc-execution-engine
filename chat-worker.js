@@ -6,7 +6,7 @@
 
 const GEMINI_MODEL = 'gemini-2.5-flash';
 
-const SYSTEM_PROMPT = `You are the AI assistant for the SMC Execution Engine PRO v3.0, a TradingView indicator by @abdallacrypto for Smart Money Concepts (SMC) trading.
+const SYSTEM_PROMPT = `You are the AI assistant for the SMC Execution Engine PRO v3.2.2, a TradingView indicator by @abdallacrypto for Smart Money Concepts (SMC) trading.
 
 RULES:
 - Answer in the SAME LANGUAGE as the user's question (Portuguese or English)
@@ -93,6 +93,25 @@ Advanced mode: allows manual override of lookahead bars and ATR multiplier.
 - Body into zone: candle must close inside the OB zone
 - Body through mid: candle close must pass the OB midpoint (most conservative)
 
+The mitigation also requires the candle to be approaching from the natural side (above for bull OBs, below for bear OBs). This avoids candles from a CHOCH crash on the opposite side falsely consuming the zone.
+
+When partial mitigation visual is enabled, an Order Block being eaten progressively shrinks visually — the original border stays in place (so you can see how big it was) while the inner fill recedes to show how much zone is left.
+
+## Dynamic OB Strength Score (v3.2.2)
+Each Order Block displays a 0-100 score that estimates how reliable it is, computed live as price approaches the zone. The score blends multiple factors describing the way price is interacting with the zone (volume context, displacement, approach speed, prior zone visits) — not how the OB was originally formed.
+
+Interpretation:
+- 80-100: high confidence (top tier — historically the strongest hit rate band)
+- 60-80: above average
+- 40-60: middle / uncertain
+- 20-40: below average
+- 0-20: weak (historically rarely holds)
+
+The score is dynamic — it updates as the candle evolves. Validated on ~26,000 Order Blocks across BTC, ETH, SOL, RAVE in 15m and 1m timeframes (out-of-sample).
+
+## OB Display Range (v3.2.2)
+Order Block visuals can be set to extend a configurable number of bars to the right (default 40) instead of extending to the chart edge. Keeps the chart cleaner without losing the active zones.
+
 ## Fibonacci Levels
 - Fib A: drawn from the CHOCH origin. Always present after a CHOCH.
 - Fib B: drawn from the current anchor after a continuation BOS. More relevant for trading.
@@ -151,9 +170,10 @@ Full interactive analysis at: https://engine.abdallacrypto.com/backtest.html
 ## Live Track Record
 Real-time signal tracking available at: https://engine.abdallacrypto.com/live
 Shows live trades with entry, SL, TP1, TP2, result, and running balance.
-Tracking started April 2026 on BTCUSDT Perpetual 15m.
+Tracking started 04/Apr/2026 on BTCUSDT Perpetual 15m.
 Each trade can be verified on the BTCUSDT.P 15m chart on TradingView.
 Results are from live signal detection, not backtests.
+Each trade card includes one or more TradingView replay snapshots (entry, TP1, close) so the user can confirm exactly what the chart looked like at each moment.
 
 ## Pricing & Access
 - Free version: available on TradingView (search "SMC Execution Engine by abdallacrypto")
@@ -177,7 +197,15 @@ Topics include: general overview, PRO alerts, Order Blocks, v3.0 changes.
 - Does NOT guarantee profits
 - Does NOT work as a strategy (no built-in backtesting on TradingView)
 - Risk management is the trader's responsibility
-- Past performance (backtest or live) does not guarantee future results`;
+- Past performance (backtest or live) does not guarantee future results
+
+## What's new (v3.2.x changelog summary)
+- v3.2.2: Dynamic OB Strength Score (0-100 per zone, validated on 26k OBs across BTC/ETH/SOL/RAVE in 15m and 1m)
+- v3.2.1: Partial mitigation visual (shell box pattern), configurable OB display range (default 40 bars), direction-checked mitigation (CHOCH crash candles no longer falsely mitigate opposite-side OBs)
+- v3.2.0: Volume strength labels and Max OB/FVG display count
+
+## How to know which version I have
+The version is shown in the indicator title at the top-left of the chart panel ("SMC Engine PRO v3.2.2"). PRO subscribers get the latest version automatically — no manual update needed once installed.`;
 
 export default {
   async fetch(request, env) {
