@@ -64,5 +64,15 @@
     "data": "2026-05-04",
     "photo": "assets/testimonials/nogueiravictor.jpg",
     "texto_en": "The indicator has become an indispensable tool in my trading. It 100% optimized how I read market structure and made mapping fib key areas and order blocks much easier. Beyond the massive time savings, it brings real clarity when looking for trade triggers. It completely changed my game on the essential pillars — both technical and psychological — giving me the exact confidence I needed to identify and execute entries."
+  },
+  {
+    "nome": "Victor Brunieri",
+    "handle": "",
+    "platform": "",
+    "nota": 5,
+    "texto": "O indicador é muito bom. Além de sinalizar zonas importantes no gráfico, nos ajuda a cristalizar conceitos de SMC, validando o estudo.",
+    "autorizacao": "sem_foto",
+    "data": "2026-05-09",
+    "texto_en": "The indicator is very good. In addition to highlighting important areas on the chart, it helps us solidify SMC concepts, validating the study."
   }
 ]
