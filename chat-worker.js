@@ -95,7 +95,7 @@ Two families of alerts available:
 
 NOTE: "touch" means the candle's low/high reaches the level. "Enter" means the previous candle was outside and the current one interacts with the zone.
 
-## Historical OB Alerts (v3.1.1 — NEW, experimental, OFF by default)
+## Historical OB Alerts (v3.1.1 — NEW, OFF by default)
 A SEPARATE alert type, independent from the 10 modes above. While those respond to the active setup (CHoCH + OB + Fib), the historical OB alert fires when price touches ANY unmitigated Order Block visible on the chart, even without a formed setup. Catches re-entries in prior zones and reversals against the macro trend.
 
 Behavior:
@@ -111,7 +111,7 @@ How to enable:
 1. Toggle "Alert on historical OBs" in indicator settings
 2. Create an alert on TradingView using "Any alert() function call" (same method as other modes)
 
-Marked experimental because it may fire more alerts than the main mode in volatile assets with many historical OBs.
+In volatile assets with many historical OBs visible, the number of alerts may be higher than the main mode — start with the default (5 visible historical OBs) and tune "Max historical OBs to keep" under VISUAL — OB History as needed.
 
 ## Anti-Spam Rules (PRO)
 - Only ONE alert per structural context (won't spam on the same OB zone)
@@ -256,7 +256,7 @@ Topics include: general overview, PRO alerts, Order Blocks, and version updates.
 - Past performance (backtest or live) does not guarantee future results
 
 ## What's new in v3.1.1 (released 25/May/2026)
-- **NEW: Historical OB Alerts (experimental)** — optional alert that fires on the first touch of any unmitigated Order Block visible on the chart, independent of the active setup. Separate toggle, default OFF, one alert per OB forever, ignores macro filter. See "Historical OB Alerts" section above for details.
+- **NEW: Historical OB Alerts** — optional alert that fires on the first touch of any unmitigated Order Block visible on the chart, independent of the active setup. Separate toggle, default OFF, one alert per OB forever, ignores macro filter. See "Historical OB Alerts" section above for details.
 - **Nothing removed.** All v3.1 alert modes and settings remain identical. The new alert is opt-in.
 - Users who don't enable the new toggle see no difference.
 
