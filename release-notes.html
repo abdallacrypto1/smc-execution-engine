@@ -294,16 +294,79 @@ footer p {
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-version reveal">v3.1</div>
+    <div class="hero-version reveal">v3.1.1</div>
     <h1 class="reveal" data-pt="Notas de Lançamento" data-en="Release Notes">Notas de Lançamento</h1>
-    <p class="hero-date reveal" data-pt="16 de abril de 2026" data-en="April 16, 2026">16 de abril de 2026</p>
+    <p class="hero-date reveal" data-pt="25 de maio de 2026" data-en="May 25, 2026">25 de maio de 2026</p>
   </div>
 </section>
 
-<!-- ═══════════════════ RESUMO ═══════════════════ -->
+<!-- ═══════════════════ RESUMO v3.1.1 ═══════════════════ -->
 <section id="resumo">
   <div class="container">
     <div class="section-label" data-pt="Resumo" data-en="Summary">Resumo</div>
+    <div class="sep"></div>
+    <p class="reveal" data-pt="A versão 3.1.1 adiciona um <strong>novo tipo de alerta opcional</strong>: toques em Order Blocks históricos (não-mitigados) visíveis no gráfico, independente do setup ativo. Útil para capturar reentradas em zonas anteriores e reversões contra a tendência macro." data-en="Version 3.1.1 adds a <strong>new optional alert type</strong>: touches in historical (unmitigated) Order Blocks visible on the chart, independent of the active setup. Useful for catching re-entries in prior zones and reversals against the macro trend.">A versão 3.1.1 adiciona um <strong>novo tipo de alerta opcional</strong>: toques em Order Blocks históricos (não-mitigados) visíveis no gráfico, independente do setup ativo. Útil para capturar reentradas em zonas anteriores e reversões contra a tendência macro.</p>
+    <p class="reveal" data-pt="<strong>Nada removido.</strong> Todos os modos de alerta da v3.1 permanecem inalterados. O novo alerta é controlado por um toggle separado (default OFF), então quem não quiser usar não vê diferença." data-en="<strong>Nothing removed.</strong> All v3.1 alert modes remain unchanged. The new alert is controlled by a separate toggle (default OFF), so users who don't want it see no difference."><strong>Nada removido.</strong> Todos os modos de alerta da v3.1 permanecem inalterados. O novo alerta é controlado por um toggle separado (default OFF), então quem não quiser usar não vê diferença.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ NOVOS RECURSOS v3.1.1 ═══════════════════ -->
+<section id="novos-recursos-311">
+  <div class="container">
+    <div class="section-label" data-pt="Novos Recursos (v3.1.1)" data-en="New Features (v3.1.1)">Novos Recursos (v3.1.1)</div>
+    <div class="sep"></div>
+
+    <h3 class="reveal" data-pt="🎯 Alertas em OBs Históricos (experimental)" data-en="🎯 Historical OB Alerts (experimental)">🎯 Alertas em OBs Históricos (experimental)</h3>
+    <p class="reveal" data-pt="Enquanto os alertas tradicionais (FIBO_618, OB_START, OB_OR_079, etc.) respondem ao setup ativo (CHOCH + OB + Fib), este novo alerta dispara quando o preço toca <strong>qualquer Order Block não-mitigado visível no gráfico</strong>, mesmo sem setup formado." data-en="While traditional alerts (FIBO_618, OB_START, OB_OR_079, etc.) respond to the active setup (CHoCH + OB + Fib), this new alert fires when price touches <strong>any unmitigated Order Block visible on the chart</strong>, even without a formed setup.">Enquanto os alertas tradicionais (FIBO_618, OB_START, OB_OR_079, etc.) respondem ao setup ativo (CHOCH + OB + Fib), este novo alerta dispara quando o preço toca <strong>qualquer Order Block não-mitigado visível no gráfico</strong>, mesmo sem setup formado.</p>
+
+    <ul class="feature-list reveal">
+      <li data-pt="<strong>Toggle separado</strong> em SIGNAL — Alert Mode → <code>Alert on historical OBs</code>. Não interfere nos alertas de setup." data-en="<strong>Separate toggle</strong> under SIGNAL — Alert Mode → <code>Alert on historical OBs</code>. Does not interfere with setup alerts."><strong>Toggle separado</strong> em SIGNAL — Alert Mode → <code>Alert on historical OBs</code>. Não interfere nos alertas de setup.</li>
+      <li data-pt="<strong>Um alerta por OB</strong> na vida do gráfico — sem spam, mesmo se o preço voltar várias vezes na mesma zona." data-en="<strong>One alert per OB</strong> for the chart's lifetime — no spam, even if price returns to the same zone multiple times."><strong>Um alerta por OB</strong> na vida do gráfico — sem spam, mesmo se o preço voltar várias vezes na mesma zona.</li>
+      <li data-pt="<strong>Primeiro toque intrabar</strong> — dispara assim que o preço entra na zona, sem esperar fechamento." data-en="<strong>First intrabar touch</strong> — fires as soon as price enters the zone, without waiting for close."><strong>Primeiro toque intrabar</strong> — dispara assim que o preço entra na zona, sem esperar fechamento.</li>
+      <li data-pt="<strong>Ignora o filtro macro</strong> — captura também reversões na direção contrária à tendência maior." data-en="<strong>Ignores the macro filter</strong> — also catches reversals against the higher-timeframe trend."><strong>Ignora o filtro macro</strong> — captura também reversões na direção contrária à tendência maior.</li>
+      <li data-pt="<strong>Mensagem com contexto:</strong> posição do OB na lista visível (ex: <em>2º de 5</em>), idade em candles e faixa de preço." data-en="<strong>Message with context:</strong> OB position in the visible list (e.g. <em>2 of 5</em>), age in candles and price range."><strong>Mensagem com contexto:</strong> posição do OB na lista visível (ex: <em>2º de 5</em>), idade em candles e faixa de preço.</li>
+    </ul>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Como ativar" data-en="How to enable">Como ativar</div>
+      <p style="margin:0 0 8px;" data-pt="1. Nas configurações do indicador, habilite <code>Alert on historical OBs</code> no grupo SIGNAL — Alert Mode." data-en="1. In the indicator settings, enable <code>Alert on historical OBs</code> under SIGNAL — Alert Mode.">1. Nas configurações do indicador, habilite <code>Alert on historical OBs</code> no grupo SIGNAL — Alert Mode.</p>
+      <p style="margin:0;" data-pt="2. No TradingView, crie um alerta usando <code>Any alert() function call</code> (mesmo método dos modos existentes)." data-en="2. In TradingView, create an alert using <code>Any alert() function call</code> (same method as existing modes).">2. No TradingView, crie um alerta usando <code>Any alert() function call</code> (mesmo método dos modos existentes).</p>
+    </div>
+
+    <div class="info-card warn-border reveal">
+      <div class="info-card-tag yellow" data-pt="Experimental" data-en="Experimental">Experimental</div>
+      <p style="margin:0;" data-pt="Por ser opcional e independente, marcamos como experimental: pode disparar mais alertas que o modo principal, especialmente em ativos voláteis com muitos OBs históricos. Recomendamos começar com a configuração padrão (5 OBs históricos visíveis) e ajustar via <code>Max historical OBs to keep</code> no grupo VISUAL — OB History conforme o estilo." data-en="As an optional, independent feature, we marked it experimental: it may fire more alerts than the main mode, especially in volatile assets with many historical OBs. We recommend starting with the default setting (5 visible historical OBs) and adjusting via <code>Max historical OBs to keep</code> under VISUAL — OB History as needed.">Por ser opcional e independente, marcamos como experimental: pode disparar mais alertas que o modo principal, especialmente em ativos voláteis com muitos OBs históricos. Recomendamos começar com a configuração padrão (5 OBs históricos visíveis) e ajustar via <code>Max historical OBs to keep</code> no grupo VISUAL — OB History conforme o estilo.</p>
+    </div>
+
+    <p class="reveal" style="margin-top:20px;" data-pt="Documentação completa: <a href='manual.html#alert-historical'>seção dedicada no manual</a>." data-en="Full documentation: <a href='manual.html#alert-historical'>dedicated section in the manual</a>.">Documentação completa: <a href="manual.html#alert-historical">seção dedicada no manual</a>.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ MIGRAÇÃO v3.1.1 ═══════════════════ -->
+<section id="migracao-311">
+  <div class="container">
+    <div class="section-label" data-pt="Como Atualizar (v3.1.1)" data-en="How to Update (v3.1.1)">Como Atualizar (v3.1.1)</div>
+    <div class="sep"></div>
+    <p class="reveal" data-pt="Atualização automática para todos os usuários do SMC Engine PRO no TradingView. Não é necessário reinstalar." data-en="Automatic update for all SMC Engine PRO users on TradingView. No need to reinstall.">Atualização automática para todos os usuários do SMC Engine PRO no TradingView. Não é necessário reinstalar.</p>
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Nenhuma ação necessária" data-en="No action required">Nenhuma ação necessária</div>
+      <p style="margin:0;" data-pt="Todas as suas configurações da v3.1 permanecem iguais. O novo alerta vem desativado por padrão — basta ligar quando quiser experimentar." data-en="All your v3.1 settings remain the same. The new alert is off by default — just enable it when you want to try it.">Todas as suas configurações da v3.1 permanecem iguais. O novo alerta vem desativado por padrão — basta ligar quando quiser experimentar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SEPARADOR HISTÓRICO ═══════════════════ -->
+<section id="historico-divider" style="padding:40px 0 20px;">
+  <div class="container">
+    <div class="sep" style="background:linear-gradient(90deg, var(--text-muted), transparent);margin-bottom:12px;"></div>
+    <h2 class="reveal" style="color:var(--text-secondary);font-size:18px;letter-spacing:1px;text-transform:uppercase;" data-pt="Histórico de Versões" data-en="Version History">Histórico de Versões</h2>
+  </div>
+</section>
+
+<!-- ═══════════════════ v3.1 RESUMO (histórico) ═══════════════════ -->
+<section id="resumo-v31">
+  <div class="container">
+    <div class="section-label" data-pt="v3.1 — 16 de abril de 2026" data-en="v3.1 — April 16, 2026">v3.1 — 16 de abril de 2026</div>
     <div class="sep"></div>
     <p class="reveal" data-pt="A versão 3.1 reorganiza completamente o painel de configurações em três categorias claras (SIGNAL, VISUAL, TOOLS), introduz o perfil <strong>Backtest Público 15m</strong> com a configuração exata do histórico publicado, adiciona <strong>EMAs opcionais</strong> no gráfico, um novo <strong>modo dual de filtro macro</strong> e uma <strong>linha de gates em tempo real</strong> no HUD." data-en="Version 3.1 completely reorganizes the settings panel into three clear categories (SIGNAL, VISUAL, TOOLS), introduces the <strong>Public Backtest 15m</strong> profile with the exact configuration of the published history, adds <strong>optional EMAs</strong> on the chart, a new <strong>dual macro filter mode</strong> and a <strong>real-time gates row</strong> in the HUD.">A versão 3.1 reorganiza completamente o painel de configurações em três categorias claras (SIGNAL, VISUAL, TOOLS), introduz o perfil <strong>Backtest Público 15m</strong> com a configuração exata do histórico publicado, adiciona <strong>EMAs opcionais</strong> no gráfico, um novo <strong>modo dual de filtro macro</strong> e uma <strong>linha de gates em tempo real</strong> no HUD.</p>
     <p class="reveal" data-pt="Quem utiliza um perfil predefinido (Scalper, Day Trade ou Swing) não precisa fazer ajustes — o comportamento permanece igual. Quem opera com perfil <em>Custom</em> deve revisar os defaults atualizados." data-en="Users on a preset profile (Scalper, Day Trade or Swing) need no adjustments — behavior remains the same. Users on <em>Custom</em> should review the updated defaults.">Quem utiliza um perfil predefinido (Scalper, Day Trade ou Swing) não precisa fazer ajustes — o comportamento permanece igual. Quem opera com perfil <em>Custom</em> deve revisar os defaults atualizados.</p>
@@ -435,7 +498,7 @@ footer p {
     <div class="section-label" data-pt="Links Úteis" data-en="Useful Links">Links Úteis</div>
     <div class="sep"></div>
     <ul class="feature-list reveal">
-      <li><a href="manual.html" data-pt="Manual completo da v3.1" data-en="Complete v3.1 manual">Manual completo da v3.1</a></li>
+      <li><a href="manual.html" data-pt="Manual completo (v3.1.1)" data-en="Complete manual (v3.1.1)">Manual completo (v3.1.1)</a></li>
       <li><a href="backtest.html" data-pt="Backtest público (engine.abdallacrypto.com/backtest)" data-en="Public backtest (engine.abdallacrypto.com/backtest)">Backtest público (engine.abdallacrypto.com/backtest)</a></li>
       <li><a href="live.html" data-pt="Trades ao vivo" data-en="Live trades">Trades ao vivo</a></li>
     </ul>

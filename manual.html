@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual — SMC Execution Engine PRO v3.1</title>
+<title>Manual — SMC Execution Engine PRO v3.1.1</title>
 <link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
 <link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
@@ -583,7 +583,7 @@ footer p {
 <div style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #1a1a2e">
   <a href="https://engine.abdallacrypto.com" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:40px"></a>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="release-notes.html" style="font-family:var(--font-mono);font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--accent);border-radius:6px" data-pt="Novidades v3.1" data-en="What's New v3.1">Novidades v3.1</a>
+    <a href="release-notes.html" style="font-family:var(--font-mono);font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--accent);border-radius:6px" data-pt="Novidades v3.1.1" data-en="What's New v3.1.1">Novidades v3.1.1</a>
     <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;padding:4px 10px;border:1px solid var(--border-color);border-radius:6px" data-pt="&larr; Inicio" data-en="&larr; Home">&larr; Inicio</a>
     <button class="tab" id="langPT" onclick="setLang('pt')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">PT</button>
     <button class="tab" id="langEN" onclick="setLang('en')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">EN</button>
@@ -612,6 +612,7 @@ footer p {
     <li><a href="#ob-historico" class="toc-sub" data-pt="Histórico" data-en="History">Histórico</a></li>
     <li><a href="#alertas" class="toc-main" data-pt="Alertas PRO" data-en="PRO Alerts">Alertas PRO</a></li>
     <li><a href="#alert-modos" class="toc-sub" data-pt="Modos de Alerta" data-en="Alert Modes">Modos de Alerta</a></li>
+    <li><a href="#alert-historical" class="toc-sub" data-pt="Alertas em OBs Históricos" data-en="Historical OB Alerts">Alertas em OBs Históricos</a></li>
     <li><a href="#alert-regras" class="toc-sub" data-pt="Regras Anti-Spam" data-en="Anti-Spam Rules">Regras Anti-Spam</a></li>
     <li><a href="#alert-config" class="toc-sub" data-pt="Como Configurar" data-en="How to Configure">Como Configurar</a></li>
     <li><a href="#hud" class="toc-main">HUD Multi-Timeframe</a></li>
@@ -1014,6 +1015,29 @@ footer p {
       <p data-pt="Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB." data-en="Fires when a Fibonacci level is touched <strong>first</strong> and then price enters the OB.">Dispara quando um nível de Fibonacci é tocado <strong>primeiro</strong> e depois o preço entra no OB.</p>
       <div class="req" data-pt="Modo de duas etapas que requer interação prévia com o Fibonacci antes de disparar na entrada do OB. Ambos os eventos devem ocorrer dentro do mesmo contexto de mercado." data-en="A two-step mode that requires prior Fibonacci interaction before triggering on OB entry. Both events must occur within the same market context.">Modo de duas etapas que requer interação prévia com o Fibonacci antes de disparar na entrada do OB. Ambos os eventos devem ocorrer dentro do mesmo contexto de mercado.</div>
     </div>
+
+    <!-- Alertas em OBs Históricos (v3.1.1) -->
+    <h3 class="reveal" id="alert-historical" data-pt="Alertas em OBs Históricos <span class=&quot;pro-badge&quot;>v3.1.1</span>" data-en="Historical OB Alerts <span class=&quot;pro-badge&quot;>v3.1.1</span>">Alertas em OBs Históricos <span class="pro-badge">v3.1.1</span></h3>
+    <p class="reveal" data-pt="Enquanto os modos acima respondem ao <strong>setup ativo</strong> (CHOCH + OB + Fib), este alerta dispara quando o preço toca <strong>qualquer Order Block não-mitigado visível no gráfico</strong>, mesmo sem setup formado. Útil para capturar reentradas em zonas anteriores e reversões contra a tendência macro." data-en="While the modes above respond to the <strong>active setup</strong> (CHoCH + OB + Fib), this alert fires when price touches <strong>any unmitigated Order Block visible on the chart</strong>, even without a formed setup. Useful for catching re-entries in prior zones and reversals against the macro trend.">Enquanto os modos acima respondem ao <strong>setup ativo</strong> (CHOCH + OB + Fib), este alerta dispara quando o preço toca <strong>qualquer Order Block não-mitigado visível no gráfico</strong>, mesmo sem setup formado. Útil para capturar reentradas em zonas anteriores e reversões contra a tendência macro.</p>
+
+    <ul class="manual-list reveal">
+      <li data-pt="<strong>Toggle separado</strong> — não interfere nos alertas de setup. Habilita em <code>Alert on historical OBs</code>." data-en="<strong>Separate toggle</strong> — does not interfere with setup alerts. Enable under <code>Alert on historical OBs</code>."><strong>Toggle separado</strong> — não interfere nos alertas de setup. Habilita em <code>Alert on historical OBs</code>.</li>
+      <li data-pt="<strong>Um alerta por OB</strong> na vida do gráfico — sem spam, mesmo se o preço voltar várias vezes na mesma zona." data-en="<strong>One alert per OB</strong> for the chart's lifetime — no spam, even if price returns to the same zone multiple times."><strong>Um alerta por OB</strong> na vida do gráfico — sem spam, mesmo se o preço voltar várias vezes na mesma zona.</li>
+      <li data-pt="<strong>Primeiro toque intrabar</strong> — dispara assim que o preço entra na zona, sem esperar fechamento." data-en="<strong>First intrabar touch</strong> — fires as soon as price enters the zone, without waiting for close."><strong>Primeiro toque intrabar</strong> — dispara assim que o preço entra na zona, sem esperar fechamento.</li>
+      <li data-pt="<strong>Ignora o filtro macro</strong> — captura também reversões na direção contrária à tendência maior." data-en="<strong>Ignores the macro filter</strong> — also catches reversals against the higher-timeframe trend."><strong>Ignora o filtro macro</strong> — captura também reversões na direção contrária à tendência maior.</li>
+      <li data-pt="<strong>Mensagem com contexto:</strong> posição do OB na lista visível (ex: <em>2º de 5</em>), idade em candles e faixa de preço." data-en="<strong>Message with context:</strong> OB position in the visible list (e.g. <em>2 of 5</em>), age in candles and price range."><strong>Mensagem com contexto:</strong> posição do OB na lista visível (ex: <em>2º de 5</em>), idade em candles e faixa de preço.</li>
+    </ul>
+
+    <div class="info-card accent-border reveal">
+      <div class="info-card-tag green" data-pt="Sobre o denominador da posição" data-en="About the position denominator">Sobre o denominador da posição</div>
+      <p style="margin:0;" data-pt="O total exibido na mensagem (<em>X de N</em>) é o número de OBs históricos atualmente visíveis na mesma direção (bull ou bear), limitado pela configuração <code>Max historical OBs to keep</code> no grupo VISUAL — OB History. Padrão: 5 (máximo 20). Se você ajustar esse valor para 10, o denominador acompanha." data-en="The total shown in the message (<em>X of N</em>) is the number of historical OBs currently visible in the same direction (bull or bear), capped by the <code>Max historical OBs to keep</code> setting in VISUAL — OB History. Default: 5 (max 20). If you raise it to 10, the denominator follows.">O total exibido na mensagem (<em>X de N</em>) é o número de OBs históricos atualmente visíveis na mesma direção (bull ou bear), limitado pela configuração <code>Max historical OBs to keep</code> no grupo VISUAL — OB History. Padrão: 5 (máximo 20). Se você ajustar esse valor para 10, o denominador acompanha.</p>
+    </div>
+
+    <p class="reveal" data-pt="<strong>Para ativar:</strong>" data-en="<strong>To enable:</strong>"><strong>Para ativar:</strong></p>
+    <ol class="steps reveal">
+      <li data-pt="Nas configurações do indicador, habilite <code>Alert on historical OBs</code> no grupo SIGNAL — Alert Mode" data-en="In the indicator settings, enable <code>Alert on historical OBs</code> under SIGNAL — Alert Mode">Nas configurações do indicador, habilite <code>Alert on historical OBs</code> no grupo SIGNAL — Alert Mode</li>
+      <li data-pt="Crie um alerta no TradingView usando <code>Any alert() function call</code> (mesmo método dos modos acima)" data-en="Create an alert in TradingView using <code>Any alert() function call</code> (same method as the modes above)">Crie um alerta no TradingView usando <code>Any alert() function call</code> (mesmo método dos modos acima)</li>
+    </ol>
 
     <!-- Regras Anti-Spam -->
     <h3 class="reveal" id="alert-regras" data-pt="Regras de Qualidade (Anti-Spam)" data-en="Quality Rules (Anti-Spam)">Regras de Qualidade (Anti-Spam)</h3>
