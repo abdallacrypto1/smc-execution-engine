@@ -205,6 +205,35 @@ section:last-of-type { border-bottom: none; }
   font-weight: 400;
 }
 
+.toc-search {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.toc-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+.toc-search::placeholder { color: var(--text-muted); }
+.toc-list li.toc-hidden { display: none; }
+.toc-empty {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 8px 10px;
+  font-style: italic;
+}
+.toc-empty.active { display: block; }
+
 /* Desktop sidebar TOC */
 @media (min-width: 1100px) {
   .toc-toggle { display: none; }
@@ -593,6 +622,7 @@ footer p {
 <!-- ═══════════════════ TOC SIDEBAR (desktop) ═══════════════════ -->
 <aside class="toc-sidebar" id="tocSidebar">
   <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
+  <input type="text" class="toc-search" id="tocSearchDesktop" placeholder="Buscar…" data-pt-placeholder="Buscar…" data-en-placeholder="Search…" aria-label="Buscar no índice" autocomplete="off">
   <ul class="toc-list">
     <li><a href="#intro" class="toc-main" data-pt="O que é" data-en="What It Is">O que é</a></li>
     <li><a href="#quick-start" class="toc-main" data-pt="Início Rápido" data-en="Getting Started">Início Rápido</a></li>
@@ -624,12 +654,14 @@ footer p {
     <li><a href="#faq" class="toc-main">FAQ / Troubleshooting</a></li>
     <li><a href="#aviso" data-pt="Aviso Legal" data-en="Legal Disclaimer">Aviso Legal</a></li>
   </ul>
+  <div class="toc-empty" data-pt="Nenhum resultado" data-en="No results">Nenhum resultado</div>
 </aside>
 
 <!-- ═══════════════════ TOC MOBILE BUTTON ═══════════════════ -->
 <button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
 <div class="toc-overlay" id="tocOverlay">
   <div class="toc-title" data-pt="Índice" data-en="Contents">Índice</div>
+  <input type="text" class="toc-search" id="tocSearchMobile" placeholder="Buscar…" data-pt-placeholder="Buscar…" data-en-placeholder="Search…" aria-label="Buscar no índice" autocomplete="off">
   <ul class="toc-list">
     <li><a href="#intro" onclick="toggleToc()" data-pt="O que é" data-en="What It Is">O que é</a></li>
     <li><a href="#quick-start" onclick="toggleToc()" data-pt="Início Rápido" data-en="Getting Started">Início Rápido</a></li>
@@ -645,6 +677,7 @@ footer p {
     <li><a href="#faq" onclick="toggleToc()">FAQ / Troubleshooting</a></li>
     <li><a href="#aviso" onclick="toggleToc()" data-pt="Aviso Legal" data-en="Legal Disclaimer">Aviso Legal</a></li>
   </ul>
+  <div class="toc-empty" data-pt="Nenhum resultado" data-en="No results">Nenhum resultado</div>
 </div>
 
 <main>
@@ -1432,8 +1465,18 @@ footer p {
 <script>
 // TOC toggle (mobile)
 function toggleToc() {
-  document.getElementById('tocOverlay').classList.toggle('active');
-  document.body.style.overflow = document.getElementById('tocOverlay').classList.contains('active') ? 'hidden' : '';
+  const overlay = document.getElementById('tocOverlay');
+  const isOpen = overlay.classList.toggle('active');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  const input = document.getElementById('tocSearchMobile');
+  if (input) {
+    if (!isOpen && input.value) {
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+    } else if (isOpen) {
+      setTimeout(() => input.focus(), 50);
+    }
+  }
 }
 
 // Scroll reveal
@@ -1483,6 +1526,9 @@ if (window.innerWidth >= 1100) {
     document.querySelectorAll('[data-pt]').forEach(el => {
       el.innerHTML = el.dataset[lang] || el.dataset.pt;
     });
+    document.querySelectorAll('[data-pt-placeholder]').forEach(el => {
+      el.placeholder = el.dataset[lang + 'Placeholder'] || el.dataset.ptPlaceholder;
+    });
     const ptBtn = document.getElementById('langPT');
     const enBtn = document.getElementById('langEN');
     if (ptBtn) ptBtn.style.borderColor = lang === 'pt' ? '#00cc6a' : '#1a1a2e';
@@ -1494,6 +1540,41 @@ if (window.innerWidth >= 1100) {
   window.setLang = function(lang) {
     applyLang(lang);
   };
+})();
+
+// TOC search filter (desktop sidebar + mobile overlay)
+(function() {
+  const norm = s => (s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  function filter(root, q) {
+    const query = norm(q.trim());
+    const items = root.querySelectorAll('.toc-list li');
+    let matched = 0;
+    items.forEach(li => {
+      if (!query) {
+        li.classList.remove('toc-hidden');
+        matched++;
+        return;
+      }
+      if (norm(li.textContent).includes(query)) {
+        li.classList.remove('toc-hidden');
+        matched++;
+      } else {
+        li.classList.add('toc-hidden');
+      }
+    });
+    const empty = root.querySelector('.toc-empty');
+    if (empty) empty.classList.toggle('active', !!query && matched === 0);
+  }
+  [
+    { input: document.getElementById('tocSearchDesktop'), root: document.getElementById('tocSidebar') },
+    { input: document.getElementById('tocSearchMobile'), root: document.getElementById('tocOverlay') }
+  ].forEach(({ input, root }) => {
+    if (!input || !root) return;
+    input.addEventListener('input', e => filter(root, e.target.value));
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { input.value = ''; filter(root, ''); input.blur(); }
+    });
+  });
 })();
 </script>
 
