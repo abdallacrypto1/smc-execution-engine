@@ -74,5 +74,16 @@
     "autorizacao": "sem_foto",
     "data": "2026-05-09",
     "texto_en": "The indicator is very good. In addition to highlighting important areas on the chart, it helps us solidify SMC concepts, validating the study."
+  },
+  {
+    "nome": "Rafael Michel",
+    "handle": "rafaelmichel81",
+    "platform": "instagram",
+    "nota": 5,
+    "texto": "O indicador faz uma análise técnica baseada na metodologia SMC e mostra de forma visual as estruturas de mercado em diferentes tempos gráficos. Isso facilita bastante a identificação de possíveis pontos de entrada e saída, tanto em operações compradas quanto vendidas, além de agilizar a análise do mercado no dia a dia.",
+    "autorizacao": "com_foto",
+    "data": "2026-06-10",
+    "photo": "assets/testimonials/rafaelmichel81.jpg",
+    "texto_en": "The indicator performs a technical analysis based on the SMC methodology and visually displays market structures across different timeframes. This greatly facilitates the identification of potential entry and exit points, both for long and short positions, and speeds up daily market analysis."
   }
 ]
