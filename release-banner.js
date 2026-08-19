@@ -13,11 +13,11 @@
 */
 (function() {
   const RELEASE = {
-    version: 'v3.1.1',
+    version: 'v3.2.0',
     link: 'release-notes.html',
-    expires: '2026-06-24',  // 30 dias após lançamento (25/05/2026)
-    messagePT: 'Novidades da v3.1.1 — alertas em OBs históricos',
-    messageEN: 'What\'s new in v3.1.1 — historical OB alerts'
+    expires: '2026-09-18',  // 30 dias após lançamento (19/08/2026)
+    messagePT: 'Novidades da v3.2.0 — Alinhamento de Fluxo e central de alertas',
+    messageEN: 'What\'s new in v3.2.0 — Flow Alignment and the alert hub'
   };
 
   // Auto-expira (zero manutenção)
