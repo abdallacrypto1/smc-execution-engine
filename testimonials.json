@@ -85,5 +85,15 @@
     "data": "2026-06-10",
     "photo": "assets/testimonials/rafaelmichel81.jpg",
     "texto_en": "The indicator performs a technical analysis based on the SMC methodology and visually displays market structures across different timeframes. This greatly facilitates the identification of potential entry and exit points, both for long and short positions, and speeds up daily market analysis."
+  },
+  {
+    "nome": "RÔMULO ARRUDA",
+    "handle": "",
+    "platform": "",
+    "nota": 5,
+    "texto": "Indicador sensacional! Ele traz de forma simples os conceitos de SMC, mapeando de forma automática os topos e fundos válidos do movimento e validando os Order Blocks. Os alertas deixam tudo muito simples e fácil, você é avisado assim que a condição é atendida. O recurso de Alinhamento de Fluxo é incrível, um alerta é disparado e te avisa exatamente quando a estrutura vira no gráfico de execução depois de tocar em uma região macro. Fica muito mais simples fazer a leitura dos gráficos.",
+    "autorizacao": "sem_foto",
+    "data": "2026-09-13",
+    "texto_en": "This indicator is fantastic! It simply explains SMC concepts, automatically mapping valid tops and bottoms of the movement and validating Order Blocks. The alerts make everything very simple and easy; you are notified as soon as the condition is met. The Flow Alignment feature is incredible; an alert is triggered and tells you exactly when the structure reverses on the execution chart after touching a macro region. It makes reading the charts much simpler."
   }
 ]
