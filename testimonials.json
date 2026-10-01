@@ -95,5 +95,15 @@
     "autorizacao": "sem_foto",
     "data": "2026-09-13",
     "texto_en": "This indicator is fantastic! It simply explains SMC concepts, automatically mapping valid tops and bottoms of the movement and validating Order Blocks. The alerts make everything very simple and easy; you are notified as soon as the condition is met. The Flow Alignment feature is incredible; an alert is triggered and tells you exactly when the structure reverses on the execution chart after touching a macro region. It makes reading the charts much simpler."
+  },
+  {
+    "nome": "Raphael Christofani",
+    "handle": "",
+    "platform": "",
+    "nota": 5,
+    "texto": "O sistema de alertas possibilita você sempre tem um trade no tempo desejado de acordo com sua estratégia, o indicador apresenta um layout clean e didático favorecendo seu uso",
+    "autorizacao": "sem_foto",
+    "data": "2026-09-30",
+    "texto_en": "The alert system ensures you always have a trade at the desired time according to your strategy; the indicator features a clean and user-friendly layout, making it easy to use."
   }
 ]
