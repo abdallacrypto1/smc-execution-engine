@@ -89,7 +89,7 @@ Two families of alerts available:
 - OB_AND_079: fires only when BOTH OB_START AND FIBO_079 happen on the same candle (high confluence, fewer signals)
 - OB_ANY_TOUCH: fires when price enters any part of the OB zone (direction still respected)
 - OB_MID: fires when price touches the OB midpoint, entering from correct direction (more selective)
-- FIBO_618_079_ZONE: fires when price ENTERS the zone between 0.618 and 0.79 (any touch in the zone, does NOT need to sweep the entire zone). Default for all preset profiles.
+- FIBO_618_079_ZONE: fires when the candle CROSSES the entire zone between 0.618 and 0.79 (the candle range must cover the whole zone; touching only the edge is not enough). Same rule for buys and sells since the v3.2.0 republication of Oct 8, 2026. Default for all preset profiles.
 - OB_PLUS_FIB: fires when price enters OB AND touches at least one Fib level (0.50, 0.618, or 0.79)
 - FIBO_THEN_OB: two-step — Fibonacci must be touched first in a previous candle, then price enters the OB
 
