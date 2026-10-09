@@ -62,6 +62,7 @@ Selecting a profile and adding the indicator is NOT enough. You must manually cr
 6. Choose notification method (push, popup, email) and click Create
 
 IMPORTANT FACTS ABOUT ALERTS:
+- An alert keeps a COPY of the indicator settings from the moment it was created. Changing ANY setting afterwards (ticking/unticking a checkbox in the ALERTS group, alert mode, profile, filters) does NOT update the existing alert — it keeps firing with the old settings. After changing settings, the user must DELETE the alert and CREATE it again. Same after a new indicator version is published.
 - Alerts run on TradingView's servers 24/7 — PC does NOT need to stay on
 - The indicator MUST remain on the chart. Removing it kills the alert
 - You CAN hide the visual (eye icon) without affecting the alert
