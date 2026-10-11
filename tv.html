@@ -16,15 +16,16 @@
     var q = new URLSearchParams(location.search);
     var par = (q.get("s") || "").trim();
     var tf = (q.get("i") || "").trim();
-    // Mini app do Telegram (link t.me/<bot>/<app>?startapp=BTCUSDT_P-720): o
-    // parâmetro chega como tgWebAppStartParam, no "#" ou no "?". Só aceita
-    // letras, números, "_" e "-", por isso "BTCUSDT.P" vem como "BTCUSDT_P".
-    var h = new URLSearchParams(location.hash.replace(/^#/, ""));
-    var sp = q.get("tgWebAppStartParam") || h.get("tgWebAppStartParam") || "";
-    if (!par && sp) {
-      var p = sp.split("-");
-      par = "OKX:" + p[0].replace(/_P$/, ".P");
-      tf = p[1] || "";
+    // Formato curto, usado no texto do alerta: tv?SOLUSDT.P-12h. Link escrito
+    // no texto o Telegram abre SEM a confirmação "Open link?" que ele mostra
+    // para botões (testado em 11/10/2026); curto pra não poluir a mensagem.
+    var cru = decodeURIComponent(location.search.replace(/^\?/, ""));
+    if (!par && cru && cru.indexOf("=") < 0) {
+      var c = cru.split("-");
+      par = (c[0].indexOf(":") < 0 ? "OKX:" : "") + c[0].toUpperCase();
+      var r = /^(\d+)\s*([mhd])$/i.exec(c[1] || "");
+      tf = !r ? "" : r[2].toLowerCase() === "m" ? r[1]
+         : r[2].toLowerCase() === "h" ? String(r[1] * 60) : (r[1] === "1" ? "D" : r[1] + "D");
     }
     var atalho = q.get("a") || "Abrir no TV";
     var web = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
