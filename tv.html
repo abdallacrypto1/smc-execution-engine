@@ -10,47 +10,80 @@
   body { background:#0a0a0f; color:#e8e8f0; font-family:-apple-system, system-ui, sans-serif;
          margin:0; padding:24px 18px; line-height:1.45; }
   h1 { font-size:20px; margin:0 0 6px; color:#a78bfa; }
-  p  { margin:0 0 18px; color:#b8b8c8; font-size:15px; }
+  h2 { font-size:16px; margin:28px 0 8px; color:#a78bfa; }
+  p, li { color:#b8b8c8; font-size:15px; }
+  p { margin:0 0 16px; }
+  ol { padding-left:20px; margin:0; }
+  li { margin:0 0 8px; }
+  b { color:#e8e8f0; }
   a.b { display:block; background:#16161f; border:1px solid #2a2a3a; border-radius:12px;
-        padding:16px; margin:0 0 12px; color:#00ff88; text-decoration:none; font-size:17px; }
-  a.b small { display:block; color:#7a7a8c; font-size:12px; margin-top:4px; word-break:break-all; }
+        padding:15px 16px; margin:0 0 12px; color:#00ff88; text-decoration:none; font-size:17px; }
+  a.s { color:#b8b8c8; border-color:#22222e; font-size:15px; }
 </style>
 </head>
 <body>
 <!--
-  Ponte entre o Telegram e o app do TradingView no iPhone.
-  O Telegram não aceita link tradingview:// (nem em botão nem em texto), e o
-  app do TradingView não abre links https com ?symbol= (excluídos no
-  apple-app-site-association deles). Esta página recebe o par pela URL e
-  chama o esquema próprio do app.
-  Modo teste: tv.html?teste=1 lista os formatos candidatos.
+  Ponte entre o Telegram e o app do TradingView.
+  - O Telegram não aceita link de app (tradingview://, shortcuts://) em botão
+    nem em texto; só https. Por isso o botão do radar aponta para cá.
+  - iPhone: o app do TradingView ignora o par em qualquer link (https com
+    ?symbol= é excluído no apple-app-site-association deles; tradingview://
+    só abre o app, testado em 11/10/2026). O que abre na moeda é a ação
+    "Chart" do TradingView no app Atalhos. Esta página chama o atalho
+    "Abrir no TV" passando o par (configuração única, passos abaixo).
+  - Android: intent:// com o pacote do app abre direto na moeda.
+  Uso: tv.html?s=OKX:BTCUSDT.P  (opcional &a=<nome do atalho>)
 -->
-<h1 id="titulo">Abrir no TradingView</h1>
+<h1 id="titulo">Abrindo no TradingView…</h1>
 <p id="dica"></p>
-<div id="lista"></div>
+<div id="botoes"></div>
+
+<h2>Primeira vez no iPhone? Configure o atalho (uma vez só)</h2>
+<ol>
+  <li>Abra o app <b>Atalhos</b> e toque em <b>+</b> para criar um atalho.</li>
+  <li>Toque no nome do atalho, no topo, escolha <b>Renomear</b> e escreva <b>Abrir no TV</b>, exatamente assim.</li>
+  <li>Toque em <b>Adicionar Ação</b>, busque <b>TradingView</b> e escolha <b>Chart</b>.</li>
+  <li>Dentro da ação, toque no campo da moeda e escolha <b>Entrada do Atalho</b>.</li>
+  <li>Toque em <b>OK</b> para salvar.</li>
+  <li>Na primeira vez que o atalho abrir o TradingView, o iPhone pede permissão: toque em <b>Permitir</b>.</li>
+</ol>
+<p style="margin-top:12px">Precisa ter o app do TradingView instalado. No Android não precisa de atalho.</p>
+
 <script>
   const q = new URLSearchParams(location.search);
-  const par = q.get("s") || "OKX:ETHUSDT.P";
-  const enc = encodeURIComponent(par);
-  const formatos = [
-    "tradingview://chart?symbol=" + par,
-    "tradingview://chart/?symbol=" + enc,
-    "tradingview://symbol/" + par,
-    "tradingview://symbols/" + par.replace(":", "-") + "/",
-    "tradingview://www.tradingview.com/chart/?symbol=" + enc,
-    "tradingview://open?symbol=" + par,
-  ];
-  const lista = document.getElementById("lista");
-  document.getElementById("dica").textContent =
-    "Deixe o app do TradingView num gráfico de BTC. Toque num formato, confirme Abrir e veja se o app foi para " +
-    par + ". Volte o app para o BTC antes do próximo.";
-  formatos.forEach((u, i) => {
+  const par = (q.get("s") || "").trim();
+  const atalho = q.get("a") || "Abrir no TV";
+  const web = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par);
+  const android = /Android/i.test(navigator.userAgent);
+  const app = android
+    ? "intent://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
+      "#Intent;scheme=https;package=com.tradingview.tradingviewapp;S.browser_fallback_url=" +
+      encodeURIComponent(web) + ";end"
+    : "shortcuts://run-shortcut?name=" + encodeURIComponent(atalho) +
+      "&input=text&text=" + encodeURIComponent(par);
+
+  const botoes = document.getElementById("botoes");
+  function botao(texto, url, secundario) {
     const a = document.createElement("a");
-    a.className = "b"; a.href = u;
-    a.innerHTML = "Formato " + (i + 1) + "<small></small>";
-    a.querySelector("small").textContent = u;
-    lista.appendChild(a);
-  });
+    a.className = "b" + (secundario ? " s" : "");
+    a.href = url; a.textContent = texto;
+    botoes.appendChild(a);
+  }
+
+  if (!par) {
+    document.getElementById("titulo").textContent = "Abrir no TradingView";
+    document.getElementById("dica").textContent = "Abra esta página pelo botão de um alerta do radar.";
+  } else {
+    document.getElementById("titulo").textContent = par;
+    document.getElementById("dica").textContent = android
+      ? "Se o app não abriu sozinho, toque no botão abaixo."
+      : "Confirme \"Abrir\" para o atalho levar o TradingView até " + par + ". Se não abriu, toque no botão abaixo.";
+    botao("📱 Abrir " + par + " no app", app);
+    botao("🌐 Ver no navegador", web, true);
+    // Tenta abrir sozinho. Se o atalho não existir, o próprio Atalhos avisa,
+    // e os passos de configuração estão logo abaixo.
+    setTimeout(() => { location.href = app; }, 300);
+  }
 </script>
 </body>
 </html>
