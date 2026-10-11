@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Abrir no TradingView</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
+<style>
+  body { background:#0a0a0f; color:#e8e8f0; font-family:-apple-system, system-ui, sans-serif;
+         margin:0; padding:24px 18px; line-height:1.45; }
+  h1 { font-size:20px; margin:0 0 6px; color:#a78bfa; }
+  p  { margin:0 0 18px; color:#b8b8c8; font-size:15px; }
+  a.b { display:block; background:#16161f; border:1px solid #2a2a3a; border-radius:12px;
+        padding:16px; margin:0 0 12px; color:#00ff88; text-decoration:none; font-size:17px; }
+  a.b small { display:block; color:#7a7a8c; font-size:12px; margin-top:4px; word-break:break-all; }
+</style>
+</head>
+<body>
+<!--
+  Ponte entre o Telegram e o app do TradingView no iPhone.
+  O Telegram não aceita link tradingview:// (nem em botão nem em texto), e o
+  app do TradingView não abre links https com ?symbol= (excluídos no
+  apple-app-site-association deles). Esta página recebe o par pela URL e
+  chama o esquema próprio do app.
+  Modo teste: tv.html?teste=1 lista os formatos candidatos.
+-->
+<h1 id="titulo">Abrir no TradingView</h1>
+<p id="dica"></p>
+<div id="lista"></div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const par = q.get("s") || "OKX:ETHUSDT.P";
+  const enc = encodeURIComponent(par);
+  const formatos = [
+    "tradingview://chart?symbol=" + par,
+    "tradingview://chart/?symbol=" + enc,
+    "tradingview://symbol/" + par,
+    "tradingview://symbols/" + par.replace(":", "-") + "/",
+    "tradingview://www.tradingview.com/chart/?symbol=" + enc,
+    "tradingview://open?symbol=" + par,
+  ];
+  const lista = document.getElementById("lista");
+  document.getElementById("dica").textContent =
+    "Deixe o app do TradingView num gráfico de BTC. Toque num formato, confirme Abrir e veja se o app foi para " +
+    par + ". Volte o app para o BTC antes do próximo.";
+  formatos.forEach((u, i) => {
+    const a = document.createElement("a");
+    a.className = "b"; a.href = u;
+    a.innerHTML = "Formato " + (i + 1) + "<small></small>";
+    a.querySelector("small").textContent = u;
+    lista.appendChild(a);
+  });
+</script>
+</body>
+</html>
