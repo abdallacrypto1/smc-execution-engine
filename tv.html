@@ -16,6 +16,16 @@
     var q = new URLSearchParams(location.search);
     var par = (q.get("s") || "").trim();
     var tf = (q.get("i") || "").trim();
+    // Mini app do Telegram (link t.me/<bot>/<app>?startapp=BTCUSDT_P-720): o
+    // parâmetro chega como tgWebAppStartParam, no "#" ou no "?". Só aceita
+    // letras, números, "_" e "-", por isso "BTCUSDT.P" vem como "BTCUSDT_P".
+    var h = new URLSearchParams(location.hash.replace(/^#/, ""));
+    var sp = q.get("tgWebAppStartParam") || h.get("tgWebAppStartParam") || "";
+    if (!par && sp) {
+      var p = sp.split("-");
+      par = "OKX:" + p[0].replace(/_P$/, ".P");
+      tf = p[1] || "";
+    }
     var atalho = q.get("a") || "Abrir no TV";
     var web = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
               (tf ? "&interval=" + encodeURIComponent(tf) : "");
@@ -34,6 +44,17 @@
     if (!par) return;
     if (ios) location.href = app;      // href: voltar traz a página com as instruções
     else location.replace(app);        // Android e computador: sem rastro no histórico
+    // Depois de mandar para o app, fecha a janela para o usuário voltar direto
+    // ao canal (sem a tela branca do navegador do Telegram). Mini app fecha pelo
+    // protocolo do Telegram; navegador interno, por window.close().
+    if (android || ios) {
+      setTimeout(function () {
+        try {
+          if (window.TelegramWebviewProxy) window.TelegramWebviewProxy.postEvent("web_app_close", "{}");
+        } catch (e) {}
+        try { window.close(); } catch (e) {}
+      }, 1500);
+    }
   })();
 </script>
 <style>
