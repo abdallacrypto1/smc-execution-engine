@@ -6,6 +6,36 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Abrir no TradingView</title>
 <link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
+<script>
+  // Redireciona ANTES de desenhar a página: no Android ela nem chega a
+  // aparecer. Um link só para todo mundo:
+  //   Android  → intent:// abre o app do TradingView direto no par
+  //   iPhone   → atalho "Abrir no TV" (ação Chart do TradingView no Atalhos)
+  //   computador → gráfico no navegador (não existe atalho no desktop)
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var par = (q.get("s") || "").trim();
+    var tf = (q.get("i") || "").trim();
+    var atalho = q.get("a") || "Abrir no TV";
+    var web = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
+              (tf ? "&interval=" + encodeURIComponent(tf) : "");
+    var ua = navigator.userAgent;
+    var android = /Android/i.test(ua);
+    var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var app = android
+      ? "intent://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
+        (tf ? "&interval=" + encodeURIComponent(tf) : "") +
+        "#Intent;scheme=https;package=com.tradingview.tradingviewapp;S.browser_fallback_url=" +
+        encodeURIComponent(web) + ";end"
+      : ios
+        ? "shortcuts://run-shortcut?name=" + encodeURIComponent(atalho) + "&input=text&text=" + encodeURIComponent(par)
+        : web;
+    window.TV = { par: par, web: web, app: app, android: android, ios: ios };
+    if (!par) return;
+    if (ios) location.href = app;      // href: voltar traz a página com as instruções
+    else location.replace(app);        // Android e computador: sem rastro no histórico
+  })();
+</script>
 <style>
   body { background:#0a0a0f; color:#e8e8f0; font-family:-apple-system, system-ui, sans-serif;
          margin:0; padding:24px 18px; line-height:1.45; }
@@ -32,7 +62,7 @@
     "Chart" do TradingView no app Atalhos. Esta página chama o atalho
     "Abrir no TV" passando o par (configuração única, passos abaixo).
   - Android: intent:// com o pacote do app abre direto na moeda.
-  Uso: tv.html?s=OKX:BTCUSDT.P  (opcional &a=<nome do atalho>)
+  Uso: tv.html?s=OKX:BTCUSDT.P&i=720  (i = tempo gráfico, opcional; &a=<nome do atalho>)
 -->
 <h1 id="titulo">Abrindo no TradingView…</h1>
 <p id="dica"></p>
@@ -50,17 +80,9 @@
 <p style="margin-top:12px">Precisa ter o app do TradingView instalado. No Android não precisa de atalho.</p>
 
 <script>
-  const q = new URLSearchParams(location.search);
-  const par = (q.get("s") || "").trim();
-  const atalho = q.get("a") || "Abrir no TV";
-  const web = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par);
-  const android = /Android/i.test(navigator.userAgent);
-  const app = android
-    ? "intent://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
-      "#Intent;scheme=https;package=com.tradingview.tradingviewapp;S.browser_fallback_url=" +
-      encodeURIComponent(web) + ";end"
-    : "shortcuts://run-shortcut?name=" + encodeURIComponent(atalho) +
-      "&input=text&text=" + encodeURIComponent(par);
+  // O redirecionamento já aconteceu no <head>. Daqui pra baixo é o plano B
+  // visível: quem voltou para a página (ou ainda não instalou o atalho).
+  const { par, web, app, android } = window.TV;
 
   const botoes = document.getElementById("botoes");
   function botao(texto, url, secundario) {
@@ -80,9 +102,6 @@
       : "Confirme \"Abrir\" para o atalho levar o TradingView até " + par + ". Se não abriu, toque no botão abaixo.";
     botao("📱 Abrir " + par + " no app", app);
     botao("🌐 Ver no navegador", web, true);
-    // Tenta abrir sozinho. Se o atalho não existir, o próprio Atalhos avisa,
-    // e os passos de configuração estão logo abaixo.
-    setTimeout(() => { location.href = app; }, 300);
   }
 </script>
 </body>
