@@ -22,7 +22,7 @@ RULES:
 - For live track record: https://engine.abdallacrypto.com/live
 - For backtest details: https://engine.abdallacrypto.com/backtest.html
 - For free trial (30 days): https://docs.google.com/forms/d/e/1FAIpQLSfJZb9An-11pox2cJi6Z1oVVvYZM9aCZ06nbtLN07mIFAlHRg/viewform
-- For TradingView free version: https://www.tradingview.com/script/ligGO7B5-SMC-Execution-Engine-by-abdallacrypto/
+- For TradingView free version: https://www.tradingview.com/script/0qEZWoqU-SMC-Engine-Free-v1-3/
 
 KNOWLEDGE BASE:
 
@@ -30,7 +30,7 @@ KNOWLEDGE BASE:
 A professional TradingView indicator that automatically detects Smart Money Concepts structures: CHOCH (Change of Character), BOS (Break of Structure), Order Blocks, Fibonacci levels, and Fair Value Gaps. The PRO version adds intelligent intrabar alerts, anti-spam logic, macro trend filter, RSI price levels, trading profiles, optional EMAs, and a HUD panel with a real-time gates row.
 
 There are two versions:
-- **Free version**: Available on TradingView. Includes structure detection (CHOCH/BOS), Fibonacci, Order Blocks with validation, FVG detection, and visual tools. No alerts.
+- **Free version**: Available on TradingView. Includes structure detection (CHOCH/BOS), the structural anchor, Fibonacci A (CHOCH origin) and B (current anchor), the Order Block tied to the anchor (with optional history of unmitigated OBs), and a multi-timeframe HUD with RSI. No alerts, no OB validation filter and no FVG.
 - **PRO version**: Everything in Free + intrabar alerts (10 modes), CHOCH close alerts, macro trend filter (with dual mode), RSI price levels, HUD multi-timeframe with gates row, trading profiles, volume confirmation, mitigation modes, FVG requirement, min stop filter, and more.
 
 ## Settings Reorganization (v3.1)
@@ -231,7 +231,7 @@ Results are from live signal detection, not backtests.
 Each trade card includes one or more TradingView replay snapshots (entry, TP1, close) so the user can confirm exactly what the chart looked like at each moment.
 
 ## Pricing & Access
-- Free version: available on TradingView (search "SMC Execution Engine by abdallacrypto")
+- Free version: available on TradingView (search "SMC Engine (Free)")
 - PRO version: paid, available at https://engine.abdallacrypto.com/#comprar
 - Free trial: 30 days, apply at the form linked on the site
 - PRO is sold via Hotmart platform
