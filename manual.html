@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual — SMC Execution Engine PRO v3.2.0</title>
+<title>Manual — SMC Execution Engine PRO v3.2.1</title>
 <link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
 <link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <meta name="description" content="Manual completo do SMC Execution Engine. Guia de uso, conceitos, configurações e referência técnica.">
@@ -612,7 +612,7 @@ footer p {
 <div style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #1a1a2e">
   <a href="https://engine.abdallacrypto.com" class="nav-logo"><img src="assets/smc-engine_02_horizontal-lockup_dark.svg" alt="SMC Execution Engine" style="height:40px"></a>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="release-notes.html" style="font-family:var(--font-mono);font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--accent);border-radius:6px" data-pt="Novidades v3.2.0" data-en="What's New v3.2.0">Novidades v3.2.0</a>
+    <a href="release-notes.html" style="font-family:var(--font-mono);font-size:12px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--accent);border-radius:6px" data-pt="Novidades v3.2.1" data-en="What's New v3.2.1">Novidades v3.2.1</a>
     <a href="https://engine.abdallacrypto.com" style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;padding:4px 10px;border:1px solid var(--border-color);border-radius:6px" data-pt="&larr; Inicio" data-en="&larr; Home">&larr; Inicio</a>
     <button class="tab" id="langPT" onclick="setLang('pt')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">PT</button>
     <button class="tab" id="langEN" onclick="setLang('en')" style="font-family:monospace;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid #1a1a2e;background:transparent;color:#8888a0;cursor:pointer">EN</button>
@@ -1138,6 +1138,7 @@ footer p {
       <li data-pt="<strong>cenário 2</strong> — OB histórico tocado" data-en="<strong>scenario 2</strong> — historical OB touched"><strong>cenário 2</strong> — OB histórico tocado</li>
       <li data-pt="<strong>cenário 3</strong> — OB histórico + o contexto reverte antes" data-en="<strong>scenario 3</strong> — historical OB + the context reverses first"><strong>cenário 3</strong> — OB histórico + o contexto reverte antes</li>
     </ul>
+    <p class="reveal" data-pt="<strong>O que vem na mensagem:</strong> a 79% da fib A e a borda do OB do seu gráfico (os dois níveis de retração; vale o que o preço tocar primeiro) e quanto o preço já andou até a estrutura virar <span class=&quot;pro-badge&quot;>v3.2.1</span>. Nos cenários 1 e 2 a distância é medida desde a borda de entrada do OB do contexto; no cenário 3, desde a 61,8% do contexto. Valor positivo quer dizer que o preço já andou a favor do trade. Use para avaliar se o movimento já foi antes de posicionar a ordem." data-en="<strong>What the message carries:</strong> the fib A 79% level and your chart's OB edge (the two pullback levels; whichever price touches first) and how far price has already moved by the time structure turns <span class=&quot;pro-badge&quot;>v3.2.1</span>. In scenarios 1 and 2 the distance is measured from the entry edge of the context OB; in scenario 3, from the context 61.8% level. A positive value means price has already moved in the direction of the trade. Use it to judge whether the move has already run before placing an order."><strong>O que vem na mensagem:</strong> a 79% da fib A e a borda do OB do seu gráfico (os dois níveis de retração; vale o que o preço tocar primeiro) e quanto o preço já andou até a estrutura virar <span class="pro-badge">v3.2.1</span>. Nos cenários 1 e 2 a distância é medida desde a borda de entrada do OB do contexto; no cenário 3, desde a 61,8% do contexto. Valor positivo quer dizer que o preço já andou a favor do trade. Use para avaliar se o movimento já foi antes de posicionar a ordem.</p>
     <div class="info-card accent-border reveal">
       <div class="info-card-tag" data-pt="Atenção" data-en="Watch out">Atenção</div>
       <p style="margin:0;" data-pt="Se aparecer <code>⚠ ctx TF &lt;= chart TF!</code> no painel, o contexto está menor ou igual ao gráfico e <strong>nenhum aviso vai sair</strong>." data-en="If <code>⚠ ctx TF &lt;= chart TF!</code> shows up on the panel, the context is lower than or equal to the chart and <strong>no notification will be sent</strong>.">Se aparecer <code>⚠ ctx TF &lt;= chart TF!</code> no painel, o contexto está menor ou igual ao gráfico e <strong>nenhum aviso vai sair</strong>.</p>

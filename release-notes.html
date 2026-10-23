@@ -294,16 +294,41 @@ footer p {
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="container">
-    <div class="hero-version reveal">v3.2.0</div>
+    <div class="hero-version reveal">v3.2.1</div>
     <h1 class="reveal" data-pt="Notas de Lançamento" data-en="Release Notes">Notas de Lançamento</h1>
-    <p class="hero-date reveal" data-pt="19 de agosto de 2026" data-en="August 19, 2026">19 de agosto de 2026</p>
+    <p class="hero-date reveal" data-pt="23 de outubro de 2026" data-en="October 23, 2026">23 de outubro de 2026</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ v3.2.1 ═══════════════════ -->
+<section id="v321">
+  <div class="container">
+    <div class="section-label" data-pt="Novidades (v3.2.1)" data-en="What's New (v3.2.1)">Novidades (v3.2.1)</div>
+    <div class="sep"></div>
+
+    <h3 class="reveal" data-pt="📏 Quanto o preço já andou" data-en="📏 How far price has already moved">📏 Quanto o preço já andou</h3>
+    <p class="reveal" data-pt="Os alertas do Alinhamento de Fluxo (cenários 1, 2 e 3) ganharam uma linha nova: quanto o preço já andou quando o alerta dispara. Muitas vezes a estrutura só vira depois de um repique grande, e aí a entrada pode nem compensar. Agora você vê isso na própria mensagem, antes de abrir o gráfico." data-en="Flow Alignment alerts (scenarios 1, 2 and 3) gained a new line: how far price has already moved when the alert fires. Structure often turns only after a large bounce, and then the entry may not be worth it. Now you see it in the message itself, before opening the chart.">Os alertas do Alinhamento de Fluxo (cenários 1, 2 e 3) ganharam uma linha nova: quanto o preço já andou quando o alerta dispara. Muitas vezes a estrutura só vira depois de um repique grande, e aí a entrada pode nem compensar. Agora você vê isso na própria mensagem, antes de abrir o gráfico.</p>
+    <ul class="feature-list reveal">
+      <li data-pt="<strong>Cenários 1 e 2:</strong> medido desde a borda de entrada do OB do contexto." data-en="<strong>Scenarios 1 and 2:</strong> measured from the entry edge of the context OB."><strong>Cenários 1 e 2:</strong> medido desde a borda de entrada do OB do contexto.</li>
+      <li data-pt="<strong>Cenário 3:</strong> medido desde a 61,8% do contexto." data-en="<strong>Scenario 3:</strong> measured from the context 61.8% level."><strong>Cenário 3:</strong> medido desde a 61,8% do contexto.</li>
+      <li data-pt="<strong>Valor positivo</strong> quer dizer que o preço já andou a favor do trade." data-en="<strong>A positive value</strong> means price has already moved in the direction of the trade."><strong>Valor positivo</strong> quer dizer que o preço já andou a favor do trade.</li>
+    </ul>
+
+    <h3 class="reveal" data-pt="🔧 Correção" data-en="🔧 Fix">🔧 Correção</h3>
+    <p class="reveal" data-pt="O texto de ajuda do cenário 2 dizia que a mensagem trazia um stop de referência. Não traz: ela traz a 79% da fib A, a borda do OB do gráfico e a distância percorrida." data-en="The scenario 2 help text said the message carried a reference stop. It does not: it carries the fib A 79% level, the chart OB edge and the distance moved.">O texto de ajuda do cenário 2 dizia que a mensagem trazia um stop de referência. Não traz: ela traz a 79% da fib A, a borda do OB do gráfico e a distância percorrida.</p>
+
+    <h3 class="reveal" data-pt="Como atualizar" data-en="How to update">Como atualizar</h3>
+    <ul class="feature-list reveal">
+      <li data-pt="<strong>O script atualiza sozinho</strong>: recarregue o gráfico. Suas configurações salvas são preservadas." data-en="<strong>The script updates itself</strong>: reload the chart. Your saved settings are preserved."><strong>O script atualiza sozinho</strong>: recarregue o gráfico. Suas configurações salvas são preservadas.</li>
+      <li data-pt="<strong>Recrie o seu alerta</strong> <code>Any alert() function call</code>. O alerta do TradingView fica preso à versão em que foi criado; só o alerta novo traz a linha da distância." data-en="<strong>Recreate your</strong> <code>Any alert() function call</code> <strong>alert</strong>. A TradingView alert stays tied to the version it was created with; only a new alert carries the distance line."><strong>Recrie o seu alerta</strong> <code>Any alert() function call</code>. O alerta do TradingView fica preso à versão em que foi criado; só o alerta novo traz a linha da distância.</li>
+    </ul>
   </div>
 </section>
 
 <!-- ═══════════════════ RESUMO v3.2.0 ═══════════════════ -->
 <section id="resumo">
   <div class="container">
-    <div class="section-label" data-pt="Resumo" data-en="Summary">Resumo</div>
+    <div class="section-label" data-pt="Resumo (v3.2.0)" data-en="Summary (v3.2.0)">Resumo (v3.2.0)</div>
     <div class="sep"></div>
     <p class="reveal" data-pt="A versão 3.2.0 é a maior atualização do Engine PRO até aqui: <strong>interface toda em português</strong>, <strong>todas as opções de alerta reunidas numa seção única</strong> e o novo <strong>Alinhamento de Fluxo</strong> — o indicador passa a cruzar dois tempos gráficos e avisa quando o contexto maior e o gráfico que você opera apontam para o mesmo lado." data-en="Version 3.2.0 is the biggest Engine PRO update so far: <strong>fully translated interface</strong>, <strong>every alert option gathered in a single settings section</strong> and the new <strong>Flow Alignment</strong> — the indicator now crosses two timeframes and notifies you when the higher-timeframe context and the chart you trade point the same way.">A versão 3.2.0 é a maior atualização do Engine PRO até aqui: <strong>interface toda em português</strong>, <strong>todas as opções de alerta reunidas numa seção única</strong> e o novo <strong>Alinhamento de Fluxo</strong> — o indicador passa a cruzar dois tempos gráficos e avisa quando o contexto maior e o gráfico que você opera apontam para o mesmo lado.</p>
     <p class="reveal" data-pt="<strong>Nada removido.</strong> Os modos de alerta existentes continuam funcionando; os avisos novos são controlados por caixas de seleção independentes." data-en="<strong>Nothing removed.</strong> Existing alert modes keep working; the new notifications are controlled by independent checkboxes."><strong>Nada removido.</strong> Os modos de alerta existentes continuam funcionando; os avisos novos são controlados por caixas de seleção independentes.</p>
@@ -557,7 +582,7 @@ footer p {
     <div class="section-label" data-pt="Links Úteis" data-en="Useful Links">Links Úteis</div>
     <div class="sep"></div>
     <ul class="feature-list reveal">
-      <li><a href="manual.html" data-pt="Manual completo (v3.2.0)" data-en="Complete manual (v3.2.0)">Manual completo (v3.2.0)</a></li>
+      <li><a href="manual.html" data-pt="Manual completo (v3.2.1)" data-en="Complete manual (v3.2.1)">Manual completo (v3.2.1)</a></li>
       <li><a href="backtest.html" data-pt="Backtest público (engine.abdallacrypto.com/backtest)" data-en="Public backtest (engine.abdallacrypto.com/backtest)">Backtest público (engine.abdallacrypto.com/backtest)</a></li>
       <li><a href="live.html" data-pt="Trades ao vivo" data-en="Live trades">Trades ao vivo</a></li>
     </ul>
