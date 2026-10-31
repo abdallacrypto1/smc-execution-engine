@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static HTML/CSS/JavaScript website for the **SMC Execution Engine** — a TradingView Pine Script indicator created by @abdallacrypto. The site serves as both a marketing page and user documentation, written primarily in Portuguese (pt-BR).
+This is a static HTML/CSS/JavaScript website for the **SMC Engine PRO** — a TradingView Pine Script indicator created by @abdallacrypto. The site serves as both a marketing page and user documentation, written primarily in Portuguese (pt-BR).
 
 No build system, package manager, or dependencies are required. Open `index.html` or `manual.html` directly in a browser.
 
