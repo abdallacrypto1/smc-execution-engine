@@ -45,13 +45,16 @@
     if (!par) return;
     if (ios) location.href = app;      // href: voltar traz a página com as instruções
     else location.replace(app);        // Android e computador: sem rastro no histórico
-    // Depois de mandar para o app, fecha a janela para o usuário voltar direto
-    // ao canal (sem a tela branca do navegador do Telegram). Mini app fecha pelo
-    // protocolo do Telegram; navegador interno, por window.close().
-    if (android || ios) {
+    // Depois de mandar para o app, tenta fechar a janela para o usuário voltar
+    // direto ao canal. Só onde fechar funciona de verdade: mini app / navegador
+    // do Telegram e Android. No iPhone fora do Telegram (Discord abre o link no
+    // navegador interno do iOS) window.close() não fecha e deixava a página em
+    // branco; ali a página fica visível, dizendo como voltar (01/11/2026).
+    var tg = !!window.TelegramWebviewProxy;
+    if (android || tg) {
       setTimeout(function () {
         try {
-          if (window.TelegramWebviewProxy) window.TelegramWebviewProxy.postEvent("web_app_close", "{}");
+          if (tg) window.TelegramWebviewProxy.postEvent("web_app_close", "{}");
         } catch (e) {}
         try { window.close(); } catch (e) {}
       }, 1500);
@@ -118,7 +121,7 @@
     document.getElementById("titulo").textContent = par;
     document.getElementById("dica").textContent = android
       ? "Se o app não abriu sozinho, toque no botão abaixo."
-      : "Confirme \"Abrir\" para o atalho levar o TradingView até " + par + ". Se não abriu, toque no botão abaixo.";
+      : "Confirme \"Abrir\" para o atalho levar o TradingView até " + par + ". Para voltar ao canal, toque em Concluído no alto desta janela. Se o TradingView não abriu, toque no botão abaixo.";
     botao("📱 Abrir " + par + " no app", app);
     botao("🌐 Ver no navegador", web, true);
   }
