@@ -13,11 +13,11 @@
 */
 (function() {
   const RELEASE = {
-    version: 'v3.2.0',
+    version: 'v3.3.0',
     link: 'release-notes.html',
-    expires: '2026-09-18',  // 30 dias após lançamento (19/08/2026)
-    messagePT: 'Novidades da v3.2.0 — Alinhamento de Fluxo e central de alertas',
-    messageEN: 'What\'s new in v3.2.0 — Flow Alignment and the alert hub'
+    expires: '2026-12-11',  // 30 dias após lançamento (11/11/2026)
+    messagePT: 'Novidades da v3.3.0 — liquidez ($$$) no gráfico e no alerta, âncora no fundo de verdade',
+    messageEN: 'What\'s new in v3.3.0 — liquidity ($$$) on the chart and in the alert, anchor at the real bottom'
   };
 
   // Auto-expira (zero manutenção)
