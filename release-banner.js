@@ -13,7 +13,7 @@
 */
 (function() {
   const RELEASE = {
-    version: 'v3.3.1',
+    version: 'v3.3.2',
     link: 'release-notes.html',
     expires: '2026-12-11',  // 30 dias após lançamento (11/11/2026)
     messagePT: 'Novidades da v3.3 — liquidez ($$$) no gráfico e no alerta, âncora no fundo de verdade',
