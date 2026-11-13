@@ -20,9 +20,25 @@
     // no texto o Telegram abre SEM a confirmação "Open link?" que ele mostra
     // para botões (testado em 11/10/2026); curto pra não poluir a mensagem.
     var cru = decodeURIComponent(location.search.replace(/^\?/, ""));
-    if (!par && cru && cru.indexOf("=") < 0) {
-      var c = cru.split("-");
-      par = (c[0].indexOf(":") < 0 ? "OKX:" : "") + c[0].toUpperCase();
+    // Corretora de quem abre (13/11/2026, caso levantado por uma assinante que
+    // não opera na OKX): o radar manda o par sem corretora e esta página põe a
+    // da pessoa na frente. Escolha feita uma vez (botões abaixo), guardada no
+    // navegador; ?c=bybit na URL vale por cima. Sem escolha salva, a página
+    // NÃO redireciona: mostra os botões. Os níveis do alerta vêm do gráfico da
+    // OKX, em outra corretora podem variar um pouco; isso fica dito na escolha.
+    var CORRETORAS = { okx: "OKX:", bybit: "BYBIT:", binance: "BINANCE:", bitget: "BITGET:", tv: "" };
+    var corretora = (q.get("c") || "").toLowerCase();
+    try { if (!CORRETORAS.hasOwnProperty(corretora)) corretora = localStorage.getItem("tv_corretora") || ""; } catch (e) { corretora = corretora || ""; }
+    if (!CORRETORAS.hasOwnProperty(corretora)) corretora = "";
+    var precisaEscolher = false;
+    // formato curto = o pedaço da query sem "=" (o ?c= da escolha pode vir junto)
+    var curto = cru.split("&").filter(function (p) { return p && p.indexOf("=") < 0; })[0] || "";
+    if (!par && curto) {
+      var c = curto.split("-");
+      var base = c[0].toUpperCase();
+      if (base.indexOf(":") >= 0) par = base;
+      else if (corretora) par = CORRETORAS[corretora] + base;
+      else { par = base; precisaEscolher = true; }
       var r = /^(\d+)\s*([mhd])$/i.exec(c[1] || "");
       tf = !r ? "" : r[2].toLowerCase() === "m" ? r[1]
          : r[2].toLowerCase() === "h" ? String(r[1] * 60) : (r[1] === "1" ? "D" : r[1] + "D");
@@ -41,8 +57,9 @@
       : ios
         ? "shortcuts://run-shortcut?name=" + encodeURIComponent(atalho) + "&input=text&text=" + encodeURIComponent(par)
         : web;
-    window.TV = { par: par, web: web, app: app, android: android, ios: ios };
-    if (!par) return;
+    window.TV = { par: par, web: web, app: app, android: android, ios: ios, corretora: corretora,
+                  precisaEscolher: precisaEscolher, corretoras: CORRETORAS };
+    if (!par || precisaEscolher) return;
     if (ios) location.href = app;      // href: voltar traz a página com as instruções
     else location.replace(app);        // Android e computador: sem rastro no histórico
     // Depois de mandar para o app, tenta fechar a janela para o usuário voltar
@@ -74,6 +91,8 @@
   a.b { display:block; background:#16161f; border:1px solid #2a2a3a; border-radius:12px;
         padding:15px 16px; margin:0 0 12px; color:#00ff88; text-decoration:none; font-size:17px; }
   a.s { color:#b8b8c8; border-color:#22222e; font-size:15px; }
+  a.c { color:#e8e8f0; }
+  p.m { font-size:13px; color:#8a8a9a; }
 </style>
 </head>
 <body>
@@ -104,19 +123,36 @@
 <script>
   // O redirecionamento já aconteceu no <head>. Daqui pra baixo é o plano B
   // visível: quem voltou para a página (ou ainda não instalou o atalho).
-  const { par, web, app, android } = window.TV;
+  const { par, web, app, android, precisaEscolher, corretora } = window.TV;
 
   const botoes = document.getElementById("botoes");
-  function botao(texto, url, secundario) {
+  function botao(texto, url, secundario, aoClicar) {
     const a = document.createElement("a");
     a.className = "b" + (secundario ? " s" : "");
     a.href = url; a.textContent = texto;
+    if (aoClicar) a.onclick = aoClicar;
     botoes.appendChild(a);
   }
+  // Guarda a corretora e recarrega a mesma URL com ?c=: o <head> redireciona.
+  function escolher(ev, nome) {
+    ev.preventDefault();
+    try { localStorage.setItem("tv_corretora", nome); } catch (e) {}
+    const cru = location.search.replace(/^\?/, "").replace(/(^|&)c=[^&]*/g, "").replace(/^&/, "");
+    location.replace(location.pathname + "?" + cru + (cru ? "&" : "") + "c=" + nome);
+  }
+  const NOMES = { okx: "OKX", bybit: "Bybit", binance: "Binance", bitget: "Bitget", tv: "Outra (o TradingView escolhe)" };
 
   if (!par) {
     document.getElementById("titulo").textContent = "Abrir no TradingView";
     document.getElementById("dica").textContent = "Abra esta página pelo botão de um alerta do radar.";
+  } else if (precisaEscolher) {
+    document.getElementById("titulo").textContent = "Onde você opera?";
+    document.getElementById("dica").textContent = "Escolha uma vez. Os próximos links do radar abrem direto no gráfico da sua corretora.";
+    for (const k of Object.keys(NOMES)) botao(NOMES[k], "?" + location.search.replace(/^\?/, "") + "&c=" + k, k === "tv", (ev) => escolher(ev, k));
+    const m = document.createElement("p");
+    m.className = "m";
+    m.textContent = "Os níveis do alerta são calculados no gráfico da OKX. Em outra corretora podem variar um pouco, e uma moeda que não exista lá abre a busca do TradingView.";
+    botoes.appendChild(m);
   } else {
     document.getElementById("titulo").textContent = par;
     document.getElementById("dica").textContent = android
@@ -124,6 +160,14 @@
       : "Confirme \"Abrir\" para o atalho levar o TradingView até " + par + ". Para voltar ao canal, toque em Concluído no alto desta janela. Se o TradingView não abriu, toque no botão abaixo.";
     botao("📱 Abrir " + par + " no app", app);
     botao("🌐 Ver no navegador", web, true);
+    if (corretora) {
+      botao("Trocar de corretora (hoje: " + (NOMES[corretora] || corretora) + ")", "#", true, (ev) => {
+        ev.preventDefault();
+        try { localStorage.removeItem("tv_corretora"); } catch (e) {}
+        const cru = location.search.replace(/^\?/, "").replace(/(^|&)c=[^&]*/g, "").replace(/^&/, "");
+        location.replace(location.pathname + (cru ? "?" + cru : ""));
+      });
+    }
   }
 </script>
 </body>
