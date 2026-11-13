@@ -49,15 +49,12 @@
     var ua = navigator.userAgent;
     var android = /Android/i.test(ua);
     var ios = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-    // iPhone: o atalho só conhece OKX, Binance e Bybit (árvore fixa de moedas,
-    // scripts/gera_atalho_tv.py); Bitget e "outra" vão pro gráfico no navegador.
-    var semAtalho = ios && (corretora === "bitget" || corretora === "tv");
     var app = android
       ? "intent://www.tradingview.com/chart/?symbol=" + encodeURIComponent(par) +
         (tf ? "&interval=" + encodeURIComponent(tf) : "") +
         "#Intent;scheme=https;package=com.tradingview.tradingviewapp;S.browser_fallback_url=" +
         encodeURIComponent(web) + ";end"
-      : (ios && !semAtalho)
+      : ios
         ? "shortcuts://run-shortcut?name=" + encodeURIComponent(atalho) + "&input=text&text=" + encodeURIComponent(par)
         : web;
     window.TV = { par: par, web: web, app: app, android: android, ios: ios, corretora: corretora,
@@ -116,7 +113,6 @@
 <div id="botoes"></div>
 
 <h2>Primeira vez no iPhone? Instale o atalho (uma vez só)</h2>
-<p>Já tinha o atalho e escolheu Bybit ou Binance? Instale de novo: a versão de 13/11/2026 conhece as três corretoras.</p>
 <a class="b" href="atalho/Abrir%20no%20TV.shortcut">⬇️ Instalar o atalho "Abrir no TV"</a>
 <ol>
   <li>Toque no botão acima e depois em <b>Adicionar Atalho</b>. Não mude o nome dele.</li>
@@ -155,8 +151,7 @@
     for (const k of Object.keys(NOMES)) botao(NOMES[k], "?" + location.search.replace(/^\?/, "") + "&c=" + k, k === "tv", (ev) => escolher(ev, k));
     const m = document.createElement("p");
     m.className = "m";
-    m.textContent = "Os níveis do alerta são calculados no gráfico da OKX. Em outra corretora podem variar um pouco, e uma moeda que não exista lá abre a busca do TradingView."
-      + (window.TV.ios ? " No iPhone, se você instalou o atalho \"Abrir no TV\" antes de 13/11/2026, instale de novo pelo botão abaixo: a versão nova conhece Bybit e Binance." : "");
+    m.textContent = "Os níveis do alerta são calculados no gráfico da OKX. Em outra corretora podem variar um pouco, e uma moeda que não exista lá abre a busca do TradingView.";
     botoes.appendChild(m);
   } else {
     document.getElementById("titulo").textContent = par;
