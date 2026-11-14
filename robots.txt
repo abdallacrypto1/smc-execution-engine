@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /live.html
+
+Sitemap: https://engine.abdallacrypto.com/sitemap.xml
