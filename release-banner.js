@@ -13,11 +13,11 @@
 */
 (function() {
   const RELEASE = {
-    version: 'v3.3.2',
+    version: 'v3.3.4',
     link: 'release-notes.html',
-    expires: '2026-12-11',  // 30 dias após lançamento (11/11/2026)
-    messagePT: 'Novidades da v3.3 — liquidez ($$$) no gráfico e no alerta, âncora no fundo de verdade',
-    messageEN: 'What\'s new in v3.3 — liquidity ($$$) on the chart and in the alert, anchor at the real bottom'
+    expires: '2026-12-14',  // 30 dias após lançamento (14/11/2026)
+    messagePT: 'Novidades da v3.3.4: alerta na entrada do Fluxo, perfis com nomes novos e linhas mais curtas no gráfico',
+    messageEN: 'What\'s new in v3.3.4: Flow entry alert, renamed profiles and shorter lines on the chart'
   };
 
   // Auto-expira (zero manutenção)
