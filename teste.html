@@ -154,6 +154,11 @@ iframe.alvo{display:none}
   var f=$('f'), caixa=$('caixa'), bt=$('enviar'), msg=$('msg'), alvo=$('alvo');
   var email=$('email'), tv=$('tv'), origem=$('origem');
   var enviando=false, relogio=null;
+  /* parceiro: quem chega por /teste?p=nome leva a marca [parceiro:nome] no fim da origem; fica lembrado neste navegador */
+  var parc='';
+  try{ parc=(new URLSearchParams(location.search).get('p')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,30); }catch(e){}
+  try{ if(parc) localStorage.setItem('smc_p',parc); else parc=(localStorage.getItem('smc_p')||'').replace(/[^a-z0-9_-]/g,'').slice(0,30); }catch(e){}
+  function semMarca(){ origem.value=origem.value.replace(/\s*\[parceiro:[^\]]*\]\s*$/,''); }
   function marca(id,ruim){ $(id).classList.toggle('bad',ruim); return ruim; }
   function limpa(){ email.value=email.value.trim().toLowerCase(); tv.value=tv.value.trim().replace(/^@+/,''); origem.value=origem.value.trim(); }
   function confere(){
@@ -166,13 +171,14 @@ iframe.alvo{display:none}
   }
   [email,tv,origem].forEach(function(el){ el.addEventListener('input',function(){ el.parentNode.classList.remove('bad'); msg.classList.remove('on'); }); });
   function sucesso(){ clearTimeout(relogio); enviando=false; caixa.classList.add('done'); $('ok').focus(); window.scrollTo(0,0); }
-  function falha(){ enviando=false; bt.disabled=false; msg.classList.add('on'); }
+  function falha(){ enviando=false; bt.disabled=false; msg.classList.add('on'); semMarca(); }
 
   f.addEventListener('submit',function(ev){
     if(enviando){ ev.preventDefault(); return; }
     if(!confere()){ ev.preventDefault(); return; }
     /* armadilha para robô; sem data-enviar=sim nada é enviado */
     if($('site').value || f.getAttribute('data-enviar')!=='sim'){ ev.preventDefault(); sucesso(); return; }
+    semMarca(); if(parc) origem.value+=' [parceiro:'+parc+']';
     enviando=true; bt.disabled=true; msg.classList.remove('on');
     relogio=setTimeout(function(){ if(enviando) falha(); },15000);
     /* o envio segue para o iframe escondido; a resposta do Google volta nele */
