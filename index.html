@@ -13,6 +13,9 @@
 <meta property="og:url" content="https://engine.abdallacrypto.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://engine.abdallacrypto.com/assets/smc-engine_01_primary-vertical_dark@2x.png">
+<meta name="theme-color" content="#050506">
+<link rel="preload" as="image" href="assets/avatar-640.webp" type="image/webp" media="(max-width:700px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/avatar-800.webp" type="image/webp" media="(min-width:700.02px)" fetchpriority="high">
 <link rel="icon" type="image/png" sizes="256x256" href="assets/smc-engine_03_icon-mark_dark_256.png">
 <link rel="icon" type="image/svg+xml" href="assets/smc-engine_03_icon-mark_dark.svg">
 <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -22,96 +25,122 @@
 </style>
 <style>
 :root{
-  --bg:#070A09; --surface:#0D1210; --surface-2:#111815; --line:#1B2420; --line-2:#26322C;
-  --text:#E9F0EC; --muted:#93A39B; --faint:#6F7F77;
-  --green:#00E887; --glow:#00FF88; --red:#FF5C6C; --amber:#FFB020;
+  --bg:#050506; --surface:#0B0C0F; --surface-2:#111318; --line:#1B1D24; --line-2:#2B2E38;
+  --text:#F3F1EA; --muted:#A5A29A; --faint:#807D76;
+  --gold:#E9B949; --gold2:#F8E08E; --gold3:#B5852A; --cyan:#22D3EE; --cyan2:#7DE7F7;
+  --up:#26A69A; --down:#EF5350; --amber:#FFB020;
   --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --r-s:10px; --r-m:14px; --r-l:16px;
-  --gut:20px; --max:1200px; --bar-h:76px;
+  --r-s:10px; --r-m:14px; --r-l:18px;
+  --gut:20px; --max:1200px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
-  padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom,0px))}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
 a{color:inherit}
 h1,h2,h3,p{margin:0}
-:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.nb{display:inline-block}
 .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
 .mono{font-family:var(--mono)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* faixa de prévia */
 
-/* botões */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;
-  font:600 15.5px/1 var(--sans);letter-spacing:-.005em;text-decoration:none;white-space:nowrap;border:1px solid transparent;
-  transition:transform .18s ease,opacity .18s ease}
+/* botões: dourado = ação principal (teste, compra); ciano = Discord, radar, alertas */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 22px;border-radius:14px;
+  font:600 17px/1 var(--sans);letter-spacing:-.01em;text-decoration:none;white-space:nowrap;border:1px solid transparent;
+  transition:transform .18s ease,box-shadow .18s ease}
 .btn:active{transform:scale(.98)}
-.btn-primary{background:var(--green);color:#03130B;box-shadow:0 0 0 1px rgba(0,255,136,.35),0 10px 34px -10px rgba(0,255,136,.55)}
-.btn-ghost{background:rgba(233,240,236,.04);color:var(--text);border-color:var(--line-2)}
+.btn-primary{background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#D9A636);color:#171204;box-shadow:0 0 0 1px rgba(248,224,142,.35) inset,0 14px 40px -14px rgba(233,185,73,.55)}
 .btn .arr{transition:transform .18s ease}
-@media (hover:hover){.btn:hover{transform:translateY(-1px)}.btn:hover .arr{transform:translateX(3px)}}
+@media (hover:hover){.btn:hover{transform:translateY(-2px)}.btn:hover .arr{transform:translateX(4px)}}
+.eyb{font:500 11.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.fine{font:400 11.5px/1.45 var(--mono);color:var(--faint)}
+.fine a,.tl{color:var(--gold2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(248,224,142,.4)}
+.tl{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:500;font-size:15px}
 
-/* header */
-.header{position:sticky;top:0;z-index:40;background:rgba(7,10,9,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+/* header: transparente sobre a foto, sólido depois de rolar */
+.header{position:sticky;top:0;z-index:40;background:rgba(5,5,6,.84);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background-color .25s ease,border-color .25s ease}
+.js .header:not(.sc){background:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
 .header .wrap{display:flex;align-items:center;gap:20px;height:60px}
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:17px;letter-spacing:-.01em;min-height:44px}
-.logo .pro{font:600 10px/1 var(--mono);letter-spacing:.12em;color:var(--green);border:1px solid rgba(0,232,135,.4);border-radius:5px;padding:3px 5px}
+.logo .pro{font:600 10px/1 var(--mono);letter-spacing:.12em;color:var(--gold);border:1px solid rgba(233,185,73,.45);border-radius:5px;padding:3px 5px}
 .navlinks{display:none;gap:4px;margin-left:16px}
 .navlinks a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14.5px;transition:opacity .15s}
 @media (hover:hover){.navlinks a:hover{color:var(--text)}}
 .header .right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.lang{min-width:44px;min-height:44px;background:transparent;border:1px solid var(--line-2);border-radius:10px;color:var(--muted);font:500 12.5px/1 var(--mono);letter-spacing:.06em;cursor:pointer}
+.lang{min-width:44px;min-height:44px;background:rgba(5,5,6,.5);border:1px solid rgba(255,255,255,.2);border-radius:10px;color:var(--text);font:500 12.5px/1 var(--mono);letter-spacing:.04em;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .header .btn{display:none;min-height:40px;padding:0 16px;font-size:14px;border-radius:10px}
-@media (min-width:900px){.navlinks{display:flex}.header .btn{display:inline-flex}}
+@media (min-width:900px){.navlinks{display:flex}.header .btn{display:inline-flex;max-width:0;padding:0;border:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .25s ease,max-width .25s ease,padding .25s ease,visibility .25s}.header .btn.on,html:not(.js) .header .btn{max-width:260px;padding:0 16px;opacity:1;visibility:visible}}
 /*CSS:HERO*/
 /* hero */
-.hero{position:relative;padding:24px 0 40px;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(60% 50% at 78% 38%,rgba(0,255,136,.10),transparent 70%),
-    linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 56px,
-    linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/56px 100%;
-  opacity:.55;-webkit-mask-image:radial-gradient(90% 80% at 60% 30%,#000 20%,transparent 85%);mask-image:radial-gradient(90% 80% at 60% 30%,#000 20%,transparent 85%)}
-.hero .wrap{position:relative;display:grid;gap:26px;grid-template-areas:"copy" "stage" "acts"}
-.copy{grid-area:copy}.stage{grid-area:stage}.acts{grid-area:acts;margin-top:34px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--glow)}
-.hero h1{margin-top:14px;font-size:clamp(34px,10.3vw,64px);line-height:.98;letter-spacing:-.045em;font-weight:600}
-.hero h1 em{font-style:normal;color:var(--green)}
-.lede{margin-top:16px;max-width:34em;color:var(--muted);font-size:16.5px;line-height:1.5}
-.lede strong{color:var(--text);font-weight:500}
+/* primeira tela: quem é o Ricardo e a prova; depois o produto como "é isto que eu uso" */
+.hero{position:relative;isolation:isolate;overflow:hidden;margin-top:-61px;padding-bottom:48px}
+.hero-g{display:grid;gap:44px}
+.hero-g>*{min-width:0}
+.ph{position:relative;height:min(41vh,330px);height:min(41svh,330px);min-height:250px;background:#000;overflow:hidden}
+.ph img{position:absolute;right:-6%;top:0;width:auto;max-width:none;height:112%;height:min(112%,80vw);filter:grayscale(1) contrast(1.08) brightness(.92);-webkit-mask-image:linear-gradient(180deg,#000 58%,transparent 98%),linear-gradient(90deg,transparent 2%,#000 34%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 58%,transparent 98%),linear-gradient(90deg,transparent 2%,#000 34%,#000 86%,transparent 100%);mask-composite:intersect}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,6,.45) 0,rgba(5,5,6,0) 24%,rgba(5,5,6,.35) 62%,var(--bg) 100%),linear-gradient(90deg,var(--bg) 0,var(--bg) 29%,rgba(5,5,6,0) 60%)}
+.hero-c{position:relative;z-index:2;margin-top:-104px;padding:0 var(--gut)}
+.who-l a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none}
+.rank{font-weight:600;letter-spacing:-.035em}
+.n16{display:block;margin-left:-.04em;padding:0 .1em .04em 0;font-size:clamp(104px,31vw,200px);line-height:.82;font-weight:700;letter-spacing:-.07em;font-variant-numeric:tabular-nums;background:linear-gradient(175deg,#FFF3C4 5%,var(--gold2) 30%,var(--gold) 58%,var(--gold3) 94%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 34px rgba(233,185,73,.3));width:-moz-fit-content;width:fit-content}
+.n16 i{font-style:normal;font-size:.6em;letter-spacing:0;margin-left:.03em}
+.h1t{display:block;text-wrap:balance;margin-top:10px;font-size:clamp(25px,6.9vw,44px);line-height:1.06}
+.seal{margin-top:12px;display:flex;align-items:flex-start;gap:8px;font:500 10.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.seal::before{content:"";flex:none;width:6px;height:6px;margin-top:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.hero h1{margin-top:14px;font-size:16.5px;line-height:1.4;font-weight:400;letter-spacing:0;color:#DAD7CE;max-width:26em}
+.hero h1 b{font-weight:600;color:var(--text)}
+.hero-c .btn{display:flex;margin-top:18px}
+.hero-c>.fine{margin-top:10px;text-align:center}
+.mini{list-style:none;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mini b{display:block;font:600 30px/1 var(--sans);letter-spacing:-.045em;color:var(--gold2);font-variant-numeric:tabular-nums}
+.mini span{display:block;margin-top:7px;font:500 10px/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.prints{margin-top:8px}
+.prints .fine{display:block}
+.prod{padding:0 var(--gut)}
+.prod h2{margin-top:12px;font-size:clamp(28px,7.5vw,40px);line-height:1.04;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
+.prod .stage{margin-top:22px}
+.ben{list-style:none;padding:0;margin:50px 0 0}
+.ben li{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;line-height:1.3;letter-spacing:-.012em}
+.ben li::before{content:"";flex:none;width:8px;height:8px;margin-top:7px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
 .cta{display:grid;gap:10px}
-.cta-note{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;font-size:13.5px;color:var(--muted)}
+.cta-note{margin-top:8px;display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;font-size:13.5px;color:var(--muted)}
 .cta-note .price{font-family:var(--mono);font-size:12.5px;color:var(--text)}
 .cta-note a{color:var(--muted);text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
-@media (min-width:520px){.cta{grid-auto-flow:column;justify-content:start}}
 @media (min-width:1024px){
-  .hero{padding:72px 0 88px}
-  .hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"copy stage" "acts stage";grid-template-rows:1fr 1fr;gap:0 64px}
-  .copy{align-self:end}.acts{align-self:start;margin-top:30px}.stage{align-self:center}
-  .hero h1{font-size:58px}
-  .lede{font-size:19px}
+  .hero{margin-top:0;padding:20px 0 96px}
+  .hero-g{max-width:var(--max);margin:0 auto;padding:0 var(--gut);grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px;align-items:start}
+  .ph{height:320px;min-height:0}
+  .ph img{right:-2%;height:116%;height:min(116%,30vw)}
+  .hero-c{padding:0;margin-top:-112px}
+  .n16{font-size:clamp(128px,12.2vw,176px)}
+  .h1t{font-size:36px}
+  .hero h1{font-size:19px}
+  .hero-c .btn{display:inline-flex;min-width:340px}
+  .hero-c>.fine{text-align:left}
+  .prod{padding:6px 0 0}
+  .prod h2{font-size:34px}
 }
 /* janela do gráfico */
 .stage{position:relative}
-.win{position:relative;background:linear-gradient(180deg,#0E1411,#0A0E0C);border:1px solid var(--line-2);border-radius:var(--r-l);
-  box-shadow:0 0 0 1px rgba(0,255,136,.05),0 40px 90px -40px rgba(0,255,136,.28),0 30px 60px -30px #000}
+.win{position:relative;background:linear-gradient(180deg,#131722,#0F121B);border:1px solid var(--line-2);border-radius:var(--r-l);
+  box-shadow:0 30px 80px -44px rgba(34,211,238,.4),0 30px 60px -30px #000}
 .win-bar{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px 0 14px;border-bottom:1px solid var(--line);font:500 11.5px/1 var(--mono);color:var(--muted);white-space:nowrap}
 .dots{display:flex;gap:6px}.dots i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
 .win-bar .sym{color:var(--text)}
 .win-bar .tf{display:none}
-.chip{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border:1px dashed rgba(255,176,32,.5);border-radius:999px;color:var(--amber);font:500 10.5px/1 var(--mono);letter-spacing:.04em}
+.chip{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border:1px dashed rgba(233,185,73,.55);border-radius:999px;color:var(--gold);font:500 10.5px/1 var(--mono);letter-spacing:.04em}
 .win svg.chart{width:100%;height:auto;aspect-ratio:640/420}
 .chart text{font-family:var(--mono)}
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--line);list-style:none;margin:0;padding:0}
 .steps li{position:relative;padding:11px 4px 12px;text-align:center;font:500 10.5px/1.2 var(--mono);color:var(--text);letter-spacing:.01em}
 .steps li+li{border-left:1px solid var(--line)}
-.steps li b{display:block;margin-bottom:5px;color:var(--green);font-weight:500;font-size:10px}
-.steps li.al b{color:var(--amber)}
+.steps li b{display:block;margin-bottom:5px;color:var(--gold2);font-weight:500;font-size:10px}
+.steps li.al b{color:var(--cyan2)}
 .replay{position:absolute;right:6px;bottom:-46px;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;background:transparent;border:0;border-radius:8px;color:var(--faint);font:500 11.5px/1 var(--mono);cursor:pointer}
 .replay svg{width:13px;height:13px}
 @media (hover:hover){.replay:hover{color:var(--text)}}
@@ -119,9 +148,9 @@ html:not(.js) .replay{display:none}
 
 /* notificação */
 .notif{position:relative;margin:14px 0 0;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:center;padding:12px 14px;
-  background:rgba(22,30,26,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--line-2);border-radius:var(--r-m);
-  box-shadow:0 20px 50px -20px #000,0 0 0 1px rgba(255,176,32,.08)}
-.notif .ico{width:38px;height:38px;border-radius:10px;background:#06110B;border:1px solid rgba(0,232,135,.3);display:grid;place-items:center}
+  background:rgba(8,12,16,.95);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(34,211,238,.5);border-radius:var(--r-m);
+  box-shadow:0 20px 50px -20px #000,0 0 26px -6px rgba(34,211,238,.55)}
+.notif .ico{width:38px;height:38px;border-radius:10px;background:#131722;border:1px solid #2A2E39;display:grid;place-items:center}
 .notif .top{display:flex;gap:8px;align-items:baseline;font-size:12px;color:var(--muted)}
 .notif .top span:last-child{margin-left:auto;font-family:var(--mono);font-size:11px}
 .notif .ttl{font-weight:600;font-size:14.5px;letter-spacing:-.005em;margin-top:1px}
@@ -129,7 +158,6 @@ html:not(.js) .replay{display:none}
 .notif .bd{font-size:13.5px;color:var(--muted);line-height:1.35}
 @media (min-width:1024px){
   .win-bar .tf{display:inline}
-  .notif{position:absolute;left:-44px;bottom:58px;width:310px;margin:0}
 }
 
 /* animação: o estado final é o padrão; .anim esconde e revela em sequência */
@@ -138,14 +166,14 @@ html:not(.js) .replay{display:none}
 @keyframes grow{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:none}}
 @keyframes drop{0%{opacity:0;transform:translateY(18px) scale(.96)}60%{opacity:1;transform:translateY(-3px) scale(1.01)}100%{opacity:1;transform:none}}
 @keyframes ping{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(3.2)}}
-@keyframes lit{from{opacity:.32}to{opacity:1}}
+@keyframes lit{from{opacity:.6}to{opacity:1}}
 .chart .ping{opacity:0;transform-box:fill-box;transform-origin:center}
 .anim .s{opacity:0;animation:in .28s ease-out var(--d) forwards}
 .anim .s.k{animation-name:rise;animation-duration:.22s}
 .anim .s.g{transform-box:fill-box;transform-origin:left center;animation-name:grow;animation-duration:.6s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 .anim .ping{animation:ping 1.4s ease-out var(--d) 3}
 .anim .notif{opacity:0;animation:drop .55s cubic-bezier(.2,.9,.3,1) 4.75s forwards}
-.anim .steps li{opacity:.32;animation:lit .35s ease-out var(--d) forwards}
+.anim .steps li{opacity:.6;animation:lit .35s ease-out var(--d) forwards}
 .stage .layer{transition:opacity .45s ease}
 .stage.fade .layer,.stage.fade .notif{opacity:0!important;transition:opacity .45s ease}
 @media (prefers-reduced-motion:reduce){
@@ -155,78 +183,67 @@ html:not(.js) .replay{display:none}
   .btn,.btn .arr{transition:none}
   .replay{display:none}
 }
-/* prova */
-.proof{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(13,18,16,.7),rgba(7,10,9,0))}
-.proof .wrap{padding-top:28px;padding-bottom:24px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 16px;margin:0}
-.stats div:first-child{grid-column:1/-1}
-.stats dt{font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.stats dd{margin:8px 0 0;font:600 30px/1 var(--sans);letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--text)}
-.stats div:first-child dd{font-size:52px;color:var(--green)}
+/* faixa de números do backtest */
+.proof{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(233,185,73,.06),rgba(233,185,73,0))}
+.proof .wrap{padding-top:30px;padding-bottom:22px}
+.proof h2{font:500 11.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.stats{display:grid;grid-template-columns:1fr 1fr;margin:8px 0 0}
+.stats div{display:flex;flex-direction:column-reverse;justify-content:flex-end;padding:18px 0 16px;border-top:1px solid var(--line)}
+.stats .per{display:none}
+.stats div:nth-child(1),.stats div:nth-child(3){border-top:0;padding-top:10px}
+.stats div:nth-child(1),.stats div:nth-child(4){padding-right:14px;border-right:1px solid var(--line)}
+.stats div:nth-child(3),.stats div:nth-child(5){padding-left:20px}
+.stats dt{margin-top:8px;font:500 11px/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.stats dd{margin:0;display:flex;align-items:flex-end;min-height:38px;font:600 38px/1 var(--sans);letter-spacing:-.045em;font-variant-numeric:tabular-nums;color:var(--gold2)}
+.stats .per dd{font-size:23px;letter-spacing:-.03em;padding-bottom:3px}
+.stats div:first-child dd{display:block;width:-moz-fit-content;width:fit-content;padding:0 .08em .06em 0;margin-bottom:-.06em;line-height:38px;background:linear-gradient(175deg,#FFF3C4 5%,var(--gold2) 30%,var(--gold) 58%,var(--gold3) 94%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .stats dd small{font-size:.45em;letter-spacing:0;color:var(--muted);margin-left:4px}
-.proof-note{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:0 16px;font-size:13px;color:var(--muted)}
-.proof-note a{color:var(--text);text-underline-offset:3px;display:inline-flex;align-items:center;min-height:44px}
+.proof-note{margin-top:16px;max-width:76em;font:400 11.5px/1.5 var(--mono);color:var(--faint)}
+.proof-note a{color:var(--gold2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(248,224,142,.4);display:inline-flex;align-items:center;min-height:44px;font:500 15px/1 var(--sans)}
 @media (min-width:860px){
-  .proof .wrap{padding-top:40px;padding-bottom:28px}
-  .stats{grid-template-columns:1.5fr repeat(4,1fr);align-items:end;gap:24px}
-  .stats div:first-child{grid-column:auto}
-  .stats div+div{border-left:1px solid var(--line);padding-left:24px}
-  .stats dd{font-size:34px}.stats div:first-child dd{font-size:64px}
+  .proof .wrap{padding-top:44px;padding-bottom:28px}
+  .stats{grid-template-columns:repeat(5,1fr);align-items:end;margin-top:14px}
+  .stats .per{display:flex}
+  .stats div,.stats div:nth-child(1),.stats div:nth-child(3),.stats div:nth-child(4),.stats div:nth-child(5){grid-column:auto;padding:0 0 4px 24px;border-top:0;border-right:0;border-left:1px solid var(--line)}
+  .stats div:first-child{padding-left:0;border-left:0}
+  .stats dd{font-size:44px;min-height:44px}
+  .stats .per dd{font-size:30px;padding-bottom:3px;white-space:nowrap}
+  .stats div:first-child dd{line-height:44px}
 }
 
-/* o que vem no PRO */
-.sec{padding:64px 0}
-.sec-h{max-width:22em;font-size:clamp(28px,7vw,44px);line-height:1.05;letter-spacing:-.035em;font-weight:600}
-.sec-p{margin-top:14px;max-width:36em;color:var(--muted);font-size:16.5px}
-.bento{margin-top:32px;display:grid;gap:14px}
-.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:22px;overflow:hidden}
-.card .tag{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+/* seções */
+.sec{padding:72px 0}
+.sec-h{margin-top:12px;max-width:20em;font-size:clamp(28px,7.5vw,52px);line-height:1.04;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
+.sec-p{margin-top:12px;max-width:34em;color:var(--muted);font-size:16px;line-height:1.45;text-wrap:pretty}
+.sec-p+.fine{margin-top:10px;max-width:60em}
+.card{position:relative;background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line-2);border-radius:var(--r-l);padding:22px;overflow:hidden}
+.card .tag{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.card .tag.cy{color:var(--cyan)}
 .card h3{margin-top:12px;font-size:21px;line-height:1.2;letter-spacing:-.02em;font-weight:600}
-.card p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.5}
-.card ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px;font-size:14.5px}
-.card li{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start}
-.card li::before{content:"";width:6px;height:6px;margin-top:8px;border-radius:2px;background:var(--green)}
-.card.big{background:radial-gradient(120% 90% at 100% 0,rgba(0,255,136,.09),transparent 60%),var(--surface)}
-.feed{margin-top:16px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--bg);font:400 12px/1.3 var(--mono)}
-.feed-h{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);color:var(--muted);font-size:10.5px}
-.feed-h span:last-child{color:var(--amber)}
-.feed-r{display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:9px 10px;color:var(--muted)}
-.feed-r+.feed-r{border-top:1px solid var(--line)}
-.feed-r b{color:var(--text);font-weight:500}
-.feed-r .up{color:var(--green)}.feed-r .dn{color:var(--red)}
+.card p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.45}
+.card.big{background:radial-gradient(120% 90% at 100% 0,rgba(233,185,73,.1),transparent 60%),var(--surface)}
 @media (min-width:860px){
-  .sec{padding:104px 0}
-  .bento{grid-template-columns:1.2fr 1fr 1fr}
+  .sec{padding:112px 0}
   .card{padding:28px}
   .card.big h3{font-size:26px}
 }
 
-/* preço */
-.price-box{margin-top:32px;border:1px solid var(--line-2);border-radius:var(--r-l);padding:26px 22px;background:radial-gradient(90% 120% at 0 0,rgba(0,255,136,.08),transparent 55%),var(--surface);display:grid;gap:22px}
-.price-box .lbl{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.price-box .val{margin-top:10px;font:600 40px/1 var(--sans);letter-spacing:-.04em}
-.price-box .val small{font-size:16px;font-weight:400;color:var(--muted);letter-spacing:0}
-.price-box .alt{margin-top:8px;color:var(--muted);font-size:14.5px}
-.price-box .cta{margin-top:0}
-.price-box .tiny{font-size:13px;color:var(--muted)}
-@media (min-width:860px){.price-box{grid-template-columns:1fr auto;align-items:center;padding:36px}}
-
-/* rodapé + barra */
-.footer{border-top:1px solid var(--line);padding:32px 0 40px;color:var(--muted);font-size:13px;line-height:1.6}
+/* rodapé + barra fixa do celular */
+.footer{border-top:1px solid var(--line);padding:36px 0 calc(104px + env(safe-area-inset-bottom,0px));color:var(--faint);font-size:12.5px;line-height:1.55}
 .footer p+p{margin-top:10px}
-.footer strong{color:var(--text);font-weight:500}
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1.25fr 1fr;gap:10px;
-  padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(7,10,9,.9);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-top:1px solid var(--line-2)}
-.bar .btn{min-height:52px;padding:0 10px;font-size:14.5px}
-@media (min-width:768px){.bar{display:none}body{padding-bottom:0}}
+.footer strong{color:var(--muted);font-weight:500}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:26px var(--gut) calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(5,5,6,0),rgba(5,5,6,.94) 42%);transform:translateY(110%);transition:transform .3s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.bar.on{transform:none}
+.bar.on .btn{pointer-events:auto}
+.bar .btn{display:flex;min-height:52px;font-size:16px}
+html:not(.js) .bar{display:none}
+@media (min-width:900px){.bar{display:none}.footer{padding-bottom:48px}}
+@media (prefers-reduced-motion:reduce){.bar,.header,.header .btn{transition:none}}
 
 /* ===== engine: complementos ===== */
 section[id],div[id="topo"]{scroll-margin-top:72px}
-.eyb{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
-.sec-h{margin-top:14px}
 .sec.tight{padding-top:0}
-.ph{display:inline-block;padding:6px 10px;border:1px dashed rgba(255,176,32,.6);border-radius:8px;color:var(--amber);font:500 12px/1.4 var(--mono);background:rgba(255,176,32,.06)}
-.selo-real{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(0,232,135,.08);border:1px solid rgba(0,232,135,.4);color:var(--green);font:600 10.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.selo-real{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.45);color:var(--cyan);font:600 10.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase}
 .rev{opacity:1}
 .js .rev{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 .js .rev.in{opacity:1;transform:none}
@@ -236,7 +253,7 @@ section[id],div[id="topo"]{scroll-margin-top:72px}
 .menu{position:relative}
 .menu-b{display:inline-grid;place-items:center;width:44px;height:44px;background:transparent;border:1px solid var(--line-2);border-radius:10px;color:var(--text);cursor:pointer}
 .menu-b svg{width:18px;height:18px}
-.menu-p{position:absolute;right:0;top:52px;min-width:230px;padding:8px;background:#0D1210;border:1px solid var(--line-2);border-radius:14px;box-shadow:0 30px 60px -20px #000;display:none}
+.menu-p{position:absolute;right:0;top:52px;min-width:230px;padding:8px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 30px 60px -20px #000;display:none}
 .menu-p.open{display:grid}
 html:not(.js) .menu-p{display:grid;position:static}
 .menu-p a{display:flex;align-items:center;min-height:44px;padding:0 12px;border-radius:8px;text-decoration:none;color:var(--text);font-size:15px}
@@ -253,14 +270,13 @@ html:not(.js) .menu-p{display:grid;position:static}
 .notif.tvn{grid-template-columns:38px 1fr;align-items:start}
 .notif.tvn .ico{background:#131722;border-color:#2A2E39}
 .notif.tvn .ttl{font-size:14px}
-.notif.tvn .bd{font:400 12.5px/1.45 var(--mono);color:#B8C4BE;margin-top:3px}
-@media (min-width:1024px){.notif.tvn{width:336px;left:-56px;bottom:64px}}
+.notif.tvn .bd{font:400 12.5px/1.45 var(--mono);color:#B8BCC6;margin-top:3px}
 
 /* como funciona */
 .how{margin-top:36px;display:grid;gap:12px;counter-reset:h;list-style:none;padding:0}
-.how li{position:relative;display:grid;grid-template-columns:88px 1fr;gap:16px;align-items:center;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l)}
-.how svg{width:88px;height:64px;border-radius:8px;background:#131722;border:1px solid #2A2E39}
-.how b{display:block;font:500 11px/1 var(--mono);letter-spacing:.08em;color:var(--green);margin-bottom:6px}
+.how li{position:relative;display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l)}
+.how svg{width:72px;height:54px;border-radius:8px;background:#131722;border:1px solid #2A2E39}
+.how b{display:block;font:500 11px/1 var(--mono);letter-spacing:.08em;color:var(--gold);margin-bottom:6px}
 .how h3{font-size:17px;letter-spacing:-.015em;font-weight:600}
 .how p{margin-top:4px;color:var(--muted);font-size:14.5px;line-height:1.45}
 @media (min-width:980px){.how{grid-template-columns:repeat(5,1fr)}.how li{grid-template-columns:1fr;align-items:start;padding:18px}.how svg{width:100%;height:auto;aspect-ratio:88/56}}
@@ -270,20 +286,20 @@ html:not(.js) .menu-p{display:grid;position:static}
 .bench-c{position:relative;min-width:0}
 .bench-c svg{width:100%;height:auto;aspect-ratio:640/400}
 .bench-c .chip{position:absolute;right:10px;top:8px;background:rgba(19,23,34,.85)}
-.bench-n{position:absolute;left:10px;bottom:52px;max-width:230px;padding:9px 11px;border-radius:10px;background:rgba(30,34,45,.95);border:1px solid #363A45;font:400 11px/1.4 var(--mono);color:#B8C4BE;transition:opacity .25s,transform .25s}
+.bench-n{position:absolute;left:10px;bottom:52px;max-width:230px;padding:9px 11px;border-radius:10px;background:rgba(30,34,45,.95);border:1px solid #363A45;font:400 11px/1.4 var(--mono);color:#B8BCC6;transition:opacity .25s,transform .25s}
 .bench-n b{display:block;color:#fff;font:600 12px/1.3 var(--sans);margin-bottom:2px}
 .bench-p{padding:16px;background:var(--surface);border-top:1px solid #2A2E39;display:grid;gap:14px;align-content:start}
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
 .seg button{min-height:44px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:500 14px/1 var(--sans);cursor:pointer;transition:opacity .15s}
-.seg button[aria-pressed=true]{background:rgba(0,232,135,.12);color:var(--green);box-shadow:inset 0 0 0 1px rgba(0,232,135,.45)}
+.seg button[aria-pressed=true]{background:rgba(233,185,73,.12);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(233,185,73,.5)}
 .sw{display:grid;gap:8px}
 .sw label{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;min-height:52px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
 .sw label b{display:block;font-weight:500;font-size:14.5px}
 .sw label small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35;margin-top:2px}
 .sw input{appearance:none;-webkit-appearance:none;width:40px;height:24px;border-radius:999px;background:var(--line-2);position:relative;cursor:pointer;margin:0;transition:background-color .2s}
-.sw input::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#C9D3CE;transition:transform .2s}
-.sw input:checked{background:rgba(0,232,135,.35)}
-.sw input:checked::after{transform:translateX(16px);background:var(--green)}
+.sw input::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#C9C7C0;transition:transform .2s}
+.sw input:checked{background:rgba(233,185,73,.35)}
+.sw input:checked::after{transform:translateX(16px);background:var(--gold)}
 .sw input:disabled{opacity:.35;cursor:not-allowed}
 .bench-k{font:400 12.5px/1.4 var(--mono);color:var(--muted)}
 .bench-k b{color:var(--text)}
@@ -300,9 +316,9 @@ html:not(.js) .menu-p{display:grid;position:static}
 .fc{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:20px;overflow:hidden;transition:transform .25s ease}
 .fc .il{height:92px;margin:-4px -4px 16px;border-radius:10px;background:#131722;border:1px solid #2A2E39;overflow:hidden}
 .fc .il svg{width:100%;height:100%}
-.fc .tag{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.fc .tag{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 .fc .tag.free{color:var(--muted)}
-.fc .tag.new{color:var(--amber)}
+.fc .tag.new{color:var(--gold2)}
 .fc h3{margin-top:10px;font-size:18.5px;line-height:1.2;letter-spacing:-.02em;font-weight:600}
 .fc>p{margin-top:8px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .fc details{margin-top:auto;padding-top:12px}
@@ -311,7 +327,7 @@ html:not(.js) .menu-p{display:grid;position:static}
 .fc details ul{margin:4px 0 0;padding:0 0 0 16px;color:var(--muted);font-size:13.5px;line-height:1.5;display:grid;gap:5px}
 @media (hover:hover){.fc:hover{transform:translateY(-2px)}}
 @media (min-width:700px){.feat{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1024px){.feat{grid-template-columns:repeat(6,1fr)}.fc{grid-column:span 2}.fc.w3{grid-column:span 3}.fc.w4{grid-column:span 4}.fc.w4 .il,.fc.w3 .il{height:120px}}
+@media (min-width:1024px){.feat{grid-template-columns:repeat(6,1fr)}.fc{grid-column:span 2}.fc.w3{grid-column:span 3}.fc.w4{grid-column:span 4}.fc.w4 .il,.fc.w3 .il{height:120px}.fc:last-child{grid-column:1/-1}}
 
 /* o que vem no PRO + Discord */
 .trio{margin-top:28px;display:grid;gap:12px}
@@ -319,7 +335,7 @@ html:not(.js) .menu-p{display:grid;position:static}
 @media (min-width:860px){.trio{grid-template-columns:repeat(3,1fr)}}
 .cats{margin:28px 0 0;display:grid;gap:10px;padding:0;list-style:none}
 .cats li{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-.cats b{font:600 12px/1 var(--mono);letter-spacing:.06em;color:var(--green)}
+.cats b{font:600 12px/1 var(--mono);letter-spacing:.06em;color:var(--cyan)}
 .cats span{display:block;margin-top:6px;color:var(--muted);font-size:14.5px;line-height:1.45}
 @media (min-width:860px){.cats{grid-template-columns:repeat(3,1fr)}}
 .dc-cap{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px;color:var(--muted)}
@@ -356,21 +372,23 @@ html:not(.js) .menu-p{display:grid;position:static}
 .bt{margin-top:32px;border:1px solid var(--line-2);border-radius:var(--r-l);background:var(--surface);overflow:hidden}
 .bt-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px}
 .bt-seg{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:12px;flex:1 1 280px;max-width:420px}
-.bt-seg3{grid-template-columns:1fr 1.5fr 1.7fr;max-width:520px}
+.bt-seg3{grid-template-columns:1fr 2fr 2.2fr;max-width:600px}
 .bt-seg button,.bt-log{min-height:44px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:500 13.5px/1 var(--mono);cursor:pointer}
-.bt-seg button[aria-pressed=true]{background:rgba(0,232,135,.12);color:var(--green);box-shadow:inset 0 0 0 1px rgba(0,232,135,.45)}
+.bt-seg button[aria-pressed=true]{background:rgba(233,185,73,.12);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(233,185,73,.5)}
 .bt-log{padding:0 14px;border:1px solid var(--line);}
+.bt-seg i{font-style:normal}
+@media (max-width:699px){.bt-seg i{display:none}}
 .bt-log[aria-pressed=true]{color:var(--text);border-color:var(--line-2)}
 html:not(.js) .bt-top{display:none}
 .bt-plot{position:relative;padding:0 14px;touch-action:pan-y}
 .bt-plot svg{width:100%;height:auto;aspect-ratio:600/210;overflow:visible}
-.bt-tip{position:absolute;top:4px;left:14px;padding:6px 9px;border-radius:8px;background:rgba(7,10,9,.9);border:1px solid var(--line-2);font:500 12px/1.3 var(--mono);color:var(--text);pointer-events:none;opacity:0;transition:opacity .15s}
+.bt-tip{position:absolute;top:4px;left:14px;padding:6px 9px;border-radius:8px;background:rgba(5,5,6,.92);border:1px solid var(--line-2);font:500 12px/1.3 var(--mono);color:var(--text);pointer-events:none;opacity:0;transition:opacity .15s}
 .bt-ax{display:flex;justify-content:space-between;padding:6px 14px 0;font:400 11px/1 var(--mono);color:var(--muted)}
 .bt-nums{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin:14px 0 0;background:var(--line);border-top:1px solid var(--line)}
 .bt-nums div{background:var(--surface);padding:14px}
 .bt-nums dt{font:500 10.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .bt-nums dd{margin:6px 0 0;font:600 24px/1 var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.bt-nums .g dd{color:var(--green)}
+.bt-nums .g dd{color:var(--gold2)}
 .bt-nums div:last-child{grid-column:1/-1}
 @media (min-width:860px){.bt-nums{grid-template-columns:repeat(5,1fr)}.bt-nums div:last-child{grid-column:auto}.bt-top,.bt-plot,.bt-ax{padding-left:24px;padding-right:24px}.bt-tip{left:24px}.bt-nums div{padding:18px 24px}.bt-nums dd{font-size:30px}}
 .note{margin-top:20px;display:grid;gap:14px;color:var(--muted);font-size:14.5px;line-height:1.55;max-width:62em}
@@ -378,14 +396,15 @@ html:not(.js) .bt-top{display:none}
 .risk{font-size:12.5px;line-height:1.55;color:var(--faint)}
 /* depoimentos */
 .depo{margin:0;display:flex;flex-direction:column;gap:16px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l)}
-.depo blockquote{margin:0;color:#C9D3CE;font-size:15px;line-height:1.55}
+.depo blockquote{margin:0;color:#D6D3CA;font-size:15px;line-height:1.5}
+.depo blockquote::before{content:"\201C";display:block;height:24px;font:600 40px/1 var(--sans);color:var(--gold)}
 .depo.big blockquote{font-size:16.5px;color:var(--text)}
 .depo figcaption{margin-top:auto;display:flex;align-items:center;gap:12px}
-.depo .av{flex:none;width:48px;height:48px;border-radius:50%;overflow:hidden;background:#12201A;border:1px solid var(--line-2);display:grid;place-items:center;font:600 15px/1 var(--mono);color:var(--green)}
+.depo .av{flex:none;width:48px;height:48px;border-radius:50%;overflow:hidden;background:var(--line-2);border:1px solid var(--line-2);display:grid;place-items:center;font:600 15px/1 var(--mono);color:var(--text)}
 .depo .av img{width:100%;height:100%;object-fit:cover}
 .depo .who b{display:block;font-weight:600;font-size:15px}
 .depo .who span{color:var(--muted);font-size:13px}
-.depo .who a{color:var(--green);text-decoration:none;display:inline-flex;align-items:center;min-height:32px}
+.depo .who a{color:var(--gold2);text-decoration:none;display:inline-flex;align-items:center;min-height:32px}
 .depo-top{margin-top:32px;display:grid;gap:12px}
 .depo-row{margin:12px calc(var(--gut)*-1) 0;padding:0 var(--gut) 8px;display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .depo-row::-webkit-scrollbar{display:none}
@@ -402,16 +421,19 @@ html:not(.js) .bt-top{display:none}
 .ex .bd{padding:18px 20px 22px}
 .ex .meta{display:flex;justify-content:space-between;align-items:center;font:500 12.5px/1 var(--mono);color:var(--muted)}
 .ex .meta b{color:var(--text);font-size:14px}
-.ex .meta span{color:var(--green)}
+.ex .meta span{color:var(--up)}
 .ex h3{margin-top:12px;font-size:18px;line-height:1.25;letter-spacing:-.015em}
 .ex p{margin-top:10px;color:var(--muted);font-size:14.5px;line-height:1.55}
+.ex details{margin-top:6px}
+.ex summary{display:inline-flex;align-items:center;min-height:44px;color:var(--text);font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-2);list-style:none}
+.ex summary::-webkit-details-marker{display:none}
 @media (min-width:900px){.ex{grid-template-columns:1fr 1fr}}
 .vids{margin:28px calc(var(--gut)*-1) 0;padding:0 var(--gut) 8px;display:grid;grid-auto-flow:column;grid-auto-columns:64%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .vids::-webkit-scrollbar{display:none}
 .vids a{scroll-snap-align:start;text-decoration:none;display:block}
 .vids .th{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#131722}
 .vids img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .35s ease}
-.vids .th::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px;border-radius:50%;background:rgba(7,10,9,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E") center/22px no-repeat;border:1px solid rgba(255,255,255,.25)}
+.vids .th::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px;border-radius:50%;background:rgba(5,5,6,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E") center/22px no-repeat;border:1px solid rgba(255,255,255,.25)}
 .vids b{display:block;margin-top:10px;font-weight:500;font-size:14.5px}
 .vids small{color:var(--muted);font:400 12px/1 var(--mono)}
 @media (hover:hover){.vids a:hover img{transform:scale(1.04)}}
@@ -422,23 +444,23 @@ html:not(.js) .bt-top{display:none}
 @media (min-width:860px){.who3{grid-template-columns:repeat(3,1fr)}}
 
 /* preço */
-.plan{margin-top:32px;border:1px solid rgba(0,232,135,.3);border-radius:20px;background:radial-gradient(80% 120% at 0 0,rgba(0,255,136,.09),transparent 55%),var(--surface);display:grid;overflow:hidden;box-shadow:0 40px 90px -50px rgba(0,255,136,.35)}
+.plan{margin-top:32px;border:1px solid rgba(233,185,73,.4);border-radius:22px;background:radial-gradient(80% 120% at 0 0,rgba(233,185,73,.12),transparent 55%),var(--surface);display:grid;overflow:hidden;box-shadow:0 40px 90px -50px rgba(233,185,73,.4)}
 .plan-a{padding:26px 22px}
 .plan-a .val{margin-top:12px;font:600 46px/1 var(--sans);letter-spacing:-.045em}
 .plan-a .val small{font-size:17px;font-weight:400;color:var(--muted);letter-spacing:0}
 .plan-a .alt{margin-top:8px;color:var(--muted)}
 .plan-a .cta{margin-top:22px}
 .plan-a .tiny{margin-top:14px;font-size:13px;color:var(--muted);display:grid;gap:10px;justify-items:start}
-.plan-b{padding:22px;border-top:1px solid var(--line);background:rgba(7,10,9,.35)}
+.plan-b{padding:22px;border-top:1px solid var(--line);background:rgba(5,5,6,.35)}
 .inc{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px;font-size:15px}
 .inc li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start}
-.inc li::before{content:"";width:16px;height:16px;margin-top:3px;border-radius:50%;background:rgba(0,232,135,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2300E887' stroke-width='2'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E") center/14px no-repeat}
+.inc li::before{content:"";width:16px;height:16px;margin-top:3px;border-radius:50%;background:rgba(233,185,73,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23E9B949' stroke-width='2'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E") center/14px no-repeat}
 .inc small{display:block;color:var(--muted);font-size:13.5px;line-height:1.4}
 @media (min-width:900px){.plan{grid-template-columns:1.05fr 1fr}.plan-a{padding:40px}.plan-b{padding:40px;border-top:0;border-left:1px solid var(--line)}.plan-a .val{font-size:58px}}
 .after{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:a}
 .after li{counter-increment:a;display:grid;grid-template-columns:32px 1fr;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:12px}
-.after li::before{content:counter(a);width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,232,135,.4);color:var(--green);display:grid;place-items:center;font:600 13px/1 var(--mono)}
-.after b{display:block;font-weight:600;font-size:15px}
+.after li::before{content:counter(a);width:28px;height:28px;border-radius:50%;border:1px solid rgba(233,185,73,.5);color:var(--gold);display:grid;place-items:center;font:600 13px/1 var(--mono)}
+.after b{display:block;font-weight:600;font-size:15px;color:var(--text)}
 .after span{color:var(--muted);font-size:14px;line-height:1.45}
 @media (min-width:900px){.after{grid-template-columns:repeat(4,1fr)}.after li{grid-template-columns:1fr;gap:10px}}
 
@@ -447,21 +469,20 @@ html:not(.js) .bt-top{display:none}
 .faq details{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .faq summary{display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:56px;padding:10px 18px;font-weight:500;font-size:16px;cursor:pointer;list-style:none}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:400 22px/1 var(--mono);color:var(--green);transition:transform .2s}
+.faq summary::after{content:"+";font:400 22px/1 var(--mono);color:var(--gold);transition:transform .2s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details>div{padding:0 18px 18px;color:var(--muted);font-size:15px;line-height:1.55}
-.end{padding:72px 0;text-align:center;border-top:1px solid var(--line);background:radial-gradient(60% 90% at 50% 100%,rgba(0,255,136,.1),transparent 70%)}
-.end h2{font-size:clamp(32px,9vw,60px);line-height:1;letter-spacing:-.045em;font-weight:600}
-.end h2 em{font-style:normal;color:var(--green)}
-.end .cta{margin-top:28px;justify-content:center}
-.end .cta-note{justify-content:center}
+.end{padding:72px 0 80px;border-top:1px solid var(--line);background:radial-gradient(70% 90% at 0% 100%,rgba(233,185,73,.1),transparent 70%)}
+.end h2{margin-top:12px;max-width:14em;font-size:clamp(28px,7.5vw,52px);line-height:1.04;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
+.end .btn{display:flex;margin-top:24px}
+.end .fine{margin-top:12px}
+@media (min-width:900px){.end{padding:112px 0}.end .btn{display:inline-flex;min-width:340px}}
 .f-links{display:flex;flex-wrap:wrap;gap:0 20px;margin-bottom:16px}
 .f-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--text);text-decoration:none;font-size:14px}
 /* ajustes finais (mobile primeiro) */
-@media (min-width:1024px){.notif.tvn{left:-40px;bottom:66px;width:300px}}
-@media (min-width:1280px){.notif.tvn{left:-190px;width:316px}}
+/* no desktop a notificação fica sobre o canto do gráfico, como no celular de quem recebe o alerta */
+@media (min-width:1024px){.notif.tvn{position:absolute;left:-26px;bottom:55px;width:360px;margin:0;padding:9px 12px}.notif.tvn .bd{font-size:12px;line-height:1.3;margin-top:2px}.prod .ben{margin-top:56px}}
 @media (min-width:1024px){.hero .cta-note{max-width:400px;justify-content:flex-start}}
-@media (min-width:1024px) and (max-width:1279px){.notif.tvn{position:relative;left:auto;bottom:auto;width:auto;margin:14px 0 0}}
 .bench-n{position:static;max-width:none;border-radius:0;border-width:1px 0 0;padding:10px 14px;background:#161A25}
 @media (min-width:980px){.bench-n{position:absolute;left:10px;bottom:10px;max-width:230px;border-radius:10px;border-width:1px;background:rgba(30,34,45,.95)}}
 @media (max-width:699px){
@@ -497,8 +518,8 @@ html:not(.js) .menu{display:none}
 .vc{display:block;text-decoration:none}
 .vc .th{display:block;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#131722;aspect-ratio:16/9}
 .vc img,.vc iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
-.vc .th::after{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px;border-radius:50%;background:rgba(7,10,9,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E") center/24px no-repeat;border:1px solid rgba(255,255,255,.25)}
-.vc-big .th::after{width:68px;height:68px;margin:-34px;background-color:var(--green);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2304130C'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E");background-size:32px;border:0;box-shadow:0 0 40px rgba(0,255,136,.35)}
+.vc .th::after{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px;border-radius:50%;background:rgba(5,5,6,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E") center/24px no-repeat;border:1px solid rgba(255,255,255,.25)}
+.vc-big .th::after{width:68px;height:68px;margin:-34px;background-color:var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23171204'%3E%3Cpath d='M9 7v10l8-5z'/%3E%3C/svg%3E");background-size:32px;border:0;box-shadow:0 0 40px rgba(233,185,73,.4)}
 .vc.on .th::after{display:none}
 .vc b{display:block;margin-top:10px;font-weight:500;font-size:14.5px;line-height:1.3}
 .vc-big b{font-size:18px;font-weight:600;letter-spacing:-.015em}
@@ -509,12 +530,13 @@ html:not(.js) .menu{display:none}
 .navlinks a{white-space:nowrap}
 @media (min-width:900px) and (max-width:1139px){.navlinks{margin-left:6px;gap:0}.navlinks a{padding:0 7px;font-size:13.5px}}
 .logo{white-space:nowrap;flex-shrink:0}
+@media (max-width:359px){.header .wrap{gap:8px}.header .right{gap:6px}.logo{font-size:15px;gap:7px}.logo-m{width:30px;height:auto}}
 @media (min-width:900px) and (max-width:1139px){.navlinks a{padding:0 6px;font-size:13px}}
-.dc-hint{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(0,232,135,.4);border-radius:14px;background:rgba(0,232,135,.08);color:var(--text);font-size:14px;font-weight:500}
+.dc-hint{margin-top:14px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(34,211,238,.45);border-radius:14px;background:rgba(34,211,238,.08);color:var(--text);font-size:14px;font-weight:500}
 .dc-hint-i{display:inline-block;animation:dcTap 1.4s ease-in-out infinite}
 @keyframes dcTap{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 .dc:not(.used) button.dc-ch:not(.on){color:#DBDEE1}
-.dc:not(.used) button.dc-ch:not(.on)::after{content:"";width:7px;height:7px;margin-left:8px;border-radius:50%;background:var(--green);animation:dcDot 1.4s ease-in-out infinite}
+.dc:not(.used) button.dc-ch:not(.on)::after{content:"";width:7px;height:7px;margin-left:8px;border-radius:50%;background:var(--cyan);animation:dcDot 1.4s ease-in-out infinite}
 @keyframes dcDot{0%,100%{opacity:.35}50%{opacity:1}}
 .dc-hint.done{display:none}
 @media (prefers-reduced-motion:reduce){.dc-hint-i,.dc:not(.used) button.dc-ch:not(.on)::after{animation:none}}
@@ -529,7 +551,7 @@ html:not(.js) .menu{display:none}
 <header class="header">
   <div class="wrap">
     <a class="logo" href="#topo" aria-label="SMC Engine PRO">
-      <svg class="logo-m" width="38" height="36" viewBox="12 14 120 114" fill="none" aria-hidden="true"><path d="M18 22V38M18 22H34M118 22V38M118 22H102M18 122V106M18 122H34M118 122V106M118 122H102" stroke="#00ff64" stroke-width="3.2"/><text x="68" y="84" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="32" font-weight="600" fill="#00ff64" text-anchor="middle" letter-spacing="2">SMC</text><circle cx="124" cy="18" r="3.4" fill="#00ff64"/></svg>
+      <svg class="logo-m" width="38" height="36" viewBox="12 14 120 114" fill="none" aria-hidden="true"><path d="M18 22V38M18 22H34M118 22V38M118 22H102M18 122V106M18 122H34M118 122V106M118 122H102" stroke="#E9B949" stroke-width="3.2"/><text x="68" y="84" font-family="ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="32" font-weight="600" fill="#E9B949" text-anchor="middle" letter-spacing="2">SMC</text><circle cx="124" cy="18" r="3.4" fill="#E9B949"/></svg>
       <span>SMC Engine</span><span class="pro">PRO</span>
     </a>
     <nav class="navlinks" aria-label="Principal">
@@ -543,7 +565,7 @@ html:not(.js) .menu{display:none}
     </nav>
     <div class="right">
       <button class="lang" id="lang" type="button" aria-label="Switch to English">EN</button>
-      <a class="btn btn-primary" href="teste.html" data-pt="Testar grátis" data-en="Start free trial">Testar grátis</a>
+      <a class="btn btn-primary" id="hcta" href="teste.html" data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</a>
       <div class="menu">
         <button class="menu-b" id="menu-b" type="button" aria-expanded="false" aria-controls="menu-p" aria-label="Menu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
         <nav class="menu-p" id="menu-p" aria-label="Menu">
@@ -562,25 +584,30 @@ html:not(.js) .menu{display:none}
 </header>
 
 <main id="conteudo">
-<section class="hero" id="topo">
+<section class="hero" id="topo" aria-labelledby="h1">
 <span class="anc" id="hero"></span>
-  <div class="wrap">
+  <div class="hero-g">
     <div class="copy">
-      <span class="eyebrow"><i></i><span data-pt="Indicador para TradingView · v3.3.5" data-en="TradingView indicator · v3.3.5">Indicador para TradingView · v3.3.5</span></span>
-      <h1 data-pt="Pare de adivinhar.&lt;br&gt;&lt;em&gt;Comece a executar.&lt;/em&gt;" data-en="Stop guessing.&lt;br&gt;&lt;em&gt;Start executing.&lt;/em&gt;">Pare de adivinhar.<br><em>Comece a executar.</em></h1>
-      <p class="lede" data-pt="O SMC Engine marca a &lt;strong&gt;estrutura&lt;/strong&gt;, as &lt;strong&gt;zonas de Fibonacci&lt;/strong&gt; e os &lt;strong&gt;order blocks&lt;/strong&gt; no seu gráfico e avisa na hora em que o preço chega onde importa." data-en="SMC Engine maps &lt;strong&gt;structure&lt;/strong&gt;, &lt;strong&gt;Fibonacci zones&lt;/strong&gt; and &lt;strong&gt;order blocks&lt;/strong&gt; on your chart and alerts you the moment price reaches the level that matters.">O SMC Engine marca a <strong>estrutura</strong>, as <strong>zonas de Fibonacci</strong> e os <strong>order blocks</strong> no seu gráfico e avisa na hora em que o preço chega onde importa.</p>
-    </div>
-    <div class="acts">
-      <div class="cta">
-        <a class="btn btn-primary" href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost" href="#preco" data-pt="Assinar PRO" data-en="Get PRO">Assinar PRO</a>
-      </div>
-      <div class="cta-note">
-        <span class="price" data-pt="R$ 938/ano ou 12x de R$ 95,31" data-en="R$ 938/year or 12x R$ 95.31">R$ 938/ano ou 12x de R$ 95,31</span>
-        <a class="hero-vid" href="#videos"><span aria-hidden="true">▶</span> <span data-pt="Ver em vídeo" data-en="Watch the video">Ver em vídeo</span></a> <a href="https://www.tradingview.com/script/0qEZWoqU-SMC-Engine-Free-v1-3/" target="_blank" rel="noopener" data-pt="Versão Free no TradingView" data-en="Free version on TradingView">Versão Free no TradingView</a>
+      <div class="ph"><picture><source media="(max-width:700px)" srcset="assets/avatar-640.webp" type="image/webp"><img src="assets/avatar-800.webp" width="800" height="800" alt="Ricardo Abdalla" fetchpriority="high" decoding="async"></picture></div>
+      <div class="hero-c">
+        <p class="eyb who-l"><a href="https://www.instagram.com/abdallacrypto" target="_blank" rel="noopener">Ricardo Abdalla</a></p>
+        <p class="rank"><span class="n16">16<i>×</i></span><span class="h1t" data-pt="no Top 500 global da Bybit" data-en="in the Bybit Global Top 500">no Top 500 global da Bybit</span></p>
+        <p class="seal"><span data-pt="Ranking público · ago/2025 a jul/2026" data-en="Public leaderboard · Aug 2025 to Jul 2026">Ranking público · ago/2025 a jul/2026</span></p>
+        <h1 id="h1" data-pt="É isto que eu uso: &lt;b&gt;SMC Engine PRO&lt;/b&gt;, o indicador que eu criei." data-en="This is what I use: &lt;b&gt;SMC Engine PRO&lt;/b&gt;, the indicator I built.">É isto que eu uso: <b>SMC Engine PRO</b>, o indicador que eu criei.</h1>
+        <a class="btn btn-primary" data-cta href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
+        <p class="fine" data-pt="Ferramenta de análise. Não é sinal nem recomendação." data-en="Analysis tool. Not a signal or a recommendation.">Ferramenta de análise. Não é sinal nem recomendação.</p>
+        <ul class="mini" aria-label="Ranking da Bybit">
+          <li><b>#194</b><span data-pt="melhor posição" data-en="best rank">melhor posição</span></li>
+          <li><b>3</b><span data-pt="rankings: dia, semana e 90 dias" data-en="leaderboards: daily, weekly, 90-day">rankings: dia, semana e 90 dias</span></li>
+          <li><b>2021</b><span data-pt="operando desde" data-en="trading since">operando desde</span></li>
+        </ul>
+        <p class="prints"><a class="tl" href="https://abdallacrypto.com/#sobre"><span data-pt="Ver os prints das 16 aparições" data-en="See the screenshots of all 16 appearances">Ver os prints das 16 aparições</span> <span aria-hidden="true">→</span></a><span class="fine" data-pt="Valores ocultados. Resultado passado não garante resultado futuro." data-en="Values hidden. Past results do not guarantee future results.">Valores ocultados. Resultado passado não garante resultado futuro.</span></p>
       </div>
     </div>
 
+    <div class="prod">
+    <p class="eyb" data-pt="Indicador para TradingView · v3.3.5" data-en="TradingView indicator · v3.3.5">Indicador para TradingView · v3.3.5</p>
+    <h2 data-pt="&lt;span class=&quot;nb&quot;&gt;Abra o gráfico.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;A zona já está marcada.&lt;/span&gt;" data-en="&lt;span class=&quot;nb&quot;&gt;Open the chart.&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;The zone is already drawn.&lt;/span&gt;"><span class="nb">Abra o gráfico.</span> <span class="nb">A zona já está marcada.</span></h2>
     <div class="stage" id="stage">
       <div class="win tvw">
         <div class="win-bar">
@@ -671,15 +698,25 @@ html:not(.js) .menu{display:none}
       </div>
       <button class="replay" id="replay" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.8-4.1M2.5 2v3h3"/></svg><span data-pt="ver de novo" data-en="replay">ver de novo</span></button>
     </div>
+    <ul class="ben">
+      <li data-pt="Estrutura, Fibonacci e OB já marcados." data-en="Structure, Fibonacci, OBs already drawn.">Estrutura, Fibonacci e OB já marcados.</li>
+      <li data-pt="O alerta chega quando o preço toca a zona." data-en="An alert when price touches the zone.">O alerta chega quando o preço toca a zona.</li>
+      <li data-pt="Sem marcar na mão em cada moeda." data-en="No more drawing by hand on every coin.">Sem marcar na mão em cada moeda.</li>
+    </ul>
+    <div class="cta-note">
+      <a href="#preco"><span class="price" data-pt="R$ 938/ano ou 12x de R$ 95,31" data-en="R$ 938/year or 12x R$ 95.31">R$ 938/ano ou 12x de R$ 95,31</span></a>
+      <a class="hero-vid" href="#videos"><span aria-hidden="true">▶</span> <span data-pt="Ver em vídeo" data-en="Watch the video">Ver em vídeo</span></a> <a href="https://www.tradingview.com/script/0qEZWoqU-SMC-Engine-Free-v1-3/" target="_blank" rel="noopener" data-pt="Versão Free no TradingView" data-en="Free version on TradingView">Versão Free no TradingView</a>
+    </div>
+    </div>
   </div>
 </section>
 
 <section class="proof" id="prova" aria-labelledby="proof-t">
   <div class="wrap">
-    <h2 class="sr" id="proof-t" data-pt="Backtest do BTC, 2020 a 2026" data-en="BTC backtest, 2020 to 2026">Backtest do BTC, 2020 a 2026</h2>
+    <h2 id="proof-t" data-pt="Backtest do BTC, 2020 a 2026" data-en="BTC backtest, 2020 to 2026">Backtest do BTC, 2020 a 2026</h2>
     <dl class="stats">
       <div><dt>Profit Factor</dt><dd><span class="cnt" data-n="1.49" data-d="2">1,49</span></dd></div>
-      <div><dt data-pt="Período" data-en="Period">Período</dt><dd><span data-pt="2020 a 2026" data-en="2020 to 2026">2020 a 2026</span></dd></div>
+      <div class="per"><dt data-pt="Período" data-en="Period">Período</dt><dd><span data-pt="2020 a 2026" data-en="2020 to 2026">2020 a 2026</span></dd></div>
       <div><dt>Trades</dt><dd><span class="cnt" data-n="295" data-d="0">295</span></dd></div>
       <div><dt data-pt="Trades no alvo" data-en="Trades at target">Trades no alvo</dt><dd><span class="cnt" data-n="17.6" data-d="1">17,6</span>%</dd></div>
       <div><dt data-pt="Queda máx." data-en="Max drawdown">Queda máx.</dt><dd><span class="cnt" data-n="28.9" data-d="1">28,9</span>%</dd></div>
@@ -695,13 +732,13 @@ html:not(.js) .menu{display:none}
   <div class="wrap">
     <span class="eyb" data-pt="Como funciona" data-en="How it works">Como funciona</span>
     <h2 class="sec-h" id="como-t" data-pt="Do gráfico cru ao plano, em cinco passos." data-en="From a raw chart to a plan, in five steps.">Do gráfico cru ao plano, em cinco passos.</h2>
-    <p class="sec-p" data-pt="O indicador não opera por você. Ele organiza a leitura, sempre do mesmo jeito, e avisa quando o contexto aparece." data-en="The indicator does not trade for you. It organizes the read, the same way every time, and alerts you when the context shows up.">O indicador não opera por você. Ele organiza a leitura, sempre do mesmo jeito, e avisa quando o contexto aparece.</p>
+    <p class="sec-p" data-pt="Não opera por você. Marca sempre do mesmo jeito e avisa quando o preço chega." data-en="It does not trade for you. It draws the same way every time and alerts you when price arrives.">Não opera por você. Marca sempre do mesmo jeito e avisa quando o preço chega.</p>
     <ol class="how">
-      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><path d="M6 14l12 26 10-12 12 20 12-30 10 10 12-18" fill="none" stroke="#787B86" stroke-width="1.4"/><path d="M28 28h30" stroke="#D1D4DC" stroke-dasharray="2 3"/><text x="43" y="24" font-size="7" fill="#fff" text-anchor="middle" font-family="monospace">CHOCH</text></svg><div><b>01</b><h3 data-pt="Estrutura" data-en="Structure">Estrutura</h3><p data-pt="BOS e CHOCH marcados em tempo real: você sabe se o mercado continua ou virou." data-en="BOS and CHoCH marked in real time: you know if the market continues or has turned.">BOS e CHOCH marcados em tempo real: você sabe se o mercado continua ou virou.</p></div></li>
-      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><path d="M8 46l22-36 20 26" fill="none" stroke="#787B86" stroke-width="1.4"/><path d="M30 26h52" stroke="#D1D4DC"/><path d="M30 32h52" stroke="#F7931A"/><path d="M30 40h52" stroke="#22C55E"/><text x="82" y="38" font-size="6" fill="#22C55E" text-anchor="end" font-family="monospace">79%</text></svg><div><b>02</b><h3 data-pt="Zona" data-en="Zone">Zona</h3><p data-pt="Fibonacci automática sobre a estrutura válida, com 50%, 61,8% e 79% no gráfico." data-en="Automatic Fibonacci over the valid structure, with 50%, 61.8% and 79% on the chart.">Fibonacci automática sobre a estrutura válida, com 50%, 61,8% e 79% no gráfico.</p></div></li>
-      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="20" y="34" width="62" height="12" fill="#26A69A" fill-opacity=".2" stroke="#26A69A" stroke-opacity=".6"/><path d="M8 20l8 20 8-4 10-24 14 6 12 18 14-6" fill="none" stroke="#787B86" stroke-width="1.4"/></svg><div><b>03</b><h3>Order block</h3><p data-pt="Só entra no gráfico o order block que passou pela validação de deslocamento e volume." data-en="Only order blocks that passed displacement and volume validation make it to the chart.">Só entra no gráfico o order block que passou pela validação de deslocamento e volume.</p></div></li>
-      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="10" y="12" width="68" height="32" rx="6" fill="#1E222D" stroke="#363A45"/><circle cx="22" cy="28" r="5" fill="#FFB020"/><path d="M32 24h38M32 32h26" stroke="#B2B5BE" stroke-width="2" stroke-linecap="round"/></svg><div><b>04</b><h3 data-pt="Alerta" data-en="Alert">Alerta</h3><p data-pt="O aviso chega no celular na hora do toque, com o motivo, a zona e o stop de referência." data-en="The alert reaches your phone at the touch, with the reason, the zone and the reference stop.">O aviso chega no celular na hora do toque, com o motivo, a zona e o stop de referência.</p></div></li>
-      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="10" y="8" width="68" height="24" fill="#26A69A" fill-opacity=".18"/><rect x="10" y="32" width="68" height="12" fill="#EF5350" fill-opacity=".18"/><path d="M10 32h68" stroke="#D1D4DC"/><path d="M10 8h68" stroke="#26A69A"/><path d="M10 44h68" stroke="#EF5350"/></svg><div><b>05</b><h3 data-pt="Execução" data-en="Execution">Execução</h3><p data-pt="Entrada, stop e alvos definidos antes do clique. A decisão continua sendo sua." data-en="Entry, stop and targets defined before the click. The decision is still yours.">Entrada, stop e alvos definidos antes do clique. A decisão continua sendo sua.</p></div></li>
+      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><path d="M6 14l12 26 10-12 12 20 12-30 10 10 12-18" fill="none" stroke="#787B86" stroke-width="1.4"/><path d="M28 28h30" stroke="#D1D4DC" stroke-dasharray="2 3"/><text x="43" y="24" font-size="7" fill="#fff" text-anchor="middle" font-family="monospace">CHOCH</text></svg><div><b>01</b><h3 data-pt="Estrutura" data-en="Structure">Estrutura</h3><p data-pt="BOS e CHOCH em tempo real: o mercado continua ou virou." data-en="BOS and CHoCH in real time: the market continues or has turned.">BOS e CHOCH em tempo real: o mercado continua ou virou.</p></div></li>
+      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><path d="M8 46l22-36 20 26" fill="none" stroke="#787B86" stroke-width="1.4"/><path d="M30 26h52" stroke="#D1D4DC"/><path d="M30 32h52" stroke="#F7931A"/><path d="M30 40h52" stroke="#22C55E"/><text x="82" y="38" font-size="6" fill="#22C55E" text-anchor="end" font-family="monospace">79%</text></svg><div><b>02</b><h3 data-pt="Zona" data-en="Zone">Zona</h3><p data-pt="Fibonacci na estrutura válida: 50%, 61,8% e 79%." data-en="Fibonacci on the valid structure: 50%, 61.8% and 79%.">Fibonacci na estrutura válida: 50%, 61,8% e 79%.</p></div></li>
+      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="20" y="34" width="62" height="12" fill="#26A69A" fill-opacity=".2" stroke="#26A69A" stroke-opacity=".6"/><path d="M8 20l8 20 8-4 10-24 14 6 12 18 14-6" fill="none" stroke="#787B86" stroke-width="1.4"/></svg><div><b>03</b><h3>Order block</h3><p data-pt="Só aparece o que passou por deslocamento e volume." data-en="Only the ones that passed displacement and volume show up.">Só aparece o que passou por deslocamento e volume.</p></div></li>
+      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="10" y="12" width="68" height="32" rx="6" fill="#1E222D" stroke="#363A45"/><circle cx="22" cy="28" r="5" fill="#FFB020"/><path d="M32 24h38M32 32h26" stroke="#B2B5BE" stroke-width="2" stroke-linecap="round"/></svg><div><b>04</b><h3 data-pt="Alerta" data-en="Alert">Alerta</h3><p data-pt="No celular, no toque: motivo, zona e stop de referência." data-en="On your phone, at the touch: reason, zone and reference stop.">No celular, no toque: motivo, zona e stop de referência.</p></div></li>
+      <li class="rev"><svg viewBox="0 0 88 56" aria-hidden="true"><rect x="10" y="8" width="68" height="24" fill="#26A69A" fill-opacity=".18"/><rect x="10" y="32" width="68" height="12" fill="#EF5350" fill-opacity=".18"/><path d="M10 32h68" stroke="#D1D4DC"/><path d="M10 8h68" stroke="#26A69A"/><path d="M10 44h68" stroke="#EF5350"/></svg><div><b>05</b><h3 data-pt="Execução" data-en="Execution">Execução</h3><p data-pt="Entrada, stop e alvos antes do clique. A decisão é sua." data-en="Entry, stop and targets before the click. The decision is yours.">Entrada, stop e alvos antes do clique. A decisão é sua.</p></div></li>
     </ol>
   </div>
 </section>
@@ -710,7 +747,7 @@ html:not(.js) .menu{display:none}
   <div class="wrap">
     <span class="eyb">Free × PRO</span>
     <h2 class="sec-h" id="demo-t" data-pt="Ligue os filtros e veja o gráfico mudar." data-en="Turn the filters on and watch the chart change.">Ligue os filtros e veja o gráfico mudar.</h2>
-    <p class="sec-p" data-pt="O mesmo gráfico em três versões. No PRO, cada filtro tira do caminho uma zona que não vale a sua atenção." data-en="The same chart in three versions. In PRO, each filter removes a zone that is not worth your attention.">O mesmo gráfico em três versões. No PRO, cada filtro tira do caminho uma zona que não vale a sua atenção.</p>
+    <p class="sec-p" data-pt="O mesmo gráfico em três versões. No PRO, cada filtro apaga uma zona fraca." data-en="The same chart in three versions. In PRO, each filter removes a weak zone.">O mesmo gráfico em três versões. No PRO, cada filtro apaga uma zona fraca.</p>
     <div class="bench rev">
       <div class="bench-c">
 <svg class="chart tv" id="demo-chart" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Exemplo ilustrativo: o mesmo gráfico sem indicador, com a versão Free e com os filtros da versão PRO. Na PRO, três fundos iguais aparecem ligados como liquidez e são varridos antes do CHOCH de alta.">
@@ -801,7 +838,7 @@ html:not(.js) .menu{display:none}
   <div class="wrap">
     <span class="eyb" data-pt="Vídeos" data-en="Videos">Vídeos</span>
     <h2 class="sec-h" id="vid-t" data-pt="Veja o indicador em uso." data-en="See the indicator in use.">Veja o indicador em uso.</h2>
-    <p class="sec-p" data-pt="Três vídeos para começar: a versão atual, um trade real e a lógica por trás dos alertas do Radar." data-en="Three videos to start with: the current version, a real trade and the logic behind the Radar alerts. Videos are in Portuguese.">Três vídeos para começar: a versão atual, um trade real e a lógica por trás dos alertas do Radar.</p>
+    <p class="sec-p" data-pt="Três vídeos: a versão atual, um trade real e os alertas do Radar." data-en="Three videos: the current version, a real trade and the Radar alerts. Videos are in Portuguese.">Três vídeos: a versão atual, um trade real e os alertas do Radar.</p>
     <div class="vf rev">
       <a class="vc vc-big" href="https://www.youtube.com/watch?v=nzQA9hK60kI" target="_blank" rel="noopener" data-yt="nzQA9hK60kI"><span class="th"><img src="https://i.ytimg.com/vi/nzQA9hK60kI/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy"></span><b data-pt="O que mudou na v3.3" data-en="What changed in v3.3">O que mudou na v3.3</b><small data-pt="9 min · versão atual" data-en="9 min · current version">9 min · versão atual</small></a>
       <div class="vf-s">
@@ -817,48 +854,51 @@ html:not(.js) .menu{display:none}
 <span class="anc" id="funcfree"></span>
   <div class="wrap">
     <span class="eyb" data-pt="Recursos" data-en="Features">Recursos</span>
-    <h2 class="sec-h" id="rec-t" data-pt="Um motor de alertas que sabe quando ficar quieto." data-en="An alert engine that knows when to stay quiet.">Um motor de alertas que sabe quando ficar quieto.</h2>
-    <p class="sec-p" data-pt="O PRO acrescenta alertas em tempo real e uma camada de filtros sobre a leitura que a versão Free já faz." data-en="PRO adds real-time alerts and a layer of filters on top of the read the Free version already does.">O PRO acrescenta alertas em tempo real e uma camada de filtros sobre a leitura que a versão Free já faz.</p>
+    <h2 class="sec-h" id="rec-t" data-pt="O alerta que sabe ficar quieto." data-en="The alert that knows when to stay quiet.">O alerta que sabe ficar quieto.</h2>
+    <p class="sec-p" data-pt="O PRO soma alertas em tempo real e filtros à leitura do Free." data-en="PRO adds real-time alerts and filters on top of the Free read.">O PRO soma alertas em tempo real e filtros à leitura do Free.</p>
     <div class="feat">
       <article class="fc w4 rev"><div class="il"><svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 84h400" stroke="#22C55E"/><path d="M10 30l40 20 30-14 40 30 30-10 40 22 30 6" fill="none" stroke="#787B86" stroke-width="1.5"/><circle cx="220" cy="84" r="5" fill="#FFB020"/><rect x="246" y="38" width="140" height="50" rx="8" fill="#1E222D" stroke="#363A45"/><path d="M258 54h80M258 66h110M258 76h60" stroke="#B2B5BE" stroke-width="3" stroke-linecap="round"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Alertas em tempo real, com o motivo" data-en="Real-time alerts, with the reason">Alertas em tempo real, com o motivo</h3>
-        <p data-pt="O alerta dispara dentro do candle, sem esperar o fechamento, e chega dizendo por que tocou: direção, zona e confluência." data-en="The alert fires inside the candle, without waiting for the close, and tells you why: direction, zone and confluence.">O alerta dispara dentro do candle, sem esperar o fechamento, e chega dizendo por que tocou: direção, zona e confluência.</p>
-        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Combina estrutura, Fibonacci e order blocks" data-en="Combines structure, Fibonacci and order blocks">Combina estrutura, Fibonacci e order blocks</li><li data-pt="Um único alerta no TradingView (&quot;any alert() function call&quot;) cobre todos os gatilhos" data-en="A single TradingView alert (&quot;any alert() function call&quot;) covers every trigger">Um único alerta no TradingView ("any alert() function call") cobre todos os gatilhos</li><li data-pt="Fibonacci estrutural gerenciada automaticamente" data-en="Structural Fibonacci managed automatically">Fibonacci estrutural gerenciada automaticamente</li></ul></details></article>
+        <p data-pt="Dispara dentro do candle e diz por que tocou." data-en="Fires inside the candle and tells you why it touched.">Dispara dentro do candle e diz por que tocou.</p>
+        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="O alerta diz a direção, a zona e a confluência" data-en="The alert states direction, zone and confluence">O alerta diz a direção, a zona e a confluência</li><li data-pt="Dispara sem esperar o fechamento do candle" data-en="Fires without waiting for the candle close">Dispara sem esperar o fechamento do candle</li><li data-pt="Combina estrutura, Fibonacci e order blocks" data-en="Combines structure, Fibonacci and order blocks">Combina estrutura, Fibonacci e order blocks</li><li data-pt="Um único alerta no TradingView (&quot;any alert() function call&quot;) cobre todos os gatilhos" data-en="A single TradingView alert (&quot;any alert() function call&quot;) covers every trigger">Um único alerta no TradingView ("any alert() function call") cobre todos os gatilhos</li><li data-pt="Fibonacci estrutural gerenciada automaticamente" data-en="Structural Fibonacci managed automatically">Fibonacci estrutural gerenciada automaticamente</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="#363A45"><circle cx="40" cy="46" r="6"/><circle cx="70" cy="46" r="6"/><circle cx="100" cy="46" r="6"/><circle cx="130" cy="46" r="6"/></g><circle cx="160" cy="46" r="8" fill="#FFB020"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Filtros anti-ruído" data-en="Anti-noise filters">Filtros anti-ruído</h3>
-        <p data-pt="O PRO entende quando não alertar. Um aviso por contexto, e só." data-en="PRO understands when not to alert. One notice per context, and that is it.">O PRO entende quando não alertar. Um aviso por contexto, e só.</p>
+        <p data-pt="Sabe quando não alertar. Um aviso por contexto, e só." data-en="It knows when not to alert. One notice per context, and that is it.">Sabe quando não alertar. Um aviso por contexto, e só.</p>
         <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Um alerta por contexto" data-en="One alert per context">Um alerta por contexto</li><li data-pt="Bloqueio no candle de CHOCH ou BOS" data-en="Block on the CHoCH or BOS candle">Bloqueio no candle de CHOCH ou BOS</li><li data-pt="Reativação apenas após nova mudança estrutural" data-en="Reactivation only after a new structural change">Reativação apenas após nova mudança estrutural</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="30" y="50" width="150" height="18" fill="#26A69A" fill-opacity=".2" stroke="#26A69A" stroke-opacity=".6"/><g fill="#26A69A" opacity=".5"><rect x="30" y="76" width="8" height="10"/><rect x="44" y="60" width="8" height="26"/><rect x="58" y="78" width="8" height="8"/></g><path d="M48 50V18" stroke="#26A69A" stroke-width="6"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Order block com presença confirmada" data-en="Order block with confirmed presence">Order block com presença confirmada</h3>
-        <p data-pt="A zona só é validada quando há deslocamento e volume que indiquem participação de peso." data-en="A zone is only validated when displacement and volume point to heavyweight participation.">A zona só é validada quando há deslocamento e volume que indiquem participação de peso.</p>
+        <p data-pt="Só vale a zona com deslocamento e volume de peso." data-en="A zone only counts with heavyweight displacement and volume.">Só vale a zona com deslocamento e volume de peso.</p>
         <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Deslocamento mínimo proporcional ao ATR" data-en="Minimum displacement proportional to ATR">Deslocamento mínimo proporcional ao ATR</li><li data-pt="Impulso validado dentro de janela temporal" data-en="Impulse validated within a time window">Impulso validado dentro de janela temporal</li><li data-pt="FVG opcional como assinatura de eficiência" data-en="Optional FVG as an efficiency signature">FVG opcional como assinatura de eficiência</li><li data-pt="Volume acima da média configurável (× SMA de 20 períodos), com bypass em ativos sem volume" data-en="Configurable above-average volume (× 20-period SMA), with bypass on assets without volume">Volume acima da média configurável (× SMA de 20 períodos), com bypass em ativos sem volume</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M20 30h160" stroke="#F7931A"/><path d="M20 46h160" stroke="#22C55E"/><rect x="60" y="42" width="120" height="22" fill="#26A69A" fill-opacity=".2" stroke="#26A69A" stroke-opacity=".6"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Modos de confluência" data-en="Confluence modes">Modos de confluência</h3>
-        <p data-pt="Você escolhe o quão seletivo o alerta é: só Fibonacci, só order block ou os dois juntos." data-en="You choose how selective the alert is: Fibonacci only, order block only, or both together.">Você escolhe o quão seletivo o alerta é: só Fibonacci, só order block ou os dois juntos.</p>
+        <p data-pt="Alerta só de Fibonacci, só de order block ou dos dois." data-en="Alerts on Fibonacci only, order block only, or both.">Alerta só de Fibonacci, só de order block ou dos dois.</p>
         <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Fibonacci profundo" data-en="Deep Fibonacci">Fibonacci profundo</li><li data-pt="Entrada direcional em OB" data-en="Directional OB entry">Entrada direcional em OB</li><li data-pt="Confluência OB + Fibonacci" data-en="OB + Fibonacci confluence">Confluência OB + Fibonacci</li><li data-pt="Sequência lógica Fib → OB" data-en="Logical sequence Fib → OB">Sequência lógica Fib → OB</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="20" y="34" width="160" height="26" fill="#EF5350" fill-opacity=".16" stroke="#EF5350" stroke-opacity=".5"/><path d="M20 47h160" stroke="#EF5350" stroke-dasharray="2 3"/><path d="M70 80V30M110 80V52M150 80V40" stroke="#787B86" stroke-width="5"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Mitigação sob seu controle" data-en="Mitigation under your control">Mitigação sob seu controle</h3>
-        <p data-pt="Defina o que conta como zona consumida, do toque de pavio ao fechamento além da metade." data-en="Define what counts as a consumed zone, from a wick touch to a close beyond the midpoint.">Defina o que conta como zona consumida, do toque de pavio ao fechamento além da metade.</p>
+        <p data-pt="Você define quando a zona conta como consumida." data-en="You define when a zone counts as consumed.">Você define quando a zona conta como consumida.</p>
         <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Wick touch: qualquer pavio na borda já mitiga" data-en="Wick touch: any wick at the edge mitigates">Wick touch: qualquer pavio na borda já mitiga</li><li data-pt="Body into zone: o candle precisa fechar dentro da zona" data-en="Body into zone: the candle must close inside the zone">Body into zone: o candle precisa fechar dentro da zona</li><li data-pt="Body through mid: o fechamento precisa passar da metade do OB" data-en="Body through mid: the close must pass the OB midpoint">Body through mid: o fechamento precisa passar da metade do OB</li></ul></details></article>
       <article class="fc w3 rev"><div class="il"><svg viewBox="0 0 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 96c60-6 110-20 160-40s90-30 140-34" fill="none" stroke="#F7931A" stroke-width="1.6"/><path d="M0 104c70-4 120-16 170-34s80-26 130-30" fill="none" stroke="#2962FF" stroke-width="1.6"/><path d="M10 80l30-10 24 8 30-26 30 6 36-28 30 10 40-22 40-6" fill="none" stroke="#26A69A" stroke-width="1.6"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Filtro de tendência macro" data-en="Macro trend filter">Filtro de tendência macro</h3>
-        <p data-pt="Compra só dispara se o 12h ou o diário estiver de alta; venda, só se um deles estiver de baixa. A referência é a EMA 200 e a MA 200 do tempo maior." data-en="Longs only fire if the 12h or the daily is bullish; shorts, only if one of them is bearish. The reference is the EMA 200 and MA 200 of the higher timeframe.">Compra só dispara se o 12h ou o diário estiver de alta; venda, só se um deles estiver de baixa. A referência é a EMA 200 e a MA 200 do tempo maior.</p></article>
+        <p data-pt="Compra só com 12h ou diário de alta. Venda, o inverso." data-en="Longs only with the 12h or daily bullish. Shorts, the reverse.">Compra só com 12h ou diário de alta. Venda, o inverso.</p>
+        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Venda só dispara se o 12h ou o diário estiver de baixa" data-en="Shorts only fire if the 12h or the daily is bearish">Venda só dispara se o 12h ou o diário estiver de baixa</li><li data-pt="Referência: EMA 200 e MA 200 do tempo maior" data-en="Reference: EMA 200 and MA 200 of the higher timeframe">Referência: EMA 200 e MA 200 do tempo maior</li></ul></details></article>
       <article class="fc w3 rev"><div class="il"><svg viewBox="0 0 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M60 34h120" stroke="#D1D4DC" stroke-dasharray="1 4"/><circle cx="60" cy="34" r="3" fill="#D1D4DC"/><circle cx="180" cy="34" r="3" fill="#D1D4DC"/><text x="120" y="26" font-size="12" font-weight="700" fill="#D1D4DC" text-anchor="middle" font-family="monospace">$$$</text><path d="M20 90l40-56 30 40 30-22 60-18 40 50 50-30" fill="none" stroke="#787B86" stroke-width="1.5"/></svg></div>
         <span class="tag new" data-pt="Novo na v3.3" data-en="New in v3.3">Novo na v3.3</span><h3 data-pt="Liquidez $$$ e níveis anteriores" data-en="Liquidity $$$ and previous levels">Liquidez $$$ e níveis anteriores</h3>
-        <p data-pt="Topos e fundos iguais ligados por $$$ no gráfico e citados no alerta, mais as linhas de máxima e mínima anteriores como referência." data-en="Equal highs and lows linked by $$$ on the chart and quoted in the alert, plus previous high and low lines as reference.">Topos e fundos iguais ligados por $$$ no gráfico e citados no alerta, mais as linhas de máxima e mínima anteriores como referência.</p></article>
+        <p data-pt="Topos e fundos iguais ligados por $$$ e citados no alerta." data-en="Equal highs and lows linked by $$$ and quoted in the alert.">Topos e fundos iguais ligados por $$$ e citados no alerta.</p>
+        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Os $$$ aparecem no gráfico" data-en="The $$$ show on the chart">Os $$$ aparecem no gráfico</li><li data-pt="Linhas de máxima e mínima anteriores como referência" data-en="Previous high and low lines as reference">Linhas de máxima e mínima anteriores como referência</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect x="16" y="8" width="168" height="52" fill="#EF5350" fill-opacity=".1" stroke="#EF5350" stroke-opacity=".4" stroke-dasharray="3 3"/><rect x="60" y="68" width="124" height="12" fill="#26A69A" fill-opacity=".22" stroke="#26A69A" stroke-opacity=".6"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Filtro de tamanho do OB" data-en="OB size filter">Filtro de tamanho do OB</h3>
-        <p data-pt="Zonas que cobrem metade do gráfico saem de cena. Ficam as compactas, que dá para operar." data-en="Zones that cover half the chart leave the scene. The compact, tradeable ones stay.">Zonas que cobrem metade do gráfico saem de cena. Ficam as compactas, que dá para operar.</p>
-        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Altura máxima configurável em múltiplos de ATR" data-en="Maximum height configurable in ATR multiples">Altura máxima configurável em múltiplos de ATR</li><li data-pt="Especialmente útil em cripto e ativos voláteis" data-en="Especially useful in crypto and volatile assets">Especialmente útil em cripto e ativos voláteis</li></ul></details></article>
+        <p data-pt="Zona que cobre metade do gráfico sai. Fica a compacta." data-en="A zone that covers half the chart goes. The compact one stays.">Zona que cobre metade do gráfico sai. Fica a compacta.</p>
+        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Ficam as zonas compactas, que dá para operar" data-en="The compact, tradeable zones stay">Ficam as zonas compactas, que dá para operar</li><li data-pt="Altura máxima configurável em múltiplos de ATR" data-en="Maximum height configurable in ATR multiples">Altura máxima configurável em múltiplos de ATR</li><li data-pt="Especialmente útil em cripto e ativos voláteis" data-en="Especially useful in crypto and volatile assets">Especialmente útil em cripto e ativos voláteis</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M10 22h180" stroke="#EF5350" stroke-dasharray="1 4"/><path d="M10 72h180" stroke="#26A69A" stroke-dasharray="1 4"/><text x="186" y="18" font-size="9" fill="#EF5350" text-anchor="end" font-family="monospace">SC</text><text x="186" y="84" font-size="9" fill="#26A69A" text-anchor="end" font-family="monospace">SV</text><path d="M10 50l30-10 30 16 30-22 30 12 30-6" fill="none" stroke="#787B86" stroke-width="1.5"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="Níveis de RSI no preço" data-en="RSI levels on price">Níveis de RSI no preço</h3>
-        <p data-pt="Linhas pontilhadas mostram o preço exato em que o RSI ficaria sobrecomprado (SC) ou sobrevendido (SV), no tempo atual e num menor." data-en="Dotted lines show the exact price where RSI would be overbought (SC) or oversold (SV), on the current and a lower timeframe.">Linhas pontilhadas mostram o preço exato em que o RSI ficaria sobrecomprado (SC) ou sobrevendido (SV), no tempo atual e num menor.</p></article>
+        <p data-pt="O preço exato do RSI sobrecomprado ou sobrevendido." data-en="The exact price of overbought or oversold RSI.">O preço exato do RSI sobrecomprado ou sobrevendido.</p>
+        <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Linhas pontilhadas, marcadas como SC (sobrecomprado) e SV (sobrevendido)" data-en="Dotted lines, labelled SC (overbought) and SV (oversold)">Linhas pontilhadas, marcadas como SC (sobrecomprado) e SV (sobrevendido)</li><li data-pt="No tempo atual e num tempo menor" data-en="On the current and a lower timeframe">No tempo atual e num tempo menor</li></ul></details></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g font-size="9" font-family="monospace" fill="#B2B5BE"><text x="56" y="24">5m</text><text x="56" y="40">15m</text><text x="56" y="56">1h</text><text x="56" y="72">4h</text><text x="126" y="24">41.8</text><text x="126" y="40">38.2</text><text x="126" y="56">55.4</text><text x="126" y="72">58.9</text></g><circle cx="100" cy="21" r="3.5" fill="#26A69A"/><circle cx="100" cy="37" r="3.5" fill="#EF5350"/><circle cx="100" cy="53" r="3.5" fill="#26A69A"/><circle cx="100" cy="69" r="3.5" fill="#26A69A"/></svg></div>
         <span class="tag">PRO</span><h3 data-pt="HUD multi-timeframe" data-en="Multi-timeframe HUD">HUD multi-timeframe</h3>
-        <p data-pt="Tendência e RSI de vários tempos gráficos num painel discreto, direto no gráfico." data-en="Trend and RSI across several timeframes in a discreet panel, right on the chart.">Tendência e RSI de vários tempos gráficos num painel discreto, direto no gráfico.</p></article>
+        <p data-pt="Tendência e RSI de vários tempos num painel no gráfico." data-en="Trend and RSI across timeframes in a panel on the chart.">Tendência e RSI de vários tempos num painel no gráfico.</p></article>
       <article class="fc rev"><div class="il"><svg viewBox="0 0 200 92" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M16 22l28 44 24-20 26 30 30-50 24 16 36-26" fill="none" stroke="#787B86" stroke-width="1.5"/><path d="M68 46h72" stroke="#D1D4DC" stroke-dasharray="2 3"/><text x="104" y="40" font-size="8" fill="#fff" text-anchor="middle" font-family="monospace">BOS</text></svg></div>
         <span class="tag free" data-pt="Também na versão Free" data-en="Also in the Free version">Também na versão Free</span><h3 data-pt="A base: estrutura, Fibonacci e order blocks" data-en="The base: structure, Fibonacci and order blocks">A base: estrutura, Fibonacci e order blocks</h3>
-        <p data-pt="CHOCH e BOS, zonas de Fibonacci e order blocks contextuais já vêm na versão gratuita." data-en="CHoCH and BOS, Fibonacci zones and contextual order blocks already come in the free version.">CHOCH e BOS, zonas de Fibonacci e order blocks contextuais já vêm na versão gratuita.</p>
+        <p data-pt="CHOCH, BOS, Fibonacci e order blocks já vêm na versão Free." data-en="CHoCH, BOS, Fibonacci and order blocks already come in the Free version.">CHOCH, BOS, Fibonacci e order blocks já vêm na versão Free.</p>
         <details><summary data-pt="ver detalhes" data-en="see details">ver detalhes</summary><ul><li data-pt="Estrutura de mercado: diferencia reversão de correção" data-en="Market structure: tells reversals from corrections">Estrutura de mercado: diferencia reversão de correção</li><li data-pt="Zonas de execução com Fibonacci em premium e discount" data-en="Execution zones with Fibonacci in premium and discount">Zonas de execução com Fibonacci em premium e discount</li><li data-pt="Order blocks contextuais, sem zonas fracas" data-en="Contextual order blocks, without weak zones">Order blocks contextuais, sem zonas fracas</li><li data-pt="Execução assistida: contexto claro para decidir" data-en="Assisted execution: clear context to decide">Execução assistida: contexto claro para decidir</li></ul></details></article>
     </div>
     <p class="hint all" data-pt="arraste para ver os 11 recursos →" data-en="swipe to see all 11 features →">arraste para ver os 11 recursos →</p>
@@ -872,13 +912,13 @@ html:not(.js) .menu{display:none}
     <h2 class="sec-h" id="pro-t" data-pt="O PRO não é só o indicador." data-en="PRO is more than the indicator.">O PRO não é só o indicador.</h2>
     <p class="sec-p" data-pt="Uma assinatura, três frentes: o gráfico, a comunidade e o Radar." data-en="One subscription, three fronts: the chart, the community and the Radar.">Uma assinatura, três frentes: o gráfico, a comunidade e o Radar.</p>
     <div class="trio">
-      <article class="card big rev"><span class="tag" data-pt="01 · Indicador" data-en="01 · Indicator">01 · Indicador</span><h3 data-pt="SMC Engine PRO no seu TradingView" data-en="SMC Engine PRO on your TradingView">SMC Engine PRO no seu TradingView</h3><p data-pt="Tudo o que você viu acima, no ativo e no tempo gráfico que você opera, com todas as atualizações." data-en="Everything you saw above, on the asset and timeframe you trade, with every update.">Tudo o que você viu acima, no ativo e no tempo gráfico que você opera, com todas as atualizações.</p></article>
-      <article class="card rev"><span class="tag">02 · Discord</span><h3 data-pt="Comunidade de assinantes" data-en="Subscriber community">Comunidade de assinantes</h3><p data-pt="Análises diárias, espaço para tirar dúvidas, troca de leituras com outros traders e aviso de cada atualização do indicador." data-en="Daily analysis, room for questions, chart reads shared with other traders and a notice for every indicator update.">Análises diárias, espaço para tirar dúvidas, troca de leituras com outros traders e aviso de cada atualização do indicador.</p></article>
-      <article class="card rev"><span class="tag">03 · Radar</span><h3 data-pt="BTC + 40 maiores altcoins, 24 horas" data-en="BTC + the 40 largest altcoins, 24 hours">BTC + 40 maiores altcoins, 24 horas</h3><p data-pt="O indicador roda nos perpétuos da OKX e publica no Discord o que aconteceu, em canais separados por cenário e tempo gráfico." data-en="The indicator runs on OKX perpetuals and posts what happened to Discord, in channels split by scenario and timeframe.">O indicador roda nos perpétuos da OKX e publica no Discord o que aconteceu, em canais separados por cenário e tempo gráfico.</p></article>
+      <article class="card big rev"><span class="tag" data-pt="01 · Indicador" data-en="01 · Indicator">01 · Indicador</span><h3 data-pt="SMC Engine PRO no seu TradingView" data-en="SMC Engine PRO on your TradingView">SMC Engine PRO no seu TradingView</h3><p data-pt="Tudo acima, no ativo e no tempo gráfico que você opera, com as atualizações." data-en="Everything above, on the asset and timeframe you trade, with every update.">Tudo acima, no ativo e no tempo gráfico que você opera, com as atualizações.</p></article>
+      <article class="card rev"><span class="tag cy">02 · Discord</span><h3 data-pt="Comunidade de assinantes" data-en="Subscriber community">Comunidade de assinantes</h3><p data-pt="Análise diária, dúvidas, troca de leituras e aviso de cada atualização." data-en="Daily analysis, questions, shared chart reads and a notice for every update.">Análise diária, dúvidas, troca de leituras e aviso de cada atualização.</p></article>
+      <article class="card rev"><span class="tag cy">03 · Radar</span><h3 data-pt="BTC + top 40 altcoins, ações e commodities" data-en="BTC + top 40 altcoins, stocks and commodities">BTC + top 40 altcoins, ações e commodities</h3><p data-pt="Roda 24 horas nos perpétuos da OKX e publica no Discord, por cenário e tempo gráfico." data-en="Runs 24 hours a day on OKX perpetuals and posts to Discord, by scenario and timeframe.">Roda 24 horas nos perpétuos da OKX e publica no Discord, por cenário e tempo gráfico.</p></article>
     </div>
     <ul class="cats">
       <li class="rev"><b>📡 RADAR · FLUXO</b> <span class="mono" style="display:inline;color:var(--faint);font-size:12px">5m · 15m · 1h</span><span data-pt="Alinhamento C1/C2/C3: o preço tocou um order block do tempo maior e fez CHOCH no tempo do canal. Contexto 4h no 5m, 12h no 15m e 1D no 1h." data-en="C1/C2/C3 alignment: price touched a higher-timeframe order block and printed a CHoCH on the channel timeframe. 4h context on 5m, 12h on 15m and 1D on 1h.">Alinhamento C1/C2/C3: o preço tocou um order block do tempo maior e fez CHOCH no tempo do canal. Contexto 4h no 5m, 12h no 15m e 1D no 1h.</span></li>
-      <li class="rev"><b>📡 RADAR · ZONA DE ENTRADA</b> <span class="mono" style="display:inline;color:var(--faint);font-size:12px">5m · 15m · 1h</span><span data-pt="O preço chegou na zona do sinal principal (borda do order block ou retração de 79%), com o macro do diário a favor." data-en="Price reached the main signal zone (order block edge or 79% retracement), with the daily macro in favor.">O preço chegou na zona do sinal principal (borda do order block ou retração de 79%), com o macro do diário a favor.</span></li>
+      <li class="rev"><b>📡 RADAR · ZONA DE ENTRADA</b> <span class="mono" style="display:inline;color:var(--faint);font-size:12px">5m · 15m · 1h</span><span data-pt="O preço chegou na zona de entrada do indicador (borda do order block ou retração de 79%), com o macro do diário a favor." data-en="Price reached the indicator&#x27;s entry zone (order block edge or 79% retracement), with the daily macro in favor.">O preço chegou na zona de entrada do indicador (borda do order block ou retração de 79%), com o macro do diário a favor.</span></li>
       <li class="rev"><b>📡 RADAR · OB HISTÓRICO</b> <span class="mono" style="display:inline;color:var(--faint);font-size:12px">12h · 1D</span><span data-pt="Toque num order block histórico com o RSI no extremo: abaixo de 30 ou acima de 70." data-en="Touch on a historical order block with RSI at an extreme: below 30 or above 70.">Toque num order block histórico com o RSI no extremo: abaixo de 30 ou acima de 70.</span></li>
     </ul>
     <p class="dc-cap"><span class="selo-real" data-pt="alertas reais" data-en="real alerts">alertas reais</span><span data-pt="Alertas reais do canal, copiados em 13 e 14/11/2026. Radar não é sinal de entrada." data-en="Real alerts from the channel, copied on Nov 13 and 14, 2026 (original messages in Portuguese). The Radar is not an entry signal.">Alertas reais do canal, copiados em 13 e 14/11/2026. Radar não é sinal de entrada.</span></p>
@@ -908,10 +948,10 @@ html:not(.js) .menu{display:none}
 </div>
 
   <div class="radar-cta">
-      <p><b data-pt="Quer esses alertas chegando no seu Discord?" data-en="Want these alerts landing in your Discord?">Quer esses alertas chegando no seu Discord?</b> <span data-pt="O Radar e as análises diárias fazem parte do PRO." data-en="The Radar and the daily analyses are part of PRO.">O Radar e as análises diárias fazem parte do PRO.</span></p>
+      <p><b data-pt="Quer esses alertas no seu Discord?" data-en="Want these alerts in your Discord?">Quer esses alertas no seu Discord?</b> <span data-pt="Radar e análise diária vêm no PRO." data-en="Radar and daily analysis come with PRO.">Radar e análise diária vêm no PRO.</span></p>
       <div class="radar-cta-b">
-        <a class="btn btn-primary" href="teste.html" data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</a>
-        <a class="btn btn-ghost" href="#preco" data-pt="Ver o plano PRO" data-en="See the PRO plan">Ver o plano PRO</a>
+        <a class="btn btn-primary" data-cta href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
+        <a class="tl" href="#preco" data-pt="Ver o plano PRO" data-en="See the PRO plan">Ver o plano PRO</a>
       </div>
     </div>
   </div>
@@ -922,22 +962,23 @@ html:not(.js) .menu{display:none}
   <div class="wrap">
     <span class="eyb" data-pt="Backtest público" data-en="Public backtest">Backtest público</span>
     <h2 class="sec-h" id="bt-h" data-pt="Seis anos de BTC, trade a trade." data-en="Six years of BTC, trade by trade.">Seis anos de BTC, trade a trade.</h2>
-    <p class="sec-p" data-pt="Escolha o trecho e veja a curva de capital e os números mudarem. BTC-USDT perpétuo na OKX, gráfico de 1 hora, capital inicial de US$ 10.000, risco de 2% por trade, taxas inclusas." data-en="Pick a stretch and watch the equity curve and the numbers change. BTC-USDT perpetual on OKX, 1-hour chart, starting capital of US$ 10,000, 2% risk per trade, fees included.">Escolha o trecho e veja a curva de capital e os números mudarem. BTC-USDT perpétuo na OKX, gráfico de 1 hora, capital inicial de US$ 10.000, risco de 2% por trade, taxas inclusas.</p>
+    <p class="sec-p" data-pt="Escolha o trecho: a curva de capital e os números mudam." data-en="Pick a stretch: the equity curve and the numbers change.">Escolha o trecho: a curva de capital e os números mudam.</p>
+    <p class="fine" data-pt="BTC-USDT perpétuo na OKX, gráfico de 1 hora, capital inicial de US$ 10.000, risco de 2% por trade, taxas inclusas." data-en="BTC-USDT perpetual on OKX, 1-hour chart, starting capital of US$ 10,000, 2% risk per trade, fees included.">BTC-USDT perpétuo na OKX, gráfico de 1 hora, capital inicial de US$ 10.000, risco de 2% por trade, taxas inclusas.</p>
     <div class="bt rev" id="bt">
       <div class="bt-top">
         <div class="bt-seg bt-seg3" role="group" aria-label="Trecho">
-          <button type="button" data-y="1" aria-pressed="true" data-pt="Tudo" data-en="All">Tudo</button><button type="button" data-y="2" aria-pressed="false" data-pt="2020–23 · escolha" data-en="2020–23 · chosen">2020–23 · escolha</button><button type="button" data-y="3" aria-pressed="false" data-pt="2024–26 · sem ajuste" data-en="2024–26 · untuned">2024–26 · sem ajuste</button>
+          <button type="button" data-y="1" aria-pressed="true" data-pt="Tudo" data-en="All">Tudo</button><button type="button" data-y="2" aria-pressed="false" data-pt="&lt;span class=&quot;nb&quot;&gt;2020 a 2023&lt;/span&gt; &lt;i&gt;·&lt;/i&gt; &lt;span class=&quot;nb&quot;&gt;escolha&lt;/span&gt;" data-en="&lt;span class=&quot;nb&quot;&gt;2020 to 2023&lt;/span&gt; &lt;i&gt;·&lt;/i&gt; &lt;span class=&quot;nb&quot;&gt;chosen&lt;/span&gt;"><span class="nb">2020 a 2023</span> <i>·</i> <span class="nb">escolha</span></button><button type="button" data-y="3" aria-pressed="false" data-pt="&lt;span class=&quot;nb&quot;&gt;2024 a 2026&lt;/span&gt; &lt;i&gt;·&lt;/i&gt; &lt;span class=&quot;nb&quot;&gt;sem ajuste&lt;/span&gt;" data-en="&lt;span class=&quot;nb&quot;&gt;2024 to 2026&lt;/span&gt; &lt;i&gt;·&lt;/i&gt; &lt;span class=&quot;nb&quot;&gt;untuned&lt;/span&gt;"><span class="nb">2024 a 2026</span> <i>·</i> <span class="nb">sem ajuste</span></button>
         </div>
         <button type="button" class="bt-log" id="bt-log" aria-pressed="true" data-pt="escala log" data-en="log scale">escala log</button>
       </div>
       <div class="bt-plot" id="bt-plot">
         <svg viewBox="0 0 600 210" role="img" aria-label="Curva de capital do backtest do BTC, 2020 a 2026">
-          <defs><linearGradient id="btg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#00E887" stop-opacity=".28"/><stop offset="1" stop-color="#00E887" stop-opacity="0"/></linearGradient></defs>
-          <g stroke="#1B2420"><path d="M0 10h600M0 73h600M0 137h600M0 200h600"/></g>
+          <defs><linearGradient id="btg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E9B949" stop-opacity=".28"/><stop offset="1" stop-color="#E9B949" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="#1B1D24"><path d="M0 10h600M0 73h600M0 137h600M0 200h600"/></g>
           <path id="bt-area" fill="url(#btg)" d="M0.00,195.66C2.47,195.66 4.94,195.66 7.41,195.66C9.88,195.66 12.35,200.00 14.81,200.00C17.28,200.00 19.75,200.00 22.22,199.31C24.69,198.62 27.16,194.38 29.63,190.17C32.10,185.97 34.57,177.93 37.04,174.08C39.51,170.24 41.98,167.09 44.44,167.09C46.91,167.09 49.38,175.93 51.85,175.93C54.32,175.93 56.79,170.09 59.26,167.08C61.73,164.07 64.20,162.50 66.67,157.88C69.14,153.26 71.60,139.36 74.07,139.36C76.54,139.36 79.01,141.55 81.48,141.55C83.95,141.55 86.42,136.78 88.89,134.40C91.36,132.02 93.83,127.26 96.30,127.26C98.77,127.26 101.23,129.41 103.70,129.41C106.17,129.41 108.64,120.14 111.11,120.14C113.58,120.14 116.05,120.14 118.52,120.14C120.99,120.14 123.46,120.14 125.93,120.16C128.40,120.17 130.86,122.97 133.33,124.40C135.80,125.82 138.27,128.70 140.74,128.70C143.21,128.70 145.68,119.64 148.15,119.64C150.62,119.64 153.09,121.39 155.56,123.88C158.02,126.38 160.49,134.60 162.96,134.60C165.43,134.60 167.90,127.75 170.37,125.39C172.84,123.02 175.31,122.77 177.78,120.42C180.25,118.08 182.72,114.79 185.19,111.30C187.65,107.81 190.12,103.00 192.59,99.49C195.06,95.97 197.53,93.65 200.00,90.21C202.47,86.77 204.94,78.85 207.41,78.85C209.88,78.85 212.35,81.04 214.81,81.04C217.28,81.04 219.75,78.46 222.22,78.46C224.69,78.46 227.16,82.69 229.63,82.69C232.10,82.69 234.57,75.97 237.04,73.71C239.51,71.45 241.98,69.14 244.44,69.14C246.91,69.14 249.38,75.98 251.85,75.98C254.32,75.98 256.79,75.87 259.26,75.87C261.73,75.87 264.20,82.60 266.67,84.78C269.14,86.96 271.60,88.97 274.07,88.97C276.54,88.97 279.01,84.03 281.48,84.03C283.95,84.03 286.42,85.79 288.89,85.79C291.36,85.79 293.83,80.99 296.30,80.99C298.77,80.99 301.23,87.33 303.70,89.93C306.17,92.53 308.64,94.74 311.11,96.58C313.58,98.42 316.05,100.96 318.52,100.96C320.99,100.96 323.46,89.79 325.93,89.79C328.40,89.79 330.86,89.79 333.33,89.79C335.80,89.79 338.27,89.79 340.74,89.79C343.21,89.79 345.68,89.79 348.15,82.82C350.62,75.85 353.09,37.59 355.56,37.59C358.02,37.59 360.49,39.34 362.96,41.85C365.43,44.36 367.90,52.65 370.37,52.65C372.84,52.65 375.31,38.53 377.78,38.53C380.25,38.53 382.72,45.25 385.19,46.96C387.65,48.68 390.12,48.83 392.59,48.83C395.06,48.83 397.53,48.83 400.00,47.96C402.47,47.09 404.94,43.46 407.41,43.46C409.88,43.46 412.35,56.48 414.81,56.48C417.28,56.48 419.75,40.25 422.22,40.25C424.69,40.25 427.16,42.46 429.63,42.46C432.10,42.46 434.57,39.18 437.04,37.53C439.51,35.89 441.98,32.59 444.44,32.59C446.91,32.59 449.38,32.64 451.85,32.64C454.32,32.64 456.79,27.67 459.26,27.67C461.73,27.67 464.20,32.35 466.67,32.35C469.14,32.35 471.60,25.72 474.07,25.72C476.54,25.72 479.01,28.38 481.48,28.38C483.95,28.38 486.42,21.51 488.89,21.51C491.36,21.51 493.83,22.93 496.30,24.09C498.77,25.26 501.23,28.49 503.70,28.49C506.17,28.49 508.64,28.49 511.11,28.49C513.58,28.49 516.05,28.49 518.52,28.49C520.99,28.49 523.46,28.49 525.93,28.49C528.40,28.49 530.86,10.00 533.33,10.00C535.80,10.00 538.27,21.02 540.74,22.94C543.21,24.85 545.68,23.93 548.15,25.28C550.62,26.63 553.09,33.73 555.56,33.73C558.02,33.73 560.49,17.84 562.96,17.84C565.43,17.84 567.90,24.87 570.37,26.75C572.84,28.62 575.31,28.01 577.78,29.11C580.25,30.22 582.72,32.23 585.19,33.36C587.65,34.50 590.12,35.92 592.59,35.92C595.06,35.92 597.53,31.30 600.00,28.99L600,200L0,200Z"/>
-          <path id="bt-line" fill="none" stroke="#00E887" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" d="M0.00,195.66C2.47,195.66 4.94,195.66 7.41,195.66C9.88,195.66 12.35,200.00 14.81,200.00C17.28,200.00 19.75,200.00 22.22,199.31C24.69,198.62 27.16,194.38 29.63,190.17C32.10,185.97 34.57,177.93 37.04,174.08C39.51,170.24 41.98,167.09 44.44,167.09C46.91,167.09 49.38,175.93 51.85,175.93C54.32,175.93 56.79,170.09 59.26,167.08C61.73,164.07 64.20,162.50 66.67,157.88C69.14,153.26 71.60,139.36 74.07,139.36C76.54,139.36 79.01,141.55 81.48,141.55C83.95,141.55 86.42,136.78 88.89,134.40C91.36,132.02 93.83,127.26 96.30,127.26C98.77,127.26 101.23,129.41 103.70,129.41C106.17,129.41 108.64,120.14 111.11,120.14C113.58,120.14 116.05,120.14 118.52,120.14C120.99,120.14 123.46,120.14 125.93,120.16C128.40,120.17 130.86,122.97 133.33,124.40C135.80,125.82 138.27,128.70 140.74,128.70C143.21,128.70 145.68,119.64 148.15,119.64C150.62,119.64 153.09,121.39 155.56,123.88C158.02,126.38 160.49,134.60 162.96,134.60C165.43,134.60 167.90,127.75 170.37,125.39C172.84,123.02 175.31,122.77 177.78,120.42C180.25,118.08 182.72,114.79 185.19,111.30C187.65,107.81 190.12,103.00 192.59,99.49C195.06,95.97 197.53,93.65 200.00,90.21C202.47,86.77 204.94,78.85 207.41,78.85C209.88,78.85 212.35,81.04 214.81,81.04C217.28,81.04 219.75,78.46 222.22,78.46C224.69,78.46 227.16,82.69 229.63,82.69C232.10,82.69 234.57,75.97 237.04,73.71C239.51,71.45 241.98,69.14 244.44,69.14C246.91,69.14 249.38,75.98 251.85,75.98C254.32,75.98 256.79,75.87 259.26,75.87C261.73,75.87 264.20,82.60 266.67,84.78C269.14,86.96 271.60,88.97 274.07,88.97C276.54,88.97 279.01,84.03 281.48,84.03C283.95,84.03 286.42,85.79 288.89,85.79C291.36,85.79 293.83,80.99 296.30,80.99C298.77,80.99 301.23,87.33 303.70,89.93C306.17,92.53 308.64,94.74 311.11,96.58C313.58,98.42 316.05,100.96 318.52,100.96C320.99,100.96 323.46,89.79 325.93,89.79C328.40,89.79 330.86,89.79 333.33,89.79C335.80,89.79 338.27,89.79 340.74,89.79C343.21,89.79 345.68,89.79 348.15,82.82C350.62,75.85 353.09,37.59 355.56,37.59C358.02,37.59 360.49,39.34 362.96,41.85C365.43,44.36 367.90,52.65 370.37,52.65C372.84,52.65 375.31,38.53 377.78,38.53C380.25,38.53 382.72,45.25 385.19,46.96C387.65,48.68 390.12,48.83 392.59,48.83C395.06,48.83 397.53,48.83 400.00,47.96C402.47,47.09 404.94,43.46 407.41,43.46C409.88,43.46 412.35,56.48 414.81,56.48C417.28,56.48 419.75,40.25 422.22,40.25C424.69,40.25 427.16,42.46 429.63,42.46C432.10,42.46 434.57,39.18 437.04,37.53C439.51,35.89 441.98,32.59 444.44,32.59C446.91,32.59 449.38,32.64 451.85,32.64C454.32,32.64 456.79,27.67 459.26,27.67C461.73,27.67 464.20,32.35 466.67,32.35C469.14,32.35 471.60,25.72 474.07,25.72C476.54,25.72 479.01,28.38 481.48,28.38C483.95,28.38 486.42,21.51 488.89,21.51C491.36,21.51 493.83,22.93 496.30,24.09C498.77,25.26 501.23,28.49 503.70,28.49C506.17,28.49 508.64,28.49 511.11,28.49C513.58,28.49 516.05,28.49 518.52,28.49C520.99,28.49 523.46,28.49 525.93,28.49C528.40,28.49 530.86,10.00 533.33,10.00C535.80,10.00 538.27,21.02 540.74,22.94C543.21,24.85 545.68,23.93 548.15,25.28C550.62,26.63 553.09,33.73 555.56,33.73C558.02,33.73 560.49,17.84 562.96,17.84C565.43,17.84 567.90,24.87 570.37,26.75C572.84,28.62 575.31,28.01 577.78,29.11C580.25,30.22 582.72,32.23 585.19,33.36C587.65,34.50 590.12,35.92 592.59,35.92C595.06,35.92 597.53,31.30 600.00,28.99"/>
-          <line id="bt-x" y1="0" y2="200" stroke="#93A39B" stroke-dasharray="2 3" opacity="0"/>
-          <circle id="bt-dot" r="4" fill="#00E887" stroke="#070A09" stroke-width="2" opacity="0"/>
+          <path id="bt-line" fill="none" stroke="#E9B949" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" d="M0.00,195.66C2.47,195.66 4.94,195.66 7.41,195.66C9.88,195.66 12.35,200.00 14.81,200.00C17.28,200.00 19.75,200.00 22.22,199.31C24.69,198.62 27.16,194.38 29.63,190.17C32.10,185.97 34.57,177.93 37.04,174.08C39.51,170.24 41.98,167.09 44.44,167.09C46.91,167.09 49.38,175.93 51.85,175.93C54.32,175.93 56.79,170.09 59.26,167.08C61.73,164.07 64.20,162.50 66.67,157.88C69.14,153.26 71.60,139.36 74.07,139.36C76.54,139.36 79.01,141.55 81.48,141.55C83.95,141.55 86.42,136.78 88.89,134.40C91.36,132.02 93.83,127.26 96.30,127.26C98.77,127.26 101.23,129.41 103.70,129.41C106.17,129.41 108.64,120.14 111.11,120.14C113.58,120.14 116.05,120.14 118.52,120.14C120.99,120.14 123.46,120.14 125.93,120.16C128.40,120.17 130.86,122.97 133.33,124.40C135.80,125.82 138.27,128.70 140.74,128.70C143.21,128.70 145.68,119.64 148.15,119.64C150.62,119.64 153.09,121.39 155.56,123.88C158.02,126.38 160.49,134.60 162.96,134.60C165.43,134.60 167.90,127.75 170.37,125.39C172.84,123.02 175.31,122.77 177.78,120.42C180.25,118.08 182.72,114.79 185.19,111.30C187.65,107.81 190.12,103.00 192.59,99.49C195.06,95.97 197.53,93.65 200.00,90.21C202.47,86.77 204.94,78.85 207.41,78.85C209.88,78.85 212.35,81.04 214.81,81.04C217.28,81.04 219.75,78.46 222.22,78.46C224.69,78.46 227.16,82.69 229.63,82.69C232.10,82.69 234.57,75.97 237.04,73.71C239.51,71.45 241.98,69.14 244.44,69.14C246.91,69.14 249.38,75.98 251.85,75.98C254.32,75.98 256.79,75.87 259.26,75.87C261.73,75.87 264.20,82.60 266.67,84.78C269.14,86.96 271.60,88.97 274.07,88.97C276.54,88.97 279.01,84.03 281.48,84.03C283.95,84.03 286.42,85.79 288.89,85.79C291.36,85.79 293.83,80.99 296.30,80.99C298.77,80.99 301.23,87.33 303.70,89.93C306.17,92.53 308.64,94.74 311.11,96.58C313.58,98.42 316.05,100.96 318.52,100.96C320.99,100.96 323.46,89.79 325.93,89.79C328.40,89.79 330.86,89.79 333.33,89.79C335.80,89.79 338.27,89.79 340.74,89.79C343.21,89.79 345.68,89.79 348.15,82.82C350.62,75.85 353.09,37.59 355.56,37.59C358.02,37.59 360.49,39.34 362.96,41.85C365.43,44.36 367.90,52.65 370.37,52.65C372.84,52.65 375.31,38.53 377.78,38.53C380.25,38.53 382.72,45.25 385.19,46.96C387.65,48.68 390.12,48.83 392.59,48.83C395.06,48.83 397.53,48.83 400.00,47.96C402.47,47.09 404.94,43.46 407.41,43.46C409.88,43.46 412.35,56.48 414.81,56.48C417.28,56.48 419.75,40.25 422.22,40.25C424.69,40.25 427.16,42.46 429.63,42.46C432.10,42.46 434.57,39.18 437.04,37.53C439.51,35.89 441.98,32.59 444.44,32.59C446.91,32.59 449.38,32.64 451.85,32.64C454.32,32.64 456.79,27.67 459.26,27.67C461.73,27.67 464.20,32.35 466.67,32.35C469.14,32.35 471.60,25.72 474.07,25.72C476.54,25.72 479.01,28.38 481.48,28.38C483.95,28.38 486.42,21.51 488.89,21.51C491.36,21.51 493.83,22.93 496.30,24.09C498.77,25.26 501.23,28.49 503.70,28.49C506.17,28.49 508.64,28.49 511.11,28.49C513.58,28.49 516.05,28.49 518.52,28.49C520.99,28.49 523.46,28.49 525.93,28.49C528.40,28.49 530.86,10.00 533.33,10.00C535.80,10.00 538.27,21.02 540.74,22.94C543.21,24.85 545.68,23.93 548.15,25.28C550.62,26.63 553.09,33.73 555.56,33.73C558.02,33.73 560.49,17.84 562.96,17.84C565.43,17.84 567.90,24.87 570.37,26.75C572.84,28.62 575.31,28.01 577.78,29.11C580.25,30.22 582.72,32.23 585.19,33.36C587.65,34.50 590.12,35.92 592.59,35.92C595.06,35.92 597.53,31.30 600.00,28.99"/>
+          <line id="bt-x" y1="0" y2="200" stroke="#A5A29A" stroke-dasharray="2 3" opacity="0"/>
+          <circle id="bt-dot" r="4" fill="#F8E08E" stroke="#050506" stroke-width="2" opacity="0"/>
         </svg>
         <div class="bt-tip" id="bt-tip" aria-hidden="true"></div>
       </div>
@@ -956,7 +997,7 @@ html:not(.js) .menu{display:none}
       <p data-pt="&lt;strong&gt;Como foi escolhida.&lt;/strong&gt; Foram testadas 195.840 combinações de configuração e gestão usando só os dados de 2020 a 2023, e ficou a de maior Profit Factor entre as que tinham pelo menos 150 trades (1,66 em 153 trades). De 2024 a novembro de 2026 ela rodou travada, sem novos ajustes: Profit Factor 1,32 em 142 trades. O número do período inteiro (1,49) mistura os dois trechos." data-en="&lt;strong&gt;How it was chosen.&lt;/strong&gt; 195,840 combinations of configuration and trade management were tested using only 2020 to 2023 data, keeping the one with the highest Profit Factor among those with at least 150 trades (1.66 over 153 trades). From 2024 to November 2026 it ran locked, with no further tuning: Profit Factor 1.32 over 142 trades. The full-period number (1.49) mixes both stretches."><strong>Como foi escolhida.</strong> Foram testadas 195.840 combinações de configuração e gestão usando só os dados de 2020 a 2023, e ficou a de maior Profit Factor entre as que tinham pelo menos 150 trades (1,66 em 153 trades). De 2024 a novembro de 2026 ela rodou travada, sem novos ajustes: Profit Factor 1,32 em 142 trades. O número do período inteiro (1,49) mistura os dois trechos.</p>
       <p data-pt="&lt;strong&gt;Em períodos diferentes.&lt;/strong&gt; Começando em qualquer mês de abril de 2020 a outubro de 2025, toda janela de 2 anos terminou no positivo, e 87% das janelas de 1 ano. Cinco dos sete anos fecharam no positivo; 2023 ficou perto do zero (−2%) e 2026 está em −11% até novembro. Contra comprar e segurar BTC, depende de quando se começa: quem comprou em março de 2020, perto do fundo, ganhou mais segurando (+891%, com queda de 77% no caminho). Começando em cada mês, a configuração terminou à frente em 37 de 67 inícios. Nas janelas de 2 anos, segurar BTC deu prejuízo em 30% delas; a configuração, em nenhuma." data-en="&lt;strong&gt;Across different periods.&lt;/strong&gt; Starting in any month from April 2020 to October 2025, every 2-year window ended positive, and 87% of the 1-year windows. Five of the seven years closed positive; 2023 was close to zero (−2%) and 2026 is at −11% through November. Against buying and holding BTC, it depends on when you start: whoever bought in March 2020, near the bottom, made more by holding (+891%, with a 77% drawdown along the way). Starting in each month, the configuration ended ahead in 37 of 67 starts. Over 2-year windows, holding BTC lost money in 30% of them; the configuration, in none."><strong>Em períodos diferentes.</strong> Começando em qualquer mês de abril de 2020 a outubro de 2025, toda janela de 2 anos terminou no positivo, e 87% das janelas de 1 ano. Cinco dos sete anos fecharam no positivo; 2023 ficou perto do zero (−2%) e 2026 está em −11% até novembro. Contra comprar e segurar BTC, depende de quando se começa: quem comprou em março de 2020, perto do fundo, ganhou mais segurando (+891%, com queda de 77% no caminho). Começando em cada mês, a configuração terminou à frente em 37 de 67 inícios. Nas janelas de 2 anos, segurar BTC deu prejuízo em 30% delas; a configuração, em nenhuma.</p>
       <p data-pt="&lt;strong&gt;Como ler.&lt;/strong&gt; De cada 100 trades, cerca de 65 param no stop, 17 saem no zero e 18 chegam ao alvo de 6R. A maior sequência sem alvo foi de 16 trades." data-en="&lt;strong&gt;How to read it.&lt;/strong&gt; Out of every 100 trades, about 65 hit the stop, 17 exit at breakeven and 18 reach the 6R target. The longest streak without a target was 16 trades."><strong>Como ler.</strong> De cada 100 trades, cerca de 65 param no stop, 17 saem no zero e 18 chegam ao alvo de 6R. A maior sequência sem alvo foi de 16 trades.</p>
-      <p data-pt="&lt;strong&gt;Custos e limites.&lt;/strong&gt; Taxa de 0,02% na entrada e nos alvos (ordem limite) e de 0,05% no stop (a mercado), nível comum da OKX. Sem derrapagem e sem funding. O sinal usa os níveis da vela anterior e a entrada acontece no toque, conferido em velas de 5 minutos. Queda medida no fechamento dos trades. É simulação, não conta real." data-en="&lt;strong&gt;Costs and limits.&lt;/strong&gt; 0.02% fee on entry and targets (limit orders) and 0.05% on the stop (market), OKX regular tier. No slippage and no funding. The signal uses the previous candle&#x27;s levels and the entry happens on the touch, checked on 5-minute candles. Drawdown measured at trade close. This is a simulation, not a live account."><strong>Custos e limites.</strong> Taxa de 0,02% na entrada e nos alvos (ordem limite) e de 0,05% no stop (a mercado), nível comum da OKX. Sem derrapagem e sem funding. O sinal usa os níveis da vela anterior e a entrada acontece no toque, conferido em velas de 5 minutos. Queda medida no fechamento dos trades. É simulação, não conta real.</p>
+      <p data-pt="&lt;strong&gt;Custos e limites.&lt;/strong&gt; Taxa de 0,02% na entrada e nos alvos (ordem limite) e de 0,05% no stop (a mercado), nível comum da OKX. Sem derrapagem e sem funding. O alerta usa os níveis da vela anterior e a entrada acontece no toque, conferido em velas de 5 minutos. Queda medida no fechamento dos trades. É simulação, não conta real." data-en="&lt;strong&gt;Costs and limits.&lt;/strong&gt; 0.02% fee on entry and targets (limit orders) and 0.05% on the stop (market), OKX regular tier. No slippage and no funding. The alert uses the previous candle&#x27;s levels and the entry happens on the touch, checked on 5-minute candles. Drawdown measured at trade close. This is a simulation, not a live account."><strong>Custos e limites.</strong> Taxa de 0,02% na entrada e nos alvos (ordem limite) e de 0,05% no stop (a mercado), nível comum da OKX. Sem derrapagem e sem funding. O alerta usa os níveis da vela anterior e a entrada acontece no toque, conferido em velas de 5 minutos. Queda medida no fechamento dos trades. É simulação, não conta real.</p>
       <p class="risk" data-pt="⚠ Resultados de backtest não garantem performance futura. Os dados acima incluem as taxas da OKX (maker e taker) em BTC-USDT perpétuo, gráfico de 1 hora. Capital inicial: US$ 10.000. Este conteúdo tem caráter exclusivamente educacional e analítico. Não constitui recomendação de investimento." data-en="⚠ Backtest results do not guarantee future performance. The data above includes OKX fees (maker and taker) on BTC-USDT perpetual, 1-hour chart. Starting capital: US$ 10,000. This content is for educational and analytical purposes only. It does not constitute investment advice.">⚠ Resultados de backtest não garantem performance futura. Os dados acima incluem as taxas da OKX (maker e taker) em BTC-USDT perpétuo, gráfico de 1 hora. Capital inicial: US$ 10.000. Este conteúdo tem caráter exclusivamente educacional e analítico. Não constitui recomendação de investimento.</p>
     </div>
   </div>
@@ -968,14 +1009,14 @@ html:not(.js) .menu{display:none}
     <h2 class="sec-h" id="dep-t" data-pt="Quem usa, no próprio gráfico." data-en="From those who use it, on their own charts.">Quem usa, no próprio gráfico.</h2>
     <p class="sec-p" data-pt="Depoimentos enviados por assinantes pelo formulário público." data-en="Testimonials sent by subscribers through the public form. Translated from Portuguese.">Depoimentos enviados por assinantes pelo formulário público.</p>
 <div class="depo-top">
-<figure class="depo big"><blockquote data-pt="O indicador realmente segue lógica de execução baseada em estrutura e liquidez. Os sinais têm consistência e contexto, o que é raro hoje, não é milagre, mas está claramente acima da média. BTC/USDT no 15m (contexto no 1H): esperei sweep de liquidez nos fundos, CHOCH confirmando mudança de estrutura e entrei no pullback em FVG/OB; stop abaixo da mínima e alvo no topo. Trade limpo, cerca de 3:1 de retorno." data-en="The indicator actually follows execution logic based on structure and liquidity. The signals have consistency and context, which is rare these days — it&#x27;s no miracle, but clearly above average. BTC/USDT on the 15m (with 1H context): I waited for a liquidity sweep at the lows, CHOCH confirming the structure shift, and entered on the pullback into the FVG/OB; stop below the low, target at the high. Clean trade, about 3:1 return.">O indicador realmente segue lógica de execução baseada em estrutura e liquidez. Os sinais têm consistência e contexto, o que é raro hoje, não é milagre, mas está claramente acima da média. BTC/USDT no 15m (contexto no 1H): esperei sweep de liquidez nos fundos, CHOCH confirmando mudança de estrutura e entrei no pullback em FVG/OB; stop abaixo da mínima e alvo no topo. Trade limpo, cerca de 3:1 de retorno.</blockquote><figcaption><span class="av"><img src="assets/testimonials/sergiomirandacuba.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Sérgio Miranda</b><span><a href="https://instagram.com/sergiomirandacuba" target="_blank" rel="noopener">@sergiomirandacuba</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
-<figure class="depo big"><blockquote data-pt="Com o indicador eu bato o olho no grafico e já sei se está interessante ou não, ajuda muito identificar o contexto no momento. BTCUSDT, 5min. Resultado 3.5:1" data-en="With the indicator, one look at the chart and I already know if it&#x27;s worth trading or not — it really helps identify the current context. BTCUSDT, 5m. Result: 3.5:1.">Com o indicador eu bato o olho no grafico e já sei se está interessante ou não, ajuda muito identificar o contexto no momento. BTCUSDT, 5min. Resultado 3.5:1</blockquote><figcaption><span class="av"><img src="assets/testimonials/ro_santiago83.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rodrigo Santiago</b><span><a href="https://instagram.com/ro_santiago83" target="_blank" rel="noopener">@ro_santiago83</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
-<figure class="depo big"><blockquote data-pt="O que tem funcionado tem sido minha entradas, melhorou muito depois que comecei a usar o indicador. Em HYPEUSDT, em uma zona de fibo descontada junto com zona de OB foi certeiro!" data-en="What&#x27;s been working are my entries — they improved a lot after I started using the indicator. On HYPEUSDT, in a discounted fibo zone combined with an OB zone, it was spot on!">O que tem funcionado tem sido minha entradas, melhorou muito depois que comecei a usar o indicador. Em HYPEUSDT, em uma zona de fibo descontada junto com zona de OB foi certeiro!</blockquote><figcaption><span class="av"><img src="assets/testimonials/rafael.trade.cripto.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rafael Marques</b><span><a href="https://instagram.com/rafael.trade.cripto" target="_blank" rel="noopener">@rafael.trade.cripto</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
+<figure class="depo big"><blockquote data-pt="O indicador realmente segue lógica de execução baseada em estrutura e liquidez. Os sinais têm consistência e contexto, o que é raro hoje, não é milagre, mas está claramente acima da média. BTC/USDT no 15m (contexto no 1H): esperei sweep de liquidez nos fundos, CHOCH confirmando mudança de estrutura e entrei no pullback em FVG/OB; stop abaixo da mínima e alvo no topo. Trade limpo, cerca de 3:1 de retorno." data-en="The indicator actually follows execution logic based on structure and liquidity. The signals have consistency and context, which is rare these days, it&#x27;s no miracle, but clearly above average. BTC/USDT on the 15m (with 1H context): I waited for a liquidity sweep at the lows, CHOCH confirming the structure shift, and entered on the pullback into the FVG/OB; stop below the low, target at the high. Clean trade, about 3:1 return.">O indicador realmente segue lógica de execução baseada em estrutura e liquidez. Os sinais têm consistência e contexto, o que é raro hoje, não é milagre, mas está claramente acima da média. BTC/USDT no 15m (contexto no 1H): esperei sweep de liquidez nos fundos, CHOCH confirmando mudança de estrutura e entrei no pullback em FVG/OB; stop abaixo da mínima e alvo no topo. Trade limpo, cerca de 3:1 de retorno.</blockquote><figcaption><span class="av"><img src="assets/testimonials/sergiomirandacuba.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Sérgio Miranda</b><span><a href="https://instagram.com/sergiomirandacuba" target="_blank" rel="noopener">@sergiomirandacuba</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
+<figure class="depo big"><blockquote data-pt="Com o indicador eu bato o olho no grafico e já sei se está interessante ou não, ajuda muito identificar o contexto no momento. BTCUSDT, 5min. Resultado 3.5:1" data-en="With the indicator, one look at the chart and I already know if it&#x27;s worth trading or not, it really helps identify the current context. BTCUSDT, 5m. Result: 3.5:1.">Com o indicador eu bato o olho no grafico e já sei se está interessante ou não, ajuda muito identificar o contexto no momento. BTCUSDT, 5min. Resultado 3.5:1</blockquote><figcaption><span class="av"><img src="assets/testimonials/ro_santiago83.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rodrigo Santiago</b><span><a href="https://instagram.com/ro_santiago83" target="_blank" rel="noopener">@ro_santiago83</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
+<figure class="depo big"><blockquote data-pt="O que tem funcionado tem sido minha entradas, melhorou muito depois que comecei a usar o indicador. Em HYPEUSDT, em uma zona de fibo descontada junto com zona de OB foi certeiro!" data-en="What&#x27;s been working are my entries, they improved a lot after I started using the indicator. On HYPEUSDT, in a discounted fibo zone combined with an OB zone, it was spot on!">O que tem funcionado tem sido minha entradas, melhorou muito depois que comecei a usar o indicador. Em HYPEUSDT, em uma zona de fibo descontada junto com zona de OB foi certeiro!</blockquote><figcaption><span class="av"><img src="assets/testimonials/rafael.trade.cripto.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rafael Marques</b><span><a href="https://instagram.com/rafael.trade.cripto" target="_blank" rel="noopener">@rafael.trade.cripto</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
 </div>
 <div class="depo-row" tabindex="0" role="group" aria-label="Mais depoimentos">
 <figure class="depo"><blockquote data-pt="Excelente indicador! Te dá uma segurança muito maior para uma tomada de decisão, pois tem uma taxa de assertividade grande. Alguns trades realizados: Btc, eth, sui, entre outros. Com ele você tem um risco retorno muito favorável. A assimetria de risco retorno é muito boa." data-en="Excellent indicator! Gives you much more confidence in decision-making because the hit rate is high. Some trades I took: BTC, ETH, SUI, among others. You get a very favorable risk-to-reward ratio. The risk-reward asymmetry is really good.">Excelente indicador! Te dá uma segurança muito maior para uma tomada de decisão, pois tem uma taxa de assertividade grande. Alguns trades realizados: Btc, eth, sui, entre outros. Com ele você tem um risco retorno muito favorável. A assimetria de risco retorno é muito boa.</blockquote><figcaption><span class="av"><img src="assets/testimonials/rodrigo.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rodrigo</b><span><a href="https://instagram.com/rodrigoo.toledoo" target="_blank" rel="noopener">@rodrigoo.toledoo</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
-<figure class="depo"><blockquote data-pt="Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏" data-en="Great indicator — precise and self-explanatory. Makes a trader&#x27;s life much easier, congrats. One of the best indicators on the market 👏">Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏</blockquote><figcaption><span class="av"><img src="assets/testimonials/jecson_barbosa.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Decotrader</b><span><a href="https://instagram.com/jecson_barbosa" target="_blank" rel="noopener">@jecson_barbosa</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
-<figure class="depo"><blockquote data-pt="O indicador tornou-se uma ferramenta indispensável no meu operacional. Ele otimizou em 100% a minha leitura de estrutura de mercado, além de facilitar o mapeamento de áreas chave de fibo e order blocks. Além de um ganho de tempo gigantesco ele traz muita clareza na busca por gatilhos de trades. Mudou completamente o meu jogo em pilares essenciais: o técnico e o psicológico, me dando a confiança exata que eu precisava para identificar e executar as entradas." data-en="The indicator has become an indispensable tool in my trading. It 100% optimized how I read market structure and made mapping fib key areas and order blocks much easier. Beyond the massive time savings, it brings real clarity when looking for trade triggers. It completely changed my game on the essential pillars — both technical and psychological — giving me the exact confidence I needed to identify and execute entries.">O indicador tornou-se uma ferramenta indispensável no meu operacional. Ele otimizou em 100% a minha leitura de estrutura de mercado, além de facilitar o mapeamento de áreas chave de fibo e order blocks. Além de um ganho de tempo gigantesco ele traz muita clareza na busca por gatilhos de trades. Mudou completamente o meu jogo em pilares essenciais: o técnico e o psicológico, me dando a confiança exata que eu precisava para identificar e executar as entradas.</blockquote><figcaption><span class="av"><img src="assets/testimonials/nogueiravictor.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Victor Nogueira</b><span><a href="https://instagram.com/nogueiravictor" target="_blank" rel="noopener">@nogueiravictor</a> · <time datetime="2026-05-04" data-pt="04/Mai/2026" data-en="May 04, 2026">04/Mai/2026</time></span></span></figcaption></figure>
+<figure class="depo"><blockquote data-pt="Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏" data-en="Great indicator, precise and self-explanatory. Makes a trader&#x27;s life much easier, congrats. One of the best indicators on the market 👏">Ótimo indicador, preciso e auto explicativo. Facilita muito a vida do trader, parabéns. Um dos melhores indicadores do mercado 👏</blockquote><figcaption><span class="av"><img src="assets/testimonials/jecson_barbosa.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Decotrader</b><span><a href="https://instagram.com/jecson_barbosa" target="_blank" rel="noopener">@jecson_barbosa</a> · <time datetime="2026-04-13" data-pt="13/Abr/2026" data-en="Apr 13, 2026">13/Abr/2026</time></span></span></figcaption></figure>
+<figure class="depo"><blockquote data-pt="O indicador tornou-se uma ferramenta indispensável no meu operacional. Ele otimizou em 100% a minha leitura de estrutura de mercado, além de facilitar o mapeamento de áreas chave de fibo e order blocks. Além de um ganho de tempo gigantesco ele traz muita clareza na busca por gatilhos de trades. Mudou completamente o meu jogo em pilares essenciais: o técnico e o psicológico, me dando a confiança exata que eu precisava para identificar e executar as entradas." data-en="The indicator has become an indispensable tool in my trading. It 100% optimized how I read market structure and made mapping fib key areas and order blocks much easier. Beyond the massive time savings, it brings real clarity when looking for trade triggers. It completely changed my game on the essential pillars, both technical and psychological, giving me the exact confidence I needed to identify and execute entries.">O indicador tornou-se uma ferramenta indispensável no meu operacional. Ele otimizou em 100% a minha leitura de estrutura de mercado, além de facilitar o mapeamento de áreas chave de fibo e order blocks. Além de um ganho de tempo gigantesco ele traz muita clareza na busca por gatilhos de trades. Mudou completamente o meu jogo em pilares essenciais: o técnico e o psicológico, me dando a confiança exata que eu precisava para identificar e executar as entradas.</blockquote><figcaption><span class="av"><img src="assets/testimonials/nogueiravictor.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Victor Nogueira</b><span><a href="https://instagram.com/nogueiravictor" target="_blank" rel="noopener">@nogueiravictor</a> · <time datetime="2026-05-04" data-pt="04/Mai/2026" data-en="May 04, 2026">04/Mai/2026</time></span></span></figcaption></figure>
 <figure class="depo"><blockquote data-pt="O indicador é muito bom. Além de sinalizar zonas importantes no gráfico, nos ajuda a cristalizar conceitos de SMC, validando o estudo." data-en="The indicator is very good. In addition to highlighting important areas on the chart, it helps us solidify SMC concepts, validating the study.">O indicador é muito bom. Além de sinalizar zonas importantes no gráfico, nos ajuda a cristalizar conceitos de SMC, validando o estudo.</blockquote><figcaption><span class="av"><span aria-hidden="true">VB</span></span><span class="who"><b>Victor Brunieri</b><span><time datetime="2026-05-09" data-pt="09/Mai/2026" data-en="May 09, 2026">09/Mai/2026</time></span></span></figcaption></figure>
 <figure class="depo"><blockquote data-pt="O indicador faz uma análise técnica baseada na metodologia SMC e mostra de forma visual as estruturas de mercado em diferentes tempos gráficos. Isso facilita bastante a identificação de possíveis pontos de entrada e saída, tanto em operações compradas quanto vendidas, além de agilizar a análise do mercado no dia a dia." data-en="The indicator performs a technical analysis based on the SMC methodology and visually displays market structures across different timeframes. This greatly facilitates the identification of potential entry and exit points, both for long and short positions, and speeds up daily market analysis.">O indicador faz uma análise técnica baseada na metodologia SMC e mostra de forma visual as estruturas de mercado em diferentes tempos gráficos. Isso facilita bastante a identificação de possíveis pontos de entrada e saída, tanto em operações compradas quanto vendidas, além de agilizar a análise do mercado no dia a dia.</blockquote><figcaption><span class="av"><img src="assets/testimonials/rafaelmichel81.jpg" alt="" width="48" height="48" loading="lazy"></span><span class="who"><b>Rafael Michel</b><span><a href="https://instagram.com/rafaelmichel81" target="_blank" rel="noopener">@rafaelmichel81</a> · <time datetime="2026-06-10" data-pt="10/Jun/2026" data-en="Jun 10, 2026">10/Jun/2026</time></span></span></figcaption></figure>
 <figure class="depo"><blockquote data-pt="Indicador sensacional! Ele traz de forma simples os conceitos de SMC, mapeando de forma automática os topos e fundos válidos do movimento e validando os Order Blocks. Os alertas deixam tudo muito simples e fácil, você é avisado assim que a condição é atendida. O recurso de Alinhamento de Fluxo é incrível, um alerta é disparado e te avisa exatamente quando a estrutura vira no gráfico de execução depois de tocar em uma região macro. Fica muito mais simples fazer a leitura dos gráficos." data-en="This indicator is fantastic! It simply explains SMC concepts, automatically mapping valid tops and bottoms of the movement and validating Order Blocks. The alerts make everything very simple and easy; you are notified as soon as the condition is met. The Flow Alignment feature is incredible; an alert is triggered and tells you exactly when the structure reverses on the execution chart after touching a macro region. It makes reading the charts much simpler.">Indicador sensacional! Ele traz de forma simples os conceitos de SMC, mapeando de forma automática os topos e fundos válidos do movimento e validando os Order Blocks. Os alertas deixam tudo muito simples e fácil, você é avisado assim que a condição é atendida. O recurso de Alinhamento de Fluxo é incrível, um alerta é disparado e te avisa exatamente quando a estrutura vira no gráfico de execução depois de tocar em uma região macro. Fica muito mais simples fazer a leitura dos gráficos.</blockquote><figcaption><span class="av"><span aria-hidden="true">RA</span></span><span class="who"><b>RÔMULO ARRUDA</b><span><time datetime="2026-09-13" data-pt="13/Set/2026" data-en="Sep 13, 2026">13/Set/2026</time></span></span></figcaption></figure>
@@ -993,14 +1034,16 @@ html:not(.js) .menu{display:none}
     <div class="ex">
       <article class="rev"><img src="https://framerusercontent.com/images/Dn90xw2tbY9Soh5XWshJlgXKfM.png" alt="BTCUSDT: trade em zona de desconto" width="977" height="691" loading="lazy">
         <div class="bd"><div class="meta"><b>BTCUSDT</b><span>R:R 3.69:1</span></div>
-        <h3 data-pt="Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural" data-en="Scalp Trade in discount zone (0.79 Fibo) with structural confluence">Scalp Trade em zona de desconto (0.79 Fibo) com confluência estrutural</h3>
+        <h3 data-pt="Scalp na zona de desconto (0.79 Fibo)" data-en="Scalp in the discount zone (0.79 Fibo)">Scalp na zona de desconto (0.79 Fibo)</h3>
+        <details><summary data-pt="ver a leitura do trade" data-en="see the trade read">ver a leitura do trade</summary>
         <p data-pt="Em 31/jan/2026, o Bitcoin testou a região de mínima no gráfico mensal. No tempo gráfico de 5 min, observamos o rompimento momentâneo do topo anterior ativando um evento de break-mode (wick)." data-en="On Jan 31, 2026, Bitcoin tested the monthly chart low region. On the 5-min timeframe, we observed a momentary break of the prior high activating a break-mode event (wick).">Em 31/jan/2026, o Bitcoin testou a região de mínima no gráfico mensal. No tempo gráfico de 5 min, observamos o rompimento momentâneo do topo anterior ativando um evento de break-mode (wick).</p>
-        <p data-pt="O SMC Engine PRO identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução." data-en="The SMC Engine PRO identified the price return to the discount zone (0.79), aligned with the main institutional demand zone (order block), creating a clear high-probability context for execution.">O SMC Engine PRO identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução.</p></div></article>
+        <p data-pt="O SMC Engine PRO identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução." data-en="The SMC Engine PRO identified the price return to the discount zone (0.79), aligned with the main institutional demand zone (order block), creating a clear high-probability context for execution.">O SMC Engine PRO identificou o retorno do preço à zona de desconto (0.79), alinhada à principal zona de demanda institucional (order block), criando um contexto claro de alta probabilidade para execução.</p></details></div></article>
       <article class="rev"><img src="https://framerusercontent.com/images/rHi1QXE5Un08DGMQqBmKWBeuo.png" alt="HYPEUSDT: entrada em order block" width="979" height="699" loading="lazy">
         <div class="bd"><div class="meta"><b>HYPEUSDT</b><span>R:R 5.83:1</span></div>
-        <h3 data-pt="Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade" data-en="Swing Trade with entry at Order Block, after structural confirmation of continuation">Swing Trade com entrada em Order Block, após confirmação estrutural de continuidade</h3>
+        <h3 data-pt="Swing com entrada em Order Block" data-en="Swing with entry at the Order Block">Swing com entrada em Order Block</h3>
+        <details><summary data-pt="ver a leitura do trade" data-en="see the trade read">ver a leitura do trade</summary>
         <p data-pt="Em 10/out/2025, após um forte movimento de queda no mercado cripto, o SMC Engine PRO identificou a região de oferta responsável pela impulsão inicial do movimento." data-en="On Oct 10, 2025, after a strong downward move in the crypto market, the SMC Engine PRO identified the supply region responsible for the initial impulse of the move.">Em 10/out/2025, após um forte movimento de queda no mercado cripto, o SMC Engine PRO identificou a região de oferta responsável pela impulsão inicial do movimento.</p>
-        <p data-pt="Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado." data-en="With the bearish structure validated, price returned to the origin Order Block, offering an entry aligned with the continuation of the dominant trend. The execution was structured with a target at the low generated during the October crash, maintaining controlled risk and clear market context.">Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado.</p></div></article>
+        <p data-pt="Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado." data-en="With the bearish structure validated, price returned to the origin Order Block, offering an entry aligned with the continuation of the dominant trend. The execution was structured with a target at the low generated during the October crash, maintaining controlled risk and clear market context.">Com a estrutura de baixa validada, o preço retornou ao Order Block de origem, oferecendo uma entrada alinhada à continuidade da tendência dominante. A execução foi estruturada com alvo no fundo gerado durante o crash de outubro, mantendo risco controlado e contexto claro de mercado.</p></details></div></article>
     </div>
   </div>
 </section>
@@ -1010,11 +1053,11 @@ html:not(.js) .menu{display:none}
 <span class="anc" id="praquem"></span>
   <div class="wrap">
     <span class="eyb" data-pt="Para quem é" data-en="Who it is for">Para quem é</span>
-    <h2 class="sec-h" id="pq-t" data-pt="Feito para quem já olha gráfico e quer método." data-en="Built for those who already read charts and want a method.">Feito para quem já olha gráfico e quer método.</h2>
+    <h2 class="sec-h" id="pq-t" data-pt="Para quem já olha gráfico e quer método." data-en="For chart readers who want a method.">Para quem já olha gráfico e quer método.</h2>
     <div class="who3">
-      <article class="card rev"><h3 data-pt="Traders em evolução" data-en="Developing traders">Traders em evolução</h3><p data-pt="Você tem base de análise técnica e quer sair da inconsistência com uma abordagem estruturada em Smart Money Concepts." data-en="You have a technical analysis base and want to leave inconsistency behind with a structured Smart Money Concepts approach.">Você tem base de análise técnica e quer sair da inconsistência com uma abordagem estruturada em Smart Money Concepts.</p></article>
-      <article class="card rev"><h3 data-pt="Experientes, porém inconsistentes" data-en="Experienced but inconsistent">Experientes, porém inconsistentes</h3><p data-pt="Anos de mercado, várias estratégias testadas, e a consistência ainda escapa. Regras claras ajudam a não cair nas mesmas armadilhas." data-en="Years in the market, many strategies tested, and consistency still slips away. Clear rules help you avoid the same traps.">Anos de mercado, várias estratégias testadas, e a consistência ainda escapa. Regras claras ajudam a não cair nas mesmas armadilhas.</p></article>
-      <article class="card rev"><h3 data-pt="Entusiastas de SMC" data-en="SMC enthusiasts">Entusiastas de SMC</h3><p data-pt="Você já conhece SMC e quer uma ferramenta para validar a leitura e refinar pontos de entrada e saída." data-en="You already know SMC and want a tool to validate your read and refine entries and exits.">Você já conhece SMC e quer uma ferramenta para validar a leitura e refinar pontos de entrada e saída.</p></article>
+      <article class="card rev"><h3 data-pt="Traders em evolução" data-en="Developing traders">Traders em evolução</h3><p data-pt="Você tem base de análise técnica e quer regras claras de Smart Money Concepts." data-en="You have a technical analysis base and want clear Smart Money Concepts rules.">Você tem base de análise técnica e quer regras claras de Smart Money Concepts.</p></article>
+      <article class="card rev"><h3 data-pt="Experientes, porém inconsistentes" data-en="Experienced but inconsistent">Experientes, porém inconsistentes</h3><p data-pt="Anos de mercado, várias estratégias. Regra clara evita a mesma armadilha." data-en="Years in the market, many strategies. Clear rules avoid the same trap.">Anos de mercado, várias estratégias. Regra clara evita a mesma armadilha.</p></article>
+      <article class="card rev"><h3 data-pt="Entusiastas de SMC" data-en="SMC enthusiasts">Entusiastas de SMC</h3><p data-pt="Você já conhece SMC e quer validar a leitura e refinar entrada e saída." data-en="You already know SMC and want to validate your read and refine entries and exits.">Você já conhece SMC e quer validar a leitura e refinar entrada e saída.</p></article>
     </div>
   </div>
 </section>
@@ -1024,14 +1067,14 @@ html:not(.js) .menu{display:none}
   <div class="wrap">
     <span class="eyb" data-pt="Preço" data-en="Pricing">Preço</span>
     <h2 class="sec-h" id="preco-t" data-pt="Teste antes. Assine se fizer sentido." data-en="Try it first. Subscribe if it makes sense.">Teste antes. Assine se fizer sentido.</h2>
-    <div class="plan rev">
+    <div class="plan rev" data-cta>
       <div class="plan-a">
         <div class="lbl mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)" data-pt="SMC Engine PRO · assinatura anual" data-en="SMC Engine PRO · annual subscription">SMC Engine PRO · assinatura anual</div>
         <div class="val"><small>12x </small>R$ 95<small data-pt=",31" data-en=".31">,31</small></div>
         <div class="alt" data-pt="ou R$ 938 à vista" data-en="or R$ 938 upfront">ou R$ 938 à vista</div>
         <div class="cta">
           <a class="btn btn-primary" href="https://pay.hub.la/NW5kDG2FWhnKaAy7g1tj?_path=/checkout/NW5kDG2FWhnKaAy7g1tj" target="_blank" rel="noopener"><span data-pt="Assinar PRO" data-en="Get PRO">Assinar PRO</span><span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="teste.html" data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</a>
+          <a class="tl" href="teste.html" data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</a>
         </div>
         <div class="tiny"><span data-pt="Checkout seguro pela Hubla. O teste grátis é pedido por um formulário." data-en="Secure checkout via Hubla. The free trial is requested through a form.">Checkout seguro pela Hubla. O teste grátis é pedido por um formulário.</span><span data-pt="Reembolso em até 7 dias corridos após a compra, pedido direto na Hubla." data-en="Refund within 7 calendar days of purchase, requested directly on Hubla.">Reembolso em até 7 dias corridos após a compra, pedido direto na Hubla.</span><span><span data-pt="Prefere pagar em USDT? Fale comigo no" data-en="Prefer to pay in USDT? Message me on">Prefere pagar em USDT? Fale comigo no</span> <a href="https://www.instagram.com/abdallacrypto" target="_blank" rel="noopener" style="text-underline-offset:3px">Instagram</a> <span data-pt="ou Discord." data-en="or Discord.">ou Discord.</span></span></div>
       </div>
@@ -1039,7 +1082,7 @@ html:not(.js) .menu{display:none}
         <div class="mono" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)" data-pt="O que está incluído" data-en="What is included">O que está incluído</div>
         <ul class="inc">
           <li><span><b data-pt="Indicador PRO no TradingView" data-en="PRO indicator on TradingView">Indicador PRO no TradingView</b><small data-pt="Alertas em tempo real e todos os filtros" data-en="Real-time alerts and every filter">Alertas em tempo real e todos os filtros</small></span></li>
-          <li><span><b data-pt="Discord de assinantes" data-en="Subscriber Discord">Discord de assinantes</b><small data-pt="Análises diárias e alertas das top 40 criptos" data-en="Daily analysis and alerts on the top 40 cryptos">Análises diárias e alertas das top 40 criptos</small></span></li>
+          <li><span><b data-pt="Discord de assinantes" data-en="Subscriber Discord">Discord de assinantes</b><small data-pt="Análise diária, dúvidas e troca de leituras" data-en="Daily analysis, questions and shared chart reads">Análise diária, dúvidas e troca de leituras</small></span></li>
           <li><span><b data-pt="Radar dos perpétuos da OKX" data-en="OKX perpetuals Radar">Radar dos perpétuos da OKX</b><small data-pt="Monitoramento automático, 24 horas, por cenário" data-en="Automatic monitoring, 24 hours, by scenario">Monitoramento automático, 24 horas, por cenário</small></span></li>
           <li><span><b data-pt="Atualizações do indicador" data-en="Indicator updates">Atualizações do indicador</b><small data-pt="Toda versão nova durante a assinatura" data-en="Every new version during the subscription">Toda versão nova durante a assinatura</small></span></li>
         </ul>
@@ -1047,9 +1090,9 @@ html:not(.js) .menu{display:none}
     </div>
     <ol class="after">
       <li class="rev"><span><b data-pt="Realize a compra" data-en="Complete the purchase">Realize a compra</b><span data-pt="Adquira o acesso através da plataforma oficial." data-en="Purchase access through the official platform.">Adquira o acesso através da plataforma oficial.</span></span></li>
-      <li class="rev"><span><b data-pt="Informe seu usuário" data-en="Provide your username">Informe seu usuário</b><span data-pt="Após a compra, envie seu usuário do TradingView através do formulário por e-mail." data-en="After the purchase, send your TradingView username through the email form.">Após a compra, envie seu usuário do TradingView através do formulário por e-mail.</span></span></li>
-      <li class="rev"><span><b data-pt="Receba o acesso" data-en="Receive access">Receba o acesso</b><span data-pt="Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView." data-en="You will receive the invitation to use PRO directly in your TradingView account.">Você receberá o convite para utilizar o PRO diretamente na sua conta do TradingView.</span></span></li>
-      <li class="rev"><span><b data-pt="Entre no grupo" data-en="Join the group">Entre no grupo</b><span data-pt="Junto com o acesso chega o convite para o grupo privado de assinantes no Discord: tire dúvidas, troque análises com outros traders e saiba de cada atualização do indicador." data-en="Along with access you get an invitation to the private subscriber group on Discord: ask questions, share analyses with other traders and hear about every indicator update.">Junto com o acesso chega o convite para o grupo privado de assinantes no Discord: tire dúvidas, troque análises com outros traders e saiba de cada atualização do indicador.</span></span></li>
+      <li class="rev"><span><b data-pt="Informe seu usuário" data-en="Provide your username">Informe seu usuário</b><span data-pt="Envie seu usuário do TradingView pelo formulário que chega por e-mail." data-en="Send your TradingView username through the form that arrives by email.">Envie seu usuário do TradingView pelo formulário que chega por e-mail.</span></span></li>
+      <li class="rev"><span><b data-pt="Receba o acesso" data-en="Receive access">Receba o acesso</b><span data-pt="O convite do PRO chega direto na sua conta do TradingView." data-en="The PRO invitation arrives directly in your TradingView account.">O convite do PRO chega direto na sua conta do TradingView.</span></span></li>
+      <li class="rev"><span><b data-pt="Entre no grupo" data-en="Join the group">Entre no grupo</b><span data-pt="Junto chega o convite do grupo privado de assinantes no Discord." data-en="Along with it comes the invitation to the private subscriber group on Discord.">Junto chega o convite do grupo privado de assinantes no Discord.</span></span></li>
     </ol>
   </div>
 </section>
@@ -1059,7 +1102,7 @@ html:not(.js) .menu{display:none}
     <span class="eyb" data-pt="Perguntas frequentes" data-en="FAQ">Perguntas frequentes</span>
     <h2 class="sec-h" id="faq-t" data-pt="Antes de decidir." data-en="Before you decide.">Antes de decidir.</h2>
     <div class="faq">
-      <details><summary data-pt="É um robô ou um serviço de sinais?" data-en="Is it a bot or a signal service?">É um robô ou um serviço de sinais?</summary><div data-pt="Nenhum dos dois. O SMC Engine é um indicador para o TradingView: ele organiza a leitura do gráfico e avisa quando o contexto aparece. A execução, a gestão de risco e a decisão final são suas. O Radar no Discord também não é sinal de entrada: ele avisa que algo aconteceu numa moeda para você conferir no gráfico." data-en="Neither. SMC Engine is a TradingView indicator: it organizes the chart read and alerts you when the context shows up. Execution, risk management and the final decision are yours. The Radar on Discord is not an entry signal either: it tells you something happened on a coin so you can check the chart.">Nenhum dos dois. O SMC Engine é um indicador para o TradingView: ele organiza a leitura do gráfico e avisa quando o contexto aparece. A execução, a gestão de risco e a decisão final são suas. O Radar no Discord também não é sinal de entrada: ele avisa que algo aconteceu numa moeda para você conferir no gráfico.</div></details>
+      <details><summary data-pt="É um robô ou um serviço de sinais?" data-en="Is it a bot or a signal service?">É um robô ou um serviço de sinais?</summary><div data-pt="Nenhum dos dois. O SMC Engine PRO é um indicador para o TradingView: ele organiza a leitura do gráfico e avisa quando o contexto aparece. A execução, a gestão de risco e a decisão final são suas. O Radar no Discord também não é sinal de entrada: ele avisa que algo aconteceu numa moeda para você conferir no gráfico." data-en="Neither. SMC Engine PRO is a TradingView indicator: it organizes the chart read and alerts you when the context shows up. Execution, risk management and the final decision are yours. The Radar on Discord is not an entry signal either: it tells you something happened on a coin so you can check the chart.">Nenhum dos dois. O SMC Engine PRO é um indicador para o TradingView: ele organiza a leitura do gráfico e avisa quando o contexto aparece. A execução, a gestão de risco e a decisão final são suas. O Radar no Discord também não é sinal de entrada: ele avisa que algo aconteceu numa moeda para você conferir no gráfico.</div></details>
       <details><summary data-pt="Funciona em quais ativos e tempos gráficos?" data-en="Which assets and timeframes does it work on?">Funciona em quais ativos e tempos gráficos?</summary><div data-pt="O indicador roda em qualquer ativo e tempo gráfico do TradingView. O filtro de volume é ignorado automaticamente em ativos sem volume, como forex e CFDs. O backtest público foi feito apenas em BTC-USDT perpétuo no gráfico de 1 hora; ele não diz nada sobre outros ativos." data-en="The indicator runs on any TradingView asset and timeframe. The volume filter is bypassed automatically on assets without volume, such as forex and CFDs. The public backtest was run only on BTC-USDT perpetual on the 1-hour chart; it says nothing about other assets.">O indicador roda em qualquer ativo e tempo gráfico do TradingView. O filtro de volume é ignorado automaticamente em ativos sem volume, como forex e CFDs. O backtest público foi feito apenas em BTC-USDT perpétuo no gráfico de 1 hora; ele não diz nada sobre outros ativos.</div></details>
       <details><summary data-pt="Qual a diferença entre o Free e o PRO?" data-en="What is the difference between Free and PRO?">Qual a diferença entre o Free e o PRO?</summary><div data-pt="O Free marca estrutura (CHOCH e BOS), zonas de Fibonacci e order blocks. O PRO acrescenta os alertas em tempo real, os filtros (tendência macro, volume, tamanho do OB, mitigação), os níveis de RSI, a liquidez $$$, o HUD multi-timeframe, além do Discord e do Radar." data-en="Free maps structure (CHoCH and BOS), Fibonacci zones and order blocks. PRO adds real-time alerts, the filters (macro trend, volume, OB size, mitigation), RSI levels, liquidity $$$, the multi-timeframe HUD, plus Discord and the Radar.">O Free marca estrutura (CHOCH e BOS), zonas de Fibonacci e order blocks. O PRO acrescenta os alertas em tempo real, os filtros (tendência macro, volume, tamanho do OB, mitigação), os níveis de RSI, a liquidez $$$, o HUD multi-timeframe, além do Discord e do Radar.</div></details>
       <details><summary data-pt="Como recebo o acesso depois de assinar?" data-en="How do I get access after subscribing?">Como recebo o acesso depois de assinar?</summary><div data-pt="Depois da compra você informa seu usuário do TradingView pelo formulário que chega por e-mail. O convite para o indicador é liberado na sua conta do TradingView e, junto, chega o convite para o Discord de assinantes." data-en="After the purchase you send your TradingView username through the form that arrives by email. The indicator invitation is granted on your TradingView account and, with it, you get the invitation to the subscriber Discord.">Depois da compra você informa seu usuário do TradingView pelo formulário que chega por e-mail. O convite para o indicador é liberado na sua conta do TradingView e, junto, chega o convite para o Discord de assinantes.</div></details>
@@ -1070,14 +1113,12 @@ html:not(.js) .menu{display:none}
   </div>
 </section>
 
-<section class="end" aria-labelledby="end-t">
-  <div class="wrap">
-    <h2 id="end-t" data-pt="Pare de adivinhar.&lt;br&gt;&lt;em&gt;Comece a executar.&lt;/em&gt;" data-en="Stop guessing.&lt;br&gt;&lt;em&gt;Start executing.&lt;/em&gt;">Pare de adivinhar.<br><em>Comece a executar.</em></h2>
-    <div class="cta">
-      <a class="btn btn-primary" href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
-      <a class="btn btn-ghost" href="https://pay.hub.la/NW5kDG2FWhnKaAy7g1tj?_path=/checkout/NW5kDG2FWhnKaAy7g1tj" target="_blank" rel="noopener" data-pt="Assinar PRO" data-en="Get PRO">Assinar PRO</a>
-    </div>
-    <div class="cta-note"><span class="price" data-pt="R$ 938/ano ou 12x de R$ 95,31" data-en="R$ 938/year or 12x R$ 95.31">R$ 938/ano ou 12x de R$ 95,31</span></div>
+<section class="end" id="teste" aria-labelledby="end-t">
+  <div class="wrap rev">
+    <p class="eyb" data-pt="Teste grátis" data-en="Free trial">Teste grátis</p>
+    <h2 id="end-t" data-pt="30 dias com o indicador que eu uso." data-en="30 days with the indicator I use.">30 dias com o indicador que eu uso.</h2>
+    <a class="btn btn-primary" data-cta href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
+    <p class="fine"><span data-pt="Ferramenta de análise. Não é sinal nem recomendação." data-en="Analysis tool. Not a signal or a recommendation.">Ferramenta de análise. Não é sinal nem recomendação.</span> <span class="price" data-pt="R$ 938/ano ou 12x de R$ 95,31." data-en="R$ 938/year or 12x R$ 95.31.">R$ 938/ano ou 12x de R$ 95,31.</span> <a href="https://pay.hub.la/NW5kDG2FWhnKaAy7g1tj?_path=/checkout/NW5kDG2FWhnKaAy7g1tj" target="_blank" rel="noopener" data-pt="Assinar PRO" data-en="Get PRO">Assinar PRO</a></p>
   </div>
 </section>
 </main>
@@ -1098,9 +1139,8 @@ html:not(.js) .menu{display:none}
   </div>
 </footer>
 
-<div class="bar" role="region" aria-label="Ações">
-  <a class="btn btn-primary" href="teste.html" data-pt="Teste grátis 30 dias" data-en="30-day free trial">Teste grátis 30 dias</a>
-  <a class="btn btn-ghost" href="#preco" data-pt="Assinar PRO" data-en="Get PRO">Assinar PRO</a>
+<div class="bar" id="bar" aria-hidden="true">
+  <a class="btn btn-primary" tabindex="-1" href="teste.html"><span data-pt="Testar grátis por 30 dias" data-en="Try free for 30 days">Testar grátis por 30 dias</span><span class="arr" aria-hidden="true">→</span></a>
 </div>
 
 <script>
@@ -1129,6 +1169,20 @@ html:not(.js) .menu{display:none}
     document.addEventListener('click',function(){ setM(false); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') setM(false); });
   }
+
+  /* topo: transparente sobre a foto, sólido depois de rolar */
+  var hd=$('.header');
+  if(hd){ var topo=function(){ hd.classList.toggle('sc',window.pageYOffset>24); }; topo(); window.addEventListener('scroll',topo,{passive:true}); }
+
+  /* um botão de teste por tela: a barra do celular e o botão do topo só aparecem quando nenhum botão principal está visível */
+  (function(){ var bar=$('#bar'), hc=$('#hcta'); if(!('IntersectionObserver' in window)){ if(hc) hc.classList.add('on'); return; }
+    var alvos=$$('[data-cta]'), vis=0, a=bar&&bar.querySelector('a');
+    function atualiza(){ var on=vis===0&&window.pageYOffset>240;
+      if(bar){ bar.classList.toggle('on',on); bar.setAttribute('aria-hidden',on?'false':'true'); if(a) a.tabIndex=on?0:-1; }
+      if(hc){ hc.classList.toggle('on',on); hc.tabIndex=on?0:-1; } }
+    var ob=new IntersectionObserver(function(es){ es.forEach(function(e){ var el=e.target, v=e.isIntersecting; if(v!==!!el._v){ el._v=v; vis+=v?1:-1; } }); atualiza(); });
+    alvos.forEach(function(el){ ob.observe(el); });
+    window.addEventListener('scroll',atualiza,{passive:true}); })();
 
   /* revelar ao rolar + contagem dos números */
   var io=null;
