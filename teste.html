@@ -77,6 +77,8 @@ main{position:relative;padding:22px 0 0}
 .btn[disabled]{cursor:progress;filter:saturate(.75) brightness(.86)}
 .btn[disabled] .arr{width:17px;height:17px;border:2px solid rgba(23,18,4,.3);border-top-color:#171204;border-radius:50%;font-size:0;animation:gira .7s linear infinite}
 form .btn{margin-top:18px}
+.req{margin-top:16px;padding:12px 14px;border:1px solid rgba(233,185,73,.45);border-radius:12px;background:rgba(233,185,73,.07);font-size:14px;line-height:1.5}
+.req b{color:var(--gold2)}
 .msg{display:none;margin-top:12px;padding:12px 14px;border:1px solid rgba(255,107,107,.5);border-radius:12px;background:rgba(255,107,107,.08);font-size:14px;line-height:1.45}
 .msg.on{display:block}
 .msg a{color:var(--gold2);text-decoration:underline;text-underline-offset:3px}
@@ -178,6 +180,7 @@ iframe.alvo{display:none}
           <span class="err" role="alert" data-pt="Conte em poucas palavras como chegou até aqui." data-en="Tell us in a few words how you got here.">Conte em poucas palavras como chegou até aqui.</span>
         </div>
         <label class="hp" aria-hidden="true">Site <input id="site" type="text" tabindex="-1" autocomplete="off"></label>
+        <p class="req"><span data-pt="&lt;b&gt;Antes de pedir o teste:&lt;/b&gt; para ver o indicador no gráfico é preciso ter um plano pago do TradingView (Essential ou superior). No plano gratuito, o TradingView limita o tempo de cálculo dos indicadores, e o SMC Engine PRO aparece com “Erro de indicador”. Os alertas do grupo no Discord chegam em qualquer plano." data-en="&lt;b&gt;Before requesting the trial:&lt;/b&gt; to see the indicator on your chart you need a paid TradingView plan (Essential or higher). On the free plan TradingView limits how long indicators can calculate, and the SMC Engine PRO shows “Indicator error”. The alerts in the Discord group arrive on any plan."><b>Antes de pedir o teste:</b> para ver o indicador no gráfico é preciso ter um plano pago do TradingView (Essential ou superior). No plano gratuito, o TradingView limita o tempo de cálculo dos indicadores, e o SMC Engine PRO aparece com “Erro de indicador”. Os alertas do grupo no Discord chegam em qualquer plano.</span></p>
         <button class="btn btn-gold" id="enviar" type="submit"><span data-pt="Quero meu teste grátis" data-en="Start my free trial">Quero meu teste grátis</span><span class="arr" aria-hidden="true">→</span></button>
         <p class="msg" id="msg" role="alert"><span data-pt="Não consegui confirmar o envio. Tente de novo ou use o" data-en="I could not confirm the submission. Try again or use the">Não consegui confirmar o envio. Tente de novo ou use o</span> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfJZb9An-11pox2cJi6Z1oVVvYZM9aCZ06nbtLN07mIFAlHRg/viewform" target="_blank" rel="noopener" data-pt="formulário alternativo" data-en="alternative form">formulário alternativo</a>.</p>
         <p class="seal"><span data-pt="Acesso no seu TradingView em até 24 horas" data-en="Access on your TradingView within 24 hours">Acesso no seu TradingView em até 24 horas</span></p>
